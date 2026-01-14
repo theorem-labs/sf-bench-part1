@@ -1,0 +1,56 @@
+1 #NS 0 M
+2 #NS 0 False
+0 #ES 0
+#IND 0 2 0 0  
+3 #NS 0 ex
+4 #NS 3 intro
+5 #NS 0 A
+1 #US 0
+1 #ES 1
+6 #NS 0 P
+7 #NS 0 a
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__dist____not____exists__iso
+10 #NS 9 _hyg
+11 #NI 10 9
+2 #EV 0
+3 #EP #BD 11 2 0
+12 #NS 0 x
+4 #EV 1
+13 #NS 0 h
+5 #EA 4 2
+6 #EC 3 
+7 #EV 3
+8 #EA 6 7
+9 #EV 2
+10 #EA 8 9
+11 #EP #BD 13 5 10
+12 #EP #BD 12 4 11
+13 #EP #BI 6 3 12
+14 #EP #BI 5 1 13
+15 #EP #BD 6 3 0
+16 #EP #BI 5 1 15
+#IND 2 3 16 1 4 14 
+14 #NS 0 Logic_not
+17 #EP #BD 12 0 0
+15 #NI 10 22
+18 #EC 2 
+19 #EP #BD 15 2 18
+20 #EL #BD 12 0 19
+#DEF 14 17 20 
+16 #NS 0 Original_LF__DOT__Logic_LF_Logic_dist__not__exists
+17 #NS 0 X
+18 #NI 10 33
+21 #EP #BD 12 4 5
+19 #NI 10 41
+22 #EA 6 9
+23 #EC 14 
+24 #EA 9 2
+25 #EA 23 24
+26 #EL #BD 12 9 25
+27 #EA 22 26
+28 #EP #BD 19 27 18
+29 #EP #BD 18 21 28
+30 #EP #BD 6 3 29
+31 #EP #BD 17 1 30
+#AX 16 31 

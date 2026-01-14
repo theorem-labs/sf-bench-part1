@@ -1,0 +1,186 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__test____hd2__iso
+7 #NS 6 _hyg
+8 #NI 7 5
+9 #NI 7 7
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 Corelib_Init_Logic_eq_Prop
+11 #NS 10 refl
+13 #EC 10 
+14 #EA 13 3
+15 #EA 14 1
+16 #EA 15 1
+17 #EP #BD 4 1 16
+18 #EP #BI 3 9 17
+19 #EP #BI 3 9 11
+#IND 2 10 19 1 11 18 
+12 #NS 0 nat
+13 #NS 12 O
+20 #EC 12 
+14 #NS 12 S
+15 #NI 7 30
+21 #EP #BD 15 20 20
+#IND 0 12 0 2 13 20 14 21 
+16 #NS 0 _0
+22 #EC 13 
+#DEF 16 20 22 
+17 #NS 0 True
+18 #NS 17 intro
+23 #EC 17 
+#IND 0 17 9 1 18 23 
+19 #NS 0 MyTrue
+#DEF 19 9 23 
+20 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_natlist
+21 #NS 20 nil
+24 #EC 20 
+22 #NS 20 cons
+23 #NI 7 59
+24 #NI 7 61
+25 #EP #BD 24 24 24
+26 #EP #BD 23 20 25
+#IND 0 20 0 2 21 24 22 26 
+25 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_nil
+27 #EC 21 
+#DEF 25 24 27 
+26 #NS 0 PUnit
+27 #NS 26 unit
+28 #NS 0 u
+2 #UP 28
+28 #EC 26 2
+29 #ES 2
+#IND 0 26 29 1 27 28 28
+29 #NS 0 Unit
+30 #EC 26 1
+#DEF 29 0 30 
+30 #NS 20 casesOn
+31 #NS 0 motive
+32 #NS 0 t
+31 #EP #BD 32 24 29
+33 #NS 0 nil
+32 #EA 3 27
+34 #NS 0 cons
+33 #EV 4
+34 #EC 22 
+35 #EA 34 3
+36 #EA 35 1
+37 #EA 33 36
+38 #EP #BD 24 24 37
+39 #EP #BD 23 20 38
+40 #EV 3
+41 #EV 2
+42 #EA 40 41
+43 #EP #BD 34 39 42
+44 #EP #BD 33 32 43
+45 #EP #BD 32 24 44
+46 #EP #BI 31 31 45
+35 #NS 20 rec
+47 #EC 35 2
+48 #EA 47 40
+49 #EA 48 3
+36 #NS 0 a_ih
+37 #NS 36 _@
+38 #NS 37 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__test____hd2__iso
+39 #NS 38 _hyg
+40 #NI 39 61
+50 #EV 5
+51 #EA 50 1
+52 #EA 42 3
+53 #EL #BD 40 51 52
+54 #EL #BD 24 24 53
+55 #EL #BD 23 20 54
+56 #EA 49 55
+57 #EA 56 41
+58 #EL #BD 34 39 57
+59 #EL #BD 33 32 58
+60 #EL #BD 32 24 59
+61 #EL #BI 31 31 60
+#DEF 30 46 61 28
+41 #NS 29 unit
+62 #EC 29 
+63 #EC 27 1
+#DEF 41 62 63 
+42 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_hd
+43 #NS 42 match_1
+44 #NS 0 l
+45 #NS 44 _@
+46 #NS 45 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__test____hd2__iso
+47 #NS 46 _hyg
+48 #NI 47 99
+49 #NS 0 u_1
+3 #UP 49
+64 #ES 3
+65 #EP #BD 48 24 64
+50 #NS 0 h_1
+66 #EA 41 27
+67 #EP #BD 0 62 66
+68 #EP #BD 50 67 43
+69 #EP #BD 48 24 68
+70 #EP #BD 31 65 69
+51 #NS 0 h_2
+71 #EC 30 3
+52 #NS 0 x
+72 #EA 33 1
+73 #EL #BD 52 24 72
+74 #EA 71 73
+75 #EA 74 41
+76 #EC 41 
+77 #EA 3 76
+78 #EA 75 77
+53 #NI 23 113
+54 #NI 24 114
+79 #EA 41 3
+80 #EA 79 1
+81 #EL #BD 54 24 80
+82 #EL #BD 53 20 81
+83 #EA 78 82
+84 #EL #BD 51 39 83
+85 #EL #BD 50 67 84
+86 #EL #BD 48 24 85
+87 #EL #BD 31 65 86
+#DEF 43 70 87 49
+55 #NS 0 default
+88 #EP #BD 44 24 20
+89 #EP #BD 55 20 88
+90 #EC 43 1
+91 #EL #BD 48 24 20
+92 #EA 90 91
+93 #EA 92 1
+56 #NS 0 _
+94 #EL #BD 56 62 41
+95 #EA 93 94
+57 #NS 0 h
+58 #NI 24 111
+96 #EL #BD 58 24 3
+97 #EL #BD 57 20 96
+98 #EA 95 97
+99 #EL #BD 44 24 98
+100 #EL #BD 55 20 99
+#DEF 42 89 100 
+59 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_test__hd2
+101 #EA 2 20
+102 #EC 42 
+103 #EC 16 
+104 #EA 102 103
+105 #EC 25 
+106 #EA 104 105
+107 #EA 101 106
+108 #EA 107 103
+#AX 59 108 

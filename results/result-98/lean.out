@@ -1,0 +1,166 @@
+1 #NS 0 MyAnd
+2 #NS 1 intro
+3 #NS 0 a
+0 #ES 0
+4 #NS 0 b
+5 #NS 3 _@
+6 #NS 5 U_original__U2_lf_dot_U_auto__U2_lf__U_auto__auto____example____4__iso
+7 #NS 6 _hyg
+8 #NI 7 7
+1 #EV 1
+9 #NI 7 9
+2 #EC 1 
+3 #EV 3
+4 #EA 2 3
+5 #EV 2
+6 #EA 4 5
+7 #EP #BD 9 1 6
+8 #EP #BD 8 1 7
+9 #EP #BI 4 0 8
+10 #EP #BI 3 0 9
+11 #EP #BD 4 0 0
+12 #EP #BD 3 0 11
+#IND 2 1 12 1 2 10 
+10 #NS 0 and
+#DEF 10 12 2 
+11 #NS 0 MyOr
+12 #NS 11 inl
+13 #NI 7 19
+13 #EC 11 
+14 #EA 13 5
+15 #EA 14 1
+16 #EP #BD 13 1 15
+17 #EP #BI 4 0 16
+18 #EP #BI 3 0 17
+14 #NS 11 inr
+15 #NI 7 24
+19 #EV 0
+20 #EP #BD 15 19 15
+21 #EP #BI 4 0 20
+22 #EP #BI 3 0 21
+#IND 2 11 12 2 12 18 14 22 
+16 #NS 0 or
+#DEF 16 12 13 
+17 #NS 1 casesOn
+18 #NS 0 motive
+19 #NS 0 t
+23 #EA 2 1
+24 #EA 23 19
+20 #NS 0 u
+1 #UP 20
+25 #ES 1
+26 #EP #BD 19 24 25
+27 #EA 2 5
+28 #EA 27 1
+21 #NS 0 intro
+29 #EC 2 
+30 #EV 5
+31 #EA 29 30
+32 #EV 4
+33 #EA 31 32
+34 #EA 33 1
+35 #EA 34 19
+36 #EA 3 35
+37 #EP #BD 9 3 36
+38 #EP #BD 8 3 37
+39 #EA 5 1
+40 #EP #BD 21 38 39
+41 #EP #BD 19 28 40
+42 #EP #BI 18 26 41
+43 #EP #BI 4 0 42
+44 #EP #BI 3 0 43
+22 #NS 1 rec
+45 #EC 22 1
+46 #EA 45 32
+47 #EA 46 3
+48 #EA 47 5
+49 #EA 39 19
+50 #EL #BD 9 32 49
+51 #EL #BD 8 32 50
+52 #EA 48 51
+53 #EA 52 1
+54 #EL #BD 21 38 53
+55 #EL #BD 19 28 54
+56 #EL #BI 18 26 55
+57 #EL #BI 4 0 56
+58 #EL #BI 3 0 57
+#DEF 17 44 58 20
+23 #NS 0 MyAnd_proj1
+24 #NS 23 match_1
+25 #NS 0 p
+26 #NS 25 _@
+27 #NS 26 U_original__U2_lf_dot_U_auto__U2_lf__U_auto__auto____example____4__iso
+28 #NS 27 _hyg
+29 #NI 28 48
+59 #EP #BD 29 24 0
+60 #EP #BD 18 59 41
+61 #EP #BD 4 0 60
+62 #EP #BD 3 0 61
+30 #NS 0 h_1
+63 #EC 17 0
+64 #EA 63 32
+65 #EA 64 3
+31 #NS 0 x
+66 #EA 2 32
+67 #EA 66 3
+68 #EA 3 19
+69 #EL #BD 31 67 68
+70 #EA 65 69
+71 #EA 70 1
+72 #EA 71 51
+73 #EL #BD 30 38 72
+74 #EL #BD 29 28 73
+75 #EL #BD 18 59 74
+76 #EL #BD 4 0 75
+77 #EL #BD 3 0 76
+#DEF 24 62 77 
+78 #EP #BD 25 24 5
+79 #EP #BD 4 0 78
+80 #EP #BD 3 0 79
+81 #EC 24 
+82 #EA 81 5
+83 #EA 82 1
+84 #EL #BD 29 28 3
+85 #EA 83 84
+86 #EA 85 19
+32 #NI 9 58
+87 #EL #BD 32 5 1
+88 #EL #BD 31 5 87
+89 #EA 86 88
+90 #EL #BD 25 24 89
+91 #EL #BD 4 0 90
+92 #EL #BD 3 0 91
+#DEF 23 80 92 
+33 #NS 0 MyAnd_proj2
+93 #EP #BD 25 24 1
+94 #EP #BD 4 0 93
+95 #EP #BD 3 0 94
+34 #NI 28 73
+96 #EL #BD 34 28 5
+97 #EA 83 96
+98 #EA 97 19
+35 #NI 8 83
+36 #NS 0 y
+99 #EL #BD 36 5 19
+100 #EL #BD 35 5 99
+101 #EA 98 100
+102 #EL #BD 25 24 101
+103 #EL #BD 4 0 102
+104 #EL #BD 3 0 103
+#DEF 33 95 104 
+37 #NS 0 Original_LF__DOT__Auto_LF_Auto_auto__example__4
+38 #NS 0 P
+39 #NS 0 Q
+40 #NS 0 R
+41 #NI 7 94
+42 #NI 7 96
+43 #NI 7 99
+105 #EP #BD 43 5 5
+106 #EA 13 32
+107 #EA 106 6
+108 #EP #BD 42 105 107
+109 #EP #BD 41 1 108
+110 #EP #BD 40 0 109
+111 #EP #BD 39 0 110
+112 #EP #BD 38 0 111
+#AX 37 112 

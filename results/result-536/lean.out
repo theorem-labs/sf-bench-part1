@@ -1,0 +1,102 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf__U_rel__total____relation____not____partial____function__iso
+7 #NS 6 _hyg
+8 #NI 7 7
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 Corelib_Init_Logic_eq
+10 #NS 9 refl
+11 #NS 0 A
+3 #EV 0
+4 #EC 9 
+5 #EV 1
+6 #EA 4 5
+7 #EA 6 3
+8 #EA 7 3
+9 #EP #BD 4 3 8
+10 #EP #BI 11 2 9
+12 #NI 7 21
+13 #NI 7 23
+11 #ES 0
+12 #EP #BD 13 5 11
+13 #EP #BD 12 3 12
+14 #EP #BI 11 2 13
+#IND 2 9 14 1 10 10 
+14 #NS 0 Corelib_Init_Logic_eq_Prop
+15 #NS 14 refl
+15 #EC 14 
+16 #EA 15 5
+17 #EA 16 3
+18 #EA 17 3
+19 #EP #BD 4 3 18
+20 #EP #BI 11 11 19
+21 #EP #BI 11 11 13
+#IND 2 14 21 1 15 20 
+16 #NS 0 True
+17 #NS 16 intro
+22 #EC 16 
+#IND 0 16 11 1 17 22 
+18 #NS 0 False
+#IND 0 18 11 0  
+19 #NS 0 Logic_not
+20 #NS 0 P
+23 #EP #BD 20 11 11
+21 #NI 7 53
+24 #EC 18 
+25 #EP #BD 21 3 24
+26 #EL #BD 20 11 25
+#DEF 19 23 26 
+22 #NS 0 Original_LF_Rel_relation
+23 #NS 0 X
+27 #EP #BD 23 2 2
+28 #EL #BD 23 2 13
+#DEF 22 27 28 
+24 #NS 0 Original_LF_Rel_total__relation
+25 #NI 7 67
+26 #NI 7 69
+29 #EP #BD 26 0 11
+30 #EP #BD 25 0 29
+#IND 2 24 30 0  
+27 #NS 0 Original_LF_Rel_partial__function
+28 #NS 0 R
+31 #EP #BD 28 13 11
+32 #EP #BI 23 2 31
+29 #NS 0 x
+30 #NS 0 y1
+33 #EV 2
+31 #NS 0 y2
+34 #EV 3
+32 #NI 7 88
+35 #EA 34 33
+36 #EA 35 5
+33 #NI 7 92
+37 #EV 4
+38 #EA 37 34
+39 #EA 38 5
+40 #EV 6
+41 #EA 4 40
+42 #EA 41 34
+43 #EA 42 33
+44 #EP #BD 33 39 43
+45 #EP #BD 32 36 44
+46 #EP #BD 31 34 45
+47 #EP #BD 30 33 46
+48 #EP #BD 29 5 47
+49 #EL #BD 28 13 48
+50 #EL #BI 23 2 49
+#DEF 27 32 50 
+34 #NS 0 Original_LF_Rel_total__relation__not__partial__function
+51 #EC 19 
+52 #EC 27 
+53 #EA 52 0
+54 #EC 24 
+55 #EA 53 54
+56 #EA 51 55
+#AX 34 56 

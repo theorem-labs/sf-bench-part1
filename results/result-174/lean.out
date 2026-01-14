@@ -1,0 +1,94 @@
+1 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+2 #NS 1 nil
+3 #NS 0 X
+1 #US 0
+0 #ES 1
+1 #EC 1 
+2 #EV 0
+3 #EA 1 2
+4 #EP #BI 3 0 3
+4 #NS 1 cons
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__eq____cons__iso
+8 #NS 7 _hyg
+9 #NI 8 8
+10 #NI 8 10
+5 #EV 1
+6 #EA 1 5
+7 #EV 2
+8 #EA 1 7
+9 #EP #BD 10 6 8
+10 #EP #BD 9 2 9
+11 #EP #BI 3 0 10
+12 #EP #BD 3 0 0
+#IND 1 1 12 2 2 4 4 11 
+11 #NS 0 Original_LF__DOT__Poly_LF_Poly_nil
+13 #EC 2 
+14 #EA 13 2
+15 #EL #BD 3 0 14
+#DEF 11 4 15 
+12 #NS 0 Original_LF__DOT__Poly_LF_Poly_cons
+13 #NS 0 h
+14 #NS 0 t
+16 #EC 4 
+17 #EA 16 7
+18 #EA 17 5
+19 #EA 18 2
+20 #EL #BD 14 6 19
+21 #EL #BD 13 2 20
+22 #EL #BI 3 0 21
+#DEF 12 11 22 
+15 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_eq
+16 #NS 15 eq_refl
+17 #NS 0 x
+23 #EC 15 
+24 #EA 23 5
+25 #EA 24 2
+26 #EA 25 2
+27 #EP #BD 17 2 26
+28 #EP #BI 3 0 27
+18 #NI 8 54
+19 #NI 8 56
+29 #ES 0
+30 #EP #BD 19 5 29
+31 #EP #BD 18 2 30
+32 #EP #BI 3 0 31
+#IND 2 15 32 1 16 28 
+20 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_eq__cons
+21 #NS 0 h1
+22 #NS 0 h2
+23 #NS 0 t1
+24 #NS 0 t2
+33 #EV 3
+34 #EA 1 33
+25 #NI 8 77
+35 #EV 4
+36 #EA 23 35
+37 #EA 36 33
+38 #EA 37 7
+26 #NI 8 81
+39 #EV 5
+40 #EA 1 39
+41 #EA 23 40
+42 #EA 41 7
+43 #EA 42 5
+44 #EV 6
+45 #EA 1 44
+46 #EA 23 45
+47 #EC 12 
+48 #EA 47 44
+49 #EA 48 39
+50 #EA 49 33
+51 #EA 46 50
+52 #EA 48 35
+53 #EA 52 7
+54 #EA 51 53
+55 #EP #BD 26 43 54
+56 #EP #BD 25 38 55
+57 #EP #BD 24 34 56
+58 #EP #BD 23 8 57
+59 #EP #BD 22 5 58
+60 #EP #BD 21 2 59
+61 #EP #BI 3 0 60
+#AX 20 61 

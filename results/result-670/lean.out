@@ -1,0 +1,100 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__lower____grade____thrice__iso
+7 #NS 6 _hyg
+8 #NI 7 5
+9 #NI 7 7
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 True
+11 #NS 10 intro
+13 #EC 10 
+#IND 0 10 9 1 11 13 
+12 #NS 0 MyTrue
+#DEF 12 9 13 
+13 #NS 0 Original_LF__DOT__Basics_LF_Basics_letter
+14 #NS 13 A
+14 #EC 13 
+15 #NS 13 B
+16 #NS 13 C
+17 #NS 13 D
+18 #NS 13 F
+#IND 0 13 0 5 14 14 15 14 16 14 17 14 18 14 
+19 #NS 0 Original_LF__DOT__Basics_LF_Basics_modifier
+20 #NS 19 Plus
+15 #EC 19 
+21 #NS 19 Natural
+22 #NS 19 Minus
+#IND 0 19 0 3 20 15 21 15 22 15 
+23 #NS 0 Original_LF__DOT__Basics_LF_Basics_grade
+24 #NS 23 Grade
+25 #NI 7 73
+26 #NI 7 75
+16 #EC 23 
+17 #EP #BD 26 15 16
+18 #EP #BD 25 14 17
+#IND 0 23 0 1 24 18 
+27 #NS 0 Original_LF__DOT__Basics_LF_Basics_A
+19 #EC 14 
+#DEF 27 14 19 
+28 #NS 0 Original_LF__DOT__Basics_LF_Basics_B
+20 #EC 15 
+#DEF 28 14 20 
+29 #NS 0 Original_LF__DOT__Basics_LF_Basics_C
+21 #EC 16 
+#DEF 29 14 21 
+30 #NS 0 Original_LF__DOT__Basics_LF_Basics_D
+22 #EC 17 
+#DEF 30 14 22 
+31 #NS 0 Original_LF__DOT__Basics_LF_Basics_F
+23 #EC 18 
+#DEF 31 14 23 
+32 #NS 0 Original_LF__DOT__Basics_LF_Basics_Plus
+24 #EC 20 
+#DEF 32 15 24 
+33 #NS 0 Original_LF__DOT__Basics_LF_Basics_Natural
+25 #EC 21 
+#DEF 33 15 25 
+34 #NS 0 Original_LF__DOT__Basics_LF_Basics_Minus
+26 #EC 22 
+#DEF 34 15 26 
+35 #NS 0 Original_LF__DOT__Basics_LF_Basics_Grade
+27 #EC 24 
+#DEF 35 18 27 
+36 #NS 0 Original_LF__DOT__Basics_LF_Basics_lower__grade
+37 #NI 7 103
+28 #EP #BD 37 16 16
+#AX 36 28 
+38 #NS 0 Original_LF__DOT__Basics_LF_Basics_lower__grade__thrice
+29 #EA 2 16
+30 #EC 36 
+31 #EC 35 
+32 #EC 28 
+33 #EA 31 32
+34 #EC 34 
+35 #EA 33 34
+36 #EA 30 35
+37 #EA 30 36
+38 #EA 30 37
+39 #EA 29 38
+40 #EC 29 
+41 #EA 31 40
+42 #EA 41 34
+43 #EA 39 42
+#AX 38 43 

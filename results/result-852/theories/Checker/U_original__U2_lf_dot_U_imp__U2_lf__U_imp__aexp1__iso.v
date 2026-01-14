@@ -1,0 +1,30 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp1__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp1__iso.
+From IsomorphismChecker Require Checker.U_ascii__ascii__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_amult__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aplus__iso Checker.U_string__string__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aid__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_x__iso Checker.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso Checker.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____update__iso Checker.U_string__U_emptyU_string__iso Checker.U_string__U_string__iso Checker.U_true__iso Checker.U_corelib__U_init__U_logic__eq__iso Checker.bool__iso Checker.U_ascii__U_ascii__iso Checker.false__iso Checker.nat__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_anum__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__empty____st__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aeval__iso Checker.U_s__iso Checker.__0__iso Checker.true__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp1__iso.Args := Checker.U_ascii__ascii__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_amult__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aplus__iso.Checker <+ Checker.U_string__string__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aid__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_x__iso.Checker <+ Checker.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso.Checker <+ Checker.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____update__iso.Checker <+ Checker.U_string__U_emptyU_string__iso.Checker <+ Checker.U_string__U_string__iso.Checker <+ Checker.U_true__iso.Checker <+ Checker.U_corelib__U_init__U_logic__eq__iso.Checker <+ Checker.bool__iso.Checker <+ Checker.U_ascii__U_ascii__iso.Checker <+ Checker.false__iso.Checker <+ Checker.nat__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_anum__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__empty____st__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aeval__iso.Checker <+ Checker.U_s__iso.Checker <+ Checker.__0__iso.Checker <+ Checker.true__iso.Checker.
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp1__iso.Interface args
+  with Definition imported_Original_LF__DOT__Imp_LF_Imp_aexp1 := Imported.Original_LF__DOT__Imp_LF_Imp_aexp1.
+
+Definition imported_Original_LF__DOT__Imp_LF_Imp_aexp1 := Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp1__iso.imported_Original_LF__DOT__Imp_LF_Imp_aexp1.
+Definition Original_LF__DOT__Imp_LF_Imp_aexp1_iso := Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp1__iso.Original_LF__DOT__Imp_LF_Imp_aexp1_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__Imp_LF_Imp_aexp1_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

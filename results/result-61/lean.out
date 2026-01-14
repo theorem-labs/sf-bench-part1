@@ -1,0 +1,18 @@
+1 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_True
+2 #NS 1 I
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_p__implies__true
+4 #NS 0 P
+1 #US 0
+2 #ES 1
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__p____implies____true__iso
+8 #NS 7 _hyg
+9 #NI 8 11
+3 #EV 0
+4 #EP #BD 9 3 0
+5 #EP #BD 4 2 4
+#AX 3 5 

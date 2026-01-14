@@ -1,0 +1,111 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 True_intro
+2 #EC 2 
+#DEF 3 0 2 
+4 #NS 0 Corelib_Init_Logic_eq
+5 #NS 4 refl
+6 #NS 0 A
+1 #US 0
+3 #ES 1
+7 #NS 0 a
+4 #EV 0
+5 #EC 4 
+6 #EV 1
+7 #EA 5 6
+8 #EA 7 4
+9 #EA 8 4
+10 #EP #BD 7 4 9
+11 #EP #BI 6 3 10
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__test____remove____one2__iso
+10 #NS 9 _hyg
+11 #NI 10 14
+12 #NI 10 16
+12 #EP #BD 12 6 1
+13 #EP #BD 11 4 12
+14 #EP #BI 6 3 13
+#IND 2 4 14 1 5 11 
+13 #NS 0 Corelib_Init_Logic_eq_Prop
+14 #NS 13 refl
+15 #EC 13 
+16 #EA 15 6
+17 #EA 16 4
+18 #EA 17 4
+19 #EP #BD 7 4 18
+20 #EP #BI 6 1 19
+21 #EP #BI 6 1 13
+#IND 2 13 21 1 14 20 
+15 #NS 0 nat
+16 #NS 15 O
+22 #EC 15 
+17 #NS 15 S
+18 #NI 10 39
+23 #EP #BD 18 22 22
+#IND 0 15 3 2 16 22 17 23 
+19 #NS 0 _0
+24 #EC 16 
+#DEF 19 22 24 
+20 #NS 0 S
+25 #EC 17 
+#DEF 20 23 25 
+21 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_natlist
+22 #NS 21 nil
+26 #EC 21 
+23 #NS 21 cons
+24 #NI 10 64
+25 #NI 10 66
+27 #EP #BD 25 26 26
+28 #EP #BD 24 22 27
+#IND 0 21 3 2 22 26 23 28 
+26 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_nil
+29 #EC 22 
+#DEF 26 26 29 
+27 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_cons
+30 #EC 23 
+#DEF 27 28 30 
+28 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_bag
+#DEF 28 3 26 
+29 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_count
+30 #NI 10 102
+31 #NI 10 104
+31 #EC 28 
+32 #EP #BD 31 31 22
+33 #EP #BD 30 22 32
+#AX 29 33 
+32 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_remove__one
+33 #NI 10 109
+34 #NI 10 111
+34 #EP #BD 34 31 31
+35 #EP #BD 33 22 34
+#AX 32 35 
+35 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_test__remove__one2
+36 #EA 5 22
+37 #EC 29 
+38 #EC 20 
+39 #EC 19 
+40 #EA 38 39
+41 #EA 38 40
+42 #EA 38 41
+43 #EA 38 42
+44 #EA 38 43
+45 #EA 37 44
+46 #EC 32 
+47 #EA 46 44
+48 #EC 27 
+49 #EA 48 41
+50 #EA 48 40
+51 #EA 48 43
+52 #EC 26 
+53 #EA 50 52
+54 #EA 51 53
+55 #EA 50 54
+56 #EA 49 55
+57 #EA 47 56
+58 #EA 45 57
+59 #EA 36 58
+60 #EA 59 39
+#AX 35 60 

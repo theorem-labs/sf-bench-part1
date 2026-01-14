@@ -1,0 +1,52 @@
+1 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+2 #NS 1 nil
+3 #NS 0 X
+1 #US 0
+0 #ES 1
+1 #EC 1 
+2 #EV 0
+3 #EA 1 2
+4 #EP #BI 3 0 3
+4 #NS 1 cons
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__fold____map__iso
+8 #NS 7 _hyg
+9 #NI 8 8
+10 #NI 8 10
+5 #EV 1
+6 #EA 1 5
+7 #EV 2
+8 #EA 1 7
+9 #EP #BD 10 6 8
+10 #EP #BD 9 2 9
+11 #EP #BI 3 0 10
+12 #EP #BD 3 0 0
+#IND 1 1 12 2 2 4 4 11 
+11 #NS 0 Original_LF__DOT__Poly_LF_Poly_list_nil
+13 #EC 2 
+14 #EA 13 2
+15 #EL #BD 3 0 14
+#DEF 11 4 15 
+12 #NS 0 Original_LF__DOT__Poly_LF_Poly_list_cons
+13 #NS 0 x
+14 #NS 0 xs
+16 #EC 4 
+17 #EA 16 7
+18 #EA 17 5
+19 #EA 18 2
+20 #EL #BD 14 6 19
+21 #EL #BD 13 2 20
+22 #EL #BD 3 0 21
+#DEF 12 11 22 
+15 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_fold__map
+16 #NS 0 Y
+17 #NI 8 57
+18 #NI 8 60
+23 #EP #BD 18 5 5
+19 #NI 8 63
+24 #EP #BD 19 8 8
+25 #EP #BD 17 23 24
+26 #EP #BD 16 0 25
+27 #EP #BD 3 0 26
+#AX 15 27 

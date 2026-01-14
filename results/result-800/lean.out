@@ -1,0 +1,262 @@
+1 #NS 0 Nat
+2 #NS 1 zero
+0 #EC 1 
+3 #NS 1 succ
+4 #NS 0 n
+1 #EP #BD 4 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+5 #NS 0 nat
+#DEF 5 2 0 
+6 #NS 0 nat_O
+3 #EC 5 
+4 #EC 2 
+#DEF 6 3 4 
+7 #NS 0 nat_S
+5 #EP #BD 4 3 3
+6 #EC 3 
+7 #EV 0
+8 #EA 6 7
+9 #EL #BD 4 3 8
+#DEF 7 5 9 
+8 #NS 0 Bool'
+9 #NS 8 true
+10 #EC 8 
+10 #NS 8 false
+#IND 0 8 2 2 9 10 10 10 
+11 #NS 0 Bool'_true
+11 #EC 9 
+#DEF 11 10 11 
+12 #NS 0 Bool'_false
+12 #EC 10 
+#DEF 12 10 12 
+13 #NS 0 Ascii_ascii
+14 #NS 13 mk
+15 #NS 0 a0
+16 #NS 0 a1
+17 #NS 0 a2
+18 #NS 0 a3
+19 #NS 0 a4
+20 #NS 0 a5
+21 #NS 0 a6
+22 #NS 0 a7
+13 #EC 13 
+14 #EP #BD 22 10 13
+15 #EP #BD 21 10 14
+16 #EP #BD 20 10 15
+17 #EP #BD 19 10 16
+18 #EP #BD 18 10 17
+19 #EP #BD 17 10 18
+20 #EP #BD 16 10 19
+21 #EP #BD 15 10 20
+#IND 0 13 2 1 14 21 
+23 #NS 0 Ascii_ascii_Ascii
+22 #EC 14 
+#DEF 23 21 22 
+24 #NS 0 String_string
+25 #NS 24 EmptyString
+23 #EC 24 
+26 #NS 24 String
+27 #NS 0 a
+28 #NS 27 _@
+29 #NS 28 U_original__U2_lf_dot_U_imp__U2_lf__U_imp__subtract____3____from____5____slowly__iso
+30 #NS 29 _hyg
+31 #NI 30 109
+32 #NI 30 111
+24 #EP #BD 32 23 23
+25 #EP #BD 31 13 24
+#IND 0 24 2 2 25 23 26 25 
+33 #NS 0 String_string_EmptyString
+26 #EC 25 
+#DEF 33 23 26 
+34 #NS 0 String_string_String
+27 #EC 26 
+#DEF 34 25 27 
+35 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp
+36 #NS 35 ANum
+37 #NI 30 140
+28 #EC 35 
+29 #EP #BD 37 3 28
+38 #NS 35 AId
+39 #NI 30 143
+30 #EP #BD 39 23 28
+40 #NS 35 APlus
+41 #NI 30 146
+42 #NI 30 148
+31 #EP #BD 42 28 28
+32 #EP #BD 41 28 31
+43 #NS 35 AMinus
+44 #NS 35 AMult
+#IND 0 35 2 5 36 29 38 30 40 32 43 32 44 32 
+45 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp_ANum
+33 #EC 36 
+#DEF 45 29 33 
+46 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp_AId
+34 #EC 38 
+#DEF 46 30 34 
+47 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp_APlus
+35 #EC 40 
+#DEF 47 32 35 
+48 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp_AMinus
+36 #EC 43 
+#DEF 48 32 36 
+49 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp_AMult
+37 #EC 44 
+#DEF 49 32 37 
+50 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp
+51 #NS 50 BTrue
+38 #EC 50 
+52 #NS 50 BFalse
+53 #NS 50 BEq
+54 #NI 30 247
+55 #NI 30 249
+39 #EP #BD 55 28 38
+40 #EP #BD 54 28 39
+56 #NS 50 BNeq
+57 #NS 50 BLe
+58 #NS 50 BGt
+59 #NS 50 BNot
+60 #NI 30 267
+41 #EP #BD 60 38 38
+61 #NS 50 BAnd
+62 #NI 30 270
+42 #EP #BD 62 38 41
+#IND 0 50 2 8 51 38 52 38 53 40 56 40 57 40 58 40 59 41 61 42 
+63 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp_BTrue
+43 #EC 51 
+#DEF 63 38 43 
+64 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp_BFalse
+44 #EC 52 
+#DEF 64 38 44 
+65 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp_BEq
+45 #EC 53 
+#DEF 65 40 45 
+66 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp_BNeq
+46 #EC 56 
+#DEF 66 40 46 
+67 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp_BLe
+47 #EC 57 
+#DEF 67 40 47 
+68 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp_BGt
+48 #EC 58 
+#DEF 68 40 48 
+69 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp_BNot
+49 #EC 59 
+#DEF 69 41 49 
+70 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp_BAnd
+50 #EC 61 
+#DEF 70 42 50 
+71 #NS 0 Original_LF__DOT__Imp_LF_Imp_com
+72 #NS 71 CSkip
+51 #EC 71 
+73 #NS 71 CAsgn
+74 #NI 30 394
+75 #NI 30 396
+52 #EP #BD 75 28 51
+53 #EP #BD 74 23 52
+76 #NS 71 CSeq
+77 #NI 30 399
+78 #NI 30 401
+54 #EP #BD 78 51 51
+55 #EP #BD 77 51 54
+79 #NS 71 CIf
+80 #NI 30 404
+56 #EP #BD 80 38 55
+81 #NS 71 CWhile
+82 #NI 30 411
+57 #EP #BD 82 38 54
+#IND 0 71 2 5 72 51 73 53 76 55 79 56 81 57 
+83 #NS 0 Original_LF__DOT__Imp_LF_Imp_com_CSkip
+58 #EC 72 
+#DEF 83 51 58 
+84 #NS 0 Original_LF__DOT__Imp_LF_Imp_com_CAsgn
+59 #EC 73 
+#DEF 84 53 59 
+85 #NS 0 Original_LF__DOT__Imp_LF_Imp_com_CSeq
+60 #EC 76 
+#DEF 85 55 60 
+86 #NS 0 Original_LF__DOT__Imp_LF_Imp_com_CIf
+61 #EC 79 
+#DEF 86 56 61 
+87 #NS 0 Original_LF__DOT__Imp_LF_Imp_com_CWhile
+62 #EC 81 
+#DEF 87 57 62 
+88 #NS 0 Original_LF__DOT__Imp_LF_Imp_X
+63 #EA 22 12
+64 #EA 63 12
+65 #EA 64 12
+66 #EA 65 11
+67 #EA 66 11
+68 #EA 67 12
+69 #EA 68 11
+70 #EA 69 12
+71 #EA 27 70
+72 #EA 71 26
+#DEF 88 23 72 
+89 #NS 0 Original_LF__DOT__Imp_LF_Imp_Z
+73 #EA 63 11
+74 #EA 73 12
+75 #EA 74 11
+76 #EA 75 11
+77 #EA 76 12
+78 #EA 77 11
+79 #EA 78 12
+80 #EA 27 79
+81 #EA 80 26
+#DEF 89 23 81 
+90 #NS 0 Original_LF__DOT__Imp_LF_Imp_ANum
+#DEF 90 29 33 
+91 #NS 0 Original_LF__DOT__Imp_LF_Imp_AId
+#DEF 91 30 34 
+92 #NS 0 Original_LF__DOT__Imp_LF_Imp_AMinus
+#DEF 92 32 36 
+93 #NS 0 Original_LF__DOT__Imp_LF_Imp_CAsgn
+#DEF 93 53 59 
+94 #NS 0 Original_LF__DOT__Imp_LF_Imp_CSeq
+#DEF 94 55 60 
+95 #NS 0 Original_LF__DOT__Imp_LF_Imp_CWhile
+#DEF 95 57 62 
+96 #NS 0 Original_LF__DOT__Imp_LF_Imp_subtract__slowly__body
+82 #EC 89 
+83 #EA 59 82
+84 #EA 34 82
+85 #EA 36 84
+86 #EC 7 
+87 #EC 6 
+88 #EA 86 87
+89 #EA 33 88
+90 #EA 85 89
+91 #EA 83 90
+92 #EA 60 91
+93 #EC 88 
+94 #EA 59 93
+95 #EA 34 93
+96 #EA 36 95
+97 #EA 96 89
+98 #EA 94 97
+99 #EA 92 98
+#DEF 96 51 99 
+97 #NS 0 Original_LF__DOT__Imp_LF_Imp_subtract__slowly
+100 #EA 46 95
+101 #EA 33 87
+102 #EA 100 101
+103 #EA 62 102
+104 #EC 96 
+105 #EA 103 104
+#DEF 97 51 105 
+98 #NS 0 Original_LF__DOT__Imp_LF_Imp_subtract__3__from__5__slowly
+106 #EA 86 88
+107 #EA 86 106
+108 #EA 33 107
+109 #EA 94 108
+110 #EA 60 109
+111 #EA 86 107
+112 #EA 86 111
+113 #EA 33 112
+114 #EA 83 113
+115 #EA 60 114
+116 #EC 97 
+117 #EA 115 116
+118 #EA 110 117
+#DEF 98 51 118 

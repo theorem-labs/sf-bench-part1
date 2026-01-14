@@ -1,0 +1,57 @@
+1 #NS 0 Mybool
+2 #NS 1 true
+0 #EC 1 
+3 #NS 1 false
+1 #US 0
+1 #ES 1
+#IND 0 1 1 2 2 0 3 0 
+4 #NS 0 Ascii_ascii
+5 #NS 4 Ascii
+6 #NS 0 a
+7 #NS 6 _@
+8 #NS 7 U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_w__iso
+9 #NS 8 _hyg
+10 #NI 9 13
+11 #NI 9 15
+12 #NI 9 17
+13 #NI 9 19
+14 #NI 9 21
+15 #NI 9 23
+16 #NI 9 25
+17 #NI 9 27
+2 #EC 4 
+3 #EP #BD 17 0 2
+4 #EP #BD 16 0 3
+5 #EP #BD 15 0 4
+6 #EP #BD 14 0 5
+7 #EP #BD 13 0 6
+8 #EP #BD 12 0 7
+9 #EP #BD 11 0 8
+10 #EP #BD 10 0 9
+#IND 0 4 1 1 5 10 
+18 #NS 0 String_string
+19 #NS 18 EmptyString
+11 #EC 18 
+20 #NS 18 String
+21 #NI 9 91
+22 #NI 9 93
+12 #EP #BD 22 11 11
+13 #EP #BD 21 2 12
+#IND 0 18 1 2 19 11 20 13 
+23 #NS 0 Original_LF__DOT__Imp_LF_Imp_W
+14 #EC 20 
+15 #EC 5 
+16 #EC 2 
+17 #EA 15 16
+18 #EA 17 16
+19 #EA 18 16
+20 #EC 3 
+21 #EA 19 20
+22 #EA 21 16
+23 #EA 22 20
+24 #EA 23 16
+25 #EA 24 20
+26 #EA 14 25
+27 #EC 19 
+28 #EA 26 27
+#DEF 23 11 28 

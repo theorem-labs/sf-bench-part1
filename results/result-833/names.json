@@ -1,0 +1,7 @@
+{
+  "bool": "mybool_",
+  "True": "myTrue",
+  "true": "mytrue",
+  "false": "myfalse",
+  "False": "myFalse"
+}

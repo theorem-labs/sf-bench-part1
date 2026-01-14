@@ -1,0 +1,160 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 Corelib_Init_Logic_eq
+4 #NS 3 refl
+5 #NS 0 A
+1 #US 0
+2 #ES 1
+6 #NS 0 a
+3 #EV 0
+4 #EC 3 
+5 #EV 1
+6 #EA 4 5
+7 #EA 6 3
+8 #EA 7 3
+9 #EP #BD 6 3 8
+10 #EP #BI 5 2 9
+7 #NS 6 _@
+8 #NS 7 U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__test____der3__iso
+9 #NS 8 _hyg
+10 #NI 9 10
+11 #NI 9 12
+11 #EP #BD 11 5 1
+12 #EP #BD 10 3 11
+13 #EP #BI 5 2 12
+#IND 2 3 13 1 4 10 
+12 #NS 0 Corelib_Init_Logic_eq_refl
+14 #EC 4 
+15 #EA 14 5
+16 #EA 15 3
+17 #EL #BD 6 3 16
+18 #EL #BI 5 2 17
+#DEF 12 10 18 
+13 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool
+14 #NS 13 true
+19 #EC 13 
+15 #NS 13 false
+#IND 0 13 2 2 14 19 15 19 
+16 #NS 0 Original_LF__DOT__Basics_LF_Basics_true
+20 #EC 14 
+#DEF 16 19 20 
+17 #NS 0 Original_LF__DOT__Basics_LF_Basics_false
+21 #EC 15 
+#DEF 17 19 21 
+18 #NS 0 Ascii_ascii
+19 #NS 18 Ascii
+20 #NI 9 47
+21 #NI 9 49
+22 #NI 9 51
+23 #NI 9 53
+24 #NI 9 55
+25 #NI 9 57
+26 #NI 9 59
+27 #NI 9 61
+22 #EC 18 
+23 #EP #BD 27 19 22
+24 #EP #BD 26 19 23
+25 #EP #BD 25 19 24
+26 #EP #BD 24 19 25
+27 #EP #BD 23 19 26
+28 #EP #BD 22 19 27
+29 #EP #BD 21 19 28
+30 #EP #BD 20 19 29
+#IND 0 18 2 1 19 30 
+28 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_reg__exp
+29 #NS 28 EmptySet
+30 #NS 0 T
+31 #EC 28 
+32 #EA 31 3
+33 #EP #BI 30 2 32
+31 #NS 28 EmptyStr
+32 #NS 28 Char
+33 #NI 9 129
+34 #EA 31 5
+35 #EP #BD 33 3 34
+36 #EP #BI 30 2 35
+34 #NS 28 App
+35 #NI 9 133
+36 #NI 9 136
+37 #EV 2
+38 #EA 31 37
+39 #EP #BD 36 34 38
+40 #EP #BD 35 32 39
+41 #EP #BI 30 2 40
+37 #NS 28 Union
+38 #NS 28 Star
+39 #NI 9 149
+42 #EP #BD 39 32 34
+43 #EP #BI 30 2 42
+44 #EP #BD 30 2 2
+#IND 1 28 44 6 29 33 31 33 32 36 34 41 37 41 38 43 
+40 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_EmptyStr
+45 #EC 31 
+46 #EA 45 3
+47 #EL #BD 30 2 46
+#DEF 40 33 47 
+41 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_Char
+42 #NS 0 t
+48 #EC 32 
+49 #EA 48 5
+50 #EA 49 3
+51 #EL #BD 42 3 50
+52 #EL #BI 30 2 51
+#DEF 41 36 52 
+43 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_App
+44 #NS 0 r1
+45 #NS 0 r2
+53 #EC 34 
+54 #EA 53 37
+55 #EA 54 5
+56 #EA 55 3
+57 #EL #BD 45 34 56
+58 #EL #BD 44 32 57
+59 #EL #BI 30 2 58
+#DEF 43 41 59 
+46 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_c
+60 #EC 19 
+61 #EA 60 20
+62 #EA 61 20
+63 #EA 62 21
+64 #EA 63 21
+65 #EA 64 21
+66 #EA 65 20
+67 #EA 66 20
+68 #EA 67 21
+#DEF 46 22 68 
+47 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_derive
+48 #NI 9 248
+49 #NI 9 250
+69 #EA 31 22
+70 #EP #BD 49 69 69
+71 #EP #BD 48 22 70
+#AX 47 71 
+50 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_match__eps
+51 #NI 9 257
+72 #EP #BD 51 69 19
+#AX 50 72 
+52 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_test__der3
+73 #EA 4 19
+74 #EC 50 
+75 #EC 47 
+76 #EC 46 
+77 #EA 75 76
+78 #EC 43 
+79 #EA 78 22
+80 #EC 41 
+81 #EA 80 22
+82 #EA 81 76
+83 #EA 79 82
+84 #EC 40 
+85 #EA 84 22
+86 #EA 83 85
+87 #EA 77 86
+88 #EA 74 87
+89 #EA 73 88
+90 #EC 16 
+91 #EA 89 90
+#AX 52 91 

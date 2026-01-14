@@ -1,0 +1,47 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool
+4 #NS 3 true
+2 #EC 3 
+5 #NS 3 false
+1 #US 0
+3 #ES 1
+#IND 0 3 3 2 4 2 5 2 
+6 #NS 0 Corelib_Init_Logic_eq
+7 #NS 6 refl
+8 #NS 0 A
+9 #NS 0 a
+4 #EV 0
+5 #EC 6 
+6 #EV 1
+7 #EA 5 6
+8 #EA 7 4
+9 #EA 8 4
+10 #EP #BD 9 4 9
+11 #EP #BI 8 3 10
+10 #NS 9 _@
+11 #NS 10 U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__bool____fn____applied____thrice__iso
+12 #NS 11 _hyg
+13 #NI 12 17
+14 #NI 12 19
+12 #EP #BD 14 6 1
+13 #EP #BD 13 4 12
+14 #EP #BI 8 3 13
+#IND 2 6 14 1 7 11 
+15 #NS 0 Original_LF__DOT__Tactics_LF_Tactics_bool__fn__applied__thrice
+16 #NS 0 f
+17 #NI 12 30
+15 #EP #BD 17 2 2
+18 #NS 0 b
+16 #EA 5 2
+17 #EA 6 4
+18 #EA 6 17
+19 #EA 6 18
+20 #EA 16 19
+21 #EA 20 17
+22 #EP #BD 18 2 21
+23 #EP #BD 16 15 22
+#AX 15 23 

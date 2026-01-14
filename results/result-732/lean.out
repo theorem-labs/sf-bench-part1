@@ -1,0 +1,161 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__test____der4__iso
+7 #NS 6 _hyg
+8 #NI 7 10
+9 #NI 7 12
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool
+11 #NS 10 true
+13 #EC 10 
+12 #NS 10 false
+#IND 0 10 0 2 11 13 12 13 
+13 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_reg__exp
+14 #NS 13 EmptySet
+15 #NS 0 T
+14 #EC 13 
+15 #EA 14 1
+16 #EP #BI 15 0 15
+16 #NS 13 EmptyStr
+17 #NS 13 Char
+18 #NI 7 141
+17 #EA 14 3
+18 #EP #BD 18 1 17
+19 #EP #BI 15 0 18
+19 #NS 13 App
+20 #NI 7 145
+21 #NI 7 148
+20 #EV 2
+21 #EA 14 20
+22 #EP #BD 21 17 21
+23 #EP #BD 20 15 22
+24 #EP #BI 15 0 23
+22 #NS 13 Union
+23 #NS 13 Star
+24 #NI 7 161
+25 #EP #BD 24 15 17
+26 #EP #BI 15 0 25
+27 #EP #BD 15 0 0
+#IND 1 13 27 6 14 16 16 16 17 19 19 24 22 24 23 26 
+25 #NS 0 Ascii_ascii
+26 #NS 25 Ascii
+27 #NI 7 59
+28 #NI 7 61
+29 #NI 7 63
+30 #NI 7 65
+31 #NI 7 67
+32 #NI 7 69
+33 #NI 7 71
+34 #NI 7 73
+28 #EC 25 
+29 #EP #BD 34 13 28
+30 #EP #BD 33 13 29
+31 #EP #BD 32 13 30
+32 #EP #BD 31 13 31
+33 #EP #BD 30 13 32
+34 #EP #BD 29 13 33
+35 #EP #BD 28 13 34
+36 #EP #BD 27 13 35
+#IND 0 25 0 1 26 36 
+35 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_match__eps
+36 #NI 7 269
+37 #EA 14 28
+38 #EP #BD 36 37 13
+#AX 35 38 
+37 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_derive
+38 #NI 7 260
+39 #NI 7 262
+39 #EP #BD 39 37 37
+40 #EP #BD 38 28 39
+#AX 37 40 
+40 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_c
+41 #EC 26 
+42 #EC 11 
+43 #EA 41 42
+44 #EA 43 42
+45 #EC 12 
+46 #EA 44 45
+47 #EA 46 45
+48 #EA 47 45
+49 #EA 48 42
+50 #EA 49 42
+51 #EA 50 45
+#DEF 40 28 51 
+41 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_App
+42 #NS 0 r1
+43 #NS 0 r2
+52 #EC 19 
+53 #EA 52 20
+54 #EA 53 3
+55 #EA 54 1
+56 #EL #BD 43 17 55
+57 #EL #BD 42 15 56
+58 #EL #BI 15 0 57
+#DEF 41 24 58 
+44 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_EmptyStr
+59 #EC 16 
+60 #EA 59 1
+61 #EL #BD 15 0 60
+#DEF 44 16 61 
+45 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_Char
+46 #NS 0 t
+62 #EC 17 
+63 #EA 62 3
+64 #EA 63 1
+65 #EL #BD 46 1 64
+66 #EL #BI 15 0 65
+#DEF 45 19 66 
+47 #NS 0 Original_LF__DOT__Basics_LF_Basics_true
+#DEF 47 13 42 
+48 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_test__der4
+67 #EA 2 13
+68 #EC 35 
+69 #EC 37 
+70 #EC 40 
+71 #EA 69 70
+72 #EC 41 
+73 #EA 72 28
+74 #EC 44 
+75 #EA 74 28
+76 #EA 73 75
+77 #EC 45 
+78 #EA 77 28
+79 #EA 78 70
+80 #EA 76 79
+81 #EA 71 80
+82 #EA 68 81
+83 #EA 67 82
+84 #EC 47 
+85 #EA 83 84
+#AX 48 85 
+49 #NS 0 Corelib_Init_Logic_eq_Prop
+50 #NS 49 refl
+86 #EC 49 
+87 #EA 86 3
+88 #EA 87 1
+89 #EA 88 1
+90 #EP #BD 4 1 89
+91 #EP #BI 3 9 90
+92 #EP #BI 3 9 11
+#IND 2 49 92 1 50 91 
+51 #NS 0 True
+52 #NS 51 I
+93 #EC 51 
+#IND 0 51 9 1 52 93 

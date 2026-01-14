@@ -1,0 +1,101 @@
+1 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+2 #NS 1 nil
+3 #NS 0 X
+1 #US 0
+0 #ES 1
+1 #EC 1 
+2 #EV 0
+3 #EA 1 2
+4 #EP #BI 3 0 3
+4 #NS 1 cons
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__discriminate____ex3__iso
+8 #NS 7 _hyg
+9 #NI 8 36
+10 #NI 8 38
+5 #EV 1
+6 #EA 1 5
+7 #EV 2
+8 #EA 1 7
+9 #EP #BD 10 6 8
+10 #EP #BD 9 2 9
+11 #EP #BI 3 0 10
+12 #EP #BD 3 0 0
+#IND 1 1 12 2 2 4 4 11 
+11 #NS 0 Corelib_Init_Logic_eq
+12 #NS 11 refl
+13 #NS 0 A
+13 #EC 11 
+14 #EA 13 5
+15 #EA 14 2
+16 #EA 15 2
+17 #EP #BD 5 2 16
+18 #EP #BI 13 0 17
+14 #NI 8 5
+15 #NI 8 7
+19 #ES 0
+20 #EP #BD 15 5 19
+21 #EP #BD 14 2 20
+22 #EP #BI 13 0 21
+#IND 2 11 22 1 12 18 
+16 #NS 0 Original_LF__DOT__Poly_LF_Poly_cons
+23 #EC 4 
+24 #EA 23 2
+25 #EL #BI 3 0 24
+#DEF 16 11 25 
+17 #NS 0 Original_LF__DOT__Poly_LF_Poly_nil
+26 #EC 2 
+27 #EA 26 2
+28 #EL #BD 3 0 27
+#DEF 17 4 28 
+18 #NS 0 Original_LF__DOT__Tactics_LF_Tactics_discriminate__ex3
+19 #NS 0 x
+20 #NS 0 y
+21 #NS 0 z
+22 #NS 0 l
+29 #EV 3
+30 #EA 1 29
+23 #NS 0 j
+31 #EV 4
+32 #EA 1 31
+24 #NI 8 91
+33 #EV 5
+34 #EA 1 33
+35 #EA 13 34
+36 #EC 16 
+37 #EA 36 33
+38 #EA 37 31
+39 #EA 37 29
+40 #EA 39 5
+41 #EA 38 40
+42 #EA 35 41
+43 #EC 17 
+44 #EA 43 33
+45 #EA 42 44
+46 #EV 6
+47 #EA 13 46
+48 #EA 47 33
+49 #EA 48 29
+50 #EP #BD 24 45 49
+51 #EP #BD 23 32 50
+52 #EP #BD 22 30 51
+53 #EP #BD 21 7 52
+54 #EP #BD 20 5 53
+55 #EP #BD 19 2 54
+56 #EP #BD 3 0 55
+#AX 18 56 
+25 #NS 0 Corelib_Init_Logic_eq_Prop
+26 #NS 25 refl
+57 #EC 25 
+58 #EA 57 5
+59 #EA 58 2
+60 #EA 59 2
+61 #EP #BD 5 2 60
+62 #EP #BI 13 19 61
+63 #EP #BI 13 19 21
+#IND 2 25 63 1 26 62 
+27 #NS 0 True
+28 #NS 27 intro
+64 #EC 27 
+#IND 0 27 19 1 28 64 

@@ -1,0 +1,30 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____step1__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____step1__iso.
+From IsomorphismChecker Require Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__com__iso Checker.U_string__string__iso Checker.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso Checker.nat__iso Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____step1__iso.Args := Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__com__iso.Checker <+ Checker.U_string__string__iso.Checker <+ Checker.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso.Checker <+ Checker.nat__iso.Checker <+ Checker.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso.Checker.
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____step1__iso.Interface args
+  with Definition imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step1 := Imported.Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step1.
+
+Definition imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step1 := Isomorphisms.U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____step1__iso.imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step1.
+Definition Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step1_iso := Isomorphisms.U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____step1__iso.Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step1_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step1_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

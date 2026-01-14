@@ -1,0 +1,116 @@
+1 #NS 0 Original_LF__DOT__Basics_LF_Basics_NatPlayground_nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_natU_playground__pred__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 PUnit
+10 #NS 9 unit
+11 #NS 0 u
+2 #UP 11
+3 #EC 9 2
+4 #ES 2
+#IND 0 9 4 1 10 3 11
+12 #NS 0 Unit
+5 #EC 9 1
+#DEF 12 2 5 
+13 #NS 1 casesOn
+14 #NS 0 motive
+15 #NS 0 t
+6 #EP #BD 15 0 4
+16 #NS 0 O
+7 #EV 1
+8 #EC 2 
+9 #EA 7 8
+17 #NS 0 S
+10 #EV 3
+11 #EC 3 
+12 #EV 0
+13 #EA 11 12
+14 #EA 10 13
+15 #EP #BD 8 0 14
+16 #EV 2
+17 #EA 10 16
+18 #EP #BD 17 15 17
+19 #EP #BD 16 9 18
+20 #EP #BD 15 0 19
+21 #EP #BI 14 6 20
+18 #NS 1 rec
+22 #EC 18 2
+23 #EA 22 10
+24 #EA 23 7
+19 #NS 0 a_ih
+20 #NS 19 _@
+21 #NS 20 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_natU_playground__pred__iso
+22 #NS 21 _hyg
+23 #NI 22 6
+25 #EV 4
+26 #EA 25 12
+27 #EA 16 7
+28 #EL #BD 23 26 27
+29 #EL #BD 8 0 28
+30 #EA 24 29
+31 #EA 30 16
+32 #EL #BD 17 15 31
+33 #EL #BD 16 9 32
+34 #EL #BD 15 0 33
+35 #EL #BI 14 6 34
+#DEF 13 21 35 11
+24 #NS 12 unit
+36 #EC 12 
+37 #EC 10 1
+#DEF 24 36 37 
+25 #NS 0 Original_LF__DOT__Basics_LF_Basics_NatPlayground_pred
+26 #NS 25 match_1
+27 #NS 0 n
+28 #NS 27 _@
+29 #NS 28 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_natU_playground__pred__iso
+30 #NS 29 _hyg
+31 #NI 30 24
+32 #NS 0 u_1
+3 #UP 32
+38 #ES 3
+39 #EP #BD 31 0 38
+33 #NS 0 h_1
+40 #EA 16 8
+41 #EP #BD 0 36 40
+42 #EP #BD 33 41 18
+43 #EP #BD 31 0 42
+44 #EP #BD 14 39 43
+34 #NS 0 h_2
+45 #EC 13 3
+35 #NS 0 x
+46 #EL #BD 35 0 26
+47 #EA 45 46
+48 #EA 47 16
+49 #EC 24 
+50 #EA 7 49
+51 #EA 48 50
+36 #NI 8 34
+52 #EA 7 12
+53 #EL #BD 36 0 52
+54 #EA 51 53
+55 #EL #BD 34 15 54
+56 #EL #BD 33 41 55
+57 #EL #BD 31 0 56
+58 #EL #BD 14 39 57
+#DEF 26 44 58 32
+59 #EC 26 1
+60 #EL #BD 31 0 0
+61 #EA 59 60
+62 #EA 61 12
+37 #NS 0 _
+63 #EL #BD 37 36 8
+64 #EA 62 63
+38 #NS 0 n'
+65 #EL #BD 38 0 12
+66 #EA 64 65
+67 #EL #BD 27 0 66
+#DEF 25 1 67 

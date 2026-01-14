@@ -1,0 +1,55 @@
+1 #NS 0 Imported
+2 #NS 0 True
+3 #NS 2 True_intro
+0 #EC 2 
+1 #ES 0
+#IND 0 2 1 1 3 0 
+4 #NS 0 Corelib_Init_Logic_eq
+5 #NS 4 refl
+6 #NS 0 A
+1 #US 0
+2 #ES 1
+7 #NS 0 a
+3 #EV 0
+4 #EC 4 
+5 #EV 1
+6 #EA 4 5
+7 #EA 6 3
+8 #EA 7 3
+9 #EP #BD 7 3 8
+10 #EP #BI 6 2 9
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__identity____fn____applied____twice__iso
+10 #NS 9 _hyg
+11 #NI 10 11
+12 #NI 10 13
+11 #EP #BD 12 5 1
+12 #EP #BD 11 3 11
+13 #EP #BI 6 2 12
+#IND 2 4 13 1 5 10 
+13 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool
+14 #NS 13 true
+14 #EC 13 
+15 #NS 13 false
+#IND 0 13 2 2 14 14 15 14 
+16 #NS 0 Original_LF__DOT__Basics_LF_Basics_identity__fn__applied__twice
+17 #NS 0 f
+18 #NI 10 49
+15 #EP #BD 18 14 14
+19 #NI 10 52
+20 #NS 0 x
+16 #EA 4 14
+17 #EA 5 3
+18 #EA 16 17
+19 #EA 18 3
+20 #EP #BD 20 14 19
+21 #NS 0 b
+21 #EV 2
+22 #EA 21 3
+23 #EA 21 22
+24 #EA 16 23
+25 #EA 24 3
+26 #EP #BD 21 14 25
+27 #EP #BD 19 20 26
+28 #EP #BD 17 15 27
+#AX 16 28 

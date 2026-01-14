@@ -1,0 +1,152 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 True'
+#DEF 3 1 0 
+4 #NS 0 eq'
+5 #NS 4 refl
+6 #NS 0 A
+1 #US 0
+2 #ES 1
+7 #NS 0 a
+3 #EV 0
+4 #EC 4 
+5 #EV 1
+6 #EA 4 5
+7 #EA 6 3
+8 #EA 7 3
+9 #EP #BD 7 3 8
+10 #EP #BI 6 2 9
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__silly2a__iso
+10 #NS 9 _hyg
+11 #NI 10 13
+12 #NI 10 15
+11 #EP #BD 12 5 1
+12 #EP #BD 11 3 11
+13 #EP #BI 6 2 12
+#IND 2 4 13 1 5 10 
+13 #NS 0 Corelib_Init_Logic_eq
+14 #NS 0 x
+15 #NS 0 y
+14 #EV 2
+15 #EA 4 14
+16 #EA 15 5
+17 #EA 16 3
+18 #EL #BD 15 5 17
+19 #EL #BD 14 3 18
+20 #EL #BI 6 2 19
+#DEF 13 13 20 
+16 #NS 0 Corelib_Init_Logic_eq_Prop
+21 #EP #BD 6 1 12
+22 #EC 3 
+23 #EL #BD 15 5 22
+24 #EL #BD 14 3 23
+25 #EL #BD 6 1 24
+#DEF 16 21 25 
+17 #NS 0 nat
+18 #NS 17 O
+26 #EC 17 
+19 #NS 17 S
+20 #NI 10 51
+27 #EP #BD 20 26 26
+#IND 0 17 2 2 18 26 19 27 
+21 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+22 #NS 21 nil
+23 #NS 0 X
+28 #EC 21 
+29 #EA 28 3
+30 #EP #BI 23 2 29
+24 #NS 21 cons
+25 #NI 10 78
+26 #NI 10 80
+31 #EA 28 5
+32 #EA 28 14
+33 #EP #BD 26 31 32
+34 #EP #BD 25 3 33
+35 #EP #BI 23 2 34
+36 #EP #BD 23 2 2
+#IND 1 21 36 2 22 30 24 35 
+27 #NS 0 Original_LF__DOT__Poly_LF_Poly_nil
+37 #EC 22 
+38 #EA 37 3
+39 #EL #BD 23 2 38
+#DEF 27 30 39 
+28 #NS 0 Original_LF__DOT__Poly_LF_Poly_cons
+40 #EC 24 
+41 #EA 40 3
+42 #EL #BI 23 2 41
+#DEF 28 35 42 
+29 #NS 0 Original_LF__DOT__Poly_LF_Poly_prod
+30 #NS 29 pair
+31 #NS 0 Y
+32 #NI 10 126
+33 #NI 10 128
+43 #EC 29 
+44 #EV 3
+45 #EA 43 44
+46 #EA 45 14
+47 #EP #BD 33 5 46
+48 #EP #BD 32 5 47
+49 #EP #BI 31 2 48
+50 #EP #BI 23 2 49
+51 #EP #BD 23 2 36
+#IND 2 29 51 1 30 50 
+34 #NS 0 Original_LF__DOT__Poly_LF_Poly_pair
+52 #EC 30 
+53 #EA 52 44
+54 #EA 53 14
+55 #EA 54 5
+56 #EA 55 3
+57 #EL #BD 15 5 56
+58 #EL #BD 14 5 57
+59 #EL #BI 31 2 58
+60 #EL #BI 23 2 59
+#DEF 34 50 60 
+35 #NS 0 Original_LF__DOT__Tactics_LF_Tactics_silly2a
+36 #NS 0 n
+37 #NS 0 m
+38 #NI 10 172
+61 #EC 13 
+62 #EA 43 26
+63 #EA 62 26
+64 #EA 61 63
+65 #EC 34 
+66 #EA 65 26
+67 #EA 66 26
+68 #EA 67 5
+69 #EA 68 5
+70 #EA 64 69
+71 #EA 67 3
+72 #EA 71 3
+73 #EA 70 72
+39 #NI 10 184
+40 #NS 0 q
+41 #NS 0 r
+42 #NI 10 191
+74 #EA 28 26
+75 #EA 61 74
+76 #EC 28 
+77 #EA 76 26
+78 #EA 77 14
+79 #EC 27 
+80 #EA 79 26
+81 #EA 78 80
+82 #EA 75 81
+83 #EA 77 5
+84 #EA 83 80
+85 #EA 82 84
+86 #EP #BD 42 73 85
+87 #EP #BD 41 26 86
+88 #EP #BD 40 26 87
+89 #EA 77 44
+90 #EA 89 80
+91 #EA 75 90
+92 #EA 91 81
+93 #EP #BD 39 88 92
+94 #EP #BD 38 73 93
+95 #EP #BD 37 26 94
+96 #EP #BD 36 26 95
+#AX 35 96 

@@ -1,0 +1,159 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 MyTrue
+#DEF 3 1 0 
+4 #NS 0 True_intro
+2 #EC 3 
+3 #EC 2 
+#DEF 4 2 3 
+5 #NS 0 Corelib_Init_Logic_eq
+6 #NS 5 refl
+7 #NS 0 A
+1 #US 0
+4 #ES 1
+8 #NS 0 a
+5 #EV 0
+6 #EC 5 
+7 #EV 1
+8 #EA 6 7
+9 #EA 8 5
+10 #EA 9 5
+11 #EP #BD 8 5 10
+12 #EP #BI 7 4 11
+9 #NS 8 _@
+10 #NS 9 Solution
+11 #NS 10 _hyg
+12 #NI 11 13
+13 #NI 11 15
+13 #EP #BD 13 7 1
+14 #EP #BD 12 5 13
+15 #EP #BI 7 4 14
+#IND 2 5 15 1 6 12 
+14 #NS 0 Corelib_Init_Logic_eq_Prop
+16 #EP #BI 7 1 14
+15 #NS 0 x
+16 #NS 0 y
+17 #EL #BD 16 7 2
+18 #EL #BD 15 5 17
+19 #EL #BI 7 1 18
+#DEF 14 16 19 
+17 #NS 0 nat
+18 #NS 17 O
+20 #EC 17 
+19 #NS 17 S
+20 #NI 11 33
+21 #EP #BD 20 20 20
+#IND 0 17 4 2 18 20 19 21 
+21 #NS 0 _0
+22 #EC 18 
+#DEF 21 20 22 
+22 #NS 0 S
+23 #EC 19 
+#DEF 22 21 23 
+23 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_aexp
+24 #NS 23 ANum
+25 #NI 11 57
+24 #EC 23 
+25 #EP #BD 25 20 24
+26 #NS 23 APlus
+27 #NI 11 60
+28 #NI 11 62
+26 #EP #BD 28 24 24
+27 #EP #BD 27 24 26
+29 #NS 23 AMinus
+30 #NS 23 AMult
+#IND 0 23 4 4 24 25 26 27 29 27 30 27 
+31 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_ANum
+28 #EC 24 
+#DEF 31 25 28 
+32 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_APlus
+29 #EC 26 
+#DEF 32 27 29 
+33 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_bexp
+34 #NS 33 BTrue
+30 #EC 33 
+35 #NS 33 BFalse
+36 #NS 33 BEq
+37 #NI 11 141
+38 #NI 11 143
+31 #EP #BD 38 24 30
+32 #EP #BD 37 24 31
+39 #NS 33 BNeq
+40 #NS 33 BLe
+41 #NS 33 BGt
+42 #NS 33 BNot
+43 #NI 11 161
+33 #EP #BD 43 30 30
+44 #NS 33 BAnd
+45 #NI 11 164
+34 #EP #BD 45 30 33
+#IND 0 33 4 8 34 30 35 30 36 32 39 32 40 32 41 32 42 33 44 34 
+46 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_BGt
+35 #EC 41 
+#DEF 46 32 35 
+47 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_BNot
+36 #EC 42 
+#DEF 47 33 36 
+48 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_BTrue
+37 #EC 34 
+#DEF 48 30 37 
+49 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_BLe
+38 #EC 40 
+#DEF 49 32 38 
+50 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_BAnd
+39 #EC 44 
+#DEF 50 34 39 
+51 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b
+#AX 51 33 
+52 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test1
+40 #EA 6 30
+41 #EC 51 
+42 #EC 47 
+43 #EC 46 
+44 #EC 32 
+45 #EC 31 
+46 #EC 21 
+47 #EA 45 46
+48 #EA 44 47
+49 #EC 22 
+50 #EA 49 46
+51 #EA 49 50
+52 #EA 49 51
+53 #EA 49 52
+54 #EA 45 53
+55 #EA 48 54
+56 #EA 43 55
+57 #EA 49 53
+58 #EA 49 57
+59 #EA 49 58
+60 #EA 49 59
+61 #EA 45 60
+62 #EA 56 61
+63 #EA 42 62
+64 #EA 41 63
+65 #EA 40 64
+66 #EA 43 54
+67 #EA 66 61
+68 #EA 42 67
+69 #EA 65 68
+#AX 52 69 
+53 #NS 0 Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2
+70 #EC 50 
+71 #EC 49 
+72 #EA 71 55
+73 #EA 45 57
+74 #EA 72 73
+75 #EA 70 74
+76 #EC 48 
+77 #EA 75 76
+78 #EA 41 77
+79 #EA 40 78
+80 #EA 71 54
+81 #EA 80 73
+82 #EA 70 81
+83 #EA 82 76
+84 #EA 79 83
+#AX 53 84 

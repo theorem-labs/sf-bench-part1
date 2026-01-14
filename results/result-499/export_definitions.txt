@@ -1,0 +1,1 @@
+MyTrue True_intro Corelib_Init_Logic_eq Corelib_Init_Logic_eq_refl Corelib_Init_Logic_eq_Prop Corelib_Init_Logic_eq_Prop_refl nat S Nat_add Nat_mul and and_intro fst0 snd0 or or_intro or or elim iff

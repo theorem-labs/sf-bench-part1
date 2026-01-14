@@ -1,0 +1,76 @@
+1 #NS 0 Nat
+2 #NS 1 zero
+0 #EC 1 
+3 #NS 1 succ
+4 #NS 0 n
+1 #EP #BD 4 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+5 #NS 0 nat
+#DEF 5 2 0 
+6 #NS 0 True
+7 #NS 6 intro
+3 #EC 6 
+4 #ES 0
+#IND 0 6 4 1 7 3 
+8 #NS 0 MyTrue
+#DEF 8 4 3 
+9 #NS 0 Corelib_Init_Logic_eq
+10 #NS 9 refl
+11 #NS 0 A
+12 #NS 0 a
+5 #EV 0
+6 #EC 9 
+7 #EV 1
+8 #EA 6 7
+9 #EA 8 5
+10 #EA 9 5
+11 #EP #BD 12 5 10
+12 #EP #BI 11 2 11
+13 #NS 12 _@
+14 #NS 13 U_original__U2_lf_dot_U_induction__U2_lf__U_induction__nat____bin____nat__iso
+15 #NS 14 _hyg
+16 #NI 15 17
+17 #NI 15 19
+13 #EP #BD 17 7 4
+14 #EP #BD 16 5 13
+15 #EP #BI 11 2 14
+#IND 2 9 15 1 10 12 
+18 #NS 0 Corelib_Init_Logic_eq_Prop
+19 #NS 18 refl
+16 #EC 18 
+17 #EA 16 7
+18 #EA 17 5
+19 #EA 18 5
+20 #EP #BD 12 5 19
+21 #EP #BI 11 4 20
+22 #EP #BI 11 4 14
+#IND 2 18 22 1 19 21 
+20 #NS 0 Original_LF__DOT__Induction_LF_Induction_bin
+21 #NS 20 Z
+23 #EC 20 
+22 #NS 20 B0
+23 #NI 15 60
+24 #EP #BD 23 23 23
+24 #NS 20 B1
+#IND 0 20 2 3 21 23 22 24 24 24 
+25 #NS 0 Original_LF__DOT__Induction_LF_Induction_bin__to__nat
+26 #NI 15 84
+25 #EC 5 
+26 #EP #BD 26 23 25
+#AX 25 26 
+27 #NS 0 Original_LF__DOT__Induction_LF_Induction_nat__to__bin
+28 #NI 15 89
+27 #EP #BD 28 25 23
+#AX 27 27 
+29 #NS 0 Original_LF__DOT__Induction_LF_Induction_nat__bin__nat
+28 #EA 6 25
+29 #EC 25 
+30 #EC 27 
+31 #EA 30 5
+32 #EA 29 31
+33 #EA 28 32
+34 #EA 33 5
+35 #EP #BD 4 25 34
+#AX 29 35 

@@ -1,0 +1,25 @@
+1 #NS 0 Nat
+2 #NS 1 zero
+0 #EC 1 
+3 #NS 1 succ
+4 #NS 0 n
+1 #EP #BD 4 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+5 #NS 0 nat
+#DEF 5 2 0 
+6 #NS 0 Original_LF__DOT__IndPrinciples_LF_IndPrinciples_natlist
+7 #NS 6 nnil
+3 #EC 6 
+8 #NS 6 ncons
+9 #NS 0 a
+10 #NS 9 _@
+11 #NS 10 U_original__U2_lf_dot_U_indU_principles__U2_lf__U_indU_principles__natlist__iso
+12 #NS 11 _hyg
+13 #NI 12 10
+4 #EC 5 
+14 #NI 12 12
+5 #EP #BD 14 3 3
+6 #EP #BD 13 4 5
+#IND 0 6 2 2 7 3 8 6 

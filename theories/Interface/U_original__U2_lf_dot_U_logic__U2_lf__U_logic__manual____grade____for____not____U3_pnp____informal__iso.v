@@ -1,0 +1,31 @@
+From Stdlib Require Import Derive.
+From IsomorphismChecker Require Import IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
+Import IsomorphismChecker.EqualityLemmas.IsoEq.
+#[local] Unset Universe Polymorphism.
+#[local] Set Implicit Arguments.
+#[local] Hint Constants Opaque : typeclass_instances.
+From IsomorphismChecker Require Original.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__option__iso Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__prod__iso Interface.U_string__string__iso Interface.nat__iso.
+
+Module Export CodeBlocks.
+
+  Export (hints) Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__option__iso Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__prod__iso Interface.U_string__string__iso Interface.nat__iso.
+
+  Export Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__option__iso.CodeBlocks Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__prod__iso.CodeBlocks Interface.U_string__string__iso.CodeBlocks Interface.nat__iso.CodeBlocks.
+
+End CodeBlocks.
+
+Module Type Args := Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__option__iso.Interface <+ Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__prod__iso.Interface <+ Interface.U_string__string__iso.Interface <+ Interface.nat__iso.Interface.
+
+Module Type Interface (Import args : Args).
+
+Parameter imported_Original_LF__DOT__Logic_LF_Logic_manual__grade__for__not__PNP__informal : imported_Original_LF__DOT__Poly_LF_Poly_option (imported_Original_LF__DOT__Poly_LF_Poly_prod imported_nat imported_String_string).
+Parameter Original_LF__DOT__Logic_LF_Logic_manual__grade__for__not__PNP__informal_iso : rel_iso (Original_LF__DOT__Poly_LF_Poly_option_iso (Original_LF__DOT__Poly_LF_Poly_prod_iso nat_iso String_string_iso)) Original.LF_DOT_Logic.LF.Logic.manual_grade_for_not_PNP_informal
+    imported_Original_LF__DOT__Logic_LF_Logic_manual__grade__for__not__PNP__informal.
+Existing Instance Original_LF__DOT__Logic_LF_Logic_manual__grade__for__not__PNP__informal_iso.
+#[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Logic.LF.Logic.manual_grade_for_not_PNP_informal ?x) => unify x Original_LF__DOT__Logic_LF_Logic_manual__grade__for__not__PNP__informal_iso; constructor : typeclass_instances.
+#[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Logic.LF.Logic.manual_grade_for_not_PNP_informal imported_Original_LF__DOT__Logic_LF_Logic_manual__grade__for__not__PNP__informal ?x) => unify x Original_LF__DOT__Logic_LF_Logic_manual__grade__for__not__PNP__informal_iso; constructor : typeclass_instances.
+
+
+End Interface.

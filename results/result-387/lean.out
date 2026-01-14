@@ -1,0 +1,232 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__test____next____working____day__iso
+7 #NS 6 _hyg
+8 #NI 7 5
+9 #NI 7 7
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 Corelib_Init_Logic_eq_Prop
+11 #NS 10 refl
+13 #EC 10 
+14 #EA 13 3
+15 #EA 14 1
+16 #EA 15 1
+17 #EP #BD 4 1 16
+18 #EP #BI 3 9 17
+19 #EP #BI 3 9 11
+#IND 2 10 19 1 11 18 
+12 #NS 0 True
+13 #NS 12 intro
+20 #EC 12 
+#IND 0 12 9 1 13 20 
+14 #NS 0 Original_LF__DOT__Basics_LF_Basics_day
+15 #NS 14 monday
+21 #EC 14 
+16 #NS 14 tuesday
+17 #NS 14 wednesday
+18 #NS 14 thursday
+19 #NS 14 friday
+20 #NS 14 saturday
+21 #NS 14 sunday
+#IND 0 14 0 7 15 21 16 21 17 21 18 21 19 21 20 21 21 21 
+22 #NS 0 Original_LF__DOT__Basics_LF_Basics_saturday
+22 #EC 20 
+#DEF 22 21 22 
+23 #NS 0 Original_LF__DOT__Basics_LF_Basics_tuesday
+23 #EC 16 
+#DEF 23 21 23 
+24 #NS 0 PUnit
+25 #NS 24 unit
+26 #NS 0 u
+2 #UP 26
+24 #EC 24 2
+25 #ES 2
+#IND 0 24 25 1 25 24 26
+27 #NS 0 Unit
+26 #EC 24 1
+#DEF 27 0 26 
+28 #NS 14 casesOn
+29 #NS 0 motive
+30 #NS 0 t
+27 #EP #BD 30 21 25
+31 #NS 0 monday
+28 #EC 15 
+29 #EA 3 28
+32 #NS 0 tuesday
+30 #EV 2
+31 #EA 30 23
+33 #NS 0 wednesday
+32 #EV 3
+33 #EC 17 
+34 #EA 32 33
+34 #NS 0 thursday
+35 #EV 4
+36 #EC 18 
+37 #EA 35 36
+35 #NS 0 friday
+38 #EV 5
+39 #EC 19 
+40 #EA 38 39
+36 #NS 0 saturday
+41 #EV 6
+42 #EA 41 22
+37 #NS 0 sunday
+43 #EV 7
+44 #EC 21 
+45 #EA 43 44
+46 #EV 8
+47 #EA 46 43
+48 #EP #BD 37 45 47
+49 #EP #BD 36 42 48
+50 #EP #BD 35 40 49
+51 #EP #BD 34 37 50
+52 #EP #BD 33 34 51
+53 #EP #BD 32 31 52
+54 #EP #BD 31 29 53
+55 #EP #BD 30 21 54
+56 #EP #BI 29 27 55
+38 #NS 14 rec
+57 #EC 38 2
+58 #EA 57 46
+59 #EA 58 41
+60 #EA 59 38
+61 #EA 60 35
+62 #EA 61 32
+63 #EA 62 30
+64 #EA 63 3
+65 #EA 64 1
+66 #EA 65 43
+67 #EL #BD 37 45 66
+68 #EL #BD 36 42 67
+69 #EL #BD 35 40 68
+70 #EL #BD 34 37 69
+71 #EL #BD 33 34 70
+72 #EL #BD 32 31 71
+73 #EL #BD 31 29 72
+74 #EL #BD 30 21 73
+75 #EL #BI 29 27 74
+#DEF 28 56 75 26
+39 #NS 27 unit
+76 #EC 27 
+77 #EC 25 1
+#DEF 39 76 77 
+40 #NS 0 Original_LF__DOT__Basics_LF_Basics_next__working__day
+41 #NS 40 match_1
+42 #NS 0 d
+43 #NS 42 _@
+44 #NS 43 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__test____next____working____day__iso
+45 #NS 44 _hyg
+46 #NI 45 58
+47 #NS 0 u_1
+3 #UP 47
+78 #ES 3
+79 #EP #BD 46 21 78
+48 #NS 0 h_1
+80 #EA 30 28
+81 #EP #BD 0 76 80
+49 #NS 0 h_2
+82 #EA 32 23
+83 #EP #BD 0 76 82
+50 #NS 0 h_3
+84 #EA 35 33
+85 #EP #BD 0 76 84
+51 #NS 0 h_4
+86 #EA 38 36
+87 #EP #BD 0 76 86
+52 #NS 0 h_5
+88 #EA 41 39
+89 #EP #BD 0 76 88
+53 #NS 0 h_6
+90 #EA 43 22
+91 #EP #BD 0 76 90
+54 #NS 0 h_7
+92 #EA 46 44
+93 #EP #BD 0 76 92
+94 #EP #BD 54 93 47
+95 #EP #BD 53 91 94
+96 #EP #BD 52 89 95
+97 #EP #BD 51 87 96
+98 #EP #BD 50 85 97
+99 #EP #BD 49 83 98
+100 #EP #BD 48 81 99
+101 #EP #BD 46 21 100
+102 #EP #BD 29 79 101
+103 #EC 28 3
+55 #NS 0 x
+104 #EV 9
+105 #EA 104 1
+106 #EL #BD 55 21 105
+107 #EA 103 106
+108 #EA 107 43
+109 #EC 39 
+110 #EA 41 109
+111 #EA 108 110
+112 #EA 38 109
+113 #EA 111 112
+114 #EA 35 109
+115 #EA 113 114
+116 #EA 32 109
+117 #EA 115 116
+118 #EA 30 109
+119 #EA 117 118
+120 #EA 3 109
+121 #EA 119 120
+122 #EA 1 109
+123 #EA 121 122
+124 #EL #BD 54 93 123
+125 #EL #BD 53 91 124
+126 #EL #BD 52 89 125
+127 #EL #BD 51 87 126
+128 #EL #BD 50 85 127
+129 #EL #BD 49 83 128
+130 #EL #BD 48 81 129
+131 #EL #BD 46 21 130
+132 #EL #BD 29 79 131
+#DEF 41 102 132 47
+133 #EP #BD 42 21 21
+134 #EC 41 1
+135 #EL #BD 46 21 21
+136 #EA 134 135
+137 #EA 136 1
+56 #NS 0 _
+138 #EL #BD 56 76 23
+139 #EA 137 138
+140 #EL #BD 56 76 33
+141 #EA 139 140
+142 #EL #BD 56 76 36
+143 #EA 141 142
+144 #EL #BD 56 76 39
+145 #EA 143 144
+146 #EL #BD 56 76 28
+147 #EA 145 146
+148 #EA 147 146
+149 #EA 148 146
+150 #EL #BD 42 21 149
+#DEF 40 133 150 
+57 #NS 0 Original_LF__DOT__Basics_LF_Basics_test__next__working__day
+151 #EA 2 21
+152 #EC 40 
+153 #EC 22 
+154 #EA 152 153
+155 #EA 152 154
+156 #EA 151 155
+157 #EC 23 
+158 #EA 156 157
+#AX 57 158 

@@ -1,0 +1,202 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 and
+4 #NS 3 intro
+5 #NS 0 A
+6 #NS 0 B
+7 #NS 0 fst
+2 #EV 1
+8 #NS 0 snd
+3 #EC 3 
+4 #EV 3
+5 #EA 3 4
+6 #EV 2
+7 #EA 5 6
+8 #EP #BD 8 2 7
+9 #EP #BD 7 2 8
+10 #EP #BI 6 1 9
+11 #EP #BI 5 1 10
+12 #EP #BD 6 1 1
+13 #EP #BD 5 1 12
+#IND 2 3 13 1 4 11 
+9 #NS 0 iff
+10 #NS 0 a
+11 #NS 10 _@
+12 #NS 11 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__andb____true____iff__iso
+13 #NS 12 _hyg
+14 #NI 13 21
+14 #EP #BD 14 2 2
+15 #EA 3 14
+15 #NI 13 26
+16 #EV 0
+17 #EP #BD 15 16 6
+18 #EA 15 17
+19 #EL #BD 6 1 18
+20 #EL #BD 5 1 19
+#DEF 9 13 20 
+16 #NS 0 Corelib_Init_Logic_eq
+17 #NS 16 refl
+1 #US 0
+21 #ES 1
+22 #EC 16 
+23 #EA 22 2
+24 #EA 23 16
+25 #EA 24 16
+26 #EP #BD 10 16 25
+27 #EP #BI 5 21 26
+18 #NI 13 37
+19 #NI 13 39
+28 #EP #BD 19 2 1
+29 #EP #BD 18 16 28
+30 #EP #BI 5 21 29
+#IND 2 16 30 1 17 27 
+20 #NS 0 Corelib_Init_Logic_eq_refl
+31 #EC 17 
+32 #EA 31 2
+33 #EA 32 16
+34 #EL #BD 10 16 33
+35 #EL #BI 5 21 34
+#DEF 20 27 35 
+21 #NS 0 Corelib_Init_Logic_eq_Prop
+22 #NS 21 refl
+36 #EC 21 
+37 #EA 36 2
+38 #EA 37 16
+39 #EA 38 16
+40 #EP #BD 10 16 39
+41 #EP #BI 5 1 40
+42 #EP #BI 5 1 29
+#IND 2 21 42 1 22 41 
+23 #NS 0 Corelib_Init_Logic_eq_Prop_refl
+43 #EC 22 
+44 #EA 43 2
+45 #EA 44 16
+46 #EL #BD 10 16 45
+47 #EL #BI 5 1 46
+#DEF 23 41 47 
+24 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool
+25 #NS 24 true
+48 #EC 24 
+26 #NS 24 false
+#IND 0 24 21 2 25 48 26 48 
+27 #NS 0 Original_LF__DOT__Basics_LF_Basics_true
+49 #EC 25 
+#DEF 27 48 49 
+28 #NS 0 Original_LF__DOT__Basics_LF_Basics_false
+50 #EC 26 
+#DEF 28 48 50 
+29 #NS 0 PUnit
+30 #NS 29 unit
+31 #NS 0 u
+2 #UP 31
+51 #EC 29 2
+52 #ES 2
+#IND 0 29 52 1 30 51 31
+32 #NS 0 Unit
+53 #EC 29 1
+#DEF 32 21 53 
+33 #NS 24 casesOn
+34 #NS 0 motive
+35 #NS 0 t
+54 #EP #BD 35 48 52
+36 #NS 0 true
+55 #EA 2 49
+37 #NS 0 false
+56 #EA 6 50
+57 #EA 4 6
+58 #EP #BD 37 56 57
+59 #EP #BD 36 55 58
+60 #EP #BD 35 48 59
+61 #EP #BI 34 54 60
+38 #NS 24 rec
+62 #EC 38 2
+63 #EA 62 4
+64 #EA 63 2
+65 #EA 64 16
+66 #EA 65 6
+67 #EL #BD 37 56 66
+68 #EL #BD 36 55 67
+69 #EL #BD 35 48 68
+70 #EL #BI 34 54 69
+#DEF 33 61 70 31
+39 #NS 32 unit
+71 #EC 32 
+72 #EC 30 1
+#DEF 39 71 72 
+40 #NS 0 Original_LF__DOT__Basics_LF_Basics_andb
+41 #NS 40 match_1
+42 #NS 0 b1
+43 #NS 42 _@
+44 #NS 43 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__andb____true____iff__iso
+45 #NS 44 _hyg
+46 #NI 45 100
+47 #NS 0 u_1
+3 #UP 47
+73 #ES 3
+74 #EP #BD 46 48 73
+48 #NS 0 h_1
+75 #EA 6 49
+76 #EP #BD 0 71 75
+49 #NS 0 h_2
+77 #EA 4 50
+78 #EP #BD 0 71 77
+79 #EP #BD 49 78 57
+80 #EP #BD 48 76 79
+81 #EP #BD 46 48 80
+82 #EP #BD 34 74 81
+83 #EC 33 3
+50 #NS 0 x
+84 #EV 4
+85 #EA 84 16
+86 #EL #BD 50 48 85
+87 #EA 83 86
+88 #EA 87 6
+89 #EC 39 
+90 #EA 2 89
+91 #EA 88 90
+92 #EA 16 89
+93 #EA 91 92
+94 #EL #BD 49 78 93
+95 #EL #BD 48 76 94
+96 #EL #BD 46 48 95
+97 #EL #BD 34 74 96
+#DEF 41 82 97 47
+51 #NS 0 b2
+98 #EP #BD 51 48 48
+99 #EP #BD 42 48 98
+100 #EC 41 1
+101 #EL #BD 46 48 48
+102 #EA 100 101
+103 #EA 102 2
+52 #NS 0 _
+104 #EL #BD 52 71 2
+105 #EA 103 104
+106 #EL #BD 52 71 50
+107 #EA 105 106
+108 #EL #BD 51 48 107
+109 #EL #BD 42 48 108
+#DEF 40 99 109 
+53 #NS 0 Original_LF__DOT__Logic_LF_Logic_andb__true__iff
+54 #NS 0 x0
+110 #EC 9 
+111 #EA 22 48
+112 #EC 40 
+113 #EA 112 2
+114 #EA 113 16
+115 #EA 111 114
+116 #EC 27 
+117 #EA 115 116
+118 #EA 110 117
+119 #EA 111 2
+120 #EA 119 116
+121 #EA 3 120
+122 #EA 111 16
+123 #EA 122 116
+124 #EA 121 123
+125 #EA 118 124
+126 #EP #BD 54 48 125
+127 #EP #BD 50 48 126
+#AX 53 127 

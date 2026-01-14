@@ -1,0 +1,269 @@
+# syntax=docker/dockerfile:1.4
+
+#############################################################
+## Stage 1: Base image with common dependencies
+#############################################################
+FROM docker.io/ubuntu:22.04 AS base
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && apt-get clean
+
+RUN apt-get update && apt-get install -y software-properties-common curl sudo
+
+RUN add-apt-repository ppa:deadsnakes/ppa
+
+# htop is for debugging
+RUN apt-get update && apt-get install -y \
+    curl \
+    python3.11 \
+    python3.11-venv \
+    python3.11-dev \
+    python3-pip \
+    wget \
+    git \
+    make \
+    bubblewrap \
+    unzip \
+    libgmp-dev \
+    pkg-config \
+    htop \
+    && apt-get clean
+
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
+    && update-alternatives --set python3 /usr/bin/python3.11 \
+    && ln -s /usr/bin/python3 /usr/bin/python
+
+RUN python -m pip install --upgrade pip
+RUN python -m pip install uv
+# py-spy is for debugging
+RUN python -m pip install py-spy
+
+#############################################################
+## Stage 2: Rocq/Coq installation
+#############################################################
+FROM base AS rocq-builder
+
+RUN wget https://github.com/ocaml/opam/releases/download/2.3.0/opam-2.3.0-x86_64-linux -O /usr/local/bin/opam && \
+    chmod +x /usr/local/bin/opam
+
+RUN opam init --disable-sandboxing --yes --bare && \
+    opam switch create ocaml-4.14.2 4.14.2 && \
+    opam repo add coq-released https://coq.inria.fr/opam/released --all-switches
+
+RUN echo 6bdf73fc7ca69aa329257a9eaccd3e29da11dfe2 > /tmp/coq-9.1.0.version
+RUN opam pin add -yn --with-version 9.1.0 git+https://github.com/JasonGross/coq.git#v9.1+recursive-assumptions
+RUN opam install -y --confirm-level=unsafe-yes coq.9.1.0
+# coq-dpdgraph seems to fail with `write jobserver: Bad file descriptor` on multiple cores
+# cf https://github.com/rocq-community/coq-dpdgraph/issues/159
+RUN opam install -y --confirm-level=unsafe-yes -j1 coq-dpdgraph
+RUN opam install -y --confirm-level=unsafe-yes rocq-lean-import
+
+#############################################################
+## Stage 3: Lean base with elan
+#############################################################
+FROM base AS lean-base
+
+# Install elan (Lean version manager)
+RUN curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+ENV PATH="/root/.elan/bin:${PATH}"
+
+# Download Lean toolchain
+RUN lean --version
+
+#############################################################
+## Stage 4: lean4export
+#############################################################
+FROM lean-base AS lean4export-builder
+
+# Install lean4export - pin to commit before v2.0.0 format change (compatible with rocq-lean-import 0.0.1)
+# Commit c9f8373 uses toolchain v4.20.0-rc5 and produces v1.x format
+ENV LEAN4EXPORT_COMMIT="c9f8373f8a37a65c0ed9bfd20480a3d7481a163e"
+RUN git clone https://github.com/leanprover/lean4export.git /tmp/lean4export && \
+    cd /tmp/lean4export && \
+    git checkout $LEAN4EXPORT_COMMIT && \
+    LEAN_TOOLCHAIN=$(cat lean-toolchain) && \
+    elan default $LEAN_TOOLCHAIN && \
+    lake build && \
+    cp .lake/build/bin/lean4export /usr/local/bin/ && \
+    rm -rf /tmp/lean4export
+
+#############################################################
+## Stage 5: Coq theories compilation (lf)
+#############################################################
+FROM rocq-builder AS theories-builder
+
+ENV GRADER_WORKDIR=/grader
+
+# Copy theories to /grader (root only)
+RUN mkdir -p ${GRADER_WORKDIR}/theories
+WORKDIR ${GRADER_WORKDIR}
+
+# Verify Coq is working
+RUN opam exec -- rocq --version
+
+# Copying only Original.v over to avoid re-building Original.vo when other things in theories change
+COPY lf/theories/Original.v ${GRADER_WORKDIR}/theories/Original.v
+RUN opam exec -- rocq c -Q theories IsomorphismChecker theories/Original.v
+RUN mkdir -p /tmp/original-built/
+RUN cp theories/Original.* /tmp/original-built/
+
+# Copy theories
+COPY lf/theories ${GRADER_WORKDIR}/theories
+COPY lf/Makefile ${GRADER_WORKDIR}/Makefile
+COPY lf/data/known_names.json ${GRADER_WORKDIR}/known_names.json
+
+# Generate _CoqProject listing all .v files
+RUN echo "-Q theories IsomorphismChecker" > ${GRADER_WORKDIR}/_CoqProject && \
+    find theories -name "*.v" | sort >> ${GRADER_WORKDIR}/_CoqProject
+
+# Pre-compile Coq theories
+# Use find for clean instead of 'make clean' - avoids "argument list too long" with 3000+ files
+RUN opam exec -- make Makefile.coq && \
+    find theories -name "*.vo" -delete 2>/dev/null || true && \
+    find theories -name "*.vok" -delete 2>/dev/null || true && \
+    find theories -name "*.vos" -delete 2>/dev/null || true && \
+    find theories -name "*.glob" -delete 2>/dev/null || true && \
+    find theories -name ".*.aux" -delete 2>/dev/null || true
+RUN cp /tmp/original-built/* theories/ && touch theories/Original.vo
+RUN opam exec -- make theories/Original.vo
+RUN opam exec -- make theories/Hiding.vo theories/PermittedAxiomPrinting.vo theories/CaseSchemeDefinitions.vo theories/IsomorphismDefinitions.vo theories/Ltac2Utils.vo theories/EqualityLemmas.vo theories/IsomorphismStatementAutomationDefinitions.vo theories/AutomationDefinitions.vo
+# find every .v file in theories/Interface and pass the .vo to make
+RUN find theories/Interface -type f -name "*.v" -exec echo "{}o" \; | xargs opam exec -- make -kj4 || true
+RUN find theories/Interface -type f -name "*.v" -exec echo "{}o" \; | xargs opam exec -- make
+
+
+# Temporary hack to debug builder for broken files
+# RUN find theories/Interface -type f -name "*.v" -exec echo "{}o" \; | xargs opam exec -- make -kj4 2>/tmp/log || true
+# RUN grep -B 1 '^Error' /tmp/log | grep -o '^File "[^"]*' | grep -o '[^/\.]*\.v' | xargs echo; exit 1
+# RUN find . \( \
+#   -name U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__some____nat____is____even__iso.v -o -name U_original__U2_lf_dot_U_logic__U2_lf__U_logic__even____bool____prop__iso.v -o -name U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nor____not__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__app____ne__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__char____nomatch____char__iso.v -o -name U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nor____notSQUOTE__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__evSQUOTE____ev__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__refl____matches____eps__iso.v -o -name U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__dist____exists____or____term__iso.v -o -name U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__bevalU_r____iff____beval__iso.v -o -name U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__aevalU_r____iff____aeval__iso.v -o -name U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__pumping__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__empty____matches____eps__iso.v -o -name U_original__U2_lf_dot_U_indU_principles__U2_lf__U_indU_principles__booltree____ind____type__iso.v -o -name U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nor____comm__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__star____ne__iso.v -o -name U_original__U2_lf_dot_U_auto__U2_lf__U_auto__eauto____example__iso.v -o -name U_original__U2_lf__U_rel__rtc____rsc____coincide__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__is____der__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__matches____regex__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__null____matches____none__iso.v -o -name U_original__U2_lf__U_rel__next____nat____closure____is____le__iso.v -o -name U_original__U2_lf_dot_U_imp__U2_lf__U_imp__no____whiles____eqv__iso.v -o -name U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____and____ceval____step____coincide__iso.v -o -name U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__while____break____true__iso.v -o -name U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__aevalU_r____iff____aevalSQUOTE__iso.v -o -name U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__ex____ev____U_sn__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_r____equiv____fU_r__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__ev____U_even____iff__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__ev____inversion__iso.v -o -name U_original__U2_lf_dot_U_logic__U2_lf__U_logic__U_in____map____iff__iso.v -o -name U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__weak____pumping__iso.v -o -name U_original__U2_lf_dot_U_logic__U2_lf__U_logic__U_all____U_in__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U2_munionSQUOTE__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__re____not____empty____correct__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__app____exists__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__char____eps____suffix__iso.v -o -name U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nor____commSQUOTE__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__empty____nomatch____ne__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U2_mstarSQUOTESQUOTE__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__union____disj__iso.v -o -name U_original__U2_lf__U_rel__le____order__iso.v -o -name U_original__U2_lf_dot_U_logic__U2_lf__U_logic__U_in____app____iff__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_pumping__pumping__iso.v -o -name U_original__U2_lf_dot_U_logic__U2_lf__U_logic__forallb____true____iff__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__le____inversion__iso.v -o -name U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_pumping__weak____pumping__iso.v \
+#   \) -delete
+# RUN echo "-Q theories IsomorphismChecker" > ${GRADER_WORKDIR}/_CoqProject && find theories -name "*.v" | sort >> ${GRADER_WORKDIR}/_CoqProject
+# RUN opam exec -- make .Makefile.coq.d
+# RUN find theories/Interface -type f -name "*.v" -exec echo "{}o" \; | xargs opam exec -- make || { grep -B 1 '^Error' /tmp/log | grep -o '^File "[^"]*' | grep -o '[^\.]*\.v' | xargs echo; exit 1; }
+
+# Create Lean directory in grader
+RUN mkdir -p ${GRADER_WORKDIR}/lean
+
+# Set grader directory permissions (root-only)
+RUN chmod -R 0700 ${GRADER_WORKDIR}
+
+#############################################################
+## Stage 6: Prepare workdir with correct permissions
+#############################################################
+FROM theories-builder AS workdir-prep
+
+ENV WORKDIR=/workdir
+ENV GRADER_WORKDIR=/grader
+
+# Create model user
+RUN groupadd -g 1000 model && useradd -m -u 1000 -g 1000 model
+
+# Copy /grader to /workdir (model owned)
+RUN cp -a ${GRADER_WORKDIR}/. ${WORKDIR}/
+RUN chown -R model:model ${WORKDIR} && chmod -R a+w ${WORKDIR}
+RUN find ${WORKDIR} -type d -exec chmod a+x {} \;
+
+# SECURITY: Make .v files inside Interface and Checker read-only
+RUN find ${WORKDIR}/theories/Interface -name "*.v" -exec chown root:root {} \; -exec chmod 444 {} \;
+RUN find ${WORKDIR}/theories/Checker -name "*.v" -exec chown root:root {} \; -exec chmod 444 {} \;
+RUN chown root:root ${WORKDIR}/theories/*.v && chmod 444 ${WORKDIR}/theories/*.v
+
+#############################################################
+## Stage 7: Final image
+#############################################################
+FROM base AS final
+
+#############################################################
+## Reminder:
+## The container WILL NOT have internet access at runtime,
+## so anything the environment needs at runtime should be
+## downloaded in the Dockerfile
+#############################################################
+
+########################################################################################
+## Setting up user for the model to use
+## The uid needs to be 1000, and the group needs to be 1000
+##########################################################
+RUN groupadd -g 1000 model && \
+    useradd -m -u 1000 -g 1000 model && \
+    gpasswd -d model root || true
+
+# Copy opam from builder with correct permissions
+COPY --from=rocq-builder /usr/local/bin/opam /usr/local/bin/opam
+COPY --from=rocq-builder --chmod=755 /root/.opam /root/.opam
+
+# Make opam environment available globally
+RUN echo 'eval $(opam env)' >> /etc/bash.bashrc
+
+# Make /root readable by model user so symlink works
+RUN chmod 755 /root
+
+# Symlink opam environment to model user's home directory
+RUN ln -s /root/.opam /home/model/.opam
+
+# Install coq_tools (Python package)
+RUN uv pip install --system --break-system-packages coq-tools
+
+# Copy elan and lean4export from builder
+COPY --from=lean4export-builder /root/.elan /root/.elan
+COPY --from=lean4export-builder --chown=model:model /root/.elan /home/model/.elan
+COPY --from=lean4export-builder /usr/local/bin/lean4export /usr/local/bin/lean4export
+ENV PATH="/root/.elan/bin:${PATH}"
+
+##########################################################################
+## Copying over Coq files into this
+## restricted access directory
+##########################################################################
+ENV WORKDIR=/workdir
+ENV GRADER_WORKDIR=/grader
+
+# Create /trash directory (root only)
+RUN mkdir -p /trash && chmod 700 /trash
+
+# Copy pre-compiled grader directory (already has 0700 permissions from workdir-prep)
+COPY --from=workdir-prep --chown=root:root /grader ${GRADER_WORKDIR}
+
+# Copy workdir with pre-configured permissions from workdir-prep
+COPY --from=workdir-prep --chown=model:model /workdir ${WORKDIR}
+
+# Verify Coq is working
+WORKDIR ${GRADER_WORKDIR}
+RUN bash -c 'eval $(opam env) && rocq --version'
+
+##########################################################################
+## Creating a directory with root only permissions
+## for MCP and tools.
+##########################################################################
+WORKDIR /mcp_server
+
+# Copy this environment from default context (current directory when building)
+RUN mkdir -m 700 -p ./environments/rocq-lean-translation
+COPY --chmod=700 mcp_server ./environments/rocq-lean-translation/mcp_server
+COPY --chmod=700 pyproject.toml ./environments/rocq-lean-translation/pyproject.toml
+COPY --chmod=700 lf/data/processed.json ./environments/rocq-lean-translation/data/processed.json
+
+RUN uv pip install --system --break-system-packages -e ./environments/rocq-lean-translation
+
+RUN uv run mcp_server hello
+
+# Lock down /mcp_server directory itself (COPY --chmod only affects files)
+RUN chmod 700 /mcp_server
+
+##########################################################
+## Configuring a workdir for the `model` user
+##########################################################
+
+# Copy examples directory for model to reference
+# --chmod=666 to make everything writable by model, so that copy2 copies the right attributes
+# COPY --chmod only applies to files, not directories, so we need to chmod the directories manually
+# Placed at the end to maximize Docker layer caching
+# Only copy specific items: all-scores.json, ghost/*, and runs/* (flattened into examples/)
+RUN mkdir -p ${WORKDIR}/examples
+COPY --chown=model:model --chmod=666 lf/examples/all-scores.json ${WORKDIR}/examples/all-scores.json
+COPY --chown=model:model --chmod=666 lf/examples/ghost/ ${WORKDIR}/examples/
+COPY --chown=model:model --chmod=666 lf/examples/runs/ ${WORKDIR}/examples/
+RUN find ${WORKDIR}/examples -type d -exec chmod 777 {} \;
+
+WORKDIR ${WORKDIR}

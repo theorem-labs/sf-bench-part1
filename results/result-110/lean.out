@@ -1,0 +1,33 @@
+1 #NS 0 False
+0 #ES 0
+#IND 0 1 0 0  
+2 #NS 0 Logic_not
+3 #NS 0 x
+1 #EP #BD 3 0 0
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__contrapositive__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+2 #EV 0
+3 #EC 1 
+4 #EP #BD 8 2 3
+5 #EL #BD 3 0 4
+#DEF 2 1 5 
+9 #NS 0 Original_LF__DOT__Logic_LF_Logic_contrapositive
+10 #NS 0 P
+11 #NS 0 Q
+12 #NI 7 15
+13 #NI 7 18
+6 #EV 1
+7 #EP #BD 13 6 6
+14 #NI 7 21
+8 #EC 2 
+9 #EA 8 6
+10 #EV 3
+11 #EA 8 10
+12 #EP #BD 14 9 11
+13 #EP #BD 12 7 12
+14 #EP #BD 11 0 13
+15 #EP #BD 10 0 14
+#AX 9 15 

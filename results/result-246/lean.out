@@ -1,0 +1,60 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_poly__U2_lf__U_poly__list123__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+10 #NS 9 nil
+11 #NS 0 X
+3 #EC 9 
+4 #EV 0
+5 #EA 3 4
+6 #EP #BI 11 2 5
+12 #NS 9 cons
+13 #NI 7 23
+14 #NI 7 25
+7 #EV 1
+8 #EA 3 7
+9 #EV 2
+10 #EA 3 9
+11 #EP #BD 14 8 10
+12 #EP #BD 13 4 11
+13 #EP #BI 11 2 12
+14 #EP #BD 11 2 2
+#IND 1 9 14 2 10 6 12 13 
+15 #NS 0 Original_LF__DOT__Poly_LF_Poly_nil
+15 #EC 10 
+16 #EA 15 4
+17 #EL #BD 11 2 16
+#DEF 15 6 17 
+16 #NS 0 Original_LF__DOT__Poly_LF_Poly_cons
+18 #EC 12 
+19 #EA 18 4
+20 #EL #BD 11 2 19
+#DEF 16 13 20 
+17 #NS 0 Original_LF__DOT__Poly_LF_Poly_list123
+21 #EA 3 0
+22 #EC 16 
+23 #EA 22 0
+24 #EC 3 
+25 #EC 2 
+26 #EA 24 25
+27 #EA 23 26
+28 #EA 24 26
+29 #EA 23 28
+30 #EA 24 28
+31 #EA 23 30
+32 #EC 15 
+33 #EA 32 0
+34 #EA 31 33
+35 #EA 29 34
+36 #EA 27 35
+#DEF 17 21 36 

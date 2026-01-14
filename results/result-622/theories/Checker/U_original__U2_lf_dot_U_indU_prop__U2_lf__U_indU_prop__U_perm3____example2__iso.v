@@ -1,0 +1,30 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3____example2__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3____example2__iso.
+From IsomorphismChecker Require Checker.U_false__iso Checker.U_logic__not__iso Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__list__iso Checker.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3U_reminder__U_perm3__iso Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__cons__iso Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso Checker.nat__iso Checker.U_s__iso Checker.__0__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3____example2__iso.Args := Checker.U_false__iso.Checker <+ Checker.U_logic__not__iso.Checker <+ Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__list__iso.Checker <+ Checker.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3U_reminder__U_perm3__iso.Checker <+ Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__cons__iso.Checker <+ Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso.Checker <+ Checker.nat__iso.Checker <+ Checker.U_s__iso.Checker <+ Checker.__0__iso.Checker.
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3____example2__iso.Interface args
+  with Definition imported_Original_LF__DOT__IndProp_LF_IndProp_Perm3__example2 := Imported.Original_LF__DOT__IndProp_LF_IndProp_Perm3__example2.
+
+Definition imported_Original_LF__DOT__IndProp_LF_IndProp_Perm3__example2 := Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3____example2__iso.imported_Original_LF__DOT__IndProp_LF_IndProp_Perm3__example2.
+Definition Original_LF__DOT__IndProp_LF_IndProp_Perm3__example2_iso := Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3____example2__iso.Original_LF__DOT__IndProp_LF_IndProp_Perm3__example2_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__IndProp_LF_IndProp_Perm3__example2_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

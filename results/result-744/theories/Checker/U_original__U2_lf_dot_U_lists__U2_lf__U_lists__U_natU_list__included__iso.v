@@ -1,0 +1,30 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__included__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__included__iso.
+From IsomorphismChecker Require Checker.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso Checker.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso Checker.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__bag__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__included__iso.Args := Checker.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso.Checker <+ Checker.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.Checker <+ Checker.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__bag__iso.Checker.
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__included__iso.Interface args
+  with Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_included := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_included.
+
+Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_included := Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__included__iso.imported_Original_LF__DOT__Lists_LF_Lists_NatList_included.
+Definition Original_LF__DOT__Lists_LF_Lists_NatList_included_iso := Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__included__iso.Original_LF__DOT__Lists_LF_Lists_NatList_included_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__Lists_LF_Lists_NatList_included_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

@@ -1,0 +1,254 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__option____elim____hd__iso
+7 #NS 6 _hyg
+8 #NI 7 18
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_natlist
+10 #NS 9 nil
+3 #EC 9 
+11 #NS 9 cons
+12 #NI 7 47
+13 #NI 7 49
+4 #EP #BD 13 3 3
+5 #EP #BD 12 0 4
+#IND 0 9 2 2 10 3 11 5 
+14 #NS 0 PUnit
+15 #NS 14 unit
+16 #NS 0 u
+2 #UP 16
+6 #EC 14 2
+7 #ES 2
+#IND 0 14 7 1 15 6 16
+17 #NS 0 Unit
+8 #EC 14 1
+#DEF 17 2 8 
+18 #NS 9 casesOn
+19 #NS 0 motive
+20 #NS 0 t
+9 #EP #BD 20 3 7
+21 #NS 0 nil
+10 #EV 1
+11 #EC 10 
+12 #EA 10 11
+22 #NS 0 cons
+13 #EV 4
+14 #EC 11 
+15 #EA 14 10
+16 #EV 0
+17 #EA 15 16
+18 #EA 13 17
+19 #EP #BD 13 3 18
+20 #EP #BD 12 0 19
+21 #EV 3
+22 #EV 2
+23 #EA 21 22
+24 #EP #BD 22 20 23
+25 #EP #BD 21 12 24
+26 #EP #BD 20 3 25
+27 #EP #BI 19 9 26
+23 #NS 9 rec
+28 #EC 23 2
+29 #EA 28 21
+30 #EA 29 10
+24 #NS 0 a_ih
+25 #NS 24 _@
+26 #NS 25 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__option____elim____hd__iso
+27 #NS 26 _hyg
+28 #NI 27 49
+31 #EV 5
+32 #EA 31 16
+33 #EA 23 10
+34 #EL #BD 28 32 33
+35 #EL #BD 13 3 34
+36 #EL #BD 12 0 35
+37 #EA 30 36
+38 #EA 37 22
+39 #EL #BD 22 20 38
+40 #EL #BD 21 12 39
+41 #EL #BD 20 3 40
+42 #EL #BI 19 9 41
+#DEF 18 27 42 16
+29 #NS 17 unit
+43 #EC 17 
+44 #EC 15 1
+#DEF 29 43 44 
+30 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_hd
+31 #NS 30 match_1
+32 #NS 0 l
+33 #NS 32 _@
+34 #NS 33 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__option____elim____hd__iso
+35 #NS 34 _hyg
+36 #NI 35 87
+37 #NS 0 u_1
+3 #UP 37
+45 #ES 3
+46 #EP #BD 36 3 45
+38 #NS 0 h_1
+47 #EA 22 11
+48 #EP #BD 0 43 47
+49 #EP #BD 38 48 24
+50 #EP #BD 36 3 49
+51 #EP #BD 19 46 50
+39 #NS 0 h_2
+52 #EC 18 3
+40 #NS 0 x
+53 #EA 13 16
+54 #EL #BD 40 3 53
+55 #EA 52 54
+56 #EA 55 22
+57 #EC 29 
+58 #EA 10 57
+59 #EA 56 58
+41 #NI 12 101
+42 #NI 13 102
+60 #EA 22 10
+61 #EA 60 16
+62 #EL #BD 42 3 61
+63 #EL #BD 41 0 62
+64 #EA 59 63
+65 #EL #BD 39 20 64
+66 #EL #BD 38 48 65
+67 #EL #BD 36 3 66
+68 #EL #BD 19 46 67
+#DEF 31 51 68 37
+43 #NS 0 default
+69 #EP #BD 32 3 0
+70 #EP #BD 43 0 69
+71 #EC 31 1
+72 #EL #BD 36 3 0
+73 #EA 71 72
+74 #EA 73 16
+44 #NS 0 _
+75 #EL #BD 44 43 22
+76 #EA 74 75
+45 #NS 0 h
+46 #NI 13 99
+77 #EL #BD 46 3 10
+78 #EL #BD 45 0 77
+79 #EA 76 78
+80 #EL #BD 32 3 79
+81 #EL #BD 43 0 80
+#DEF 30 70 81 
+47 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_natoption
+48 #NS 47 Some
+49 #NI 7 106
+82 #EC 47 
+83 #EP #BD 49 0 82
+50 #NS 47 None
+#IND 0 47 2 2 48 83 50 82 
+51 #NS 47 casesOn
+84 #EP #BD 20 82 7
+52 #NS 0 Some
+85 #EC 48 
+86 #EA 85 16
+87 #EA 22 86
+88 #EP #BD 49 0 87
+53 #NS 0 None
+89 #EC 50 
+90 #EA 22 89
+91 #EP #BD 53 90 23
+92 #EP #BD 52 88 91
+93 #EP #BD 20 82 92
+94 #EP #BI 19 84 93
+54 #NS 47 rec
+95 #EC 54 2
+96 #EA 95 21
+97 #EA 22 16
+98 #EL #BD 49 0 97
+99 #EA 96 98
+100 #EA 99 16
+101 #EA 100 22
+102 #EL #BD 53 90 101
+103 #EL #BD 52 88 102
+104 #EL #BD 20 82 103
+105 #EL #BI 19 84 104
+#DEF 51 94 105 16
+55 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_option__elim
+56 #NS 55 match_1
+57 #NS 0 o
+58 #NS 57 _@
+59 #NS 58 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__option____elim____hd__iso
+60 #NS 59 _hyg
+61 #NI 60 126
+106 #EP #BD 61 82 45
+107 #EA 21 89
+108 #EP #BD 0 43 107
+109 #EP #BD 39 108 23
+110 #EP #BD 38 88 109
+111 #EP #BD 61 82 110
+112 #EP #BD 19 106 111
+113 #EC 51 3
+114 #EL #BD 40 82 53
+115 #EA 113 114
+116 #EA 115 22
+117 #EA 116 98
+118 #EA 16 57
+119 #EA 117 118
+120 #EL #BD 39 108 119
+121 #EL #BD 38 88 120
+122 #EL #BD 61 82 121
+123 #EL #BD 19 106 122
+#DEF 56 112 123 37
+62 #NS 0 d
+124 #EP #BD 57 82 0
+125 #EP #BD 62 0 124
+126 #EC 56 1
+127 #EL #BD 61 82 0
+128 #EA 126 127
+129 #EA 128 16
+63 #NS 0 n
+130 #EL #BD 63 0 16
+131 #EA 129 130
+132 #EA 131 75
+133 #EL #BD 57 82 132
+134 #EL #BD 62 0 133
+#DEF 55 125 134 
+64 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_hd__error
+65 #NI 7 139
+135 #EP #BD 65 3 82
+#AX 64 135 
+66 #NS 0 Corelib_Init_Logic_eq
+67 #NS 66 refl
+68 #NS 0 A
+136 #EC 66 
+137 #EA 136 10
+138 #EA 137 16
+139 #EA 138 16
+140 #EP #BD 4 16 139
+141 #EP #BI 68 2 140
+69 #NI 7 5
+70 #NI 7 7
+142 #ES 0
+143 #EP #BD 70 10 142
+144 #EP #BD 69 16 143
+145 #EP #BI 68 2 144
+#IND 2 66 145 1 67 141 
+71 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_option__elim__hd
+146 #EA 136 0
+147 #EC 30 
+148 #EA 147 16
+149 #EA 148 10
+150 #EA 146 149
+151 #EC 55 
+152 #EA 151 16
+153 #EC 64 
+154 #EA 153 10
+155 #EA 152 154
+156 #EA 150 155
+157 #EP #BD 43 0 156
+158 #EP #BD 32 3 157
+#AX 71 158 
+72 #NS 0 True
+73 #NS 72 intro
+159 #EC 72 
+#IND 0 72 142 1 73 159 
+74 #NS 0 MyTrue
+#DEF 74 142 159 

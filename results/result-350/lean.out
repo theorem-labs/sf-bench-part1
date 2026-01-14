@@ -1,0 +1,89 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__manual____grade____for____not____U3_pnp____informal__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 Bool
+10 #NS 9 false
+3 #EC 9 
+11 #NS 9 true
+#IND 0 9 2 2 10 3 11 3 
+12 #NS 0 ascii
+13 #NS 12 Ascii
+14 #NI 7 20
+15 #NI 7 22
+16 #NI 7 24
+17 #NI 7 26
+18 #NI 7 28
+19 #NI 7 30
+20 #NI 7 32
+21 #NI 7 34
+4 #EC 12 
+5 #EP #BD 21 3 4
+6 #EP #BD 20 3 5
+7 #EP #BD 19 3 6
+8 #EP #BD 18 3 7
+9 #EP #BD 17 3 8
+10 #EP #BD 16 3 9
+11 #EP #BD 15 3 10
+12 #EP #BD 14 3 11
+#IND 0 12 2 1 13 12 
+22 #NS 0 String_string
+23 #NS 22 EmptyString
+13 #EC 22 
+24 #NS 22 String
+25 #NI 7 98
+26 #NI 7 100
+14 #EP #BD 26 13 13
+15 #EP #BD 25 4 14
+#IND 0 22 2 2 23 13 24 15 
+27 #NS 0 Original_LF__DOT__Poly_LF_Poly_prod
+28 #NS 27 pair
+29 #NS 0 X
+30 #NS 0 Y
+31 #NI 7 123
+16 #EV 1
+32 #NI 7 125
+17 #EC 27 
+18 #EV 3
+19 #EA 17 18
+20 #EV 2
+21 #EA 19 20
+22 #EP #BD 32 16 21
+23 #EP #BD 31 16 22
+24 #EP #BI 30 2 23
+25 #EP #BI 29 2 24
+26 #EP #BD 30 2 2
+27 #EP #BD 29 2 26
+#IND 2 27 27 1 28 25 
+33 #NS 0 Original_LF__DOT__Poly_LF_Poly_option
+34 #NS 33 Some
+35 #NI 7 155
+28 #EV 0
+29 #EC 33 
+30 #EA 29 16
+31 #EP #BD 35 28 30
+32 #EP #BI 29 2 31
+36 #NS 33 None
+33 #EA 29 28
+34 #EP #BI 29 2 33
+#IND 1 33 26 2 34 32 36 34 
+37 #NS 0 Original_LF__DOT__Poly_LF_Poly_None
+35 #EC 36 
+36 #EA 35 28
+37 #EL #BI 29 2 36
+#DEF 37 34 37 
+38 #NS 0 Original_LF__DOT__Logic_LF_Logic_manual__grade__for__not__PNP__informal
+38 #EA 17 0
+39 #EA 38 13
+40 #EA 29 39
+41 #EA 35 39
+#DEF 38 40 41 

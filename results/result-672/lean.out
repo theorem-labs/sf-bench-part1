@@ -1,0 +1,97 @@
+1 #NS 0 Original_LF__DOT__Basics_LF_Basics_letter
+2 #NS 1 A
+0 #EC 1 
+3 #NS 1 B
+4 #NS 1 C
+5 #NS 1 D
+6 #NS 1 F
+1 #US 0
+1 #ES 1
+#IND 0 1 1 5 2 0 3 0 4 0 5 0 6 0 
+7 #NS 0 Original_LF__DOT__Basics_LF_Basics_modifier
+8 #NS 7 Plus
+2 #EC 7 
+9 #NS 7 Natural
+10 #NS 7 Minus
+#IND 0 7 1 3 8 2 9 2 10 2 
+11 #NS 0 Original_LF__DOT__Basics_LF_Basics_grade
+12 #NS 11 Grade
+13 #NS 0 a
+14 #NS 13 _@
+15 #NS 14 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__lower____grade____U_b____U_plus__iso
+16 #NS 15 _hyg
+17 #NI 16 25
+18 #NI 16 27
+3 #EC 11 
+4 #EP #BD 18 2 3
+5 #EP #BD 17 0 4
+#IND 0 11 1 1 12 5 
+19 #NS 0 Original_LF__DOT__Basics_LF_Basics_A
+6 #EC 2 
+#DEF 19 0 6 
+20 #NS 0 Original_LF__DOT__Basics_LF_Basics_B
+7 #EC 3 
+#DEF 20 0 7 
+21 #NS 0 Original_LF__DOT__Basics_LF_Basics_C
+8 #EC 4 
+#DEF 21 0 8 
+22 #NS 0 Original_LF__DOT__Basics_LF_Basics_D
+9 #EC 5 
+#DEF 22 0 9 
+23 #NS 0 Original_LF__DOT__Basics_LF_Basics_F
+10 #EC 6 
+#DEF 23 0 10 
+24 #NS 0 Original_LF__DOT__Basics_LF_Basics_Plus
+11 #EC 8 
+#DEF 24 2 11 
+25 #NS 0 Original_LF__DOT__Basics_LF_Basics_Natural
+12 #EC 9 
+#DEF 25 2 12 
+26 #NS 0 Original_LF__DOT__Basics_LF_Basics_Minus
+13 #EC 10 
+#DEF 26 2 13 
+27 #NS 0 Original_LF__DOT__Basics_LF_Basics_Grade
+14 #EC 12 
+#DEF 27 5 14 
+28 #NS 0 Original_LF__DOT__Basics_LF_Basics_lower__grade
+29 #NI 16 87
+15 #EP #BD 29 3 3
+#AX 28 15 
+30 #NS 0 Corelib_Init_Logic_eq
+31 #NS 30 refl
+32 #NS 0 α
+16 #EV 0
+17 #EC 30 
+18 #EV 1
+19 #EA 17 18
+20 #EA 19 16
+21 #EA 20 16
+22 #EP #BI 13 16 21
+23 #EP #BI 32 1 22
+33 #NI 16 94
+24 #ES 0
+25 #EP #BD 33 18 24
+26 #EP #BD 13 16 25
+27 #EP #BI 32 1 26
+#IND 2 30 27 1 31 23 
+34 #NS 0 True
+35 #NS 34 intro
+28 #EC 34 
+#IND 0 34 24 1 35 28 
+36 #NS 0 True_intro
+29 #EC 35 
+#DEF 36 28 29 
+37 #NS 0 Original_LF__DOT__Basics_LF_Basics_lower__grade__B__Plus
+30 #EA 17 3
+31 #EC 28 
+32 #EC 27 
+33 #EC 20 
+34 #EA 32 33
+35 #EC 24 
+36 #EA 34 35
+37 #EA 31 36
+38 #EA 30 37
+39 #EC 25 
+40 #EA 34 39
+41 #EA 38 40
+#AX 37 41 

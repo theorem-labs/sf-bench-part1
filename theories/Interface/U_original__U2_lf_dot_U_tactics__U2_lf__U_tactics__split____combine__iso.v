@@ -1,0 +1,30 @@
+From Stdlib Require Import Derive.
+From IsomorphismChecker Require Import IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
+Import IsomorphismChecker.EqualityLemmas.IsoEq.
+#[local] Unset Universe Polymorphism.
+#[local] Set Implicit Arguments.
+#[local] Hint Constants Opaque : typeclass_instances.
+From IsomorphismChecker Require Original.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__split____combine____statement__iso.
+
+Module Export CodeBlocks.
+
+  Export (hints) Interface.U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__split____combine____statement__iso.
+
+  Export Interface.U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__split____combine____statement__iso.CodeBlocks.
+
+End CodeBlocks.
+
+Module Type Args := Interface.U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__split____combine____statement__iso.Args <+ Interface.U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__split____combine____statement__iso.Interface.
+
+Module Type Interface (Import args : Args).
+
+Parameter imported_Original_LF__DOT__Tactics_LF_Tactics_split__combine : imported_Original_LF__DOT__Tactics_LF_Tactics_split__combine__statement.
+Parameter Original_LF__DOT__Tactics_LF_Tactics_split__combine_iso : rel_iso Original_LF__DOT__Tactics_LF_Tactics_split__combine__statement_iso Original.LF_DOT_Tactics.LF.Tactics.split_combine imported_Original_LF__DOT__Tactics_LF_Tactics_split__combine.
+Existing Instance Original_LF__DOT__Tactics_LF_Tactics_split__combine_iso.
+#[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Tactics.LF.Tactics.split_combine ?x) => unify x Original_LF__DOT__Tactics_LF_Tactics_split__combine_iso; constructor : typeclass_instances.
+#[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Tactics.LF.Tactics.split_combine imported_Original_LF__DOT__Tactics_LF_Tactics_split__combine ?x) => unify x Original_LF__DOT__Tactics_LF_Tactics_split__combine_iso; constructor : typeclass_instances.
+
+
+End Interface.

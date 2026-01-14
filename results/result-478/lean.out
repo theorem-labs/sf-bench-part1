@@ -1,0 +1,130 @@
+1 #NS 0 RocqFalse
+0 #ES 0
+#IND 0 1 0 0  
+2 #NS 0 TrueProp
+3 #NS 2 I
+1 #EC 2 
+#IND 0 2 0 1 3 1 
+4 #NS 0 eq'
+5 #NS 4 refl
+6 #NS 0 A
+1 #US 0
+2 #ES 1
+7 #NS 0 a
+3 #EV 0
+4 #EC 4 
+5 #EV 1
+6 #EA 4 5
+7 #EA 6 3
+8 #EA 7 3
+9 #EP #BD 7 3 8
+10 #EP #BI 6 2 9
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__eq____example3__iso
+10 #NS 9 _hyg
+11 #NI 10 13
+12 #NI 10 15
+11 #EP #BD 12 5 0
+12 #EP #BD 11 3 11
+13 #EP #BI 6 2 12
+#IND 2 4 13 1 5 10 
+13 #NS 0 Corelib_Init_Logic_eq
+14 #NS 0 x
+15 #NS 0 y
+14 #EV 2
+15 #EA 4 14
+16 #EA 15 5
+17 #EA 16 3
+18 #EL #BD 15 5 17
+19 #EL #BD 14 3 18
+20 #EL #BI 6 2 19
+#DEF 13 13 20 
+16 #NS 0 Corelib_Init_Logic_eq_refl
+21 #EC 13 
+22 #EA 21 5
+23 #EA 22 3
+24 #EA 23 3
+25 #EP #BD 7 3 24
+26 #EP #BI 6 2 25
+27 #EC 5 
+28 #EA 27 5
+29 #EA 28 3
+30 #EL #BD 7 3 29
+31 #EL #BI 6 2 30
+#DEF 16 26 31 
+17 #NS 0 eq'_Prop
+18 #NS 17 refl
+32 #EC 17 
+33 #EA 32 5
+34 #EA 33 3
+35 #EA 34 3
+36 #EP #BD 7 3 35
+37 #EP #BI 6 0 36
+38 #EP #BI 6 0 12
+#IND 2 17 38 1 18 37 
+19 #NS 0 Corelib_Init_Logic_eq_Prop
+39 #EA 32 14
+40 #EA 39 5
+41 #EA 40 3
+42 #EL #BD 15 5 41
+43 #EL #BD 14 3 42
+44 #EL #BI 6 0 43
+#DEF 19 38 44 
+20 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+21 #NS 20 nil
+22 #NS 0 X
+45 #EC 20 
+46 #EA 45 3
+47 #EP #BI 22 2 46
+23 #NS 20 cons
+24 #NI 10 67
+25 #NI 10 69
+48 #EA 45 5
+49 #EA 45 14
+50 #EP #BD 25 48 49
+51 #EP #BD 24 3 50
+52 #EP #BI 22 2 51
+53 #EP #BD 22 2 2
+#IND 1 20 53 2 21 47 23 52 
+26 #NS 0 Original_LF__DOT__Poly_LF_Poly_nil
+54 #EC 21 
+55 #EA 54 3
+56 #EL #BD 22 2 55
+#DEF 26 47 56 
+27 #NS 0 Original_LF__DOT__Poly_LF_Poly_cons
+57 #EC 23 
+58 #EA 57 3
+59 #EL #BI 22 2 58
+#DEF 27 52 59 
+28 #NS 0 Logic_not
+29 #NS 0 P
+60 #EP #BD 29 0 0
+30 #NI 10 114
+61 #EC 1 
+62 #EP #BD 30 3 61
+63 #EL #BD 29 0 62
+#DEF 28 60 63 
+31 #NS 0 Original_LF__DOT__AltAuto_LF_AltAuto_eq__example3
+32 #NS 0 h
+33 #NS 0 t
+34 #NI 10 125
+64 #EA 21 49
+65 #EC 26 
+66 #EA 65 14
+67 #EA 64 66
+68 #EC 27 
+69 #EA 68 14
+70 #EA 69 5
+71 #EA 70 3
+72 #EA 67 71
+73 #EP #BD 34 72 61
+74 #EP #BD 33 48 73
+75 #EP #BD 32 3 74
+76 #EP #BD 22 2 75
+#AX 31 76 
+35 #NS 0 False
+77 #EC 1 
+#DEF 35 0 77 
+36 #NS 0 True
+78 #EC 2 
+#DEF 36 0 78 

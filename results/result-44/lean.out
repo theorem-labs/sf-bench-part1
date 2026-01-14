@@ -1,0 +1,47 @@
+1 #NS 0 iff
+2 #NS 1 intro
+3 #NS 0 A
+0 #ES 0
+4 #NS 0 B
+5 #NS 0 mp
+6 #NS 0 a
+7 #NS 6 _@
+8 #NS 7 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__apply____iff____example1__iso
+9 #NS 8 _hyg
+10 #NI 9 7
+1 #EV 1
+2 #EP #BD 10 1 1
+11 #NS 0 mpr
+12 #NI 9 10
+3 #EV 3
+4 #EP #BD 12 1 3
+5 #EC 1 
+6 #EA 5 3
+7 #EV 2
+8 #EA 6 7
+9 #EP #BD 11 4 8
+10 #EP #BD 5 2 9
+11 #EP #BI 4 0 10
+12 #EP #BI 3 0 11
+13 #EP #BD 4 0 0
+14 #EP #BD 3 0 13
+#IND 2 1 14 1 2 12 
+13 #NS 0 Original_LF__DOT__Logic_LF_Logic_apply__iff__example1
+14 #NS 0 P
+15 #NS 0 Q
+16 #NS 0 R
+17 #NI 9 20
+15 #EA 5 7
+16 #EA 15 1
+18 #NI 9 24
+19 #NI 9 27
+17 #EP #BD 19 7 7
+20 #NI 9 32
+18 #EV 4
+19 #EP #BD 20 18 3
+20 #EP #BD 18 17 19
+21 #EP #BD 17 16 20
+22 #EP #BD 16 0 21
+23 #EP #BD 15 0 22
+24 #EP #BD 14 0 23
+#AX 13 24 

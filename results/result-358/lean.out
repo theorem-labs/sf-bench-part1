@@ -1,0 +1,231 @@
+1 #NS 0 Original_LF__DOT__Basics_LF_Basics_comparison
+2 #NS 1 Eq
+0 #EC 1 
+3 #NS 1 Lt
+4 #NS 1 Gt
+1 #US 0
+1 #ES 1
+#IND 0 1 1 3 2 0 3 0 4 0 
+5 #NS 0 Original_LF__DOT__Basics_LF_Basics_Eq
+2 #EC 2 
+#DEF 5 0 2 
+6 #NS 0 Original_LF__DOT__Basics_LF_Basics_Lt
+3 #EC 3 
+#DEF 6 0 3 
+7 #NS 0 Original_LF__DOT__Basics_LF_Basics_Gt
+4 #EC 4 
+#DEF 7 0 4 
+8 #NS 0 Original_LF__DOT__Basics_LF_Basics_modifier
+9 #NS 8 Plus
+5 #EC 8 
+10 #NS 8 Natural
+11 #NS 8 Minus
+#IND 0 8 1 3 9 5 10 5 11 5 
+12 #NS 0 Original_LF__DOT__Basics_LF_Basics_Plus
+6 #EC 9 
+#DEF 12 5 6 
+13 #NS 0 Original_LF__DOT__Basics_LF_Basics_Natural
+7 #EC 10 
+#DEF 13 5 7 
+14 #NS 0 Original_LF__DOT__Basics_LF_Basics_Minus
+8 #EC 11 
+#DEF 14 5 8 
+15 #NS 0 PUnit
+16 #NS 15 unit
+17 #NS 0 u
+2 #UP 17
+9 #EC 15 2
+10 #ES 2
+#IND 0 15 10 1 16 9 17
+18 #NS 0 Unit
+11 #EC 15 1
+#DEF 18 1 11 
+19 #NS 8 casesOn
+20 #NS 0 motive
+21 #NS 0 t
+12 #EP #BD 21 5 10
+22 #NS 0 Plus
+13 #EV 1
+14 #EA 13 6
+23 #NS 0 Natural
+15 #EV 2
+16 #EA 15 7
+24 #NS 0 Minus
+17 #EV 3
+18 #EA 17 8
+19 #EV 4
+20 #EA 19 17
+21 #EP #BD 24 18 20
+22 #EP #BD 23 16 21
+23 #EP #BD 22 14 22
+24 #EP #BD 21 5 23
+25 #EP #BI 20 12 24
+25 #NS 8 rec
+26 #EC 25 2
+27 #EA 26 19
+28 #EA 27 15
+29 #EA 28 13
+30 #EV 0
+31 #EA 29 30
+32 #EA 31 17
+33 #EL #BD 24 18 32
+34 #EL #BD 23 16 33
+35 #EL #BD 22 14 34
+36 #EL #BD 21 5 35
+37 #EL #BI 20 12 36
+#DEF 19 25 37 17
+26 #NS 18 unit
+38 #EC 18 
+39 #EC 16 1
+#DEF 26 38 39 
+27 #NS 0 Original_LF__DOT__Basics_LF_Basics_modifier__comparison
+28 #NS 27 match_1
+29 #NS 0 m1
+30 #NS 29 _@
+31 #NS 30 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__modifier____comparison__iso
+32 #NS 31 _hyg
+33 #NI 32 53
+34 #NS 0 m2
+35 #NS 34 _@
+36 #NS 35 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__modifier____comparison__iso
+37 #NS 36 _hyg
+38 #NI 37 55
+39 #NS 0 u_1
+3 #UP 39
+40 #ES 3
+41 #EP #BD 38 5 40
+42 #EP #BD 33 5 41
+40 #NS 0 h_1
+43 #EA 17 6
+44 #EA 43 6
+45 #EP #BD 0 38 44
+41 #NS 0 h_2
+42 #NS 0 x
+43 #NS 42 _@
+44 #NS 43 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__modifier____comparison__iso
+45 #NS 44 _hyg
+46 #NI 45 66
+46 #EA 19 6
+47 #EA 46 30
+48 #EP #BD 46 5 47
+47 #NS 0 h_3
+49 #EV 5
+50 #EA 49 7
+51 #EA 50 6
+52 #EP #BD 0 38 51
+48 #NS 0 h_4
+53 #EV 6
+54 #EA 53 7
+55 #EA 54 7
+56 #EP #BD 0 38 55
+49 #NS 0 h_5
+50 #NI 45 83
+57 #EV 7
+58 #EA 57 7
+59 #EA 58 30
+60 #EP #BD 50 5 59
+51 #NS 0 h_6
+61 #EV 8
+62 #EA 61 8
+63 #EA 62 6
+64 #EP #BD 0 38 63
+52 #NS 0 h_7
+65 #EV 9
+66 #EA 65 8
+67 #EA 66 7
+68 #EP #BD 0 38 67
+53 #NS 0 h_8
+69 #EV 10
+70 #EA 69 8
+71 #EA 70 8
+72 #EP #BD 0 38 71
+73 #EA 69 65
+74 #EA 73 61
+75 #EP #BD 53 72 74
+76 #EP #BD 52 68 75
+77 #EP #BD 51 64 76
+78 #EP #BD 49 60 77
+79 #EP #BD 48 56 78
+80 #EP #BD 47 52 79
+81 #EP #BD 41 48 80
+82 #EP #BD 40 45 81
+83 #EP #BD 38 5 82
+84 #EP #BD 33 5 83
+85 #EP #BD 20 42 84
+86 #EC 19 3
+87 #EV 11
+88 #EA 87 30
+89 #EA 88 65
+90 #EL #BD 42 5 89
+91 #EA 86 90
+92 #EA 91 65
+93 #EA 87 6
+94 #EA 93 30
+95 #EL #BD 42 5 94
+96 #EA 86 95
+97 #EA 96 61
+98 #EC 26 
+99 #EA 57 98
+100 #EA 97 99
+101 #EA 100 54
+102 #EA 53 8
+103 #EA 101 102
+104 #EA 92 103
+105 #EA 87 7
+106 #EA 105 30
+107 #EL #BD 42 5 106
+108 #EA 86 107
+109 #EA 108 61
+110 #EA 49 98
+111 #EA 109 110
+112 #EA 19 98
+113 #EA 111 112
+114 #EA 113 18
+115 #EA 104 114
+116 #EA 87 8
+117 #EA 116 30
+118 #EL #BD 42 5 117
+119 #EA 86 118
+120 #EA 119 61
+121 #EA 15 98
+122 #EA 120 121
+123 #EA 13 98
+124 #EA 122 123
+125 #EA 30 98
+126 #EA 124 125
+127 #EA 115 126
+128 #EL #BD 53 72 127
+129 #EL #BD 52 68 128
+130 #EL #BD 51 64 129
+131 #EL #BD 49 60 130
+132 #EL #BD 48 56 131
+133 #EL #BD 47 52 132
+134 #EL #BD 41 48 133
+135 #EL #BD 40 45 134
+136 #EL #BD 38 5 135
+137 #EL #BD 33 5 136
+138 #EL #BD 20 42 137
+#DEF 28 85 138 39
+139 #EP #BD 34 5 0
+140 #EP #BD 29 5 139
+141 #EC 28 1
+142 #EL #BD 38 5 0
+143 #EL #BD 33 5 142
+144 #EA 141 143
+145 #EA 144 13
+146 #EA 145 30
+54 #NS 0 _
+147 #EL #BD 54 38 2
+148 #EA 146 147
+149 #EL #BD 46 5 4
+150 #EA 148 149
+151 #EL #BD 54 38 3
+152 #EA 150 151
+153 #EA 152 147
+154 #EA 153 149
+155 #EA 154 151
+156 #EA 155 151
+157 #EA 156 147
+158 #EL #BD 34 5 157
+159 #EL #BD 29 5 158
+#DEF 27 140 159 

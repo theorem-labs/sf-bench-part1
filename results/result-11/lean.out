@@ -1,0 +1,55 @@
+1 #NS 0 Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2
+2 #NS 0 P
+0 #ES 0
+3 #NS 0 Q
+4 #NS 0 R
+5 #NS 0 S
+6 #NS 0 T
+7 #NS 0 U
+8 #NS 0 a
+9 #NS 8 _@
+10 #NS 9 U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso
+11 #NS 10 _hyg
+12 #NI 11 12
+13 #NI 11 15
+1 #EV 5
+2 #EP #BD 13 1 1
+14 #NI 11 18
+15 #NI 11 21
+3 #EV 6
+4 #EP #BD 15 3 1
+16 #NI 11 24
+17 #NI 11 27
+5 #EV 3
+6 #EP #BD 17 5 3
+18 #NI 11 30
+19 #NI 11 33
+7 #EP #BD 19 1 2
+20 #NI 11 38
+21 #NI 11 41
+22 #NI 11 44
+8 #EV 9
+9 #EP #BD 22 8 8
+23 #NI 11 47
+10 #EV 10
+11 #EV 8
+12 #EP #BD 23 10 11
+13 #EP #BD 21 9 12
+24 #NI 11 50
+25 #NI 11 52
+14 #EV 11
+15 #EV 7
+16 #EP #BD 25 14 15
+17 #EP #BD 24 3 16
+18 #EP #BD 20 13 17
+19 #EP #BD 18 7 18
+20 #EP #BD 16 6 19
+21 #EP #BD 14 4 20
+22 #EP #BD 12 2 21
+23 #EP #BD 7 0 22
+24 #EP #BD 6 0 23
+25 #EP #BD 5 0 24
+26 #EP #BD 4 0 25
+27 #EP #BD 3 0 26
+28 #EP #BD 2 0 27
+#AX 1 28 

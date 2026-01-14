@@ -1,0 +1,43 @@
+1 #NS 0 Or
+2 #NS 1 inl
+3 #NS 0 a
+0 #ES 0
+4 #NS 0 b
+5 #NS 0 h
+1 #EV 1
+2 #EC 1 
+3 #EV 2
+4 #EA 2 3
+5 #EA 4 1
+6 #EP #BD 5 1 5
+7 #EP #BI 4 0 6
+8 #EP #BI 3 0 7
+6 #NS 1 inr
+9 #EV 0
+10 #EP #BD 5 9 5
+11 #EP #BI 4 0 10
+12 #EP #BI 3 0 11
+13 #EP #BD 4 0 0
+14 #EP #BD 3 0 13
+#IND 2 1 14 2 2 8 6 12 
+7 #NS 0 or
+8 #NS 0 P
+9 #NS 0 Q
+15 #EA 2 1
+16 #EA 15 9
+17 #EL #BD 9 0 16
+18 #EL #BD 8 0 17
+#DEF 7 14 18 
+10 #NS 0 Original_LF__DOT__Logic_LF_Logic_or__commut
+11 #NS 3 _@
+12 #NS 11 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__or____commut__iso
+13 #NS 12 _hyg
+14 #NI 13 16
+19 #EC 7 
+20 #EA 19 1
+21 #EA 20 9
+22 #EA 20 3
+23 #EP #BD 14 21 22
+24 #EP #BD 9 0 23
+25 #EP #BD 8 0 24
+#AX 10 25 

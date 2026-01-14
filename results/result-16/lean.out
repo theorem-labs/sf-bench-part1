@@ -1,0 +1,50 @@
+1 #NS 0 Or
+2 #NS 1 inl
+3 #NS 0 a
+0 #ES 0
+4 #NS 0 b
+5 #NS 0 h
+1 #EV 1
+2 #EC 1 
+3 #EV 2
+4 #EA 2 3
+5 #EA 4 1
+6 #EP #BD 5 1 5
+7 #EP #BI 4 0 6
+8 #EP #BI 3 0 7
+6 #NS 1 inr
+9 #EV 0
+10 #EP #BD 5 9 5
+11 #EP #BI 4 0 10
+12 #EP #BI 3 0 11
+13 #EP #BD 4 0 0
+14 #EP #BD 3 0 13
+#IND 2 1 14 2 2 8 6 12 
+7 #NS 0 False
+#IND 0 7 0 0  
+8 #NS 0 Not
+9 #NS 3 _@
+10 #NS 9 Init
+11 #NS 10 Prelude
+12 #NS 11 _hyg
+13 #NI 12 161
+15 #EC 7 
+16 #EP #BD 13 9 15
+17 #EL #BD 3 0 16
+#DEF 8 13 17 
+14 #NS 0 Original_LF__DOT__Logic_LF_Logic_implies__to__or
+15 #NS 0 P
+16 #NS 0 Q
+17 #NS 9 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__implies____to____or__iso
+18 #NS 17 _hyg
+19 #NI 18 11
+20 #NI 18 14
+18 #EP #BD 20 1 1
+19 #EC 8 
+20 #EA 19 3
+21 #EA 2 20
+22 #EA 21 1
+23 #EP #BD 19 18 22
+24 #EP #BD 16 0 23
+25 #EP #BD 15 0 24
+#DEF 14 0 25 

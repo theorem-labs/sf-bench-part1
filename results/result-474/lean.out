@@ -1,0 +1,73 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__disc____example__iso
+7 #NS 6 _hyg
+8 #NI 7 38
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 _0
+3 #EC 2 
+#DEF 9 0 3 
+10 #NS 0 S
+4 #EC 3 
+#DEF 10 1 4 
+11 #NS 0 Corelib_Init_Logic_eq
+12 #NS 11 refl
+13 #NS 0 A
+5 #EV 0
+6 #EC 11 
+7 #EV 1
+8 #EA 6 7
+9 #EA 8 5
+10 #EA 9 5
+11 #EP #BD 4 5 10
+12 #EP #BI 13 2 11
+14 #NI 7 13
+15 #NI 7 15
+13 #ES 0
+14 #EP #BD 15 7 13
+15 #EP #BD 14 5 14
+16 #EP #BI 13 2 15
+#IND 2 11 16 1 12 12 
+16 #NS 0 Corelib_Init_Logic_eq_Prop
+17 #NS 16 refl
+17 #EC 16 
+18 #EA 17 7
+19 #EA 18 5
+20 #EA 19 5
+21 #EP #BD 4 5 20
+22 #EP #BI 13 13 21
+23 #EP #BI 13 13 15
+#IND 2 16 23 1 17 22 
+18 #NS 0 True
+19 #NS 18 intro
+24 #EC 18 
+#IND 0 18 13 1 19 24 
+20 #NS 0 False
+#IND 0 20 13 0  
+21 #NS 0 Logic_not
+22 #NS 0 P
+25 #EP #BD 22 13 13
+23 #NI 7 63
+26 #EC 20 
+27 #EP #BD 23 5 26
+28 #EL #BD 22 13 27
+#DEF 21 25 28 
+24 #NS 0 Original_LF__DOT__Logic_LF_Logic_disc__example
+25 #NS 0 n
+26 #NI 7 71
+29 #EA 6 0
+30 #EC 9 
+31 #EA 29 30
+32 #EC 10 
+33 #EA 32 5
+34 #EA 31 33
+35 #EP #BD 26 34 26
+36 #EP #BD 25 0 35
+#AX 24 36 

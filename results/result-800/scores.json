@@ -1,0 +1,18 @@
+{
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aid__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aminus__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_anum__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_casgn__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_cseq__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_cwhile__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_x__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_z__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__bexp__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__com__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__subtract____slowly____body__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__subtract____slowly__iso": 1.0,
+  "U_string__string__iso": 1.0,
+  "nat__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__subtract____3____from____5____slowly__iso": 1.0
+}

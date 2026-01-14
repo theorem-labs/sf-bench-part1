@@ -1,0 +1,29 @@
+1 #NS 0 False
+0 #ES 0
+#IND 0 1 0 0  
+2 #NS 0 Logic_not
+3 #NS 0 P
+1 #EP #BD 3 0 0
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_logic__U2_lf__U_logic__not____implies____our____not__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+2 #EV 0
+3 #EC 1 
+4 #EP #BD 8 2 3
+5 #EL #BD 3 0 4
+#DEF 2 1 5 
+9 #NS 0 Original_LF__DOT__Logic_LF_Logic_not__implies__our__not
+10 #NI 7 14
+6 #EC 2 
+7 #EA 6 2
+11 #NS 0 Q
+12 #NI 7 20
+8 #EV 2
+9 #EV 1
+10 #EP #BD 12 8 9
+11 #EP #BD 11 0 10
+12 #EP #BD 10 7 11
+13 #EP #BD 3 0 12
+#AX 9 13 

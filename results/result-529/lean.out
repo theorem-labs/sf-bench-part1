@@ -1,0 +1,125 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 X
+1 #US 0
+2 #US 1
+0 #ES 2
+4 #NS 0 x
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 Solution
+8 #NS 7 _hyg
+9 #NI 8 9
+10 #NI 8 11
+9 #ES 0
+10 #EP #BD 10 3 9
+11 #EP #BD 9 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+11 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_mult
+12 #NI 8 142
+13 #ES 1
+13 #NI 8 147
+14 #NI 8 150
+14 #EP #BD 14 1 3
+15 #NI 8 153
+15 #EV 2
+16 #EP #BD 15 3 15
+17 #EP #BD 13 14 16
+18 #EP #BD 3 13 17
+16 #NI 8 156
+19 #EP #BD 16 18 18
+20 #EP #BD 12 18 19
+#AX 11 20 
+17 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_zero
+18 #NS 0 _f
+21 #EL #BD 4 3 1
+22 #EL #BD 18 14 21
+23 #EL #BD 3 13 22
+#DEF 17 18 23 
+19 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_plus
+#AX 19 20 
+20 #NS 0 Original_LF__DOT__Poly_LF_Poly_doit3times
+21 #NS 0 f
+22 #NS 0 n
+24 #EA 3 1
+25 #EA 3 24
+26 #EA 3 25
+27 #EL #BD 22 3 26
+28 #EL #BD 21 14 27
+29 #EL #BD 3 13 28
+#DEF 20 18 29 
+23 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_three
+30 #EC 20 
+#DEF 23 18 30 
+24 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_mult__2
+31 #EA 2 18
+25 #NS 0 x2
+26 #NS 0 x4
+27 #NS 0 x6
+32 #EC 11 
+28 #NS 0 x0
+29 #NS 0 x1
+33 #EC 17 
+34 #EA 33 15
+30 #NS 0 x3
+35 #EA 15 1
+36 #EL #BD 30 15 35
+37 #EA 34 36
+38 #EA 37 1
+39 #EL #BD 29 3 38
+40 #EL #BD 28 14 39
+41 #EL #BD 4 13 40
+42 #EA 32 41
+43 #EC 19 
+31 #NS 0 x5
+32 #NS 0 x7
+44 #EC 23 
+45 #EA 44 15
+46 #EA 45 36
+47 #EA 46 1
+48 #EL #BD 32 3 47
+49 #EL #BD 31 14 48
+50 #EL #BD 29 13 49
+51 #EA 43 50
+52 #EA 51 50
+53 #EA 52 15
+54 #EA 53 36
+55 #EA 54 1
+56 #EL #BD 30 3 55
+57 #EL #BD 28 14 56
+58 #EL #BD 4 13 57
+59 #EA 42 58
+60 #EA 59 15
+61 #EA 60 36
+62 #EA 61 1
+63 #EL #BD 27 3 62
+64 #EL #BD 26 14 63
+65 #EL #BD 25 13 64
+66 #EA 31 65
+67 #EA 66 41
+#AX 24 67 
+33 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
+#DEF 33 0 18 
+34 #NS 0 Corelib_Init_Logic_eq_Prop
+35 #NS 34 refl
+68 #EC 34 
+69 #EA 68 3
+70 #EA 69 1
+71 #EA 70 1
+72 #EP #BD 4 1 71
+73 #EP #BI 3 9 72
+74 #EP #BI 3 9 11
+#IND 2 34 74 1 35 73 
+36 #NS 0 True
+37 #NS 36 intro
+75 #EC 36 
+#IND 0 36 9 1 37 75 

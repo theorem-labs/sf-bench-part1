@@ -1,0 +1,5 @@
+{
+  "bool": "mybool_alias",
+  "True": "myTrue",
+  "False": "myFalse"
+}

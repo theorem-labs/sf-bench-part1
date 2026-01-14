@@ -1,0 +1,1 @@
+nat S Original_LF__DOT__IndPrinciples_LF_IndPrinciples_build__proof Original_LF__DOT__IndPrinciples_LF_IndPrinciples_nat__ind__tidy

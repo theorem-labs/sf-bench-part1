@@ -1,0 +1,94 @@
+1 #NS 0 Original_LF_Rel_relation
+2 #NS 0 X
+1 #US 0
+0 #ES 1
+1 #EP #BD 2 0 0
+3 #NS 0 a
+4 #NS 3 _@
+5 #NS 4 U_original__U2_lf__U_rel__equivalence__iso
+6 #NS 5 _hyg
+7 #NI 6 6
+2 #EV 0
+8 #NI 6 8
+3 #EV 1
+4 #ES 0
+5 #EP #BD 8 3 4
+6 #EP #BD 7 2 5
+7 #EL #BD 2 0 6
+#DEF 1 1 7 
+9 #NS 0 Original_LF_Rel_reflexive
+10 #NS 0 R
+8 #EP #BD 10 6 4
+9 #EP #BD 2 0 8
+10 #EA 3 2
+11 #EA 10 2
+12 #EP #BD 3 3 11
+13 #EL #BD 10 6 12
+14 #EL #BD 2 0 13
+#DEF 9 9 14 
+11 #NS 0 Original_LF_Rel_symmetric
+12 #NS 0 b
+15 #EV 2
+13 #NI 6 43
+16 #EA 15 3
+17 #EA 16 2
+18 #EV 3
+19 #EA 18 3
+20 #EA 19 15
+21 #EP #BD 13 17 20
+22 #EP #BD 12 15 21
+23 #EP #BD 3 3 22
+24 #EL #BD 10 6 23
+25 #EL #BD 2 0 24
+#DEF 11 9 25 
+14 #NS 0 Original_LF_Rel_transitive
+15 #NS 0 c
+16 #NI 6 66
+26 #EA 18 15
+27 #EA 26 3
+17 #NI 6 70
+28 #EV 4
+29 #EA 28 15
+30 #EA 29 3
+31 #EV 5
+32 #EA 31 28
+33 #EA 32 15
+34 #EP #BD 17 30 33
+35 #EP #BD 16 27 34
+36 #EP #BD 15 18 35
+37 #EP #BD 12 15 36
+38 #EP #BD 3 3 37
+39 #EL #BD 10 6 38
+40 #EL #BD 2 0 39
+#DEF 14 9 40 
+18 #NS 0 And
+19 #NS 18 intro
+20 #NS 0 left
+21 #NS 0 right
+41 #EC 18 
+42 #EA 41 18
+43 #EA 42 15
+44 #EP #BD 21 3 43
+45 #EP #BD 20 3 44
+46 #EP #BI 12 4 45
+47 #EP #BI 3 4 46
+48 #EP #BD 12 4 4
+49 #EP #BD 3 4 48
+#IND 2 18 49 1 19 47 
+22 #NS 0 Original_LF_Rel_equivalence
+50 #EC 9 
+51 #EA 50 3
+52 #EA 51 2
+53 #EA 41 52
+54 #EC 11 
+55 #EA 54 3
+56 #EA 55 2
+57 #EA 41 56
+58 #EC 14 
+59 #EA 58 3
+60 #EA 59 2
+61 #EA 57 60
+62 #EA 53 61
+63 #EL #BD 10 6 62
+64 #EL #BD 2 0 63
+#DEF 22 9 64 

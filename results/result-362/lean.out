@@ -1,0 +1,227 @@
+1 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool
+2 #NS 1 true
+0 #EC 1 
+3 #NS 1 false
+1 #US 0
+1 #ES 1
+#IND 0 1 1 2 2 0 3 0 
+4 #NS 0 Original_LF__DOT__Basics_LF_Basics_true
+2 #EC 2 
+#DEF 4 0 2 
+5 #NS 0 Original_LF__DOT__Basics_LF_Basics_false
+3 #EC 3 
+#DEF 5 0 3 
+6 #NS 0 Original_LF__DOT__Basics_LF_Basics_TuplePlayground_bit
+7 #NS 6 B1
+4 #EC 6 
+8 #NS 6 B0
+#IND 0 6 1 2 7 4 8 4 
+9 #NS 0 Original_LF__DOT__Basics_LF_Basics_TuplePlayground_nybble
+10 #NS 9 bits
+11 #NS 0 a
+12 #NS 11 _@
+13 #NS 12 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_tupleU_playground__all____zero__iso
+14 #NS 13 _hyg
+15 #NI 14 29
+16 #NI 14 31
+17 #NI 14 33
+18 #NI 14 35
+5 #EC 9 
+6 #EP #BD 18 4 5
+7 #EP #BD 17 4 6
+8 #EP #BD 16 4 7
+9 #EP #BD 15 4 8
+#IND 0 9 1 1 10 9 
+19 #NS 0 PUnit
+20 #NS 19 unit
+21 #NS 0 u
+2 #UP 21
+10 #EC 19 2
+11 #ES 2
+#IND 0 19 11 1 20 10 21
+22 #NS 0 Unit
+12 #EC 19 1
+#DEF 22 1 12 
+23 #NS 9 casesOn
+24 #NS 0 motive
+25 #NS 0 t
+13 #EP #BD 25 5 11
+26 #NS 0 bits
+14 #EV 5
+15 #EC 10 
+16 #EV 3
+17 #EA 15 16
+18 #EV 2
+19 #EA 17 18
+20 #EV 1
+21 #EA 19 20
+22 #EV 0
+23 #EA 21 22
+24 #EA 14 23
+25 #EP #BD 18 4 24
+26 #EP #BD 17 4 25
+27 #EP #BD 16 4 26
+28 #EP #BD 15 4 27
+29 #EA 18 20
+30 #EP #BD 26 28 29
+31 #EP #BD 25 5 30
+32 #EP #BI 24 13 31
+27 #NS 9 rec
+33 #EC 27 2
+34 #EA 33 18
+35 #EV 4
+36 #EA 35 16
+37 #EA 36 18
+38 #EA 37 20
+39 #EA 38 22
+40 #EL #BD 18 4 39
+41 #EL #BD 17 4 40
+42 #EL #BD 16 4 41
+43 #EL #BD 15 4 42
+44 #EA 34 43
+45 #EA 44 20
+46 #EL #BD 26 28 45
+47 #EL #BD 25 5 46
+48 #EL #BI 24 13 47
+#DEF 23 32 48 21
+28 #NS 6 casesOn
+49 #EP #BD 25 4 11
+29 #NS 0 B1
+50 #EC 7 
+51 #EA 20 50
+30 #NS 0 B0
+52 #EC 8 
+53 #EA 18 52
+54 #EA 16 18
+55 #EP #BD 30 53 54
+56 #EP #BD 29 51 55
+57 #EP #BD 25 4 56
+58 #EP #BI 24 49 57
+31 #NS 6 rec
+59 #EC 31 2
+60 #EA 59 16
+61 #EA 60 20
+62 #EA 61 22
+63 #EA 62 18
+64 #EL #BD 30 53 63
+65 #EL #BD 29 51 64
+66 #EL #BD 25 4 65
+67 #EL #BI 24 49 66
+#DEF 28 58 67 21
+32 #NS 22 unit
+68 #EC 22 
+69 #EC 20 1
+#DEF 32 68 69 
+33 #NS 0 Original_LF__DOT__Basics_LF_Basics_TuplePlayground_all__zero
+34 #NS 33 match_1
+35 #NS 0 nb
+36 #NS 35 _@
+37 #NS 36 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_tupleU_playground__all____zero__iso
+38 #NS 37 _hyg
+39 #NI 38 74
+40 #NS 0 u_1
+3 #UP 40
+70 #ES 3
+71 #EP #BD 39 5 70
+41 #NS 0 h_1
+72 #EA 15 52
+73 #EA 72 52
+74 #EA 73 52
+75 #EA 74 52
+76 #EA 18 75
+77 #EP #BD 0 68 76
+42 #NS 0 h_2
+43 #NS 0 x
+44 #NS 43 _@
+45 #NS 44 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_tupleU_playground__all____zero__iso
+46 #NS 45 _hyg
+47 #NI 46 93
+78 #EA 16 22
+79 #EP #BD 47 5 78
+80 #EP #BD 42 79 54
+81 #EP #BD 41 77 80
+82 #EP #BD 39 5 81
+83 #EP #BD 24 71 82
+84 #EC 23 3
+85 #EA 35 22
+86 #EL #BD 43 5 85
+87 #EA 84 86
+88 #EA 87 18
+48 #NI 15 95
+49 #NI 16 96
+50 #NI 17 97
+51 #NI 18 98
+89 #EC 28 3
+90 #EV 8
+91 #EA 15 22
+92 #EA 91 16
+93 #EA 92 18
+94 #EA 93 20
+95 #EA 90 94
+96 #EL #BD 43 4 95
+97 #EA 89 96
+98 #EA 97 16
+99 #EA 15 50
+100 #EA 99 18
+101 #EA 100 20
+102 #EA 101 22
+103 #EA 35 102
+104 #EA 98 103
+105 #EA 72 22
+106 #EA 105 18
+107 #EA 106 20
+108 #EA 90 107
+109 #EL #BD 43 4 108
+110 #EA 89 109
+111 #EA 110 18
+112 #EA 72 50
+113 #EA 112 20
+114 #EA 113 22
+115 #EA 35 114
+116 #EA 111 115
+117 #EA 73 22
+118 #EA 117 20
+119 #EA 90 118
+120 #EL #BD 43 4 119
+121 #EA 89 120
+122 #EA 121 20
+123 #EA 73 50
+124 #EA 123 22
+125 #EA 35 124
+126 #EA 122 125
+127 #EA 74 22
+128 #EA 90 127
+129 #EL #BD 43 4 128
+130 #EA 89 129
+131 #EA 130 22
+132 #EA 74 50
+133 #EA 35 132
+134 #EA 131 133
+135 #EC 32 
+136 #EA 14 135
+137 #EA 134 136
+138 #EA 126 137
+139 #EA 116 138
+140 #EA 104 139
+141 #EL #BD 51 4 140
+142 #EL #BD 50 4 141
+143 #EL #BD 49 4 142
+144 #EL #BD 48 4 143
+145 #EA 88 144
+146 #EL #BD 42 79 145
+147 #EL #BD 41 77 146
+148 #EL #BD 39 5 147
+149 #EL #BD 24 71 148
+#DEF 34 83 149 40
+150 #EP #BD 35 5 0
+151 #EC 34 1
+152 #EL #BD 39 5 0
+153 #EA 151 152
+154 #EA 153 22
+52 #NS 0 _
+155 #EL #BD 52 68 2
+156 #EA 154 155
+157 #EL #BD 47 5 3
+158 #EA 156 157
+159 #EL #BD 35 5 158
+#DEF 33 150 159 

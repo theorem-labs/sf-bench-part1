@@ -1,0 +1,41 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_indU_principles__U2_lf__U_indU_principles__le1__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 Original_LF__DOT__IndPrinciples_LF_IndPrinciples_le1
+10 #NS 9 le1_n
+11 #NS 0 n
+3 #EC 9 
+4 #EV 0
+5 #EA 3 4
+6 #EA 5 4
+7 #EP #BD 11 0 6
+12 #NS 9 le1_S
+13 #NS 0 m
+14 #NI 7 34
+8 #EV 1
+9 #EA 3 8
+10 #EA 9 4
+11 #EV 2
+12 #EA 3 11
+13 #EC 3 
+14 #EA 13 8
+15 #EA 12 14
+16 #EP #BD 14 10 15
+17 #EP #BD 13 0 16
+18 #EP #BD 11 0 17
+15 #NI 7 19
+16 #NI 7 21
+19 #ES 0
+20 #EP #BD 16 0 19
+21 #EP #BD 15 0 20
+#IND 1 9 21 2 10 7 12 18 

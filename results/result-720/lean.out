@@ -1,0 +1,106 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__test____eqblist2__iso
+7 #NS 6 _hyg
+8 #NI 7 82
+9 #NI 7 84
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool
+11 #NS 10 true
+13 #EC 10 
+12 #NS 10 false
+#IND 0 10 0 2 11 13 12 13 
+13 #NS 0 Mynat
+14 #NS 13 O
+14 #EC 13 
+15 #NS 13 S
+16 #NI 7 6
+15 #EP #BD 16 14 14
+#IND 0 13 0 2 14 14 15 15 
+17 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_natlist
+18 #NS 17 nil
+16 #EC 17 
+19 #NS 17 cons
+20 #NI 7 35
+21 #NI 7 37
+17 #EP #BD 21 16 16
+18 #EP #BD 20 14 17
+#IND 0 17 0 2 18 16 19 18 
+22 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_eqblist
+23 #NI 7 113
+24 #NI 7 115
+19 #EP #BD 24 16 13
+20 #EP #BD 23 16 19
+#AX 22 20 
+25 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_cons
+21 #EC 19 
+#DEF 25 18 21 
+26 #NS 0 S
+22 #EC 15 
+#DEF 26 15 22 
+27 #NS 0 _0
+23 #EC 14 
+#DEF 27 14 23 
+28 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_nil
+24 #EC 18 
+#DEF 28 16 24 
+29 #NS 0 Original_LF__DOT__Basics_LF_Basics_true
+25 #EC 11 
+#DEF 29 13 25 
+30 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_test__eqblist2
+26 #EA 2 13
+27 #EC 22 
+28 #EC 25 
+29 #EC 26 
+30 #EC 27 
+31 #EA 29 30
+32 #EA 28 31
+33 #EA 29 31
+34 #EA 28 33
+35 #EA 29 33
+36 #EA 28 35
+37 #EC 28 
+38 #EA 36 37
+39 #EA 34 38
+40 #EA 32 39
+41 #EA 27 40
+42 #EA 41 40
+43 #EA 26 42
+44 #EC 29 
+45 #EA 43 44
+#AX 30 45 
+31 #NS 0 nat
+#DEF 31 0 14 
+32 #NS 0 Corelib_Init_Logic_eq_Prop
+33 #NS 32 refl
+46 #EC 32 
+47 #EA 46 3
+48 #EA 47 1
+49 #EA 48 1
+50 #EP #BD 4 1 49
+51 #EP #BI 3 9 50
+52 #EP #BI 3 9 11
+#IND 2 32 52 1 33 51 
+34 #NS 0 PTrue
+35 #NS 34 intro
+53 #EC 34 
+#IND 0 34 9 1 35 53 
+36 #NS 0 True
+#DEF 36 9 53 

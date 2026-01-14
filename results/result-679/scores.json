@@ -1,0 +1,13 @@
+{
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aid__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_amult__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_casgn__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_x__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_y__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_z__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__bexp__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__com__iso": 1.0,
+  "U_string__string__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_xtimesU_yinU_z__iso": 1.0
+}

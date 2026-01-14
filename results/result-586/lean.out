@@ -1,0 +1,84 @@
+1 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
+1 #US 0
+2 #US 1
+0 #ES 2
+2 #NS 0 X
+1 #ES 1
+3 #NS 0 a
+4 #NS 3 _@
+5 #NS 4 U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__mult____3__iso
+6 #NS 5 _hyg
+7 #NI 6 8
+8 #NI 6 11
+2 #EV 0
+3 #EV 1
+4 #EP #BD 8 2 3
+9 #NI 6 14
+5 #EV 2
+6 #EP #BD 9 3 5
+7 #EP #BD 7 4 6
+8 #EP #BD 2 1 7
+#DEF 1 0 8 
+10 #NS 0 Original_LF__DOT__Poly_LF_Poly_doit3times
+11 #NS 0 f
+12 #NS 0 n
+9 #EA 3 2
+10 #EA 3 9
+11 #EA 3 10
+12 #EL #BD 12 3 11
+13 #EL #BD 11 4 12
+14 #EL #BI 2 1 13
+#DEF 10 8 14 
+13 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_two
+14 #NS 0 x
+15 #EL #BD 14 3 10
+16 #EL #BD 11 4 15
+17 #EL #BD 2 1 16
+#DEF 13 8 17 
+15 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_three
+18 #EC 10 
+#DEF 15 8 18 
+16 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_plus
+17 #NI 6 75
+18 #NI 6 90
+19 #EP #BD 18 8 8
+20 #EP #BD 17 8 19
+#AX 16 20 
+19 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_mult
+#AX 19 20 
+20 #NS 0 Corelib_Init_Logic_eq
+21 #NS 20 refl
+22 #NS 0 u
+3 #UP 22
+21 #ES 3
+22 #EC 20 3
+23 #EA 22 3
+24 #EA 23 2
+25 #EA 24 2
+26 #EP #BD 14 2 25
+27 #EP #BI 2 21 26
+23 #NI 6 164
+24 #NI 6 166
+28 #ES 0
+29 #EP #BD 24 3 28
+30 #EP #BD 23 2 29
+31 #EP #BI 2 21 30
+#IND 2 20 31 1 21 27 22
+25 #NS 0 True
+26 #NS 25 intro
+32 #EC 25 
+#IND 0 25 28 1 26 32 
+27 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_mult__3
+33 #EC 20 2
+34 #EA 33 8
+35 #EC 19 
+36 #EC 13 
+37 #EA 35 36
+38 #EC 15 
+39 #EA 37 38
+40 #EA 34 39
+41 #EC 16 
+42 #EA 41 38
+43 #EA 42 38
+44 #EA 40 43
+#AX 27 44 

@@ -1,0 +1,48 @@
+From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
+Import IsoEq.
+From LeanImport Require Import Lean.
+#[local] Set Universe Polymorphism.
+#[local] Set Implicit Arguments.
+From IsomorphismChecker Require Original Imported.
+(* Print Imported. *)
+Typeclasses Opaque rel_iso. (* for speed *)
+
+
+From IsomorphismChecker Require Export Isomorphisms.nat__iso.
+
+Definition imported_Nat_add : imported_nat -> imported_nat -> imported_nat := Imported.Nat_add.
+
+(* Prove that Nat_add is compatible with nat_iso *)
+Lemma Nat_add_commutes : forall n m : nat,
+  Logic.eq (nat_to_imported (n + m)) (Imported.Nat_add (nat_to_imported n) (nat_to_imported m)).
+Proof.
+  fix IH 1.
+  intros n m.
+  destruct n as [|n']; simpl.
+  - (* n = 0 case: nat_to_imported m = Imported.Nat_add Imported.nat_O (nat_to_imported m) *)
+    (* By definition, Nat_add O m = m *)
+    reflexivity.
+  - (* n = S n' case *)
+    (* Goal: nat_S (nat_to_imported (n' + m)) = Nat_add (nat_S (nat_to_imported n')) (nat_to_imported m) *)
+    (* By definition, Nat_add (S n) m = S (Nat_add n m) *)
+    change (Imported.nat_S (nat_to_imported (n' + m)) = Imported.nat_S (Imported.Nat_add (nat_to_imported n') (nat_to_imported m))).
+    apply Logic.f_equal. apply IH.
+Qed.
+
+Instance Nat_add_iso : forall (x1 : nat) (x2 : imported_nat), rel_iso nat_iso x1 x2 -> forall (x3 : nat) (x4 : imported_nat), rel_iso nat_iso x3 x4 -> rel_iso nat_iso (x1 + x3) (imported_Nat_add x2 x4).
+Proof.
+  intros x1 x2 H12 x3 x4 H34.
+  unfold rel_iso in *.
+  simpl in *.
+  unfold imported_Nat_add.
+  (* First show nat_to_imported (x1 + x3) = Nat_add (nat_to_imported x1) (nat_to_imported x3) *)
+  pose proof (Nat_add_commutes x1 x3) as Hcomm.
+  (* Then use the fact that nat_to_imported x1 = x2 and nat_to_imported x3 = x4 *)
+  destruct H12. destruct H34.
+  apply seq_of_eq. exact Hcomm.
+Defined.
+
+Instance: KnownConstant Nat.add := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.Nat_add := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Nat.add Nat_add_iso := {}.
+Instance: IsoStatementProofBetween Nat.add Imported.Nat_add Nat_add_iso := {}.

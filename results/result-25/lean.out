@@ -1,0 +1,25 @@
+1 #NS 0 Original_LF__DOT__Poly_LF_Poly_list'
+2 #NS 1 nil'
+3 #NS 0 X
+1 #US 0
+0 #ES 1
+1 #EC 1 
+2 #EV 0
+3 #EA 1 2
+4 #EP #BI 3 0 3
+4 #NS 1 cons'
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_poly__U2_lf__U_poly__listSQUOTE__iso
+8 #NS 7 _hyg
+9 #NI 8 8
+10 #NI 8 10
+5 #EV 1
+6 #EA 1 5
+7 #EV 2
+8 #EA 1 7
+9 #EP #BD 10 6 8
+10 #EP #BD 9 2 9
+11 #EP #BI 3 0 10
+12 #EP #BD 3 0 0
+#IND 1 1 12 2 2 4 4 11 

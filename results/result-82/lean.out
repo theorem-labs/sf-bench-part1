@@ -1,0 +1,100 @@
+1 #NS 0 Original_LF__DOT__Basics_LF_Basics_bw
+2 #NS 1 bw_black
+0 #EC 1 
+3 #NS 1 bw_white
+1 #US 0
+1 #ES 1
+#IND 0 1 1 2 2 0 3 0 
+4 #NS 0 PUnit
+5 #NS 4 unit
+6 #NS 0 u
+2 #UP 6
+2 #EC 4 2
+3 #ES 2
+#IND 0 4 3 1 5 2 6
+7 #NS 0 Unit
+4 #EC 4 1
+#DEF 7 1 4 
+8 #NS 1 casesOn
+9 #NS 0 motive
+10 #NS 0 t
+5 #EP #BD 10 0 3
+11 #NS 0 bw_black
+6 #EV 1
+7 #EC 2 
+8 #EA 6 7
+12 #NS 0 bw_white
+9 #EV 2
+10 #EC 3 
+11 #EA 9 10
+12 #EV 3
+13 #EA 12 9
+14 #EP #BD 12 11 13
+15 #EP #BD 11 8 14
+16 #EP #BD 10 0 15
+17 #EP #BI 9 5 16
+13 #NS 1 rec
+18 #EC 13 2
+19 #EA 18 12
+20 #EA 19 6
+21 #EV 0
+22 #EA 20 21
+23 #EA 22 9
+24 #EL #BD 12 11 23
+25 #EL #BD 11 8 24
+26 #EL #BD 10 0 25
+27 #EL #BI 9 5 26
+#DEF 8 17 27 6
+14 #NS 7 unit
+28 #EC 7 
+29 #EC 5 1
+#DEF 14 28 29 
+15 #NS 0 Original_LF__DOT__Basics_LF_Basics_invert
+16 #NS 15 match_1
+17 #NS 0 x
+18 #NS 17 _@
+19 #NS 18 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__invert__iso
+20 #NS 19 _hyg
+21 #NI 20 17
+22 #NS 0 u_1
+3 #UP 22
+30 #ES 3
+31 #EP #BD 21 0 30
+23 #NS 0 h_1
+32 #EA 9 7
+33 #EP #BD 0 28 32
+24 #NS 0 h_2
+34 #EA 12 10
+35 #EP #BD 0 28 34
+36 #EP #BD 24 35 13
+37 #EP #BD 23 33 36
+38 #EP #BD 21 0 37
+39 #EP #BD 9 31 38
+40 #EC 8 3
+41 #EV 4
+42 #EA 41 21
+43 #EL #BD 17 0 42
+44 #EA 40 43
+45 #EA 44 9
+46 #EC 14 
+47 #EA 6 46
+48 #EA 45 47
+49 #EA 21 46
+50 #EA 48 49
+51 #EL #BD 24 35 50
+52 #EL #BD 23 33 51
+53 #EL #BD 21 0 52
+54 #EL #BD 9 31 53
+#DEF 16 39 54 22
+55 #EP #BD 17 0 0
+56 #EC 16 1
+57 #EL #BD 21 0 0
+58 #EA 56 57
+59 #EA 58 21
+25 #NS 0 _
+60 #EL #BD 25 28 10
+61 #EA 59 60
+62 #EL #BD 25 28 7
+63 #EA 61 62
+64 #EL #BD 17 0 63
+#DEF 15 55 64 

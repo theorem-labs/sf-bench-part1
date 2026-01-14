@@ -1,0 +1,1 @@
+PTrue PTrue_intro True True_intro Corelib_Init_Logic_eq Corelib_Init_Logic_eq_Prop nat S Original_LF__DOT__Basics_LF_Basics_plus Original_LF__DOT__Poly_LF_Poly_doit3times

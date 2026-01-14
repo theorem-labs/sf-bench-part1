@@ -1,0 +1,105 @@
+1 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+2 #NS 1 nil
+3 #NS 0 X
+1 #US 0
+0 #ES 1
+1 #EC 1 
+2 #EV 0
+3 #EA 1 2
+4 #EP #BI 3 0 3
+4 #NS 1 cons
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_perm3____refl__iso
+8 #NS 7 _hyg
+9 #NI 8 8
+10 #NI 8 10
+5 #EV 1
+6 #EA 1 5
+7 #EV 2
+8 #EA 1 7
+9 #EP #BD 10 6 8
+10 #EP #BD 9 2 9
+11 #EP #BI 3 0 10
+12 #EP #BD 3 0 0
+#IND 1 1 12 2 2 4 4 11 
+11 #NS 0 Original_LF__DOT__Poly_LF_Poly_nil
+13 #EC 2 
+14 #EA 13 2
+15 #EL #BD 3 0 14
+#DEF 11 4 15 
+12 #NS 0 Original_LF__DOT__Poly_LF_Poly_cons
+16 #EC 4 
+17 #EA 16 2
+18 #EL #BI 3 0 17
+#DEF 12 11 18 
+13 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_Perm3
+14 #NS 13 perm3_swap12
+15 #NS 0 b
+16 #NS 0 c
+19 #EC 13 
+20 #EV 3
+21 #EA 19 20
+22 #EC 12 
+23 #EA 22 20
+24 #EA 23 7
+25 #EA 23 5
+26 #EA 23 2
+27 #EC 11 
+28 #EA 27 20
+29 #EA 26 28
+30 #EA 25 29
+31 #EA 24 30
+32 #EA 21 31
+33 #EA 24 29
+34 #EA 25 33
+35 #EA 32 34
+36 #EP #BD 16 7 35
+37 #EP #BD 15 5 36
+38 #EP #BD 5 2 37
+39 #EP #BI 3 0 38
+17 #NS 13 perm3_swap23
+40 #EA 25 28
+41 #EA 26 40
+42 #EA 24 41
+43 #EA 32 42
+44 #EP #BD 16 7 43
+45 #EP #BD 15 5 44
+46 #EP #BD 5 2 45
+47 #EP #BI 3 0 46
+18 #NS 13 perm3_trans
+19 #NS 0 l1
+20 #NS 0 l2
+21 #NS 0 l3
+22 #NI 8 139
+48 #EA 21 7
+49 #EA 48 5
+23 #NI 8 143
+50 #EV 4
+51 #EA 19 50
+52 #EA 51 7
+53 #EA 52 5
+54 #EV 5
+55 #EA 19 54
+56 #EA 55 50
+57 #EA 56 7
+58 #EP #BD 23 53 57
+59 #EP #BD 22 49 58
+60 #EP #BD 21 8 59
+61 #EP #BD 20 6 60
+62 #EP #BD 19 3 61
+63 #EP #BI 3 0 62
+24 #NI 8 54
+25 #NI 8 57
+64 #ES 0
+65 #EP #BD 25 6 64
+66 #EP #BD 24 3 65
+67 #EP #BI 3 0 66
+#IND 1 13 67 3 14 39 17 47 18 63 
+26 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_Perm3__refl
+68 #EA 32 31
+69 #EP #BD 16 7 68
+70 #EP #BD 15 5 69
+71 #EP #BD 5 2 70
+72 #EP #BD 3 0 71
+#AX 26 72 

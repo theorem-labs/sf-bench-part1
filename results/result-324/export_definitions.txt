@@ -1,0 +1,1 @@
+nat S Original_LF__DOT__Induction_LF_Induction_double MyEq Original_LF__DOT__Logic_LF_Logic_Even_ex Original_LF__DOT__Logic_LF_Logic_Even S2 S10 S40 n42

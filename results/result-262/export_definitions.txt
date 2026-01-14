@@ -1,0 +1,1 @@
+MyFalse MyAnd MyOr False_ and_ or_ Logic_not

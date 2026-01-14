@@ -1,0 +1,162 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf__U_rel__le____order__iso
+7 #NS 6 _hyg
+8 #NI 7 5
+9 #NI 7 7
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 Corelib_Init_Logic_eq_Prop
+11 #NS 10 refl
+13 #EC 10 
+14 #EA 13 3
+15 #EA 14 1
+16 #EA 15 1
+17 #EP #BD 4 1 16
+18 #EP #BI 3 9 17
+19 #EP #BI 3 9 11
+#IND 2 10 19 1 11 18 
+12 #NS 0 True
+13 #NS 12 intro
+20 #EC 12 
+#IND 0 12 9 1 13 20 
+14 #NS 0 nat
+15 #NS 14 O
+21 #EC 14 
+16 #NS 14 S
+17 #NI 7 34
+22 #EP #BD 17 21 21
+#IND 0 14 0 2 15 21 16 22 
+18 #NS 0 Original_LF_Rel_relation
+19 #NS 0 X
+23 #EP #BD 19 0 0
+24 #EL #BD 19 0 11
+#DEF 18 23 24 
+20 #NS 0 Original_LF_Rel_reflexive
+21 #NS 0 R
+25 #EP #BD 21 11 9
+26 #EP #BD 19 0 25
+27 #EA 3 1
+28 #EA 27 1
+29 #EP #BD 4 3 28
+30 #EL #BD 21 11 29
+31 #EL #BD 19 0 30
+#DEF 20 26 31 
+22 #NS 0 Original_LF_Rel_transitive
+23 #NS 0 b
+32 #EV 2
+24 #NS 0 c
+33 #EV 3
+25 #NI 7 87
+34 #EA 33 32
+35 #EA 34 3
+26 #NI 7 91
+36 #EV 4
+37 #EA 36 32
+38 #EA 37 3
+39 #EV 5
+40 #EA 39 36
+41 #EA 40 32
+42 #EP #BD 26 38 41
+43 #EP #BD 25 35 42
+44 #EP #BD 24 33 43
+45 #EP #BD 23 32 44
+46 #EP #BD 4 3 45
+47 #EL #BD 21 11 46
+48 #EL #BD 19 0 47
+#DEF 22 26 48 
+27 #NS 0 Original_LF_Rel_antisymmetric
+28 #NI 7 113
+49 #EA 32 3
+50 #EA 49 1
+29 #NI 7 117
+51 #EA 33 3
+52 #EA 51 32
+53 #EA 2 39
+54 #EA 53 33
+55 #EA 54 32
+56 #EP #BD 29 52 55
+57 #EP #BD 28 50 56
+58 #EP #BD 23 32 57
+59 #EP #BD 4 3 58
+60 #EL #BD 21 11 59
+61 #EL #BD 19 0 60
+#DEF 27 26 61 
+30 #NS 0 And
+31 #NS 30 intro
+32 #NS 0 left
+33 #NS 0 right
+62 #EC 30 
+63 #EA 62 33
+64 #EA 63 32
+65 #EP #BD 33 3 64
+66 #EP #BD 32 3 65
+67 #EP #BI 23 9 66
+68 #EP #BI 4 9 67
+69 #EP #BD 23 9 9
+70 #EP #BD 4 9 69
+#IND 2 30 70 1 31 68 
+34 #NS 0 Original_LF_Rel_order
+71 #EC 20 
+72 #EA 71 3
+73 #EA 72 1
+74 #EA 62 73
+75 #EC 27 
+76 #EA 75 3
+77 #EA 76 1
+78 #EA 62 77
+79 #EC 22 
+80 #EA 79 3
+81 #EA 80 1
+82 #EA 78 81
+83 #EA 74 82
+84 #EL #BD 21 11 83
+85 #EL #BD 19 0 84
+#DEF 34 26 85 
+35 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_le
+36 #NS 35 le_n
+37 #NS 0 n
+86 #EC 35 
+87 #EA 86 1
+88 #EA 87 1
+89 #EP #BD 37 21 88
+38 #NS 35 le_S
+39 #NS 0 m
+40 #NI 7 161
+90 #EA 86 3
+91 #EA 90 1
+92 #EA 86 32
+93 #EC 16 
+94 #EA 93 3
+95 #EA 92 94
+96 #EP #BD 40 91 95
+97 #EP #BD 39 21 96
+98 #EP #BD 37 21 97
+41 #NI 7 150
+42 #NI 7 152
+99 #EP #BD 42 21 9
+100 #EP #BD 41 21 99
+#IND 1 35 100 2 36 89 38 98 
+43 #NS 0 Original_LF_Rel_le__order
+101 #EC 34 
+102 #EA 101 21
+103 #EL #BD 39 21 91
+104 #EL #BD 37 21 103
+105 #EA 102 104
+#AX 43 105 

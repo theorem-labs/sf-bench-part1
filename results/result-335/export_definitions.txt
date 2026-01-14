@@ -1,0 +1,1 @@
+nat S Nat_add Nat_mul le lt gt

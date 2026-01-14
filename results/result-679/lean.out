@@ -1,0 +1,171 @@
+1 #NS 0 mybool
+2 #NS 1 mytrue
+0 #EC 1 
+3 #NS 1 myfalse
+1 #US 0
+1 #ES 1
+#IND 0 1 1 2 2 0 3 0 
+4 #NS 0 mynat
+5 #NS 4 O
+2 #EC 4 
+6 #NS 4 S
+7 #NS 0 a
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_xtimesU_yinU_z__iso
+10 #NS 9 _hyg
+11 #NI 10 14
+3 #EP #BD 11 2 2
+#IND 0 4 1 2 5 2 6 3 
+12 #NS 0 Ascii_ascii
+13 #NS 12 Ascii
+14 #NI 10 28
+15 #NI 10 30
+16 #NI 10 32
+17 #NI 10 34
+18 #NI 10 36
+19 #NI 10 38
+20 #NI 10 40
+21 #NI 10 42
+4 #EC 12 
+5 #EP #BD 21 0 4
+6 #EP #BD 20 0 5
+7 #EP #BD 19 0 6
+8 #EP #BD 18 0 7
+9 #EP #BD 17 0 8
+10 #EP #BD 16 0 9
+11 #EP #BD 15 0 10
+12 #EP #BD 14 0 11
+#IND 0 12 1 1 13 12 
+22 #NS 0 String_string
+23 #NS 22 EmptyString
+13 #EC 22 
+24 #NS 22 String
+25 #NI 10 106
+26 #NI 10 108
+14 #EP #BD 26 13 13
+15 #EP #BD 25 4 14
+#IND 0 22 1 2 23 13 24 15 
+27 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp
+28 #NS 27 ANum
+29 #NI 10 129
+16 #EC 27 
+17 #EP #BD 29 2 16
+30 #NS 27 AId
+31 #NI 10 132
+18 #EP #BD 31 13 16
+32 #NS 27 APlus
+33 #NI 10 135
+34 #NI 10 137
+19 #EP #BD 34 16 16
+20 #EP #BD 33 16 19
+35 #NS 27 AMinus
+36 #NS 27 AMult
+#IND 0 27 1 5 28 17 30 18 32 20 35 20 36 20 
+37 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp
+38 #NS 37 BTrue
+21 #EC 37 
+39 #NS 37 BFalse
+40 #NS 37 BEq
+41 #NI 10 216
+42 #NI 10 218
+22 #EP #BD 42 16 21
+23 #EP #BD 41 16 22
+43 #NS 37 BNeq
+44 #NS 37 BLe
+45 #NS 37 BGt
+46 #NS 37 BNot
+47 #NI 10 236
+24 #EP #BD 47 21 21
+48 #NS 37 BAnd
+49 #NI 10 239
+25 #EP #BD 49 21 24
+#IND 0 37 1 8 38 21 39 21 40 23 43 23 44 23 45 23 46 24 48 25 
+50 #NS 0 Original_LF__DOT__Imp_LF_Imp_com
+51 #NS 50 CSkip
+26 #EC 50 
+52 #NS 50 CAsgn
+53 #NI 10 331
+54 #NI 10 333
+27 #EP #BD 54 16 26
+28 #EP #BD 53 13 27
+55 #NS 50 CSeq
+56 #NI 10 336
+57 #NI 10 338
+29 #EP #BD 57 26 26
+30 #EP #BD 56 26 29
+58 #NS 50 CIf
+59 #NI 10 341
+31 #EP #BD 59 21 30
+60 #NS 50 CWhile
+61 #NI 10 348
+32 #EP #BD 61 21 29
+#IND 0 50 1 5 51 26 52 28 55 30 58 31 60 32 
+62 #NS 0 charX
+33 #EC 13 
+34 #EC 3 
+35 #EA 33 34
+36 #EA 35 34
+37 #EA 36 34
+38 #EC 2 
+39 #EA 37 38
+40 #EA 39 38
+41 #EA 40 34
+42 #EA 41 38
+43 #EA 42 34
+#DEF 62 4 43 
+63 #NS 0 Original_LF__DOT__Imp_LF_Imp_X
+44 #EC 24 
+45 #EC 62 
+46 #EA 44 45
+47 #EC 23 
+48 #EA 46 47
+#DEF 63 13 48 
+64 #NS 0 charY
+49 #EA 33 38
+50 #EA 49 34
+51 #EA 50 34
+52 #EA 51 38
+53 #EA 52 38
+54 #EA 53 34
+55 #EA 54 38
+56 #EA 55 34
+#DEF 64 4 56 
+65 #NS 0 Original_LF__DOT__Imp_LF_Imp_Y
+57 #EC 64 
+58 #EA 44 57
+59 #EA 58 47
+#DEF 65 13 59 
+66 #NS 0 charZ
+60 #EA 35 38
+61 #EA 60 34
+62 #EA 61 38
+63 #EA 62 38
+64 #EA 63 34
+65 #EA 64 38
+66 #EA 65 34
+#DEF 66 4 66 
+67 #NS 0 Original_LF__DOT__Imp_LF_Imp_Z
+67 #EC 66 
+68 #EA 44 67
+69 #EA 68 47
+#DEF 67 13 69 
+68 #NS 0 Original_LF__DOT__Imp_LF_Imp_XtimesYinZ
+70 #EC 52 
+71 #EC 67 
+72 #EA 70 71
+73 #EC 36 
+74 #EC 30 
+75 #EC 63 
+76 #EA 74 75
+77 #EA 73 76
+78 #EC 65 
+79 #EA 74 78
+80 #EA 77 79
+81 #EA 72 80
+#DEF 68 26 81 
+69 #NS 0 Original_LF__DOT__Imp_LF_Imp_AId
+#DEF 69 18 74 
+70 #NS 0 Original_LF__DOT__Imp_LF_Imp_AMult
+#DEF 70 20 73 
+71 #NS 0 Original_LF__DOT__Imp_LF_Imp_CAsgn
+#DEF 71 28 70 

@@ -1,0 +1,114 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__test____remove____one3__iso
+7 #NS 6 _hyg
+8 #NI 7 14
+9 #NI 7 16
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 Corelib_Init_Logic_eq_Prop
+11 #NS 10 refl
+13 #EC 10 
+14 #EA 13 3
+15 #EA 14 1
+16 #EA 15 1
+17 #EP #BD 4 1 16
+18 #EP #BI 3 9 17
+19 #EP #BI 3 9 11
+#IND 2 10 19 1 11 18 
+12 #NS 0 nat
+13 #NS 12 O
+20 #EC 12 
+14 #NS 12 S
+15 #NI 7 39
+21 #EP #BD 15 20 20
+#IND 0 12 0 2 13 20 14 21 
+16 #NS 0 _0
+22 #EC 13 
+#DEF 16 20 22 
+17 #NS 0 S
+23 #EC 14 
+#DEF 17 21 23 
+18 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_natlist
+19 #NS 18 nil
+24 #EC 18 
+20 #NS 18 cons
+21 #NI 7 64
+22 #NI 7 66
+25 #EP #BD 22 24 24
+26 #EP #BD 21 20 25
+#IND 0 18 0 2 19 24 20 26 
+23 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_nil
+27 #EC 19 
+#DEF 23 24 27 
+24 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_cons
+28 #EC 20 
+#DEF 24 26 28 
+25 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_bag
+#DEF 25 0 24 
+26 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_count
+27 #NI 7 102
+28 #NI 7 104
+29 #EC 25 
+30 #EP #BD 28 29 20
+31 #EP #BD 27 20 30
+#AX 26 31 
+29 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_remove__one
+30 #NI 7 109
+31 #NI 7 111
+32 #EP #BD 31 29 29
+33 #EP #BD 30 20 32
+#AX 29 33 
+32 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_test__remove__one3
+34 #EA 2 20
+35 #EC 26 
+36 #EC 17 
+37 #EC 16 
+38 #EA 36 37
+39 #EA 36 38
+40 #EA 36 39
+41 #EA 36 40
+42 #EA 35 41
+43 #EC 29 
+44 #EA 36 41
+45 #EA 43 44
+46 #EC 24 
+47 #EA 46 39
+48 #EA 46 38
+49 #EA 46 41
+50 #EA 46 44
+51 #EC 23 
+52 #EA 49 51
+53 #EA 48 52
+54 #EA 50 53
+55 #EA 49 54
+56 #EA 48 55
+57 #EA 47 56
+58 #EA 45 57
+59 #EA 42 58
+60 #EA 34 59
+61 #EA 60 39
+#AX 32 61 
+33 #NS 0 True
+34 #NS 33 intro
+62 #EC 33 
+#IND 0 33 9 1 34 62 
+35 #NS 0 True_intro
+63 #EC 34 
+#DEF 35 62 63 

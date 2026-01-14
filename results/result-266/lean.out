@@ -1,0 +1,107 @@
+1 #NS 0 TrueProp
+2 #NS 1 I
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 True
+#DEF 3 1 0 
+4 #NS 0 eq'
+5 #NS 4 refl
+6 #NS 0 A
+1 #US 0
+2 #ES 1
+7 #NS 0 a
+3 #EV 0
+4 #EC 4 
+5 #EV 1
+6 #EA 4 5
+7 #EA 6 3
+8 #EA 7 3
+9 #EP #BD 7 3 8
+10 #EP #BI 6 2 9
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__injection____ex3__iso
+10 #NS 9 _hyg
+11 #NI 10 19
+12 #NI 10 21
+11 #EP #BD 12 5 1
+12 #EP #BD 11 3 11
+13 #EP #BI 6 2 12
+#IND 2 4 13 1 5 10 
+13 #NS 0 Corelib_Init_Logic_eq
+14 #NS 0 x
+15 #NS 0 y
+14 #EV 2
+15 #EA 4 14
+16 #EA 15 5
+17 #EA 16 3
+18 #EL #BD 15 5 17
+19 #EL #BD 14 3 18
+20 #EL #BI 6 2 19
+#DEF 13 13 20 
+16 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+17 #NS 16 nil
+18 #NS 0 X
+21 #EC 16 
+22 #EA 21 3
+23 #EP #BI 18 2 22
+19 #NS 16 cons
+20 #NI 10 52
+21 #NI 10 54
+24 #EA 21 5
+25 #EA 21 14
+26 #EP #BD 21 24 25
+27 #EP #BD 20 3 26
+28 #EP #BI 18 2 27
+29 #EP #BD 18 2 2
+#IND 1 16 29 2 17 23 19 28 
+22 #NS 0 Original_LF__DOT__Poly_LF_Poly_cons
+30 #EC 19 
+31 #EA 30 3
+32 #EL #BI 18 2 31
+#DEF 22 28 32 
+23 #NS 0 Original_LF__DOT__Tactics_LF_Tactics_injection__ex3
+24 #NS 0 z
+25 #NS 0 l
+33 #EV 3
+34 #EA 21 33
+26 #NS 0 j
+35 #EV 4
+36 #EA 21 35
+27 #NI 10 107
+37 #EC 13 
+38 #EV 5
+39 #EA 21 38
+40 #EA 37 39
+41 #EC 22 
+42 #EA 41 38
+43 #EA 42 35
+44 #EA 42 33
+45 #EA 44 5
+46 #EA 43 45
+47 #EA 40 46
+48 #EA 42 14
+49 #EA 48 3
+50 #EA 47 49
+28 #NI 10 123
+51 #EV 6
+52 #EA 21 51
+53 #EA 37 52
+54 #EA 53 5
+55 #EA 41 51
+56 #EA 55 33
+57 #EA 56 14
+58 #EA 54 57
+59 #EV 7
+60 #EA 37 59
+61 #EA 60 51
+62 #EA 61 38
+63 #EP #BD 28 58 62
+64 #EP #BD 27 50 63
+65 #EP #BD 26 36 64
+66 #EP #BD 25 34 65
+67 #EP #BD 24 14 66
+68 #EP #BD 15 5 67
+69 #EP #BD 14 3 68
+70 #EP #BD 18 2 69
+#AX 23 70 

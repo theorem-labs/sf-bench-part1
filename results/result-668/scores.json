@@ -1,0 +1,13 @@
+{
+  "U_corelib__U_init__U_logic__eq__iso": 1.0,
+  "U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__bag__iso": 1.0,
+  "U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__cons__iso": 1.0,
+  "U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__count__iso": 1.0,
+  "U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso": 1.0,
+  "U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__nil__iso": 1.0,
+  "U_s__iso": 1.0,
+  "U_true__iso": 1.0,
+  "__0__iso": 1.0,
+  "nat__iso": 1.0,
+  "U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__test____count2__iso": 1.0
+}

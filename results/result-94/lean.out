@@ -1,0 +1,50 @@
+1 #NS 0 PAnd
+2 #NS 1 intro
+3 #NS 0 A
+0 #ES 0
+4 #NS 0 B
+5 #NS 0 left
+1 #EV 1
+6 #NS 0 right
+2 #EC 1 
+3 #EV 3
+4 #EA 2 3
+5 #EV 2
+6 #EA 4 5
+7 #EP #BD 6 1 6
+8 #EP #BD 5 1 7
+9 #EP #BI 4 0 8
+10 #EP #BI 3 0 9
+11 #EP #BD 4 0 0
+12 #EP #BD 3 0 11
+#IND 2 1 12 1 2 10 
+7 #NS 0 PTrue
+8 #NS 7 intro
+13 #EC 7 
+#IND 0 7 0 1 8 13 
+9 #NS 0 Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2''
+14 #EA 2 13
+15 #EA 14 13
+#AX 9 15 
+10 #NS 0 and_intro
+11 #NS 0 l
+12 #NS 0 r
+16 #EC 2 
+17 #EA 16 3
+18 #EA 17 5
+19 #EA 18 1
+20 #EV 0
+21 #EA 19 20
+22 #EL #BD 12 1 21
+23 #EL #BD 11 1 22
+24 #EL #BI 4 0 23
+25 #EL #BI 3 0 24
+#DEF 10 10 25 
+13 #NS 0 PTrue_intro
+26 #EC 8 
+#DEF 13 13 26 
+14 #NS 0 Rocq
+15 #NS 0 True
+#DEF 15 0 13 
+16 #NS 0 and
+#DEF 16 12 2 

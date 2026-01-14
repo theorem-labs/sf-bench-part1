@@ -1,0 +1,32 @@
+From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
+Import IsoEq.
+From LeanImport Require Import Lean.
+#[local] Set Universe Polymorphism.
+#[local] Set Implicit Arguments.
+From IsomorphismChecker Require Original Imported.
+(* Print Imported. *)
+Typeclasses Opaque rel_iso. (* for speed *)
+
+
+From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_nat__add__iso.
+
+Definition imported_Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__comm'' : forall x x0 : imported_nat, imported_Corelib_Init_Logic_eq (imported_Nat_add x x0) (imported_Nat_add x0 x) := Imported.Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__comm''.
+Instance Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__comm''_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4),
+  rel_iso
+    {|
+      to := Corelib_Init_Logic_eq_iso (Nat_add_iso hx hx0) (Nat_add_iso hx0 hx);
+      from := from (Corelib_Init_Logic_eq_iso (Nat_add_iso hx hx0) (Nat_add_iso hx0 hx));
+      to_from := fun x : imported_Corelib_Init_Logic_eq (imported_Nat_add x2 x4) (imported_Nat_add x4 x2) => to_from (Corelib_Init_Logic_eq_iso (Nat_add_iso hx hx0) (Nat_add_iso hx0 hx)) x;
+      from_to := fun x : x1 + x3 = x3 + x1 => seq_p_of_t (from_to (Corelib_Init_Logic_eq_iso (Nat_add_iso hx hx0) (Nat_add_iso hx0 hx)) x)
+    |} (Original.LF_DOT_IndPrinciples.LF.IndPrinciples.add_comm'' x1 x3) (imported_Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__comm'' x2 x4).
+Proof.
+  intros x1 x2 hx x3 x4 hx0.
+  unfold rel_iso. simpl.
+  (* Need to show: eq (to (Corelib_Init_Logic_eq_iso ...) (add_comm'' x1 x3)) (imported_add_comm'' x2 x4) *)
+  (* Both sides are in SProp, so they're definitionally equal *)
+  apply IsomorphismDefinitions.eq_refl.
+Defined.
+Instance: KnownConstant Original.LF_DOT_IndPrinciples.LF.IndPrinciples.add_comm'' := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__comm'' := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Original.LF_DOT_IndPrinciples.LF.IndPrinciples.add_comm'' Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__comm''_iso := {}.
+Instance: IsoStatementProofBetween Original.LF_DOT_IndPrinciples.LF.IndPrinciples.add_comm'' Imported.Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__comm'' Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__comm''_iso := {}.

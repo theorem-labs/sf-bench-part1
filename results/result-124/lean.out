@@ -1,0 +1,94 @@
+1 #NS 0 Nat
+2 #NS 1 zero
+0 #EC 1 
+3 #NS 1 succ
+4 #NS 0 n
+1 #EP #BD 4 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+5 #NS 0 nat
+#DEF 5 2 0 
+6 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_natprod
+7 #NS 6 pair
+8 #NS 0 a
+9 #NS 8 _@
+10 #NS 9 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__sndSQUOTE__iso
+11 #NS 10 _hyg
+12 #NI 11 9
+3 #EC 5 
+13 #NI 11 11
+4 #EC 6 
+5 #EP #BD 13 3 4
+6 #EP #BD 12 3 5
+#IND 0 6 2 1 7 6 
+14 #NS 6 casesOn
+15 #NS 0 motive
+16 #NS 0 t
+17 #NS 0 u
+2 #UP 17
+7 #ES 2
+8 #EP #BD 16 4 7
+18 #NS 0 pair
+9 #EV 3
+10 #EC 7 
+11 #EV 1
+12 #EA 10 11
+13 #EV 0
+14 #EA 12 13
+15 #EA 9 14
+16 #EP #BD 13 3 15
+17 #EP #BD 12 3 16
+18 #EV 2
+19 #EA 18 11
+20 #EP #BD 18 17 19
+21 #EP #BD 16 4 20
+22 #EP #BI 15 8 21
+19 #NS 6 rec
+23 #EC 19 2
+24 #EA 23 18
+25 #EA 19 13
+26 #EL #BD 13 3 25
+27 #EL #BD 12 3 26
+28 #EA 24 27
+29 #EA 28 11
+30 #EL #BD 18 17 29
+31 #EL #BD 16 4 30
+32 #EL #BI 15 8 31
+#DEF 14 22 32 17
+20 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_snd'
+21 #NS 20 match_1
+22 #NS 0 p
+23 #NS 22 _@
+24 #NS 23 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__sndSQUOTE__iso
+25 #NS 24 _hyg
+26 #NI 25 36
+27 #NS 0 u_1
+3 #UP 27
+33 #ES 3
+34 #EP #BD 26 4 33
+35 #EP #BD 15 34 21
+28 #NS 0 h_1
+36 #EC 14 3
+29 #NS 0 x
+37 #EA 9 13
+38 #EL #BD 29 4 37
+39 #EA 36 38
+40 #EA 39 11
+41 #EA 40 27
+42 #EL #BD 28 17 41
+43 #EL #BD 26 4 42
+44 #EL #BD 15 34 43
+#DEF 21 35 44 27
+45 #EP #BD 22 4 3
+46 #EC 21 1
+47 #EL #BD 26 4 3
+48 #EA 46 47
+49 #EA 48 13
+30 #NI 12 44
+31 #NS 0 y
+50 #EL #BD 31 3 13
+51 #EL #BD 30 3 50
+52 #EA 49 51
+53 #EL #BD 22 4 52
+#DEF 20 45 53 

@@ -1,0 +1,109 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__lower____grade____U_a____U_minus__iso
+7 #NS 6 _hyg
+8 #NI 7 5
+9 #NI 7 7
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 Corelib_Init_Logic_eq_Prop
+11 #NS 10 refl
+13 #EC 10 
+14 #EA 13 3
+15 #EA 14 1
+16 #EA 15 1
+17 #EP #BD 4 1 16
+18 #EP #BI 3 9 17
+19 #EP #BI 3 9 11
+#IND 2 10 19 1 11 18 
+12 #NS 0 True
+13 #NS 12 intro
+20 #EC 12 
+#IND 0 12 9 1 13 20 
+14 #NS 0 MyTrue
+#DEF 14 9 20 
+15 #NS 0 Original_LF__DOT__Basics_LF_Basics_letter
+16 #NS 15 A
+21 #EC 15 
+17 #NS 15 B
+18 #NS 15 C
+19 #NS 15 D
+20 #NS 15 F
+#IND 0 15 0 5 16 21 17 21 18 21 19 21 20 21 
+21 #NS 0 Original_LF__DOT__Basics_LF_Basics_A
+22 #EC 16 
+#DEF 21 21 22 
+22 #NS 0 Original_LF__DOT__Basics_LF_Basics_B
+23 #EC 17 
+#DEF 22 21 23 
+23 #NS 0 Original_LF__DOT__Basics_LF_Basics_C
+24 #EC 18 
+#DEF 23 21 24 
+24 #NS 0 Original_LF__DOT__Basics_LF_Basics_D
+25 #EC 19 
+#DEF 24 21 25 
+25 #NS 0 Original_LF__DOT__Basics_LF_Basics_F
+26 #EC 20 
+#DEF 25 21 26 
+26 #NS 0 Original_LF__DOT__Basics_LF_Basics_modifier
+27 #NS 26 Plus
+27 #EC 26 
+28 #NS 26 Natural
+29 #NS 26 Minus
+#IND 0 26 0 3 27 27 28 27 29 27 
+30 #NS 0 Original_LF__DOT__Basics_LF_Basics_Plus
+28 #EC 27 
+#DEF 30 27 28 
+31 #NS 0 Original_LF__DOT__Basics_LF_Basics_Natural
+29 #EC 28 
+#DEF 31 27 29 
+32 #NS 0 Original_LF__DOT__Basics_LF_Basics_Minus
+30 #EC 29 
+#DEF 32 27 30 
+33 #NS 0 Original_LF__DOT__Basics_LF_Basics_grade
+34 #NS 33 Grade
+35 #NI 7 85
+36 #NI 7 87
+31 #EC 33 
+32 #EP #BD 36 27 31
+33 #EP #BD 35 21 32
+#IND 0 33 0 1 34 33 
+37 #NS 0 Original_LF__DOT__Basics_LF_Basics_Grade
+34 #EC 34 
+#DEF 37 33 34 
+38 #NS 0 Original_LF__DOT__Basics_LF_Basics_lower__grade
+39 #NI 7 115
+35 #EP #BD 39 31 31
+#AX 38 35 
+40 #NS 0 Original_LF__DOT__Basics_LF_Basics_lower__grade__A__Minus
+36 #EA 2 31
+37 #EC 38 
+38 #EC 37 
+39 #EC 21 
+40 #EA 38 39
+41 #EC 32 
+42 #EA 40 41
+43 #EA 37 42
+44 #EA 36 43
+45 #EC 22 
+46 #EA 38 45
+47 #EC 30 
+48 #EA 46 47
+49 #EA 44 48
+#AX 40 49 

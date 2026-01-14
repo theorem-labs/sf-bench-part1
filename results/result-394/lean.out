@@ -1,0 +1,152 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+4 #NS 0 u
+1 #UP 4
+0 #ES 1
+5 #NS 0 a
+1 #EV 0
+2 #EC 1 1
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 5 1 6
+8 #EP #BI 3 0 7
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__uncurry____curry__iso
+8 #NS 7 _hyg
+9 #NI 8 5
+10 #NI 8 7
+9 #ES 0
+10 #EP #BD 10 3 9
+11 #EP #BD 9 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 4
+11 #NS 0 Original_LF__DOT__Poly_LF_Poly_prod
+12 #NS 11 pair
+13 #NS 0 X
+2 #US 0
+13 #ES 2
+14 #NS 0 Y
+15 #NI 8 37
+16 #NI 8 39
+14 #EC 11 
+15 #EV 3
+16 #EA 14 15
+17 #EV 2
+18 #EA 16 17
+19 #EP #BD 16 3 18
+20 #EP #BD 15 3 19
+21 #EP #BI 14 13 20
+22 #EP #BI 13 13 21
+23 #EP #BD 14 13 13
+24 #EP #BD 13 13 23
+#IND 2 11 24 1 12 22 
+17 #NS 0 Original_LF__DOT__Poly_LF_Poly_pair
+18 #NS 0 x
+19 #NS 0 y
+25 #EC 12 
+26 #EA 25 15
+27 #EA 26 17
+28 #EA 27 3
+29 #EA 28 1
+30 #EL #BD 19 3 29
+31 #EL #BD 18 3 30
+32 #EL #BD 14 13 31
+33 #EL #BD 13 13 32
+#DEF 17 22 33 
+20 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_prod__curry
+21 #NS 0 Z
+22 #NS 0 f
+23 #NI 8 82
+34 #EA 14 17
+35 #EA 34 3
+36 #EP #BD 23 35 3
+37 #EP #BD 19 15 15
+38 #EP #BD 18 15 37
+39 #EP #BD 22 36 38
+40 #EP #BI 21 13 39
+41 #EP #BI 14 13 40
+42 #EP #BI 13 13 41
+43 #EC 17 
+44 #EV 5
+45 #EA 43 44
+46 #EV 4
+47 #EA 45 46
+48 #EA 47 3
+49 #EA 48 1
+50 #EA 17 49
+51 #EL #BD 19 15 50
+52 #EL #BD 18 15 51
+53 #EL #BD 22 36 52
+54 #EL #BI 21 13 53
+55 #EL #BI 14 13 54
+56 #EL #BI 13 13 55
+#DEF 20 42 56 
+24 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_prod__uncurry
+25 #NI 8 104
+26 #NI 8 107
+27 #NI 8 109
+57 #EP #BD 27 17 17
+58 #EP #BD 26 17 57
+28 #NI 8 112
+59 #EP #BD 28 18 17
+60 #EP #BD 25 58 59
+61 #EP #BI 21 13 60
+62 #EP #BI 14 13 61
+63 #EP #BI 13 13 62
+#AX 24 63 
+29 #NS 0 Original_LF__DOT__Poly_LF_Poly_Exercises_uncurry__curry
+64 #EC 1 2
+65 #EA 64 15
+66 #EC 20 
+67 #EA 66 44
+68 #EA 67 46
+69 #EA 68 15
+30 #NS 0 p
+70 #EA 14 44
+71 #EA 70 46
+72 #EC 24 
+73 #EV 6
+74 #EA 72 73
+75 #EA 74 44
+76 #EA 75 46
+77 #EA 44 3
+78 #EA 77 1
+79 #EL #BD 19 73 78
+80 #EL #BD 18 73 79
+81 #EA 76 80
+82 #EA 81 1
+83 #EL #BD 30 71 82
+84 #EA 69 83
+85 #EA 84 3
+86 #EA 85 1
+87 #EA 65 86
+88 #EA 17 3
+89 #EA 88 1
+90 #EA 87 89
+91 #EP #BD 19 15 90
+92 #EP #BD 18 15 91
+93 #EP #BD 22 58 92
+94 #EP #BD 21 13 93
+95 #EP #BD 14 13 94
+96 #EP #BD 13 13 95
+#AX 29 96 
+31 #NS 0 Corelib_Init_Logic_eq_Prop
+97 #EP #BI 3 9 11
+32 #NS 0 b
+98 #EC 1 0
+99 #EA 98 17
+100 #EA 99 3
+101 #EA 100 1
+102 #EL #BD 32 3 101
+103 #EL #BD 5 1 102
+104 #EL #BI 3 9 103
+#DEF 31 97 104 
+33 #NS 0 True
+34 #NS 33 intro
+105 #EC 33 
+#IND 0 33 9 1 34 105 
+35 #NS 0 True'
+#DEF 35 9 105 

@@ -1,0 +1,76 @@
+1 #NS 0 PTrue
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 nat
+4 #NS 3 O
+2 #EC 3 
+5 #NS 3 S
+6 #NS 0 a
+7 #NS 6 _@
+8 #NS 7 U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__test____countoddmembers3__iso
+9 #NS 8 _hyg
+10 #NI 9 34
+3 #EP #BD 10 2 2
+1 #US 0
+4 #ES 1
+#IND 0 3 4 2 4 2 5 3 
+11 #NS 0 _0
+5 #EC 4 
+#DEF 11 2 5 
+12 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_natlist
+13 #NS 12 nil
+6 #EC 12 
+14 #NS 12 cons
+15 #NI 9 59
+16 #NI 9 61
+7 #EP #BD 16 6 6
+8 #EP #BD 15 2 7
+#IND 0 12 4 2 13 6 14 8 
+17 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_nil
+9 #EC 13 
+#DEF 17 6 9 
+18 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_countoddmembers
+19 #NI 9 93
+10 #EP #BD 19 6 2
+#AX 18 10 
+20 #NS 0 Corelib_Init_Logic_eq
+21 #NS 20 refl
+22 #NS 0 A
+11 #EV 0
+12 #EC 20 
+13 #EV 1
+14 #EA 12 13
+15 #EA 14 11
+16 #EA 15 11
+17 #EP #BD 6 11 16
+18 #EP #BI 22 4 17
+23 #NI 9 9
+24 #NI 9 11
+19 #EP #BD 24 13 1
+20 #EP #BD 23 11 19
+21 #EP #BI 22 4 20
+#IND 2 20 21 1 21 18 
+25 #NS 0 Corelib_Init_Logic_eq_Prop
+26 #NS 25 refl
+22 #EC 25 
+23 #EA 22 13
+24 #EA 23 11
+25 #EA 24 11
+26 #EP #BD 6 11 25
+27 #EP #BI 22 1 26
+28 #EP #BI 22 1 20
+#IND 2 25 28 1 26 27 
+27 #NS 0 Original_LF__DOT__Lists_LF_Lists_NatList_test__countoddmembers3
+29 #EA 12 2
+30 #EC 18 
+31 #EC 17 
+32 #EA 30 31
+33 #EA 29 32
+34 #EC 11 
+35 #EA 33 34
+#AX 27 35
+28 #NS 0 True
+36 #EC 1
+#DEF 28 1 36

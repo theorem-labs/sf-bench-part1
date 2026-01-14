@@ -1,0 +1,41 @@
+1 #NS 0 Original_LF__DOT__Poly_LF_Poly_list
+2 #NS 1 nil
+3 #NS 0 X
+1 #US 0
+0 #ES 1
+1 #EC 1 
+2 #EV 0
+3 #EA 1 2
+4 #EP #BI 3 0 3
+4 #NS 1 cons
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_poly__U2_lf__U_poly__list__iso
+8 #NS 7 _hyg
+9 #NI 8 8
+10 #NI 8 10
+5 #EV 1
+6 #EA 1 5
+7 #EV 2
+8 #EA 1 7
+9 #EP #BD 10 6 8
+10 #EP #BD 9 2 9
+11 #EP #BI 3 0 10
+12 #EP #BD 3 0 0
+#IND 1 1 12 2 2 4 4 11 
+11 #NS 0 Original_LF__DOT__IndPrinciples_LF_IndPrinciples_foo'
+12 #NS 11 C1
+13 #NS 6 U_original__U2_lf_dot_U_indU_principles__U2_lf__U_indU_principles__fooSQUOTE__iso
+14 #NS 13 _hyg
+15 #NI 14 6
+16 #NI 14 9
+13 #EC 11 
+14 #EA 13 5
+15 #EA 13 7
+16 #EP #BD 16 14 15
+17 #EP #BD 15 3 16
+18 #EP #BI 3 0 17
+17 #NS 11 C2
+19 #EA 13 2
+20 #EP #BI 3 0 19
+#IND 1 11 12 2 12 18 17 20 

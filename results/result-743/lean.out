@@ -1,0 +1,108 @@
+1 #NS 0 Corelib_Init_Logic_eq
+2 #NS 1 refl
+3 #NS 0 A
+1 #US 0
+0 #ES 1
+4 #NS 0 a
+1 #EV 0
+2 #EC 1 
+3 #EV 1
+4 #EA 2 3
+5 #EA 4 1
+6 #EA 5 1
+7 #EP #BD 4 1 6
+8 #EP #BI 3 0 7
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____apply____empty__iso
+7 #NS 6 _hyg
+8 #NI 7 5
+9 #NI 7 7
+9 #ES 0
+10 #EP #BD 9 3 9
+11 #EP #BD 8 1 10
+12 #EP #BI 3 0 11
+#IND 2 1 12 1 2 8 
+10 #NS 0 Corelib_Init_Logic_eq_Prop
+11 #NS 10 refl
+13 #EC 10 
+14 #EA 13 3
+15 #EA 14 1
+16 #EA 15 1
+17 #EP #BD 4 1 16
+18 #EP #BI 3 9 17
+19 #EP #BI 3 9 11
+#IND 2 10 19 1 11 18 
+12 #NS 0 True
+13 #NS 12 intro
+20 #EC 12 
+#IND 0 12 9 1 13 20 
+14 #NS 0 MyTrue
+#DEF 14 9 20 
+15 #NS 0 MyBool
+16 #NS 15 false
+21 #EC 15 
+17 #NS 15 true
+#IND 0 15 0 2 16 21 17 21 
+18 #NS 0 ascii
+19 #NS 18 Ascii
+20 #NI 7 41
+21 #NI 7 43
+22 #NI 7 45
+23 #NI 7 47
+24 #NI 7 49
+25 #NI 7 51
+26 #NI 7 53
+27 #NI 7 55
+22 #EC 18 
+23 #EP #BD 27 21 22
+24 #EP #BD 26 21 23
+25 #EP #BD 25 21 24
+26 #EP #BD 24 21 25
+27 #EP #BD 23 21 26
+28 #EP #BD 22 21 27
+29 #EP #BD 21 21 28
+30 #EP #BD 20 21 29
+#IND 0 18 0 1 19 30 
+28 #NS 0 String_string
+29 #NS 28 EmptyString
+31 #EC 28 
+30 #NS 28 String
+31 #NI 7 119
+32 #NI 7 121
+32 #EP #BD 32 31 31
+33 #EP #BD 31 22 32
+#IND 0 28 0 2 29 31 30 33 
+33 #NS 0 Original_LF__DOT__Maps_LF_Maps_total__map
+34 #EP #BD 3 0 0
+34 #NI 7 143
+35 #EP #BD 34 31 3
+36 #EL #BD 3 0 35
+#DEF 33 34 36 
+35 #NS 0 Original_LF__DOT__Maps_LF_Maps_t__empty
+36 #NS 0 v
+37 #EC 33 
+38 #EA 37 3
+39 #EP #BD 36 1 38
+40 #EP #BI 3 0 39
+37 #NS 0 x
+38 #NS 37 _@
+39 #NS 38 U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____apply____empty__iso
+40 #NS 39 _hyg
+41 #NI 40 154
+41 #EL #BD 41 31 3
+42 #EL #BD 36 1 41
+43 #EL #BI 3 0 42
+#DEF 35 40 43 
+42 #NS 0 Original_LF__DOT__Maps_LF_Maps_t__apply__empty
+44 #EV 2
+45 #EA 2 44
+46 #EC 35 
+47 #EA 46 44
+48 #EA 47 1
+49 #EA 48 3
+50 #EA 45 49
+51 #EA 50 1
+52 #EP #BD 36 3 51
+53 #EP #BD 37 31 52
+54 #EP #BD 3 0 53
+#AX 42 54 

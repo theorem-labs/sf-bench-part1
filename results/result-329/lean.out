@@ -1,0 +1,98 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf__U_rel__lt____transSQUOTE__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_le
+10 #NS 9 le_n
+11 #NS 0 n
+3 #EC 9 
+4 #EV 0
+5 #EA 3 4
+6 #EA 5 4
+7 #EP #BD 11 0 6
+12 #NS 9 le_S
+13 #NS 0 m
+14 #NI 7 30
+8 #EV 1
+9 #EA 3 8
+10 #EA 9 4
+11 #EV 2
+12 #EA 3 11
+13 #EC 3 
+14 #EA 13 8
+15 #EA 12 14
+16 #EP #BD 14 10 15
+17 #EP #BD 13 0 16
+18 #EP #BD 11 0 17
+15 #NI 7 19
+16 #NI 7 21
+19 #ES 0
+20 #EP #BD 16 0 19
+21 #EP #BD 15 0 20
+#IND 1 9 21 2 10 7 12 18 
+17 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_lt
+22 #EA 3 14
+23 #EA 22 4
+24 #EL #BD 13 0 23
+25 #EL #BD 11 0 24
+#DEF 17 21 25 
+18 #NS 0 Original_LF_Rel_relation
+19 #NS 0 X
+26 #EP #BD 19 2 2
+20 #NI 7 62
+21 #NI 7 64
+27 #EP #BD 21 8 19
+28 #EP #BD 20 4 27
+29 #EL #BD 19 2 28
+#DEF 18 26 29 
+22 #NS 0 Original_LF_Rel_transitive
+23 #NS 0 R
+30 #EP #BD 23 28 19
+31 #EP #BD 19 2 30
+24 #NS 0 b
+25 #NS 0 c
+32 #EV 3
+26 #NI 7 83
+33 #EA 32 11
+34 #EA 33 8
+27 #NI 7 87
+35 #EV 4
+36 #EA 35 11
+37 #EA 36 8
+38 #EV 5
+39 #EA 38 35
+40 #EA 39 11
+41 #EP #BD 27 37 40
+42 #EP #BD 26 34 41
+43 #EP #BD 25 32 42
+44 #EP #BD 24 11 43
+45 #EP #BD 4 8 44
+46 #EL #BD 23 28 45
+47 #EL #BD 19 2 46
+#DEF 22 31 47 
+28 #NS 0 Original_LF_Rel_lt__trans'
+29 #NS 0 x
+30 #NS 0 x0
+31 #NS 0 x1
+32 #NI 7 103
+48 #EC 17 
+49 #EA 48 11
+50 #EA 49 8
+33 #NI 7 107
+51 #EA 48 35
+52 #EA 51 11
+53 #EP #BD 33 50 52
+54 #EP #BD 32 50 53
+55 #EP #BD 31 0 54
+56 #EP #BD 30 0 55
+57 #EP #BD 29 0 56
+#AX 28 57 

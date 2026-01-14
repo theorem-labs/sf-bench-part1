@@ -1,0 +1,88 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__lt____ge____cases__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 le
+10 #NS 9 le_n
+11 #NS 0 n
+3 #EC 9 
+4 #EV 0
+5 #EA 3 4
+6 #EA 5 4
+7 #EP #BD 11 0 6
+12 #NS 9 le_S
+13 #NS 0 m
+14 #NI 7 30
+8 #EV 1
+9 #EA 3 8
+10 #EA 9 4
+11 #EV 2
+12 #EA 3 11
+13 #EC 3 
+14 #EA 13 8
+15 #EA 12 14
+16 #EP #BD 14 10 15
+17 #EP #BD 13 0 16
+18 #EP #BD 11 0 17
+15 #NI 7 19
+16 #NI 7 21
+19 #ES 0
+20 #EP #BD 16 0 19
+21 #EP #BD 15 0 20
+#IND 1 9 21 2 10 7 12 18 
+17 #NS 0 lt
+22 #EA 3 14
+23 #EA 22 4
+24 #EL #BD 13 0 23
+25 #EL #BD 11 0 24
+#DEF 17 21 25 
+18 #NS 0 ge
+26 #EA 5 8
+27 #EL #BD 11 0 26
+28 #EL #BD 13 0 27
+#DEF 18 21 28 
+19 #NS 0 or
+20 #NS 19 intro
+21 #NS 0 A
+22 #NS 0 B
+23 #NS 0 elim
+24 #NS 0 C
+25 #NI 7 76
+26 #NI 7 79
+29 #EP #BD 26 11 8
+27 #NI 7 82
+28 #NI 7 85
+30 #EP #BD 28 11 11
+31 #EP #BD 27 30 11
+32 #EP #BD 25 29 31
+33 #EP #BD 24 19 32
+34 #EC 19 
+35 #EA 34 11
+36 #EA 35 8
+37 #EP #BD 23 33 36
+38 #EP #BI 22 19 37
+39 #EP #BI 21 19 38
+40 #EP #BD 22 19 19
+41 #EP #BD 21 19 40
+#IND 2 19 41 1 20 39 
+29 #NS 0 Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases
+42 #EC 17 
+43 #EA 42 8
+44 #EA 43 4
+45 #EA 34 44
+46 #EC 18 
+47 #EA 46 8
+48 #EA 47 4
+49 #EA 45 48
+50 #EP #BD 13 0 49
+51 #EP #BD 11 0 50
+#AX 29 51 

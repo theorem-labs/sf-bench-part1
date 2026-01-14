@@ -1,0 +1,132 @@
+1 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or
+2 #NS 1 or_introl
+3 #NS 0 P
+0 #ES 0
+4 #NS 0 Q
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 Solution
+8 #NS 7 _hyg
+9 #NI 8 7
+1 #EV 1
+2 #EC 1 
+3 #EV 2
+4 #EA 2 3
+5 #EA 4 1
+6 #EP #BD 9 1 5
+7 #EP #BI 4 0 6
+8 #EP #BI 3 0 7
+10 #NS 1 or_intror
+11 #NI 8 12
+9 #EV 0
+10 #EP #BD 11 9 5
+11 #EP #BI 4 0 10
+12 #EP #BI 3 0 11
+13 #EP #BD 4 0 0
+14 #EP #BD 3 0 13
+#IND 2 1 14 2 2 8 10 12 
+12 #NS 1 casesOn
+13 #NS 0 motive
+14 #NS 0 t
+15 #EA 2 1
+16 #EA 15 9
+17 #EP #BD 14 16 0
+15 #NS 0 or_introl
+18 #EV 3
+19 #EC 2 
+20 #EV 4
+21 #EA 19 20
+22 #EA 21 18
+23 #EA 22 9
+24 #EA 3 23
+25 #EP #BD 9 18 24
+16 #NS 0 or_intror
+26 #EC 10 
+27 #EV 5
+28 #EA 26 27
+29 #EA 28 20
+30 #EA 29 9
+31 #EA 18 30
+32 #EP #BD 11 18 31
+33 #EA 18 3
+34 #EP #BD 16 32 33
+35 #EP #BD 15 25 34
+36 #EP #BD 14 5 35
+37 #EP #BI 13 17 36
+38 #EP #BI 4 0 37
+39 #EP #BI 3 0 38
+17 #NS 1 rec
+40 #EC 17 
+41 #EA 40 27
+42 #EA 41 20
+43 #EA 42 18
+44 #EA 3 9
+45 #EL #BD 9 27 44
+46 #EA 43 45
+47 #EA 1 9
+48 #EL #BD 11 20 47
+49 #EA 46 48
+50 #EA 49 3
+51 #EL #BD 16 32 50
+52 #EL #BD 15 25 51
+53 #EL #BD 14 5 52
+54 #EL #BI 13 17 53
+55 #EL #BI 4 0 54
+56 #EL #BI 3 0 55
+#DEF 12 39 56 
+18 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__elim
+19 #NS 18 match_1
+20 #NS 0 HPQ
+21 #NS 20 _@
+22 #NS 21 Solution
+23 #NS 22 _hyg
+24 #NI 23 35
+25 #NS 0 h_1
+26 #NS 0 h_2
+57 #EC 12 
+58 #EA 57 27
+59 #EA 58 20
+27 #NS 0 x
+60 #EA 2 27
+61 #EA 60 20
+62 #EA 20 9
+63 #EL #BD 27 61 62
+64 #EA 59 63
+65 #EA 64 3
+66 #EA 65 45
+67 #EA 66 48
+68 #EL #BD 26 32 67
+69 #EL #BD 25 25 68
+70 #EL #BD 24 5 69
+71 #EL #BD 13 17 70
+72 #EL #BD 4 0 71
+73 #EL #BD 3 0 72
+#DEF 19 39 73 
+28 #NS 0 R
+29 #NS 0 HPR
+30 #NI 8 25
+74 #EP #BD 30 18 3
+31 #NS 0 HQR
+32 #NI 8 28
+75 #EP #BD 32 18 18
+76 #EP #BD 31 75 18
+77 #EP #BD 29 74 76
+78 #EP #BD 20 5 77
+79 #EP #BD 28 0 78
+80 #EP #BD 4 0 79
+81 #EP #BD 3 0 80
+82 #EC 19 
+83 #EA 82 27
+84 #EA 83 20
+85 #EL #BD 24 61 20
+86 #EA 84 85
+87 #EA 86 3
+88 #EA 87 45
+89 #EA 88 48
+90 #EL #BD 31 75 89
+91 #EL #BD 29 74 90
+92 #EL #BD 20 5 91
+93 #EL #BD 28 0 92
+94 #EL #BD 4 0 93
+95 #EL #BD 3 0 94
+#DEF 18 81 95 

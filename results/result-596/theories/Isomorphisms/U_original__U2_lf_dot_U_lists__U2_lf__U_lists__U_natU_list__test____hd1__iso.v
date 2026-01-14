@@ -1,0 +1,37 @@
+From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
+Import IsoEq.
+From LeanImport Require Import Lean.
+#[local] Set Universe Polymorphism.
+#[local] Set Implicit Arguments.
+From IsomorphismChecker Require Original Imported.
+(* Print Imported. *)
+Typeclasses Opaque rel_iso. (* for speed *)
+
+
+From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__cons__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__hd__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__nil__iso Isomorphisms.U_s__iso.
+
+(* Now Imported.Corelib_Init_Logic_eq is in SProp and imported_Corelib_Init_Logic_eq = Imported.Corelib_Init_Logic_eq *)
+Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1 : imported_Corelib_Init_Logic_eq
+    (imported_Original_LF__DOT__Lists_LF_Lists_NatList_hd imported_0
+       (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S imported_0)
+          (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S imported_0))
+             (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S imported_0))) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil))))
+    (imported_S imported_0) := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1.
+
+Instance Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1_iso : rel_iso
+    (relax_Iso_Ts_Ps
+       (Corelib_Init_Logic_eq_iso
+          (Original_LF__DOT__Lists_LF_Lists_NatList_hd_iso _0_iso
+             (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso _0_iso)
+                (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso _0_iso))
+                   (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso _0_iso))) Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso))))
+          (S_iso _0_iso)))
+    Original.LF_DOT_Lists.LF.Lists.NatList.test_hd1 imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1.
+Proof.
+  (* Both sides are proofs of equality - use SProp proof irrelevance *)
+  apply IsomorphismDefinitions.eq_refl.
+Defined.
+Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.test_hd1 := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1 := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Original.LF_DOT_Lists.LF.Lists.NatList.test_hd1 Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1_iso := {}.
+Instance: IsoStatementProofBetween Original.LF_DOT_Lists.LF.Lists.NatList.test_hd1 Imported.Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1 Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1_iso := {}.

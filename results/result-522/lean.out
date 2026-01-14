@@ -1,0 +1,66 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 False
+#IND 0 3 1 0  
+4 #NS 0 Corelib_Init_Logic_eq
+5 #NS 4 refl
+6 #NS 0 A
+1 #US 0
+2 #ES 1
+7 #NS 0 a
+3 #EV 0
+4 #EC 4 
+5 #EV 1
+6 #EA 4 5
+7 #EA 6 3
+8 #EA 7 3
+9 #EP #BD 7 3 8
+10 #EP #BI 6 2 9
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__contras__iso
+10 #NS 9 _hyg
+11 #NI 10 13
+12 #NI 10 15
+11 #EP #BD 12 5 1
+12 #EP #BD 11 3 11
+13 #EP #BI 6 2 12
+#IND 2 4 13 1 5 10 
+13 #NS 0 nat
+14 #NS 13 O
+14 #EC 13 
+15 #NS 13 S
+16 #NI 10 26
+15 #EP #BD 16 14 14
+#IND 0 13 2 2 14 14 15 15 
+17 #NS 0 _0
+16 #EC 14 
+#DEF 17 14 16 
+18 #NS 0 S
+17 #EC 15 
+#DEF 18 15 17 
+19 #NS 0 Logic_not
+20 #NS 0 P
+18 #EP #BD 20 1 1
+21 #NI 10 51
+19 #EC 3 
+20 #EP #BD 21 3 19
+21 #EL #BD 20 1 20
+#DEF 19 18 21 
+22 #NS 0 Original_LF__DOT__AltAuto_LF_AltAuto_contras
+23 #NI 10 59
+24 #NI 10 61
+22 #EC 19 
+23 #EA 22 5
+24 #EA 4 14
+25 #EC 17 
+26 #EA 24 25
+27 #EC 18 
+28 #EA 27 25
+29 #EA 26 28
+30 #EP #BD 24 23 29
+31 #EP #BD 23 3 30
+32 #EP #BD 20 1 31
+#AX 22 32 

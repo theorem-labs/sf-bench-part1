@@ -1,0 +1,284 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 Corelib_Init_Logic_eq
+4 #NS 3 refl
+5 #NS 0 A
+1 #US 0
+2 #ES 1
+6 #NS 0 a
+3 #EV 0
+4 #EC 3 
+5 #EV 1
+6 #EA 4 5
+7 #EA 6 3
+8 #EA 7 3
+9 #EP #BD 6 3 8
+10 #EP #BI 5 2 9
+7 #NS 6 _@
+8 #NS 7 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__apply____late____policy____unfold__iso
+9 #NS 8 _hyg
+10 #NI 9 9
+11 #NI 9 11
+11 #EP #BD 11 5 1
+12 #EP #BD 10 3 11
+13 #EP #BI 5 2 12
+#IND 2 3 13 1 4 10 
+12 #NS 0 Corelib_Init_Logic_eq_Prop
+13 #NS 12 refl
+14 #EC 12 
+15 #EA 14 5
+16 #EA 15 3
+17 #EA 16 3
+18 #EP #BI 6 3 17
+19 #EP #BI 5 1 18
+20 #EP #BD 5 1 12
+#IND 2 12 20 1 13 19 
+14 #NS 0 nat
+15 #NS 14 O
+21 #EC 14 
+16 #NS 14 S
+17 #NI 9 51
+22 #EP #BD 17 21 21
+#IND 0 14 2 2 15 21 16 22 
+18 #NS 0 _0
+23 #EC 15 
+#DEF 18 21 23 
+19 #NS 0 S
+24 #EC 16 
+#DEF 19 22 24 
+20 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool
+21 #NS 20 true
+25 #EC 20 
+22 #NS 20 false
+#IND 0 20 2 2 21 25 22 25 
+23 #NS 0 Original_LF__DOT__Basics_LF_Basics_true
+26 #EC 21 
+#DEF 23 25 26 
+24 #NS 0 Original_LF__DOT__Basics_LF_Basics_false
+27 #EC 22 
+#DEF 24 25 27 
+25 #NS 0 PUnit
+26 #NS 25 unit
+27 #NS 0 u
+2 #UP 27
+28 #EC 25 2
+29 #ES 2
+#IND 0 25 29 1 26 28 27
+28 #NS 0 Unit
+30 #EC 25 1
+#DEF 28 2 30 
+29 #NS 20 casesOn
+30 #NS 0 motive
+31 #NS 0 t
+31 #EP #BD 31 25 29
+32 #NS 0 true
+32 #EA 5 26
+33 #NS 0 false
+33 #EV 2
+34 #EA 33 27
+35 #EV 3
+36 #EA 35 33
+37 #EP #BD 33 34 36
+38 #EP #BD 32 32 37
+39 #EP #BD 31 25 38
+40 #EP #BI 30 31 39
+34 #NS 20 rec
+41 #EC 34 2
+42 #EA 41 35
+43 #EA 42 5
+44 #EA 43 3
+45 #EA 44 33
+46 #EL #BD 33 34 45
+47 #EL #BD 32 32 46
+48 #EL #BD 31 25 47
+49 #EL #BI 30 31 48
+#DEF 29 40 49 27
+35 #NS 28 unit
+50 #EC 28 
+51 #EC 26 1
+#DEF 35 50 51 
+36 #NS 0 Original_LF__DOT__Basics_LF_Basics_bool__rec
+37 #NS 36 match_1
+38 #NS 0 b
+39 #NS 38 _@
+40 #NS 39 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__apply____late____policy____unfold__iso
+41 #NS 40 _hyg
+42 #NI 41 103
+43 #NS 0 u_1
+3 #UP 43
+52 #ES 3
+53 #EP #BD 42 25 52
+44 #NS 0 h_1
+54 #EA 33 26
+55 #EP #BD 0 50 54
+45 #NS 0 h_2
+56 #EA 35 27
+57 #EP #BD 0 50 56
+58 #EP #BD 45 57 36
+59 #EP #BD 44 55 58
+60 #EP #BD 42 25 59
+61 #EP #BD 30 53 60
+62 #EC 29 3
+46 #NS 0 x
+63 #EV 4
+64 #EA 63 3
+65 #EL #BD 46 25 64
+66 #EA 62 65
+67 #EA 66 33
+68 #EC 35 
+69 #EA 5 68
+70 #EA 67 69
+71 #EA 3 68
+72 #EA 70 71
+73 #EL #BD 45 57 72
+74 #EL #BD 44 55 73
+75 #EL #BD 42 25 74
+76 #EL #BD 30 53 75
+#DEF 37 61 76 43
+47 #NS 0 htrue
+77 #EC 23 
+78 #EA 3 77
+48 #NS 0 hfalse
+79 #EC 24 
+80 #EA 5 79
+81 #EA 35 3
+82 #EP #BD 38 25 81
+83 #EP #BD 48 80 82
+84 #EP #BD 47 78 83
+85 #EP #BI 30 31 84
+86 #EC 37 2
+87 #EA 86 65
+88 #EA 87 3
+49 #NS 0 _
+89 #EL #BD 49 50 35
+90 #EA 88 89
+91 #EL #BD 49 50 33
+92 #EA 90 91
+93 #EL #BD 38 25 92
+94 #EL #BD 48 80 93
+95 #EL #BD 47 78 94
+96 #EL #BI 30 31 95
+#DEF 36 85 96 27
+50 #NS 0 Original_LF__DOT__Basics_LF_Basics_letter
+51 #NS 50 A
+97 #EC 50 
+52 #NS 50 B
+53 #NS 50 C
+54 #NS 50 D
+55 #NS 50 F
+#IND 0 50 2 5 51 97 52 97 53 97 54 97 55 97 
+56 #NS 0 Original_LF__DOT__Basics_LF_Basics_modifier
+57 #NS 56 Plus
+98 #EC 56 
+58 #NS 56 Natural
+59 #NS 56 Minus
+#IND 0 56 2 3 57 98 58 98 59 98 
+60 #NS 0 Original_LF__DOT__Basics_LF_Basics_grade
+61 #NS 60 Grade
+62 #NI 9 133
+63 #NI 9 135
+99 #EC 60 
+100 #EP #BD 63 98 99
+101 #EP #BD 62 97 100
+#IND 0 60 2 1 61 101 
+64 #NS 0 Original_LF__DOT__Basics_LF_Basics_ltb
+65 #NI 9 155
+66 #NI 9 157
+102 #EP #BD 66 21 25
+103 #EP #BD 65 21 102
+#AX 64 103 
+67 #NS 0 Original_LF__DOT__Basics_LF_Basics_lower__grade
+68 #NI 9 162
+104 #EP #BD 68 99 99
+#AX 67 104 
+69 #NS 0 Original_LF__DOT__Basics_LF_Basics_apply__late__policy
+70 #NS 0 late_days
+105 #EP #BD 70 21 104
+71 #NS 0 g
+106 #EC 37 1
+72 #NS 46 _@
+73 #NS 72 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__apply____late____policy____unfold__iso
+74 #NS 73 _hyg
+75 #NI 74 206
+107 #EL #BD 75 25 99
+108 #EA 106 107
+109 #EC 64 
+110 #EA 109 5
+111 #EA 24 23
+112 #EA 24 111
+113 #EA 24 112
+114 #EA 24 113
+115 #EA 24 114
+116 #EA 24 115
+117 #EA 24 116
+118 #EA 24 117
+119 #EA 24 118
+120 #EA 110 119
+121 #EA 108 120
+122 #EL #BD 49 50 5
+123 #EA 121 122
+124 #EA 109 33
+125 #EA 24 119
+126 #EA 24 125
+127 #EA 24 126
+128 #EA 24 127
+129 #EA 24 128
+130 #EA 24 129
+131 #EA 24 130
+132 #EA 24 131
+133 #EA 124 132
+134 #EA 108 133
+135 #EC 67 
+136 #EA 135 33
+137 #EL #BD 49 50 136
+138 #EA 134 137
+139 #EA 109 35
+140 #EA 24 132
+141 #EA 24 140
+142 #EA 24 141
+143 #EA 24 142
+144 #EA 139 143
+145 #EA 108 144
+146 #EA 135 35
+147 #EA 135 146
+148 #EL #BD 49 50 147
+149 #EA 145 148
+150 #EA 135 147
+151 #EL #BD 49 50 150
+152 #EA 149 151
+153 #EL #BD 49 50 152
+154 #EA 138 153
+155 #EL #BD 49 50 154
+156 #EA 123 155
+157 #EL #BD 71 99 156
+158 #EL #BD 70 21 157
+#DEF 69 105 158 
+76 #NS 0 Original_LF__DOT__Basics_LF_Basics_apply__late__policy__unfold
+159 #EA 4 99
+160 #EC 69 
+161 #EA 160 5
+162 #EA 161 3
+163 #EA 159 162
+164 #EC 36 1
+165 #EA 164 107
+166 #EA 165 3
+167 #EA 135 3
+168 #EA 165 167
+169 #EA 135 167
+170 #EA 165 169
+171 #EA 135 169
+172 #EA 170 171
+173 #EA 110 143
+174 #EA 172 173
+175 #EA 168 174
+176 #EA 110 132
+177 #EA 175 176
+178 #EA 166 177
+179 #EA 178 120
+180 #EA 163 179
+181 #EP #BD 71 99 180
+182 #EP #BD 70 21 181
+#AX 76 182 

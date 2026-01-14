@@ -1,0 +1,1 @@
+MyTrue True_intro MyFalse False_recl False_indl Corelib_Init_Logic_eq Corelib_Init_Logic_eq_refl Corelib_Init_Logic_eq_recl Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_true Original_LF__DOT__Basics_LF_Basics_false or or_inl or_inr iff iff_mk mp mpr

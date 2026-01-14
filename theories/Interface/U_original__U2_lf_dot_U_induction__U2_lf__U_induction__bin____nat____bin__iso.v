@@ -1,0 +1,36 @@
+From Stdlib Require Import Derive.
+From IsomorphismChecker Require Import IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
+Import IsomorphismChecker.EqualityLemmas.IsoEq.
+#[local] Unset Universe Polymorphism.
+#[local] Set Implicit Arguments.
+#[local] Hint Constants Opaque : typeclass_instances.
+From IsomorphismChecker Require Original.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin__iso Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__normalize__iso Interface.U_true__iso Interface.U_corelib__U_init__U_logic__eq__iso Interface.nat__iso Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin____to____nat__iso Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__nat____to____bin__iso.
+
+Module Export CodeBlocks.
+
+  Export (hints) Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin__iso Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__normalize__iso Interface.U_true__iso Interface.U_corelib__U_init__U_logic__eq__iso Interface.nat__iso Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin____to____nat__iso Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__nat____to____bin__iso.
+
+  Export Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin__iso.CodeBlocks Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__normalize__iso.CodeBlocks Interface.U_true__iso.CodeBlocks Interface.U_corelib__U_init__U_logic__eq__iso.CodeBlocks Interface.nat__iso.CodeBlocks Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin____to____nat__iso.CodeBlocks Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__nat____to____bin__iso.CodeBlocks.
+
+End CodeBlocks.
+
+Module Type Args := Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin__iso.Interface <+ Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__normalize__iso.Interface <+ Interface.U_true__iso.Interface <+ Interface.U_corelib__U_init__U_logic__eq__iso.Interface <+ Interface.nat__iso.Interface <+ Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin____to____nat__iso.Interface <+ Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__nat____to____bin__iso.Interface.
+
+Module Type Interface (Import args : Args).
+
+Parameter imported_Original_LF__DOT__Induction_LF_Induction_bin__nat__bin : forall x : imported_Original_LF__DOT__Induction_LF_Induction_bin,
+  imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Induction_LF_Induction_nat__to__bin (imported_Original_LF__DOT__Induction_LF_Induction_bin__to__nat x))
+    (imported_Original_LF__DOT__Induction_LF_Induction_normalize x).
+Parameter Original_LF__DOT__Induction_LF_Induction_bin__nat__bin_iso : forall (x1 : Original.LF_DOT_Induction.LF.Induction.bin) (x2 : imported_Original_LF__DOT__Induction_LF_Induction_bin) (hx : rel_iso Original_LF__DOT__Induction_LF_Induction_bin_iso x1 x2),
+  rel_iso
+    (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Induction_LF_Induction_nat__to__bin_iso (Original_LF__DOT__Induction_LF_Induction_bin__to__nat_iso hx))
+       (Original_LF__DOT__Induction_LF_Induction_normalize_iso hx))
+    (Original.LF_DOT_Induction.LF.Induction.bin_nat_bin x1) (imported_Original_LF__DOT__Induction_LF_Induction_bin__nat__bin x2).
+Existing Instance Original_LF__DOT__Induction_LF_Induction_bin__nat__bin_iso.
+#[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Induction.LF.Induction.bin_nat_bin ?x) => unify x Original_LF__DOT__Induction_LF_Induction_bin__nat__bin_iso; constructor : typeclass_instances.
+#[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Induction.LF.Induction.bin_nat_bin imported_Original_LF__DOT__Induction_LF_Induction_bin__nat__bin ?x) => unify x Original_LF__DOT__Induction_LF_Induction_bin__nat__bin_iso; constructor : typeclass_instances.
+
+
+End Interface.

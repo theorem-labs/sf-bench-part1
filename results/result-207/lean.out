@@ -1,0 +1,142 @@
+1 #NS 0 Original_LF_Rel_relation
+2 #NS 0 X
+1 #US 0
+0 #ES 1
+1 #EP #BD 2 0 0
+3 #NS 0 a
+4 #NS 3 _@
+5 #NS 4 U_original__U2_lf__U_rel__rtc____rsc____coincide__iso
+6 #NS 5 _hyg
+7 #NI 6 7
+2 #EV 0
+8 #NI 6 9
+3 #EV 1
+4 #ES 0
+5 #EP #BD 8 3 4
+6 #EP #BD 7 2 5
+7 #EL #BD 2 0 6
+#DEF 1 1 7 
+9 #NS 0 Original_LF_Rel_clos__refl__trans
+10 #NS 9 rt_step
+11 #NS 0 R
+12 #NS 0 x
+13 #NS 0 y
+8 #EV 2
+14 #NI 6 27
+9 #EA 8 3
+10 #EA 9 2
+11 #EC 9 
+12 #EV 4
+13 #EA 11 12
+14 #EV 3
+15 #EA 13 14
+16 #EA 15 8
+17 #EA 16 3
+18 #EP #BD 14 10 17
+19 #EP #BD 13 8 18
+20 #EP #BD 12 3 19
+21 #EP #BI 11 6 20
+22 #EP #BI 2 0 21
+15 #NS 9 rt_refl
+23 #EA 11 8
+24 #EA 23 3
+25 #EA 24 2
+26 #EA 25 2
+27 #EP #BD 12 3 26
+28 #EP #BI 11 6 27
+29 #EP #BI 2 0 28
+16 #NS 9 rt_trans
+17 #NS 0 z
+18 #NI 6 43
+19 #NI 6 48
+30 #EV 5
+31 #EA 11 30
+32 #EA 31 12
+33 #EA 32 8
+34 #EA 33 3
+35 #EV 6
+36 #EA 11 35
+37 #EA 36 30
+38 #EA 37 12
+39 #EA 38 8
+40 #EP #BD 19 34 39
+41 #EP #BD 18 17 40
+42 #EP #BD 17 14 41
+43 #EP #BD 13 8 42
+44 #EP #BD 12 3 43
+45 #EP #BI 11 6 44
+46 #EP #BI 2 0 45
+20 #NI 6 20
+21 #NI 6 22
+47 #EP #BD 21 8 4
+48 #EP #BD 20 3 47
+49 #EP #BD 11 6 48
+50 #EP #BI 2 0 49
+#IND 2 9 50 3 10 22 15 29 16 46 
+22 #NS 0 Original_LF_Rel_clos__refl__trans__1n
+23 #NS 22 rt1n_refl
+24 #NS 0 A
+51 #EC 22 
+52 #EA 51 8
+53 #EA 52 3
+54 #EA 53 2
+55 #EA 54 2
+56 #EP #BD 12 3 55
+57 #EP #BI 11 6 56
+58 #EP #BI 24 0 57
+25 #NS 22 rt1n_trans
+26 #NS 0 Hxy
+59 #EA 14 8
+60 #EA 59 3
+27 #NS 0 Hrest
+61 #EA 51 30
+62 #EA 61 12
+63 #EA 62 8
+64 #EA 63 3
+65 #EA 51 35
+66 #EA 65 30
+67 #EA 66 12
+68 #EA 67 8
+69 #EP #BD 27 64 68
+70 #EP #BD 26 60 69
+71 #EP #BD 17 14 70
+72 #EP #BD 13 8 71
+73 #EP #BD 12 3 72
+74 #EP #BI 11 6 73
+75 #EP #BI 24 0 74
+#IND 2 22 50 2 23 58 25 75 
+28 #NS 0 iff
+29 #NS 28 mk
+30 #NS 0 B
+31 #NS 0 mp
+32 #NI 6 113
+76 #EP #BD 32 3 3
+33 #NS 0 mpr
+34 #NI 6 116
+77 #EP #BD 34 3 14
+78 #EC 28 
+79 #EA 78 14
+80 #EA 79 8
+81 #EP #BD 33 77 80
+82 #EP #BD 31 76 81
+83 #EP #BI 30 4 82
+84 #EP #BI 24 4 83
+85 #EP #BD 30 4 4
+86 #EP #BD 24 4 85
+#IND 2 28 86 1 29 84 
+35 #NS 0 Original_LF_Rel_rtc__rsc__coincide
+87 #EA 11 14
+88 #EA 87 8
+89 #EA 88 3
+90 #EA 89 2
+91 #EA 78 90
+92 #EA 51 14
+93 #EA 92 8
+94 #EA 93 3
+95 #EA 94 2
+96 #EA 91 95
+97 #EP #BD 13 8 96
+98 #EP #BD 12 3 97
+99 #EP #BD 11 6 98
+100 #EP #BD 2 0 99
+#AX 35 100 

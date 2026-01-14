@@ -1,0 +1,44 @@
+1 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or
+2 #NS 1 or_introl
+3 #NS 0 P
+0 #ES 0
+4 #NS 0 Q
+5 #NS 0 a
+6 #NS 5 _@
+7 #NS 6 U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__or____elimSQUOTE__iso
+8 #NS 7 _hyg
+9 #NI 8 7
+1 #EV 1
+2 #EC 1 
+3 #EV 2
+4 #EA 2 3
+5 #EA 4 1
+6 #EP #BD 9 1 5
+7 #EP #BI 4 0 6
+8 #EP #BI 3 0 7
+10 #NS 1 or_intror
+11 #NI 8 12
+9 #EV 0
+10 #EP #BD 11 9 5
+11 #EP #BI 4 0 10
+12 #EP #BI 3 0 11
+13 #EP #BD 4 0 0
+14 #EP #BD 3 0 13
+#IND 2 1 14 2 2 8 10 12 
+12 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__elim'
+13 #NS 0 R
+14 #NI 8 24
+15 #NI 8 28
+16 #NI 8 31
+15 #EV 3
+16 #EP #BD 16 15 3
+17 #NI 8 34
+18 #NI 8 37
+17 #EP #BD 18 15 15
+18 #EP #BD 17 17 15
+19 #EP #BD 15 16 18
+20 #EP #BD 14 5 19
+21 #EP #BD 13 0 20
+22 #EP #BD 4 0 21
+23 #EP #BD 3 0 22
+#AX 12 23 

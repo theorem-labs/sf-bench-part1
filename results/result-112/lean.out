@@ -1,0 +1,32 @@
+1 #NS 0 True
+2 #NS 1 intro
+0 #EC 1 
+1 #ES 0
+#IND 0 1 1 1 2 0 
+3 #NS 0 and
+4 #NS 3 conj
+5 #NS 0 A
+6 #NS 0 B
+7 #NS 0 a
+8 #NS 7 _@
+9 #NS 8 U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__match____ex2SQUOTE__iso
+10 #NS 9 _hyg
+11 #NI 10 11
+2 #EV 1
+12 #NI 10 13
+3 #EC 3 
+4 #EV 3
+5 #EA 3 4
+6 #EV 2
+7 #EA 5 6
+8 #EP #BD 12 2 7
+9 #EP #BD 11 2 8
+10 #EP #BI 6 1 9
+11 #EP #BI 5 1 10
+12 #EP #BD 6 1 1
+13 #EP #BD 5 1 12
+#IND 2 3 13 1 4 11 
+13 #NS 0 Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'
+14 #EA 3 0
+15 #EA 14 0
+#AX 13 15 

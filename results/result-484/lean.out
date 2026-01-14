@@ -1,0 +1,70 @@
+1 #NS 0 Original_LF__DOT__Basics_LF_Basics_bin
+2 #NS 1 Z
+0 #EC 1 
+3 #NS 1 B0
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_basics__U2_lf__U_basics__test____bin____incr2__iso
+7 #NS 6 _hyg
+8 #NI 7 34
+1 #EP #BD 8 0 0
+9 #NS 1 B1
+1 #US 0
+2 #ES 1
+#IND 0 1 2 3 2 0 3 1 9 1 
+10 #NS 0 Original_LF__DOT__Basics_LF_Basics_Z
+3 #EC 2 
+#DEF 10 0 3 
+11 #NS 0 Original_LF__DOT__Basics_LF_Basics_B0
+4 #EC 3 
+#DEF 11 1 4 
+12 #NS 0 Original_LF__DOT__Basics_LF_Basics_B1
+5 #EC 9 
+#DEF 12 1 5 
+13 #NS 0 Original_LF__DOT__Basics_LF_Basics_incr
+#AX 13 1 
+14 #NS 0 Corelib_Init_Logic_eq
+15 #NS 14 refl
+16 #NS 0 A
+6 #EV 0
+7 #EC 14 
+8 #EV 1
+9 #EA 7 8
+10 #EA 9 6
+11 #EA 10 6
+12 #EP #BD 4 6 11
+13 #EP #BI 16 2 12
+17 #NI 7 9
+18 #NI 7 11
+14 #ES 0
+15 #EP #BD 18 8 14
+16 #EP #BD 17 6 15
+17 #EP #BI 16 2 16
+#IND 2 14 17 1 15 13 
+19 #NS 0 Original_LF__DOT__Basics_LF_Basics_test__bin__incr2
+18 #EA 7 0
+19 #EC 13 
+20 #EC 11 
+21 #EC 12 
+22 #EC 10 
+23 #EA 21 22
+24 #EA 20 23
+25 #EA 19 24
+26 #EA 18 25
+27 #EA 21 23
+28 #EA 26 27
+#AX 19 28 
+20 #NS 0 Corelib_Init_Logic_eq_Prop
+21 #NS 20 refl
+29 #EC 20 
+30 #EA 29 8
+31 #EA 30 6
+32 #EA 31 6
+33 #EP #BD 4 6 32
+34 #EP #BI 16 14 33
+35 #EP #BI 16 14 16
+#IND 2 20 35 1 21 34 
+22 #NS 0 True
+23 #NS 22 intro
+36 #EC 22 
+#IND 0 22 14 1 23 36 

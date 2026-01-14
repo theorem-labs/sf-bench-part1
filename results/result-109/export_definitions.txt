@@ -1,0 +1,1 @@
+nat S Logic_not le

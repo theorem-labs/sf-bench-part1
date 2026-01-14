@@ -1,0 +1,11 @@
+-- Translation of Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or and or_commut'
+
+-- Define an inductive type for or (disjunction)
+inductive Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or (P Q : Prop) : Prop where
+  | or_introl : P → Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or P Q
+  | or_intror : Q → Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or P Q
+
+-- Define or_commut' as an axiom (since it is Admitted in the original)
+axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__commut' : 
+  ∀ (P Q : Prop), Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or P Q → 
+                  Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or Q P

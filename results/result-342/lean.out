@@ -1,0 +1,108 @@
+1 #NS 0 nat
+2 #NS 1 O
+0 #EC 1 
+3 #NS 1 S
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__eq____example2__iso
+7 #NS 6 _hyg
+8 #NI 7 7
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 True
+10 #NS 9 intro
+3 #EC 9 
+4 #ES 0
+#IND 0 9 4 1 10 3 
+11 #NS 0 Exports
+12 #NS 11 True
+#DEF 12 4 3 
+13 #NS 0 Corelib_Init_Logic_eq
+14 #NS 13 refl
+15 #NS 0 α
+5 #EV 0
+6 #EC 13 
+7 #EV 1
+8 #EA 6 7
+9 #EA 8 5
+10 #EA 9 5
+11 #EP #BD 4 5 10
+12 #EP #BI 15 2 11
+16 #NI 7 27
+17 #NI 7 29
+13 #EP #BD 17 7 4
+14 #EP #BD 16 5 13
+15 #EP #BI 15 2 14
+#IND 2 13 15 1 14 12 
+18 #NS 0 Corelib_Init_Logic_eq_refl
+16 #EC 14 
+17 #EA 16 7
+18 #EA 17 5
+19 #EL #BD 4 5 18
+20 #EL #BI 15 2 19
+#DEF 18 12 20 
+19 #NS 0 Original_LF__DOT__Poly_LF_Poly_prod
+20 #NS 19 pair
+21 #NS 0 X
+22 #NS 0 Y
+23 #NI 7 51
+24 #NI 7 53
+21 #EC 19 
+22 #EV 3
+23 #EA 21 22
+24 #EV 2
+25 #EA 23 24
+26 #EP #BD 24 7 25
+27 #EP #BD 23 7 26
+28 #EP #BI 22 2 27
+29 #EP #BI 21 2 28
+30 #EP #BD 22 2 2
+31 #EP #BD 21 2 30
+#IND 2 19 31 1 20 29 
+25 #NS 0 Original_LF__DOT__Poly_LF_Poly_pair
+26 #NS 0 x
+27 #NS 0 y
+32 #EC 20 
+33 #EA 32 22
+34 #EA 33 24
+35 #EA 34 7
+36 #EA 35 5
+37 #EL #BD 27 7 36
+38 #EL #BD 26 7 37
+39 #EL #BI 22 2 38
+40 #EL #BI 21 2 39
+#DEF 25 29 40 
+28 #NS 0 Original_LF__DOT__AltAuto_LF_AltAuto_eq__example2
+29 #NS 0 x0
+30 #NS 0 x1
+31 #NS 0 x2
+32 #NI 7 99
+41 #EA 6 0
+42 #EA 41 22
+43 #EA 42 24
+33 #NI 7 103
+44 #EA 41 24
+45 #EA 44 7
+46 #EA 21 0
+47 #EA 46 0
+48 #EA 6 47
+49 #EC 25 
+50 #EA 49 0
+51 #EA 50 0
+52 #EV 5
+53 #EA 51 52
+54 #EA 53 22
+55 #EA 48 54
+56 #EV 4
+57 #EA 51 56
+58 #EA 57 24
+59 #EA 55 58
+60 #EP #BD 33 45 59
+61 #EP #BD 32 43 60
+62 #EP #BD 31 0 61
+63 #EP #BD 30 0 62
+64 #EP #BD 29 0 63
+65 #EP #BD 26 0 64
+#AX 28 65 

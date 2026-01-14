@@ -1,0 +1,51 @@
+1 #NS 0 nat
+2 #NS 1 zero
+0 #EC 1 
+3 #NS 1 succ
+4 #NS 0 a
+5 #NS 4 _@
+6 #NS 5 U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__ev____8SQUOTE__iso
+7 #NS 6 _hyg
+8 #NI 7 6
+1 #EP #BD 8 0 0
+1 #US 0
+2 #ES 1
+#IND 0 1 2 2 2 0 3 1 
+9 #NS 0 _0
+3 #EC 2 
+#DEF 9 0 3 
+10 #NS 0 S
+4 #EC 3 
+#DEF 10 1 4 
+11 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_ev
+12 #NS 11 ev_0
+5 #EC 11 
+6 #EA 5 3
+13 #NS 11 ev_SS
+14 #NS 0 n
+15 #NI 7 39
+7 #EV 0
+8 #EA 5 7
+9 #EV 1
+10 #EA 4 9
+11 #EA 4 10
+12 #EA 5 11
+13 #EP #BD 15 8 12
+14 #EP #BD 14 0 13
+16 #NI 7 29
+15 #ES 0
+16 #EP #BD 16 0 15
+#IND 0 11 16 2 12 6 13 14 
+17 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__8'
+17 #EC 10 
+18 #EC 9 
+19 #EA 17 18
+20 #EA 17 19
+21 #EA 17 20
+22 #EA 17 21
+23 #EA 17 22
+24 #EA 17 23
+25 #EA 17 24
+26 #EA 17 25
+27 #EA 5 26
+#AX 17 27 

@@ -18,7 +18,7 @@ Lemma Nat_add_correct : forall n m,
 Proof.
   induction n as [|n IH]; intro m.
   - simpl. apply IsomorphismDefinitions.eq_refl.
-  - simpl. unfold Imported.S.
+  - simpl.
     apply (IsoEq.f_equal Imported.nat_S (IH m)).
 Defined.
 
@@ -47,8 +47,7 @@ Lemma aeval_correct : forall a,
 Proof.
   induction a as [n | a1 IH1 a2 IH2 | a1 IH1 a2 IH2 | a1 IH1 a2 IH2]; simpl.
   - apply IsomorphismDefinitions.eq_refl.
-  - unfold Imported.Original_LF__DOT__Imp_LF_Imp_AExp_APlus.
-    apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.Nat_add IH1 IH2)).
+  - apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.Nat_add IH1 IH2)).
     apply Nat_add_correct.
   - apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.Nat_sub IH1 IH2)).
     apply Nat_sub_correct.
@@ -60,7 +59,7 @@ Instance Original_LF__DOT__Imp_LF_Imp_AExp_aeval_iso : forall (x1 : Original.LF_
   rel_iso Original_LF__DOT__Imp_LF_Imp_AExp_aexp_iso x1 x2 -> rel_iso nat_iso (Original.LF_DOT_Imp.LF.Imp.AExp.aeval x1) (imported_Original_LF__DOT__Imp_LF_Imp_AExp_aeval x2).
 Proof.
   intros x1 x2 H.
-  constructor.
+  destruct H as [H]. simpl in H. constructor. simpl.
   simpl in *.
   unfold imported_Original_LF__DOT__Imp_LF_Imp_AExp_aeval.
   (* Goal: nat_to_imported(aeval x1) = aeval(x2) *)
@@ -68,7 +67,7 @@ Proof.
   (* From aeval_correct: aeval(aexp_to_imported x1) = nat_to_imported(aeval x1) *)
   (* So: aeval(x2) = aeval(aexp_to_imported x1) = nat_to_imported(aeval x1) *)
   apply IsoEq.eq_sym.
-  apply (IsoEq.eq_trans (IsoEq.f_equal Imported.Original_LF__DOT__Imp_LF_Imp_AExp_aeval (IsoEq.eq_sym (proj_rel_iso H)))).
+  apply (IsoEq.eq_trans (IsoEq.f_equal Imported.Original_LF__DOT__Imp_LF_Imp_AExp_aeval (IsoEq.eq_sym H))).
   apply aeval_correct.
 Defined.
 

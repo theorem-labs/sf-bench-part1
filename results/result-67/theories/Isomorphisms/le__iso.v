@@ -4,90 +4,108 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Typeclasses Opaque rel_iso. (* removed *) *)
+(* Print Imported. *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 Local Open Scope nat_scope.
-From Stdlib Require Import Arith.
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
 Definition imported_le : imported_nat -> imported_nat -> SProp := Imported.le.
 
-(* le_to_imported: convert Rocq le to Imported.le *)
-Fixpoint le_to_imported (n m : nat) (H : Peano.le n m) {struct H} : 
+(* Helper lemmas *)
+Lemma le_0_l : forall n : nat, Peano.le O n.
+Proof. induction n; constructor; auto. Qed.
+
+(* Helper: nat_le O m = true for all m *)
+Lemma nat_le_O (m : Imported.nat) : 
+  Imported.nat_le Imported.nat_O m = Imported.Bool_true.
+Proof. destruct m; reflexivity. Qed.
+
+(* Helper for discrimination *)
+Definition bool_discr (H : Imported.Bool_false = Imported.Bool_true) : False :=
+  match H in (Corelib.Init.Logic.eq _ b) return (match b with Imported.Bool_true => False | Imported.Bool_false => True end) with
+  | Corelib.Init.Logic.eq_refl => I
+  end.
+
+(* Helper: if nat_le n m = true then nat_le n (S m) = true *)
+Fixpoint nat_le_step (n : Imported.nat) : forall (m : Imported.nat),
+  Imported.nat_le n m = Imported.Bool_true -> 
+  Imported.nat_le n (Imported.nat_S m) = Imported.Bool_true :=
+  match n return forall m, Imported.nat_le n m = Imported.Bool_true -> 
+                           Imported.nat_le n (Imported.nat_S m) = Imported.Bool_true with
+  | Imported.nat_O => fun m _ => nat_le_O (Imported.nat_S m)
+  | Imported.nat_S n' => fun m =>
+      match m return Imported.nat_le (Imported.nat_S n') m = Imported.Bool_true ->
+                      Imported.nat_le (Imported.nat_S n') (Imported.nat_S m) = Imported.Bool_true with
+      | Imported.nat_O => fun H => False_rect _ (bool_discr H)
+      | Imported.nat_S m' => fun H => nat_le_step n' m' H
+      end
+  end.
+
+Definition le_implies_nat_le : forall (n m : nat) (H : Peano.le n m),
+  Imported.nat_le (nat_to_imported n) (nat_to_imported m) = Imported.Bool_true.
+Proof.
+  fix IH 3.
+  intros n m H.
+  destruct H as [|m' H'].
+  - induction n; simpl; [reflexivity | exact IHn].
+  - apply nat_le_step. exact (IH n m' H').
+Defined.
+
+Definition le_to_imported (n m : nat) (H : Peano.le n m) : 
   Imported.le (nat_to_imported n) (nat_to_imported m).
 Proof.
-  destruct H.
-  - apply Imported.le_le_n.
-  - apply Imported.le_le_S. apply le_to_imported. exact H.
+  unfold Imported.le.
+  rewrite le_implies_nat_le; [apply Imported.Eq_refl | exact H].
 Defined.
 
-(* To convert from Imported.le (SProp) to Peano.le (Prop), we need to go through SInhabited.
-   
-   Step 1: Build SInhabited (Peano.le (imported_to_nat n') (imported_to_nat m'))
-           from Imported.le n' m'.
-   Since both Imported.le and SInhabited are in SProp, we can eliminate Imported.le to SProp.
-*)
-
-(* Helper: convert between imported nat indices and nat *)
-(* Imported.le n' m' means le n' m' where the first argument is implicit (the n) *)
-(* le n m is really @le n m where the first n is the starting point *)
-
-Fixpoint imported_le_to_peano_le_sinhabited (n' : Imported.nat) (m' : Imported.nat)
-  (H : @Imported.le n' m') {struct H} : SInhabited (Peano.le (imported_to_nat n') (imported_to_nat m')).
+(* imported_to_le: convert Imported.le to Rocq le *)
+Fixpoint nat_le_implies_le (n m : Imported.nat) {struct n} :
+  Imported.nat_le n m = Imported.Bool_true -> Peano.le (imported_to_nat n) (imported_to_nat m).
 Proof.
-  destruct H as [ | m0 H'].
-  - (* le_le_n : n' <= n' *)
-    exact (sinhabits (le_n (imported_to_nat n'))).
-  - (* le_le_S : n' <= m0 -> n' <= S m0 *)
-    apply sinhabits.
-    apply le_S.
-    exact (sinhabitant (imported_le_to_peano_le_sinhabited n' m0 H')).
+  destruct n, m; intro E; simpl in *.
+  - exact (le_n 0).
+  - apply le_0_l.
+  - discriminate E.
+  - apply le_n_S. apply nat_le_implies_le. exact E.
 Defined.
 
-(* Now we can define from_imported_le using sinhabitant *)
-Definition from_imported_le (n m : Datatypes.nat) 
-  (H : @Imported.le (nat_to_imported n) (nat_to_imported m)) : Peano.le n m.
+Definition imported_to_le (n' m' : Imported.nat) (H : Imported.le n' m') : 
+  Peano.le (imported_to_nat n') (imported_to_nat m').
 Proof.
-  (* Get SInhabited (imported_to_nat (nat_to_imported n) <= imported_to_nat (nat_to_imported m)) *)
-  pose (H' := @imported_le_to_peano_le_sinhabited (nat_to_imported n) (nat_to_imported m) H).
-  (* imported_to_nat (nat_to_imported n) = n *)
-  rewrite !nat_roundtrip in H'.
-  exact (sinhabitant H').
-Defined.
-
-(* Helper *)
-Lemma nat_from_to_prop : forall x : Datatypes.nat, imported_to_nat (nat_to_imported x) = x.
-Proof.
-  intro x. induction x as [|n IHn]; simpl; [reflexivity | f_equal; exact IHn].
+  unfold Imported.le in H.
+  destruct (Imported.nat_le n' m') eqn:E.
+  - exact (False_rect _ (match H with end)).
+  - apply nat_le_implies_le. exact E.
 Defined.
 
 (* The isomorphism *)
-Instance le_iso : forall (x1 : Datatypes.nat) (x2 : imported_nat) 
-  (_ : @rel_iso Datatypes.nat imported_nat nat_iso x1 x2) 
-  (x3 : Datatypes.nat) (x4 : imported_nat) 
-  (_ : @rel_iso Datatypes.nat imported_nat nat_iso x3 x4), 
-  Iso (le x1 x3) (imported_le x2 x4).
+Instance le_iso : (forall (x1 : nat) (x2 : imported_nat) (_ : @rel_iso nat imported_nat nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (_ : @rel_iso nat imported_nat nat_iso x3 x4), Iso (le x1 x3) (imported_le x2 x4)).
 Proof.
   intros x1 x2 H12 x3 x4 H34.
-  destruct H12 as [Hproj12].
-  destruct H34 as [Hproj34].
+  destruct H12 as [H12]. destruct H34 as [H34].
+  simpl in H12, H34.
   unfold imported_le.
   
-  apply IsoEq.eq_of_seq in Hproj12.
-  apply IsoEq.eq_of_seq in Hproj34.
+  apply IsoEq.eq_of_seq in H12.
+  apply IsoEq.eq_of_seq in H34.
   subst x2 x4.
   
   unshelve refine {|
     to := @le_to_imported x1 x3;
-    from := @from_imported_le x1 x3
+    from := fun H => _ 
   |}.
+  - pose (@imported_to_le (nat_to_imported x1) (nat_to_imported x3) H) as H'.
+    rewrite nat_round_trip in H'.
+    rewrite nat_round_trip in H'.
+    exact H'.
   - intro. apply IsomorphismDefinitions.eq_refl.
   - intro x. apply IsoEq.seq_of_eq.
     apply Stdlib.Logic.ProofIrrelevance.proof_irrelevance.
 Defined.
 
-Instance: KnownConstant le := {}.
-Instance: KnownConstant Imported.le := {}.
+Instance: KnownConstant le := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.le := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor le le_iso := {}.
 Instance: IsoStatementProofBetween le Imported.le le_iso := {}.

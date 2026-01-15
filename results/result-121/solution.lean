@@ -1,373 +1,156 @@
--- Comprehensive Lean translation for all required isomorphisms
+-- Comprehensive Lean translation for Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp and all dependencies
 set_option linter.all false
 
 -- ============================================================
--- True and False in Prop
+-- Basic Types
 -- ============================================================
 
-inductive TrueType : Prop where
-  | I : TrueType
+def nat := Nat
+def nat_O := Nat.zero
+def nat_S := Nat.succ
+def Nat_add := Nat.add
+def Nat_mul := Nat.mul
+def Nat_pred (n : Nat) : Nat :=
+  match n with
+  | Nat.zero => Nat.zero
+  | Nat.succ n' => n'
+def Nat_sub := Nat.sub
+def Nat_eqb (n m : Nat) : Bool := n == m
+def Nat_leb (n m : Nat) : Bool := n ≤ m
+def Nat_ltb (n m : Nat) : Bool := n < m
 
-def TrueType_I := TrueType.I
+-- Custom mynat type for isDigit, isLowerAlpha, etc.
+inductive mynat2 : Type where
+  | O : mynat2
+  | S : mynat2 → mynat2
 
-inductive FalseType : Prop where
+-- Alias for nat to match Rocq naming
+def mynat := nat
 
--- Alias for Original.False (different from Prop False)
-inductive Original_False : Prop where
+inductive list (α : Type) : Type where
+  | nil : list α
+  | cons : α → list α → list α
 
--- ============================================================
--- Boolean type (mybool to avoid conflicts)
--- ============================================================
+inductive prod (α β : Type) : Type where
+  | mk : α → β → prod α β
+
+inductive unit : Type where
+  | tt : unit
+
+inductive option (α : Type) : Type where
+  | None : option α
+  | Some : α → option α
+
+def option_None {α : Type} : option α := option.None
+def option_Some {α : Type} (a : α) : option α := option.Some a
+def None {α : Type} : option α := option.None
+def Some {α : Type} (a : α) : option α := option.Some a
+
+-- Prop True
+inductive CoqTrue : Prop where
+  | I : CoqTrue
+
+def CoqTrue_I := CoqTrue.I
+
+-- Prop-level equality
+inductive Corelib_Init_Logic_eq_Prop (A : Prop) : A → A → Prop where
+  | refl : (x : A) → Corelib_Init_Logic_eq_Prop A x x
+
+def Corelib_Init_Logic_eq_Prop_refl (A : Prop) (x : A) : Corelib_Init_Logic_eq_Prop A x x :=
+  Corelib_Init_Logic_eq_Prop.refl x
+
+-- Type-level equality
+inductive Corelib_Init_Logic_eq (A : Type) : A → A → Prop where
+  | refl : (x : A) → Corelib_Init_Logic_eq A x x
+
+def Corelib_Init_Logic_eq_refl (A : Type) (x : A) : Corelib_Init_Logic_eq A x x :=
+  Corelib_Init_Logic_eq.refl x
+
+-- Prop False
+inductive CoqFalse : Prop where
+
+-- List.In
+def List_In {A : Type} (a : A) : list A → Prop
+  | list.nil => CoqFalse
+  | list.cons x xs => Corelib_Init_Logic_eq A a x ∨ List_In a xs
+
+-- Logic.not
+def Logic_not (P : Prop) : Prop := P → CoqFalse
 
 inductive mybool : Type where
   | mytrue : mybool
   | myfalse : mybool
+deriving DecidableEq
 
-def mybool_mytrue : mybool := mybool.mytrue
-def mybool_myfalse : mybool := mybool.myfalse
-def _true : mybool := mybool.mytrue
-def _false : mybool := mybool.myfalse
-def _bool : Type := mybool
+-- Alias for mybool to match Rocq bool naming
+def Coqbool := mybool
+def Coqbool_Coqtrue := mybool.mytrue
+def Coqbool_Coqfalse := mybool.myfalse
 
--- ============================================================
--- Natural numbers
--- ============================================================
+inductive ascii : Type where
+  | Ascii : mybool → mybool → mybool → mybool → mybool → mybool → mybool → mybool → ascii
 
-inductive nat : Type where
-  | O : nat
-  | S : nat → nat
+-- Alias for ascii to match Rocq naming
+def Ascii_ascii := ascii
+def Ascii_Ascii := ascii.Ascii
+def Ascii_ascii_Ascii := ascii.Ascii
 
-def nat_O := nat.O
-def nat_S := nat.S
-def S := nat.S
-def O := nat.O
-def _0 := nat.O
+inductive mystring : Type where
+  | EmptyString : mystring
+  | String : ascii → mystring → mystring
 
--- Nat operations
-def nat_add : nat → nat → nat
-  | nat.O, m => m
-  | nat.S n, m => nat.S (nat_add n m)
-
-def nat_sub : nat → nat → nat
-  | n, nat.O => n
-  | nat.O, nat.S _ => nat.O
-  | nat.S n, nat.S m => nat_sub n m
-
-def nat_mul : nat → nat → nat
-  | nat.O, _ => nat.O
-  | nat.S n, m => nat_add m (nat_mul n m)
-
-def nat_pred : nat → nat
-  | nat.O => nat.O
-  | nat.S n => n
-
-def Nat_add := nat_add
-def Nat_sub := nat_sub
-def Nat_mul := nat_mul
-def Nat_pred := nat_pred
-
-def nat_eqb : nat → nat → mybool
-  | nat.O, nat.O => mybool.mytrue
-  | nat.S n, nat.S m => nat_eqb n m
-  | _, _ => mybool.myfalse
-
-def nat_leb : nat → nat → mybool
-  | nat.O, _ => mybool.mytrue
-  | nat.S _, nat.O => mybool.myfalse
-  | nat.S n, nat.S m => nat_leb n m
-
-def bool_negb : mybool → mybool
-  | mybool.mytrue => mybool.myfalse
-  | mybool.myfalse => mybool.mytrue
-
-def bool_andb : mybool → mybool → mybool
-  | mybool.mytrue, b => b
-  | mybool.myfalse, _ => mybool.myfalse
-
-def bool_orb : mybool → mybool → mybool
-  | mybool.mytrue, _ => mybool.mytrue
-  | mybool.myfalse, b => b
-
-def Bool_eqb : mybool → mybool → mybool
-  | mybool.mytrue, mybool.mytrue => mybool.mytrue
-  | mybool.myfalse, mybool.myfalse => mybool.mytrue
-  | _, _ => mybool.myfalse
+-- Alias for string to match Rocq naming
+def String_string := mystring
+def String_EmptyString := mystring.EmptyString
+def String_String := mystring.String
 
 -- ============================================================
--- Ascii and String
+-- Token and optionE
 -- ============================================================
 
-inductive Ascii_ascii : Type where
-  | Ascii : mybool → mybool → mybool → mybool → mybool → mybool → mybool → mybool → Ascii_ascii
+def Original_LF__DOT__ImpParser_LF_ImpParser_token : Type := mystring
 
-def Ascii_ascii_Ascii := Ascii_ascii.Ascii
+inductive Original_LF__DOT__ImpParser_LF_ImpParser_optionE (X : Type) : Type where
+  | SomeE : X → Original_LF__DOT__ImpParser_LF_ImpParser_optionE X
+  | NoneE : mystring → Original_LF__DOT__ImpParser_LF_ImpParser_optionE X
 
-def Ascii_eqb : Ascii_ascii → Ascii_ascii → mybool
-  | Ascii_ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7, Ascii_ascii.Ascii c0 c1 c2 c3 c4 c5 c6 c7 =>
-    bool_andb (Bool_eqb b0 c0)
-      (bool_andb (Bool_eqb b1 c1)
-        (bool_andb (Bool_eqb b2 c2)
-          (bool_andb (Bool_eqb b3 c3)
-            (bool_andb (Bool_eqb b4 c4)
-              (bool_andb (Bool_eqb b5 c5)
-                (bool_andb (Bool_eqb b6 c6)
-                  (Bool_eqb b7 c7)))))))
+def Original_LF__DOT__ImpParser_LF_ImpParser_SomeE {X : Type} (x : X) : Original_LF__DOT__ImpParser_LF_ImpParser_optionE X :=
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE x
 
-inductive String_string : Type where
-  | EmptyString : String_string
-  | String : Ascii_ascii → String_string → String_string
-
-def String_string_EmptyString := String_string.EmptyString
-def String_string_String := String_string.String
-def String_EmptyString := String_string.EmptyString
-def String_String := String_string.String
-
-def String_eqb : String_string → String_string → mybool
-  | String_string.EmptyString, String_string.EmptyString => mybool.mytrue
-  | String_string.String c1 s1, String_string.String c2 s2 =>
-    bool_andb (Ascii_eqb c1 c2) (String_eqb s1 s2)
-  | _, _ => mybool.myfalse
+def Original_LF__DOT__ImpParser_LF_ImpParser_parser (T : Type) : Type :=
+  list Original_LF__DOT__ImpParser_LF_ImpParser_token →
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod T (list Original_LF__DOT__ImpParser_LF_ImpParser_token))
 
 -- ============================================================
--- Equality in Prop (becomes SProp in Rocq)
+-- Original_LF__DOT__Imp_LF_Imp_aexp and Original_LF__DOT__Imp_LF_Imp_bexp types
 -- ============================================================
-
-inductive Corelib_Init_Logic_eq {A : Type} : A → A → Prop where
-  | refl (a : A) : Corelib_Init_Logic_eq a a
-
-def Corelib_Init_Logic_eq_refl {A : Type} (a : A) : Corelib_Init_Logic_eq a a :=
-  Corelib_Init_Logic_eq.refl a
-
-inductive Corelib_Init_Logic_eq_Prop {A : Prop} : A → A → Prop where
-  | refl (a : A) : Corelib_Init_Logic_eq_Prop a a
-
-def Corelib_Init_Logic_eq_Prop_refl {A : Prop} (a : A) : Corelib_Init_Logic_eq_Prop a a :=
-  Corelib_Init_Logic_eq_Prop.refl a
-
--- ============================================================
--- Polymorphic list
--- ============================================================
-
-inductive list (A : Type) : Type where
-  | nil : list A
-  | cons : A → list A → list A
-
-def nil (A : Type) : list A := list.nil
-def cons (A : Type) (h : A) (t : list A) : list A := list.cons h t
-
-def app (A : Type) : list A → list A → list A
-  | list.nil, l2 => l2
-  | list.cons h t, l2 => list.cons h (app A t l2)
-
--- List.In for standard list type
-def List_In {A : Type} (a : A) : list A → Prop
-  | list.nil => FalseType
-  | list.cons b l' => Corelib_Init_Logic_eq b a ∨ List_In a l'
-
--- ============================================================
--- Existential, conjunction, disjunction
--- ============================================================
-
-inductive ex {A : Type} (P : A → Prop) : Prop where
-  | intro (w : A) (h : P w) : ex P
-
-inductive and (A B : Prop) : Prop where
-  | intro (ha : A) (hb : B) : and A B
-
-inductive or (A B : Prop) : Prop where
-  | inl (ha : A) : or A B
-  | inr (hb : B) : or A B
-
-def iff (A B : Prop) : Prop := and (A → B) (B → A)
-
-def Logic_not (P : Prop) : Prop := P → FalseType
-
-inductive prod (A B : Type) : Type where
-  | pair : A → B → prod A B
-
-def prod_pair (A B : Type) (a : A) (b : B) : prod A B := prod.pair a b
-
--- ============================================================
--- Option type
--- ============================================================
-
-inductive option (A : Type) : Type where
-  | None : option A
-  | Some : A → option A
-
-def option_None (A : Type) : option A := option.None
-def option_Some (A : Type) (a : A) : option A := option.Some a
-def None (A : Type) : option A := option.None
-def Some (A : Type) (a : A) : option A := option.Some a
-
--- ============================================================
--- Original.LF_DOT_Basics definitions
--- ============================================================
-
-inductive Original_LF__DOT__Basics_LF_Basics_bool : Type where
-  | true : Original_LF__DOT__Basics_LF_Basics_bool
-  | false : Original_LF__DOT__Basics_LF_Basics_bool
-
-def Original_LF__DOT__Basics_LF_Basics_true : Original_LF__DOT__Basics_LF_Basics_bool :=
-  Original_LF__DOT__Basics_LF_Basics_bool.true
-
-def Original_LF__DOT__Basics_LF_Basics_false : Original_LF__DOT__Basics_LF_Basics_bool :=
-  Original_LF__DOT__Basics_LF_Basics_bool.false
-
-def Original_LF__DOT__Basics_LF_Basics_negb : Original_LF__DOT__Basics_LF_Basics_bool → Original_LF__DOT__Basics_LF_Basics_bool
-  | Original_LF__DOT__Basics_LF_Basics_bool.true => Original_LF__DOT__Basics_LF_Basics_bool.false
-  | Original_LF__DOT__Basics_LF_Basics_bool.false => Original_LF__DOT__Basics_LF_Basics_bool.true
-
-def Original_LF__DOT__Basics_LF_Basics_andb : Original_LF__DOT__Basics_LF_Basics_bool → Original_LF__DOT__Basics_LF_Basics_bool → Original_LF__DOT__Basics_LF_Basics_bool
-  | Original_LF__DOT__Basics_LF_Basics_bool.true, b => b
-  | Original_LF__DOT__Basics_LF_Basics_bool.false, _ => Original_LF__DOT__Basics_LF_Basics_bool.false
-
-def Original_LF__DOT__Basics_LF_Basics_orb : Original_LF__DOT__Basics_LF_Basics_bool → Original_LF__DOT__Basics_LF_Basics_bool → Original_LF__DOT__Basics_LF_Basics_bool
-  | Original_LF__DOT__Basics_LF_Basics_bool.true, _ => Original_LF__DOT__Basics_LF_Basics_bool.true
-  | Original_LF__DOT__Basics_LF_Basics_bool.false, b => b
-
-def Original_LF__DOT__Basics_LF_Basics_even : nat → Original_LF__DOT__Basics_LF_Basics_bool
-  | nat.O => Original_LF__DOT__Basics_LF_Basics_bool.true
-  | nat.S nat.O => Original_LF__DOT__Basics_LF_Basics_bool.false
-  | nat.S (nat.S n') => Original_LF__DOT__Basics_LF_Basics_even n'
-
-def Original_LF__DOT__Basics_LF_Basics_odd (n : nat) : Original_LF__DOT__Basics_LF_Basics_bool :=
-  Original_LF__DOT__Basics_LF_Basics_negb (Original_LF__DOT__Basics_LF_Basics_even n)
-
--- identity_fn_applied_twice (admitted in Original.v)
-axiom Original_LF__DOT__Basics_LF_Basics_identity__fn__applied__twice :
-  ∀ (f : Original_LF__DOT__Basics_LF_Basics_bool → Original_LF__DOT__Basics_LF_Basics_bool),
-    (∀ (x : Original_LF__DOT__Basics_LF_Basics_bool), Corelib_Init_Logic_eq (f x) x) →
-    ∀ (b : Original_LF__DOT__Basics_LF_Basics_bool), Corelib_Init_Logic_eq (f (f b)) b
-
--- andb_eq_orb (admitted in Original.v)
-axiom Original_LF__DOT__Basics_LF_Basics_andb__eq__orb :
-  ∀ (b c : Original_LF__DOT__Basics_LF_Basics_bool),
-    Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_andb b c) (Original_LF__DOT__Basics_LF_Basics_orb b c) →
-    Corelib_Init_Logic_eq b c
-
--- ============================================================
--- Original.LF_DOT_Poly definitions
--- ============================================================
-
-inductive Original_LF__DOT__Poly_LF_Poly_list (X : Type) : Type where
-  | nil : Original_LF__DOT__Poly_LF_Poly_list X
-  | cons : X → Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X
-
-def Original_LF__DOT__Poly_LF_Poly_nil (X : Type) : Original_LF__DOT__Poly_LF_Poly_list X :=
-  Original_LF__DOT__Poly_LF_Poly_list.nil
-
-def Original_LF__DOT__Poly_LF_Poly_cons (X : Type) : X → Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X :=
-  Original_LF__DOT__Poly_LF_Poly_list.cons
-
-def Original_LF__DOT__Poly_LF_Poly_app (X : Type) : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X
-  | Original_LF__DOT__Poly_LF_Poly_list.nil, l2 => l2
-  | Original_LF__DOT__Poly_LF_Poly_list.cons h t, l2 => Original_LF__DOT__Poly_LF_Poly_list.cons h (Original_LF__DOT__Poly_LF_Poly_app X t l2)
-
--- ============================================================
--- Original.LF_DOT_Logic definitions
--- ============================================================
-
-def Original_LF__DOT__Logic_LF_Logic_In {X : Type} (x : X) : Original_LF__DOT__Poly_LF_Poly_list X → Prop
-  | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_False
-  | Original_LF__DOT__Poly_LF_Poly_list.cons x' l' => Corelib_Init_Logic_eq x' x ∨ Original_LF__DOT__Logic_LF_Logic_In x l'
-
--- ============================================================
--- Original.LF_DOT_IndProp definitions
--- ============================================================
-
-inductive Original_LF__DOT__IndProp_LF_IndProp_Perm3Reminder_Perm3 {X : Type} :
-    Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X → Prop where
-  | perm3_swap12 (a b c : X) :
-      Original_LF__DOT__IndProp_LF_IndProp_Perm3Reminder_Perm3
-        (Original_LF__DOT__Poly_LF_Poly_list.cons a (Original_LF__DOT__Poly_LF_Poly_list.cons b (Original_LF__DOT__Poly_LF_Poly_list.cons c Original_LF__DOT__Poly_LF_Poly_list.nil)))
-        (Original_LF__DOT__Poly_LF_Poly_list.cons b (Original_LF__DOT__Poly_LF_Poly_list.cons a (Original_LF__DOT__Poly_LF_Poly_list.cons c Original_LF__DOT__Poly_LF_Poly_list.nil)))
-  | perm3_swap23 (a b c : X) :
-      Original_LF__DOT__IndProp_LF_IndProp_Perm3Reminder_Perm3
-        (Original_LF__DOT__Poly_LF_Poly_list.cons a (Original_LF__DOT__Poly_LF_Poly_list.cons b (Original_LF__DOT__Poly_LF_Poly_list.cons c Original_LF__DOT__Poly_LF_Poly_list.nil)))
-        (Original_LF__DOT__Poly_LF_Poly_list.cons a (Original_LF__DOT__Poly_LF_Poly_list.cons c (Original_LF__DOT__Poly_LF_Poly_list.cons b Original_LF__DOT__Poly_LF_Poly_list.nil)))
-  | perm3_trans (l1 l2 l3 : Original_LF__DOT__Poly_LF_Poly_list X) :
-      Original_LF__DOT__IndProp_LF_IndProp_Perm3Reminder_Perm3 l1 l2 →
-      Original_LF__DOT__IndProp_LF_IndProp_Perm3Reminder_Perm3 l2 l3 →
-      Original_LF__DOT__IndProp_LF_IndProp_Perm3Reminder_Perm3 l1 l3
-
--- Perm3_In is admitted in Original.v
-axiom Original_LF__DOT__IndProp_LF_IndProp_Perm3__In : ∀ (X : Type) (x : X) (l1 l2 : Original_LF__DOT__Poly_LF_Poly_list X),
-  @Original_LF__DOT__IndProp_LF_IndProp_Perm3Reminder_Perm3 X l1 l2 →
-  @Original_LF__DOT__Logic_LF_Logic_In X x l1 →
-  @Original_LF__DOT__Logic_LF_Logic_In X x l2
-
--- ============================================================
--- Original.LF_DOT_Tactics definitions
--- ============================================================
-
--- silly_ex is admitted in Original.v
-axiom Original_LF__DOT__Tactics_LF_Tactics_silly__ex :
-  ∀ (p : nat),
-    (∀ (n : nat), Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_even n) Original_LF__DOT__Basics_LF_Basics_true →
-                  Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_even (S n)) Original_LF__DOT__Basics_LF_Basics_false) →
-    (∀ (n : nat), Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_even n) Original_LF__DOT__Basics_LF_Basics_false →
-                  Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_odd n) Original_LF__DOT__Basics_LF_Basics_true) →
-    Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_even p) Original_LF__DOT__Basics_LF_Basics_true →
-    Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_odd (S p)) Original_LF__DOT__Basics_LF_Basics_true
-
--- ============================================================
--- Original.LF_DOT_AltAuto definitions
--- ============================================================
-
--- false_assumed is admitted in Original.v
-axiom Original_LF__DOT__AltAuto_LF_AltAuto_false__assumed :
-  Original_False → Corelib_Init_Logic_eq nat.O (nat.S nat.O)
-
--- sat_ex2 is admitted in Original.v
-axiom Original_LF__DOT__AltAuto_LF_AltAuto_sat__ex2 :
-  ∀ (n : nat),
-    Corelib_Init_Logic_eq
-      (nat_add (nat_add (nat_sub (nat.S nat.O) (nat.S nat.O)) n) (nat.S nat.O))
-      (nat_add (nat.S nat.O) n)
-
--- ============================================================
--- Original.LF_DOT_Maps definitions
--- ============================================================
-
--- Characters for X, Y, Z
--- 'X' = 88 = 0b01011000
-def char_X : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse
--- 'Y' = 89 = 0b01011001
-def char_Y : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse
--- 'Z' = 90 = 0b01011010
-def char_Z : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse
-
-def Original_LF__DOT__Imp_LF_Imp_X : String_string := String_string.String char_X String_string.EmptyString
-def Original_LF__DOT__Imp_LF_Imp_Y : String_string := String_string.String char_Y String_string.EmptyString
-def Original_LF__DOT__Imp_LF_Imp_Z : String_string := String_string.String char_Z String_string.EmptyString
-
-def Original_LF__DOT__Maps_LF_Maps_total__map (A : Type) := String_string → A
-
-def Original_LF__DOT__Maps_LF_Maps_t__empty {A : Type} (v : A) : Original_LF__DOT__Maps_LF_Maps_total__map A :=
-  fun _ => v
-
-def Original_LF__DOT__Maps_LF_Maps_t__update {A : Type} (m : Original_LF__DOT__Maps_LF_Maps_total__map A)
-    (x : String_string) (v : A) : Original_LF__DOT__Maps_LF_Maps_total__map A :=
-  fun x' => match String_eqb x x' with
-    | mybool.mytrue => v
-    | mybool.myfalse => m x'
-
--- ============================================================
--- Original.LF_DOT_Imp definitions
--- ============================================================
-
-def Original_LF__DOT__Imp_LF_Imp_state := Original_LF__DOT__Maps_LF_Maps_total__map nat
-
-def Original_LF__DOT__Imp_LF_Imp_empty__st : Original_LF__DOT__Imp_LF_Imp_state :=
-  Original_LF__DOT__Maps_LF_Maps_t__empty nat.O
 
 inductive Original_LF__DOT__Imp_LF_Imp_aexp : Type where
   | ANum : nat → Original_LF__DOT__Imp_LF_Imp_aexp
-  | AId : String_string → Original_LF__DOT__Imp_LF_Imp_aexp
+  | AId : mystring → Original_LF__DOT__Imp_LF_Imp_aexp
   | APlus : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp
   | AMinus : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp
   | AMult : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp
+
+inductive Original_LF__DOT__Imp_LF_Imp_bexp : Type where
+  | BTrue : Original_LF__DOT__Imp_LF_Imp_bexp
+  | BFalse : Original_LF__DOT__Imp_LF_Imp_bexp
+  | BEq : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_bexp
+  | BNeq : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_bexp
+  | BLe : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_bexp
+  | BGt : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_bexp
+  | BNot : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp
+  | BAnd : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp
+
+-- Constructor aliases
+def Original_LF__DOT__Imp_LF_Imp_BTrue := Original_LF__DOT__Imp_LF_Imp_bexp.BTrue
+def Original_LF__DOT__Imp_LF_Imp_BFalse := Original_LF__DOT__Imp_LF_Imp_bexp.BFalse
+def Original_LF__DOT__Imp_LF_Imp_BEq := Original_LF__DOT__Imp_LF_Imp_bexp.BEq
+def Original_LF__DOT__Imp_LF_Imp_BNeq := Original_LF__DOT__Imp_LF_Imp_bexp.BNeq
+def Original_LF__DOT__Imp_LF_Imp_BLe := Original_LF__DOT__Imp_LF_Imp_bexp.BLe
+def Original_LF__DOT__Imp_LF_Imp_BGt := Original_LF__DOT__Imp_LF_Imp_bexp.BGt
+def Original_LF__DOT__Imp_LF_Imp_BNot := Original_LF__DOT__Imp_LF_Imp_bexp.BNot
+def Original_LF__DOT__Imp_LF_Imp_BAnd := Original_LF__DOT__Imp_LF_Imp_bexp.BAnd
 
 def Original_LF__DOT__Imp_LF_Imp_ANum := Original_LF__DOT__Imp_LF_Imp_aexp.ANum
 def Original_LF__DOT__Imp_LF_Imp_AId := Original_LF__DOT__Imp_LF_Imp_aexp.AId
@@ -375,83 +158,1377 @@ def Original_LF__DOT__Imp_LF_Imp_APlus := Original_LF__DOT__Imp_LF_Imp_aexp.APlu
 def Original_LF__DOT__Imp_LF_Imp_AMinus := Original_LF__DOT__Imp_LF_Imp_aexp.AMinus
 def Original_LF__DOT__Imp_LF_Imp_AMult := Original_LF__DOT__Imp_LF_Imp_aexp.AMult
 
--- Stack machine instructions
-inductive Original_LF__DOT__Imp_LF_Imp_sinstr : Type where
-  | SPush : nat → Original_LF__DOT__Imp_LF_Imp_sinstr
-  | SLoad : String_string → Original_LF__DOT__Imp_LF_Imp_sinstr
-  | SPlus : Original_LF__DOT__Imp_LF_Imp_sinstr
-  | SMinus : Original_LF__DOT__Imp_LF_Imp_sinstr
-  | SMult : Original_LF__DOT__Imp_LF_Imp_sinstr
+-- ============================================================
+-- Helper functions
+-- ============================================================
 
-def Original_LF__DOT__Imp_LF_Imp_SPush := Original_LF__DOT__Imp_LF_Imp_sinstr.SPush
-def Original_LF__DOT__Imp_LF_Imp_SLoad := Original_LF__DOT__Imp_LF_Imp_sinstr.SLoad
-def Original_LF__DOT__Imp_LF_Imp_SPlus := Original_LF__DOT__Imp_LF_Imp_sinstr.SPlus
-def Original_LF__DOT__Imp_LF_Imp_SMinus := Original_LF__DOT__Imp_LF_Imp_sinstr.SMinus
-def Original_LF__DOT__Imp_LF_Imp_SMult := Original_LF__DOT__Imp_LF_Imp_sinstr.SMult
+def list_rev_append {α : Type} : list α → list α → list α
+  | list.nil, acc => acc
+  | list.cons h t, acc => list_rev_append t (list.cons h acc)
 
--- s_compile function
-def Original_LF__DOT__Imp_LF_Imp_s__compile : Original_LF__DOT__Imp_LF_Imp_aexp → list Original_LF__DOT__Imp_LF_Imp_sinstr
-  | Original_LF__DOT__Imp_LF_Imp_aexp.ANum n => list.cons (Original_LF__DOT__Imp_LF_Imp_sinstr.SPush n) list.nil
-  | Original_LF__DOT__Imp_LF_Imp_aexp.AId x => list.cons (Original_LF__DOT__Imp_LF_Imp_sinstr.SLoad x) list.nil
-  | Original_LF__DOT__Imp_LF_Imp_aexp.APlus a1 a2 =>
-      app _ (app _ (Original_LF__DOT__Imp_LF_Imp_s__compile a1) (Original_LF__DOT__Imp_LF_Imp_s__compile a2))
-        (list.cons Original_LF__DOT__Imp_LF_Imp_sinstr.SPlus list.nil)
-  | Original_LF__DOT__Imp_LF_Imp_aexp.AMinus a1 a2 =>
-      app _ (app _ (Original_LF__DOT__Imp_LF_Imp_s__compile a1) (Original_LF__DOT__Imp_LF_Imp_s__compile a2))
-        (list.cons Original_LF__DOT__Imp_LF_Imp_sinstr.SMinus list.nil)
-  | Original_LF__DOT__Imp_LF_Imp_aexp.AMult a1 a2 =>
-      app _ (app _ (Original_LF__DOT__Imp_LF_Imp_s__compile a1) (Original_LF__DOT__Imp_LF_Imp_s__compile a2))
-        (list.cons Original_LF__DOT__Imp_LF_Imp_sinstr.SMult list.nil)
+def list_rev {α : Type} (l : list α) : list α := list_rev_append l list.nil
 
--- s_compile1: s_compile <{ X - (2 * Y) }> = [SLoad X; SPush 2; SLoad Y; SMult; SMinus]
--- This is an example (computable) so we prove it
-def Original_LF__DOT__Imp_LF_Imp_s__compile1 :
-    @Corelib_Init_Logic_eq (list Original_LF__DOT__Imp_LF_Imp_sinstr)
-      (Original_LF__DOT__Imp_LF_Imp_s__compile
-        (Original_LF__DOT__Imp_LF_Imp_aexp.AMinus
-          (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
+-- Aliases for rev_append and rev
+def rev_append {α : Type} := @list_rev_append α
+def rev {α : Type} := @list_rev α
+
+-- Generic app (list append)
+def app {α : Type} : list α → list α → list α
+  | list.nil, ys => ys
+  | list.cons x xs, ys => list.cons x (app xs ys)
+
+-- Generic map
+def map {α β : Type} (f : α → β) : list α → list β
+  | list.nil => list.nil
+  | list.cons x xs => list.cons (f x) (map f xs)
+
+def fold_left_bexp (f : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp)
+    : list Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp
+  | list.nil, acc => acc
+  | list.cons h t, acc => fold_left_bexp f t (f acc h)
+
+def fold_left_aexp (f : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp)
+    : list Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp
+  | list.nil, acc => acc
+  | list.cons h t, acc => fold_left_aexp f t (f acc h)
+
+def fold_left_pair (f : Original_LF__DOT__Imp_LF_Imp_aexp → prod mybool Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp)
+    : list (prod mybool Original_LF__DOT__Imp_LF_Imp_aexp) → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp
+  | list.nil, acc => acc
+  | list.cons h t, acc => fold_left_pair f t (f acc h)
+
+def mybool_eq (b1 b2 : mybool) : mybool :=
+  match b1, b2 with
+  | mybool.mytrue, mybool.mytrue => mybool.mytrue
+  | mybool.myfalse, mybool.myfalse => mybool.mytrue
+  | _, _ => mybool.myfalse
+
+def mybool_andb (b1 b2 : mybool) : mybool :=
+  match b1 with
+  | mybool.mytrue => b2
+  | mybool.myfalse => mybool.myfalse
+
+-- nat_leb: less-than-or-equal comparison for nat, returning mybool
+def nat_leb : Nat → Nat → mybool
+  | 0, _ => mybool.mytrue
+  | Nat.succ _, 0 => mybool.myfalse
+  | Nat.succ n, Nat.succ m => nat_leb n m
+
+-- mynat2 operations for isDigit/isLowerAlpha
+def mynat2_add : mynat2 → mynat2 → mynat2
+  | mynat2.O, m => m
+  | mynat2.S n, m => mynat2.S (mynat2_add n m)
+
+def mynat2_leb : mynat2 → mynat2 → mybool
+  | mynat2.O, _ => mybool.mytrue
+  | mynat2.S _, mynat2.O => mybool.myfalse
+  | mynat2.S n, mynat2.S m => mynat2_leb n m
+
+-- Helper for bit values
+def bit_val2 (b : mybool) (place : mynat2) : mynat2 :=
+  match b with
+  | mybool.mytrue => place
+  | mybool.myfalse => mynat2.O
+
+-- Constants for mynat2
+def mynat2_1 : mynat2 := mynat2.S mynat2.O
+def mynat2_2 : mynat2 := mynat2.S mynat2_1
+def mynat2_4 : mynat2 := mynat2.S (mynat2.S mynat2_2)
+def mynat2_8 : mynat2 := mynat2.S (mynat2.S (mynat2.S (mynat2.S mynat2_4)))
+def mynat2_16 : mynat2 := mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S mynat2_8)))))))
+def mynat2_32 : mynat2 := mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S mynat2_16)))))))))))))))
+def mynat2_64 : mynat2 := mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S mynat2_32)))))))))))))))))))))))))))))))
+def mynat2_128 : mynat2 := mynat2_add mynat2_64 mynat2_64
+
+-- nat_of_ascii for mynat2
+def nat_of_ascii2 (a : ascii) : mynat2 :=
+  match a with
+  | ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
+    mynat2_add (bit_val2 b0 mynat2_1)
+    (mynat2_add (bit_val2 b1 mynat2_2)
+    (mynat2_add (bit_val2 b2 mynat2_4)
+    (mynat2_add (bit_val2 b3 mynat2_8)
+    (mynat2_add (bit_val2 b4 mynat2_16)
+    (mynat2_add (bit_val2 b5 mynat2_32)
+    (mynat2_add (bit_val2 b6 mynat2_64)
+                (bit_val2 b7 mynat2_128)))))))
+
+-- Constants for character ranges
+def mynat2_48 : mynat2 := mynat2_add mynat2_32 mynat2_16
+def mynat2_57 : mynat2 := mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S mynat2_48))))))))
+def mynat2_97 : mynat2 := mynat2.S (mynat2_add mynat2_64 mynat2_32)
+def mynat2_122 : mynat2 := mynat2_add mynat2_97 (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S mynat2.O)))))))))))))))))))))))))
+
+def ascii_eq (a1 a2 : ascii) : mybool :=
+  match a1, a2 with
+  | ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7, ascii.Ascii c0 c1 c2 c3 c4 c5 c6 c7 =>
+    match mybool_eq b0 c0, mybool_eq b1 c1, mybool_eq b2 c2, mybool_eq b3 c3,
+          mybool_eq b4 c4, mybool_eq b5 c5, mybool_eq b6 c6, mybool_eq b7 c7 with
+    | mybool.mytrue, mybool.mytrue, mybool.mytrue, mybool.mytrue,
+      mybool.mytrue, mybool.mytrue, mybool.mytrue, mybool.mytrue => mybool.mytrue
+    | _, _, _, _, _, _, _, _ => mybool.myfalse
+
+def mystring_eq : mystring → mystring → mybool
+  | mystring.EmptyString, mystring.EmptyString => mybool.mytrue
+  | mystring.String a1 s1, mystring.String a2 s2 =>
+    match ascii_eq a1 a2 with
+    | mybool.mytrue => mystring_eq s1 s2
+    | mybool.myfalse => mybool.myfalse
+  | _, _ => mybool.myfalse
+
+def mystring_append : mystring → mystring → mystring
+  | mystring.EmptyString, s2 => s2
+  | mystring.String a s1, s2 => mystring.String a (mystring_append s1 s2)
+
+-- Reduction equations for mystring_append (for export to Rocq)
+theorem mystring_append_empty (s2 : mystring) : mystring_append mystring.EmptyString s2 = s2 := rfl
+theorem mystring_append_cons (a : ascii) (s1 s2 : mystring) : 
+  mystring_append (mystring.String a s1) s2 = mystring.String a (mystring_append s1 s2) := rfl
+
+-- list of ascii from string
+def list_of_string : mystring → list ascii
+  | mystring.EmptyString => list.nil
+  | mystring.String c s => list.cons c (list_of_string s)
+
+-- forallb
+def forallb {X : Type} (test : X → mybool) : list X → mybool
+  | list.nil => mybool.mytrue
+  | list.cons x xs =>
+    match test x with
+    | mybool.mytrue => forallb test xs
+    | mybool.myfalse => mybool.myfalse
+
+-- nat_of_ascii (simplified - just the numeric value of an ASCII character)
+def nat_of_ascii (a : ascii) : Nat :=
+  match a with
+  | ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
+    let n0 : Nat := if b0 = mybool.mytrue then 1 else 0
+    let n1 : Nat := if b1 = mybool.mytrue then 2 else 0
+    let n2 : Nat := if b2 = mybool.mytrue then 4 else 0
+    let n3 : Nat := if b3 = mybool.mytrue then 8 else 0
+    let n4 : Nat := if b4 = mybool.mytrue then 16 else 0
+    let n5 : Nat := if b5 = mybool.mytrue then 32 else 0
+    let n6 : Nat := if b6 = mybool.mytrue then 64 else 0
+    let n7 : Nat := if b7 = mybool.mytrue then 128 else 0
+    n0 + n1 + n2 + n3 + n4 + n5 + n6 + n7
+
+-- isLowerAlpha: checks if 97 <= n <= 122
+def isLowerAlpha (c : ascii) : mybool :=
+  let n := nat_of_ascii2 c
+  mybool_andb (mynat2_leb mynat2_97 n) (mynat2_leb n mynat2_122)
+
+-- isDigit: checks if 48 <= n <= 57
+def isDigit (c : ascii) : mybool :=
+  let n := nat_of_ascii2 c
+  mybool_andb (mynat2_leb mynat2_48 n) (mynat2_leb n mynat2_57)
+
+-- ============================================================
+-- Character definitions
+-- ============================================================
+
+def char_e : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_x : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_p : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_c : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_t : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_d : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_space : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_quote : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_dot : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_T : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse
+def char_o : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_m : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_a : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_n : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_y : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_r : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_u : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_s : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_i : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_v : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_l : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_f : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+def char_tilde : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def char_lparen : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_rparen : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_eq : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+def char_lt : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+def char_amp : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_star : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_plus : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_minus : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse
+def char_0 : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+-- '1' = 49 = 00110001 binary
+def char_1 : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+-- '2' = 50 = 00110010 binary
+def char_2 : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+-- '3' = 51 = 00110011 binary
+def char_3 : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+-- '6' = 54 = 00110110 binary
+def char_6 : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+-- newline = 10 = 00001010 binary
+def char_newline : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.myfalse
+
+-- String literals
+def str_true : mystring := mystring.String char_t (mystring.String char_r (mystring.String char_u (mystring.String char_e mystring.EmptyString)))
+def str_false : mystring := mystring.String char_f (mystring.String char_a (mystring.String char_l (mystring.String char_s (mystring.String char_e mystring.EmptyString))))
+def str_not : mystring := mystring.String char_tilde mystring.EmptyString
+def str_lparen : mystring := mystring.String char_lparen mystring.EmptyString
+def str_rparen : mystring := mystring.String char_rparen mystring.EmptyString
+def str_eq : mystring := mystring.String char_eq mystring.EmptyString
+def str_le : mystring := mystring.String char_lt (mystring.String char_eq mystring.EmptyString)
+def str_and : mystring := mystring.String char_amp (mystring.String char_amp mystring.EmptyString)
+def str_star : mystring := mystring.String char_star mystring.EmptyString
+def str_plus : mystring := mystring.String char_plus mystring.EmptyString
+def str_minus : mystring := mystring.String char_minus mystring.EmptyString
+
+-- Error messages
+def expected_prefix : mystring :=
+  mystring.String char_e (mystring.String char_x (mystring.String char_p (mystring.String char_e
+  (mystring.String char_c (mystring.String char_t (mystring.String char_e (mystring.String char_d
+  (mystring.String char_space (mystring.String char_quote mystring.EmptyString)))))))))
+
+def expected_suffix : mystring :=
+  mystring.String char_quote (mystring.String char_dot mystring.EmptyString)
+
+def make_error_msg (t : mystring) : mystring :=
+  mystring_append (mystring_append expected_prefix t) expected_suffix
+
+-- "Too many recursive calls" - 24 characters
+-- T o o sp m a n y sp r e c u r s i v e sp c a l l s
+def too_many_recursive_calls : mystring :=
+  mystring.String char_T
+  (mystring.String char_o
+  (mystring.String char_o
+  (mystring.String char_space
+  (mystring.String char_m
+  (mystring.String char_a
+  (mystring.String char_n
+  (mystring.String char_y
+  (mystring.String char_space
+  (mystring.String char_r
+  (mystring.String char_e
+  (mystring.String char_c
+  (mystring.String char_u
+  (mystring.String char_r
+  (mystring.String char_s
+  (mystring.String char_i
+  (mystring.String char_v
+  (mystring.String char_e
+  (mystring.String char_space
+  (mystring.String char_c
+  (mystring.String char_a
+  (mystring.String char_l
+  (mystring.String char_l
+  (mystring.String char_s
+  mystring.EmptyString)))))))))))))))))))))))
+
+-- Additional characters for error messages
+-- 'I' = 73 = 01001001 (LSB first: 1,0,0,1,0,0,1,0)
+def char_I : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse
+-- 'g' = 103 = 01100111 (LSB first: 1,1,1,0,0,1,1,0)
+def char_g : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+-- 'b' = 98 = 01100010 (LSB first: 0,1,0,0,0,1,1,0)
+def char_b : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+-- ':' = 58 = 00111010 (LSB first: 0,1,0,1,1,1,0,0)
+def char_colon : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+-- 'E' = 69 = 01000101 (LSB first: 1,0,1,0,0,0,1,0)
+def char_E : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse
+-- 'N' = 78 = 01001110 (LSB first: 0,1,1,1,0,0,1,0)
+def char_N : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse
+
+-- "Expected identifier"
+def str_expected_identifier : mystring :=
+  mystring.String char_E (mystring.String char_x (mystring.String char_p (mystring.String char_e
+  (mystring.String char_c (mystring.String char_t (mystring.String char_e (mystring.String char_d
+  (mystring.String char_space (mystring.String char_i (mystring.String char_d (mystring.String char_e
+  (mystring.String char_n (mystring.String char_t (mystring.String char_i (mystring.String char_f
+  (mystring.String char_i (mystring.String char_e (mystring.String char_r mystring.EmptyString))))))))))))))))))
+
+-- "Illegal identifier:'"
+def str_illegal_prefix : mystring :=
+  mystring.String char_I (mystring.String char_l (mystring.String char_l (mystring.String char_e
+  (mystring.String char_g (mystring.String char_a (mystring.String char_l (mystring.String char_space
+  (mystring.String char_i (mystring.String char_d (mystring.String char_e (mystring.String char_n
+  (mystring.String char_t (mystring.String char_i (mystring.String char_f (mystring.String char_i
+  (mystring.String char_e (mystring.String char_r (mystring.String char_colon (mystring.String char_quote
+  mystring.EmptyString)))))))))))))))))))
+
+-- "'"
+def str_quote : mystring := mystring.String char_quote mystring.EmptyString
+
+-- "Expected number"
+def str_expected_number : mystring :=
+  mystring.String char_E (mystring.String char_x (mystring.String char_p (mystring.String char_e
+  (mystring.String char_c (mystring.String char_t (mystring.String char_e (mystring.String char_d
+  (mystring.String char_space (mystring.String char_n (mystring.String char_u (mystring.String char_m
+  (mystring.String char_b (mystring.String char_e (mystring.String char_r mystring.EmptyString))))))))))))))
+
+def expected_identifier : mystring := str_expected_identifier
+def illegal_identifier_msg (x : mystring) : mystring := mystring_append (mystring_append str_illegal_prefix x) str_quote
+def expected_number : mystring := str_expected_number
+
+-- Additional characters for expected_eq_or_le_msg
+-- 'h' = 104 = 01101000 (LSB first: 0,0,0,1,0,1,1,0)
+def char_h : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+-- 'k' = 107 = 64+32+8+2+1 = 0b01101011
+def char_k : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
+
+-- "Expected '=' or '<=' after arithmetic expression"
+-- 48 characters total
+def expected_eq_or_le_msg : mystring :=
+  mystring.String char_E (mystring.String char_x (mystring.String char_p (mystring.String char_e  -- Expe
+  (mystring.String char_c (mystring.String char_t (mystring.String char_e (mystring.String char_d  -- cted
+  (mystring.String char_space (mystring.String char_quote (mystring.String char_eq (mystring.String char_quote  --  '='
+  (mystring.String char_space (mystring.String char_o (mystring.String char_r (mystring.String char_space  --  or
+  (mystring.String char_quote (mystring.String char_lt (mystring.String char_eq (mystring.String char_quote  -- '<='
+  (mystring.String char_space (mystring.String char_a (mystring.String char_f (mystring.String char_t  --  aft
+  (mystring.String char_e (mystring.String char_r (mystring.String char_space (mystring.String char_a  -- er a
+  (mystring.String char_r (mystring.String char_i (mystring.String char_t (mystring.String char_h  -- rith
+  (mystring.String char_m (mystring.String char_e (mystring.String char_t (mystring.String char_i  -- meti
+  (mystring.String char_c (mystring.String char_space (mystring.String char_e (mystring.String char_x  -- c ex
+  (mystring.String char_p (mystring.String char_r (mystring.String char_e (mystring.String char_s  -- pres
+  (mystring.String char_s (mystring.String char_i (mystring.String char_o (mystring.String char_n  -- sion
+  mystring.EmptyString)))))))))))))))))))))))))))))))))))))))))))))))
+
+-- ============================================================
+-- Parser combinators
+-- ============================================================
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect
+    (T : Type)
+    (t : Original_LF__DOT__ImpParser_LF_ImpParser_token)
+    (p : list Original_LF__DOT__ImpParser_LF_ImpParser_token →
+         Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod T (list Original_LF__DOT__ImpParser_LF_ImpParser_token)))
+    (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+    Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod T (list Original_LF__DOT__ImpParser_LF_ImpParser_token)) :=
+  match xs with
+  | list.nil => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE (make_error_msg t)
+  | list.cons x xs' =>
+    match mystring_eq x t with
+    | mybool.mytrue => p xs'
+    | mybool.myfalse => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE (make_error_msg t)
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_expect
+    (t : Original_LF__DOT__ImpParser_LF_ImpParser_token)
+    (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+    Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod unit (list Original_LF__DOT__ImpParser_LF_ImpParser_token)) :=
+  Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect unit t
+    (fun ys => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk unit.tt ys)) xs
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_many__helper (T : Type)
+    (p : list Original_LF__DOT__ImpParser_LF_ImpParser_token →
+         Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod T (list Original_LF__DOT__ImpParser_LF_ImpParser_token)))
+    (acc : list T)
+    (steps : nat)
+    (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+    Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod (list T) (list Original_LF__DOT__ImpParser_LF_ImpParser_token)) :=
+  @Nat.rec
+    (fun _ => list T → list Original_LF__DOT__ImpParser_LF_ImpParser_token →
+              Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod (list T) (list Original_LF__DOT__ImpParser_LF_ImpParser_token)))
+    (fun _ _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls)
+    (fun _ rec_fn acc' xs' =>
+      match p xs' with
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+          Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (list_rev acc') xs')
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result =>
+          match result with
+          | prod.mk t xs'' => rec_fn (list.cons t acc') xs'')
+    steps
+    acc
+    xs
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_many (T : Type)
+    (p : list Original_LF__DOT__ImpParser_LF_ImpParser_token →
+         Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod T (list Original_LF__DOT__ImpParser_LF_ImpParser_token)))
+    (steps : nat)
+    (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+    Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod (list T) (list Original_LF__DOT__ImpParser_LF_ImpParser_token)) :=
+  Original_LF__DOT__ImpParser_LF_ImpParser_many__helper T p list.nil steps xs
+
+-- ============================================================
+-- parseIdentifier and parseNumber
+-- ============================================================
+
+def parseIdentifier (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+    Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod mystring (list Original_LF__DOT__ImpParser_LF_ImpParser_token)) :=
+  match xs with
+  | list.nil => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE expected_identifier
+  | list.cons x xs' =>
+    match forallb isLowerAlpha (list_of_string x) with
+    | mybool.mytrue => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk x xs')
+    | mybool.myfalse => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE (illegal_identifier_msg x)
+
+-- Explicit nat operations without typeclasses for simpler export
+-- nat_add: recurse on first argument like Rocq's +
+def nat_add : Nat → Nat → Nat
+  | Nat.zero, m => m
+  | Nat.succ n, m => Nat.succ (nat_add n m)
+
+-- Reduction lemmas for nat_add
+theorem nat_add_zero_l (m : Nat) : nat_add Nat.zero m = m := rfl
+theorem nat_add_succ_l (n m : Nat) : nat_add (Nat.succ n) m = Nat.succ (nat_add n m) := rfl
+
+-- nat_mul: recurse on first argument like Rocq's *
+def nat_mul : Nat → Nat → Nat
+  | Nat.zero, _ => Nat.zero
+  | Nat.succ n, m => nat_add m (nat_mul n m)
+
+-- Reduction lemmas for nat_mul
+theorem nat_mul_zero_l (m : Nat) : nat_mul Nat.zero m = Nat.zero := rfl
+theorem nat_mul_succ_l (n m : Nat) : nat_mul (Nat.succ n) m = nat_add m (nat_mul n m) := rfl
+
+def nat_sub : Nat → Nat → Nat
+  | Nat.zero, _ => Nat.zero
+  | Nat.succ n, Nat.zero => Nat.succ n
+  | Nat.succ n, Nat.succ m => nat_sub n m
+
+-- Reduction lemmas for nat_sub
+theorem nat_sub_zero_l (m : Nat) : nat_sub Nat.zero m = Nat.zero := rfl
+theorem nat_sub_succ_zero (n : Nat) : nat_sub (Nat.succ n) Nat.zero = Nat.succ n := rfl
+theorem nat_sub_succ_succ (n m : Nat) : nat_sub (Nat.succ n) (Nat.succ m) = nat_sub n m := rfl
+
+def nat_10 : Nat := Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ Nat.zero)))))))))
+
+def nat_48 : Nat := nat_of_ascii char_0
+
+def fold_left_nat (f : Nat → ascii → Nat) : list ascii → Nat → Nat
+  | list.nil, acc => acc
+  | list.cons h t, acc => fold_left_nat f t (f acc h)
+
+def parseNumber (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+    Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod nat (list Original_LF__DOT__ImpParser_LF_ImpParser_token)) :=
+  match xs with
+  | list.nil => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE expected_number
+  | list.cons x xs' =>
+    match forallb isDigit (list_of_string x) with
+    | mybool.mytrue =>
+      let n : Nat := fold_left_nat (fun acc d => nat_add (nat_mul nat_10 acc) (nat_sub (nat_of_ascii d) nat_48)) (list_of_string x) Nat.zero
+      Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk n xs')
+    | mybool.myfalse => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE expected_number
+
+-- ============================================================
+-- Arithmetic expression parsers (mutually recursive using Nat.rec)
+-- ============================================================
+
+-- We'll define parsePrimaryExp, parseProductExp, parseSumExp together
+-- using nested Nat.rec for the mutual recursion simulation
+
+-- Helper type for the return type of the Original_LF__DOT__Imp_LF_Imp_aexp parsers
+abbrev AexpParseResult := Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod Original_LF__DOT__Imp_LF_Imp_aexp (list Original_LF__DOT__ImpParser_LF_ImpParser_token))
+
+-- Forward declarations as functions taking steps as parameter
+-- We implement these as a single recursive definition
+
+def parseSumExp_body
+    (parsePrimaryExp : nat → list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult)
+    (parseProductExp : nat → list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult)
+    (parseSumExp : nat → list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult)
+    (steps : nat)
+    (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) : AexpParseResult :=
+  match steps with
+  | Nat.zero => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls
+  | Nat.succ steps' =>
+    match parseProductExp steps' xs with
+    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+      match Original_LF__DOT__ImpParser_LF_ImpParser_many (prod mybool Original_LF__DOT__Imp_LF_Imp_aexp)
+              (fun xs =>
+                match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_plus (parseProductExp steps') xs with
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                    Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (prod.mk mybool.mytrue e') rest')
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                  match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_minus (parseProductExp steps') xs with
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                      Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (prod.mk mybool.myfalse e') rest')
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg)
+              steps' rest with
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk es rest') =>
+        Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE
+          (prod.mk (fold_left_pair (fun e0 term =>
+            match term with
+            | prod.mk mybool.mytrue e' => Original_LF__DOT__Imp_LF_Imp_aexp.APlus e0 e'
+            | prod.mk mybool.myfalse e' => Original_LF__DOT__Imp_LF_Imp_aexp.AMinus e0 e') es e) rest')
+
+-- Combined mutually recursive parser using Nat.rec
+def aexpParsers : nat → (list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult) ×
+                         (list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult) ×
+                         (list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult) :=
+  @Nat.rec
+    (fun _ => (list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult) ×
+              (list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult) ×
+              (list Original_LF__DOT__ImpParser_LF_ImpParser_token → AexpParseResult))
+    -- Base case: steps = 0
+    (fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls,
+     fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls,
+     fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls)
+    -- Recursive case
+    (fun steps' rec =>
+      let (parsePrimaryExp', parseProductExp', parseSumExp') := rec
+      -- parsePrimaryExp
+      let parsePrimaryExp := fun xs =>
+        -- TRY parseIdentifier
+        match parseIdentifier xs with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk i rest) =>
+            Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_aexp.AId i) rest)
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+          -- TRY parseNumber
+          match parseNumber xs with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk n rest) =>
+              Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_aexp.ANum n) rest)
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+            -- TRY "(" parseSumExp ")"
+            match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_lparen parseSumExp' xs with
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+              match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_rparen rest with
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest') =>
+                  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest')
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+      -- parseProductExp
+      let parseProductExp := fun xs =>
+        match parsePrimaryExp' xs with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+          match Original_LF__DOT__ImpParser_LF_ImpParser_many Original_LF__DOT__Imp_LF_Imp_aexp
+                  (Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_star parsePrimaryExp')
+                  steps' rest with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk es rest') =>
+              Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (fold_left_aexp Original_LF__DOT__Imp_LF_Imp_aexp.AMult es e) rest')
+      -- parseSumExp
+      let parseSumExp := fun xs =>
+        match parseProductExp' xs with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+          match Original_LF__DOT__ImpParser_LF_ImpParser_many (prod mybool Original_LF__DOT__Imp_LF_Imp_aexp)
+                  (fun ys =>
+                    match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_plus parseProductExp' ys with
+                    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                        Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (prod.mk mybool.mytrue e') rest')
+                    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                      match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_minus parseProductExp' ys with
+                      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                          Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (prod.mk mybool.myfalse e') rest')
+                      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg)
+                  steps' rest with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk es rest') =>
+              Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE
+                (prod.mk (fold_left_pair (fun e0 term =>
+                  match term with
+                  | prod.mk mybool.mytrue e' => Original_LF__DOT__Imp_LF_Imp_aexp.APlus e0 e'
+                  | prod.mk mybool.myfalse e' => Original_LF__DOT__Imp_LF_Imp_aexp.AMinus e0 e') es e) rest')
+      (parsePrimaryExp, parseProductExp, parseSumExp))
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp (steps : nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) : AexpParseResult :=
+  let (_, _, parseSumExp) := aexpParsers steps
+  parseSumExp xs
+
+def parseProductExp (steps : nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) : AexpParseResult :=
+  let (_, parseProductExp, _) := aexpParsers steps
+  parseProductExp xs
+
+def parseSumExp (steps : nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) : AexpParseResult :=
+  let (_, _, parseSumExp) := aexpParsers steps
+  parseSumExp xs
+
+-- ============================================================
+-- Boolean expression parsers (mutually recursive)
+-- ============================================================
+
+abbrev BexpParseResult := Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod Original_LF__DOT__Imp_LF_Imp_bexp (list Original_LF__DOT__ImpParser_LF_ImpParser_token))
+
+-- Combined mutually recursive parser for Original_LF__DOT__Imp_LF_Imp_bexp using Nat.rec
+def bexpParsers : nat → (list Original_LF__DOT__ImpParser_LF_ImpParser_token → BexpParseResult) ×
+                         (list Original_LF__DOT__ImpParser_LF_ImpParser_token → BexpParseResult) :=
+  @Nat.rec
+    (fun _ => (list Original_LF__DOT__ImpParser_LF_ImpParser_token → BexpParseResult) ×
+              (list Original_LF__DOT__ImpParser_LF_ImpParser_token → BexpParseResult))
+    -- Base case: steps = 0
+    (fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls,
+     fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls)
+    -- Recursive case
+    (fun steps' rec =>
+      let (Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp', parseConjunctionExp') := rec
+      -- Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp
+      let Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp := fun xs =>
+        -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_expect "true"
+        match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_true xs with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest) =>
+            Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk Original_LF__DOT__Imp_LF_Imp_bexp.BTrue rest)
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+          -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_expect "false"
+          match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_false xs with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest) =>
+              Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk Original_LF__DOT__Imp_LF_Imp_bexp.BFalse rest)
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+            -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect "~" (Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp steps')
+            match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_not Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp' xs with
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+                Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_bexp.BNot e) rest)
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+              -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect "(" (parseConjunctionExp steps') then Original_LF__DOT__ImpParser_LF_ImpParser_expect ")"
+              -- In Rocq, this is tested as a single unit - if ")" is missing, fall through
+              let parenResult :=
+                match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_lparen parseConjunctionExp' xs with
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+                  match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_rparen rest with
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest') => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest')
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+              match parenResult with
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest') =>
+                  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest')
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                -- parseProductExp then try "=" or "<="
+                match parseProductExp steps' xs with
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+                  -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect "=" (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp steps')
+                  match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_eq (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp steps') rest with
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                      Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_bexp.BEq e e') rest')
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                    -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect "<=" (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp steps')
+                    match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_le (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp steps') rest with
+                    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                        Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_bexp.BLe e e') rest')
+                    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                        Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE expected_eq_or_le_msg
+      -- parseConjunctionExp
+      let parseConjunctionExp := fun xs =>
+        match Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp' xs with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+          match Original_LF__DOT__ImpParser_LF_ImpParser_many Original_LF__DOT__Imp_LF_Imp_bexp
+                  (Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_and Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp')
+                  steps' rest with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk es rest') =>
+              Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (fold_left_bexp Original_LF__DOT__Imp_LF_Imp_bexp.BAnd es e) rest')
+      (Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp, parseConjunctionExp))
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp (steps : nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) : BexpParseResult :=
+  let (Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp, _) := bexpParsers steps
+  Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp xs
+
+def parseConjunctionExp (steps : nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) : BexpParseResult :=
+  let (_, parseConjunctionExp) := bexpParsers steps
+  parseConjunctionExp xs
+
+-- ============================================================
+-- Export parsePrimaryExp as a top-level function
+-- ============================================================
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_parsePrimaryExp (steps : nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) : AexpParseResult :=
+  let (parsePrimaryExp, _, _) := aexpParsers steps
+  parsePrimaryExp xs
+
+-- Aliases for parseIdentifier and parseNumber
+def Original_LF__DOT__ImpParser_LF_ImpParser_parseIdentifier := parseIdentifier
+def Original_LF__DOT__ImpParser_LF_ImpParser_parseNumber := parseNumber
+
+-- Aliases for helper functions
+def Original_LF__DOT__ImpParser_LF_ImpParser_isLowerAlpha := isLowerAlpha
+def Original_LF__DOT__ImpParser_LF_ImpParser_isDigit := isDigit
+def Original_LF__DOT__ImpParser_LF_ImpParser_list__of__string := list_of_string
+
+-- ============================================================
+-- Reduction lemmas for parsePrimaryExp
+-- ============================================================
+
+-- Base case: steps = 0
+theorem parsePrimaryExp_zero (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  Original_LF__DOT__ImpParser_LF_ImpParser_parsePrimaryExp Nat.zero xs =
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls := rfl
+
+-- Successor case: steps = S n
+-- This captures the structure of the recursive definition
+theorem parsePrimaryExp_succ (n : Nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  Original_LF__DOT__ImpParser_LF_ImpParser_parsePrimaryExp (Nat.succ n) xs =
+  (let (_, _, parseSumExp') := aexpParsers n
+   match parseIdentifier xs with
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk i rest) =>
+       Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_aexp.AId i) rest)
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+     match parseNumber xs with
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk num rest) =>
+         Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_aexp.ANum num) rest)
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+       match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_lparen parseSumExp' xs with
+       | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+         match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_rparen rest with
+         | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest') =>
+             Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest')
+         | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg =>
+             Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+       | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg =>
+           Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg) := rfl
+
+-- Reduction equations for parseProductExp'
+theorem parseProductExp_eq_zero (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  parseProductExp Nat.zero xs =
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls := by rfl
+
+theorem parseProductExp_eq_succ (n : Nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  parseProductExp (Nat.succ n) xs =
+  (let (parsePrimaryExp', _, _) := aexpParsers n
+   match parsePrimaryExp' xs with
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+     match Original_LF__DOT__ImpParser_LF_ImpParser_many Original_LF__DOT__Imp_LF_Imp_aexp
+             (Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_star parsePrimaryExp')
+             n rest with
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk es rest') =>
+       Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (fold_left_aexp Original_LF__DOT__Imp_LF_Imp_aexp.AMult es e) rest')) := rfl
+
+-- Reduction equations for parseSumExp'
+theorem parseSumExp_eq_zero (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  parseSumExp Nat.zero xs =
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls := by rfl
+
+theorem parseSumExp_eq_succ (n : Nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  parseSumExp (Nat.succ n) xs =
+  (let (_, parseProductExp', _) := aexpParsers n
+   match parseProductExp' xs with
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+     match Original_LF__DOT__ImpParser_LF_ImpParser_many (prod mybool Original_LF__DOT__Imp_LF_Imp_aexp)
+             (fun xs2 =>
+               match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_plus parseProductExp' xs2 with
+               | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                 Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (prod.mk mybool.mytrue e') rest')
+               | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                 match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_minus parseProductExp' xs2 with
+                 | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                   Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (prod.mk mybool.myfalse e') rest')
+                 | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg)
+             n rest with
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk es rest') =>
+       Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (fold_left_pair (fun e0 term =>
+         match term with
+         | prod.mk mybool.mytrue e' => Original_LF__DOT__Imp_LF_Imp_aexp.APlus e0 e'
+         | prod.mk mybool.myfalse e' => Original_LF__DOT__Imp_LF_Imp_aexp.AMinus e0 e') es e) rest')) := rfl
+
+-- ============================================================
+-- Reduction lemmas for Original_LF__DOT__Imp_LF_Imp_bexp parsers
+-- ============================================================
+
+theorem bexpParsers_zero :
+  bexpParsers Nat.zero =
+  (fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls,
+   fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls) := rfl
+
+theorem parseAtomicExp_bexp_zero (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp Nat.zero xs =
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls := rfl
+
+theorem parseAtomicExp_bexp_succ (n : Nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp (Nat.succ n) xs =
+  (let (Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp', parseConjunctionExp') := bexpParsers n
+   -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_expect "true"
+   match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_true xs with
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest) =>
+       Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk Original_LF__DOT__Imp_LF_Imp_bexp.BTrue rest)
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+     -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_expect "false"
+     match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_false xs with
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest) =>
+         Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk Original_LF__DOT__Imp_LF_Imp_bexp.BFalse rest)
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+       -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect "~" (Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp steps')
+       match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_not Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp' xs with
+       | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+           Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_bexp.BNot e) rest)
+       | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+         -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect "(" (parseConjunctionExp steps') then Original_LF__DOT__ImpParser_LF_ImpParser_expect ")"
+         -- Tested as a single unit - if ")" is missing, fall through to arithmetic
+         let parenResult :=
+           match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_lparen parseConjunctionExp' xs with
+           | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+             match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_rparen rest with
+             | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest') => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest')
+             | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+           | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+         match parenResult with
+         | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest') =>
+             Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest')
+         | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+           -- Parse arithmetic expression and compare
+           match parseProductExp n xs with
+           | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+           | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+             -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect "=" (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp steps')
+             match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_eq (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp n) rest with
+             | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                 Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_bexp.BEq e e') rest')
+             | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+               -- TRY Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect "<=" (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp steps')
+               match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_le (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp n) rest with
+               | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e' rest') =>
+                   Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_bexp.BLe e e') rest')
+               | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                   Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE expected_eq_or_le_msg) := rfl
+
+theorem parseConjunctionExp_zero (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  parseConjunctionExp Nat.zero xs =
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls := rfl
+
+theorem parseConjunctionExp_succ (n : Nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  parseConjunctionExp (Nat.succ n) xs =
+  (let (Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp', _) := bexpParsers n
+   match Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp' xs with
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+     match Original_LF__DOT__ImpParser_LF_ImpParser_many Original_LF__DOT__Imp_LF_Imp_bexp
+             (Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_and Original_LF__DOT__ImpParser_LF_ImpParser_parseAtomicExp')
+             n rest with
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+     | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk es rest') =>
+         Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (fold_left_bexp Original_LF__DOT__Imp_LF_Imp_bexp.BAnd es e) rest')) := rfl
+
+-- parseBExp is just parseConjunctionExp
+def Original_LF__DOT__ImpParser_LF_ImpParser_parseBExp := parseConjunctionExp
+
+-- ============================================================
+-- com type
+-- ============================================================
+
+inductive Original_LF__DOT__Imp_LF_Imp_com : Type where
+  | CSkip : Original_LF__DOT__Imp_LF_Imp_com
+  | CAsgn : mystring → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_com
+  | CSeq : Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com
+  | CIf : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com
+  | CWhile : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com
+
+def Original_LF__DOT__Imp_LF_Imp_CSkip := Original_LF__DOT__Imp_LF_Imp_com.CSkip
+def Original_LF__DOT__Imp_LF_Imp_CAsgn := Original_LF__DOT__Imp_LF_Imp_com.CAsgn
+def Original_LF__DOT__Imp_LF_Imp_CSeq := Original_LF__DOT__Imp_LF_Imp_com.CSeq
+def Original_LF__DOT__Imp_LF_Imp_CIf := Original_LF__DOT__Imp_LF_Imp_com.CIf
+def Original_LF__DOT__Imp_LF_Imp_CWhile := Original_LF__DOT__Imp_LF_Imp_com.CWhile
+
+-- ============================================================
+-- String constants for commands
+-- ============================================================
+
+-- "skip"
+def str_skip : mystring := mystring.String char_s (mystring.String char_k (mystring.String char_i (mystring.String char_p mystring.EmptyString)))
+
+-- "if"
+def str_if : mystring := mystring.String char_i (mystring.String char_f mystring.EmptyString)
+
+-- "then"
+def str_then : mystring := mystring.String char_t (mystring.String char_h (mystring.String char_e (mystring.String char_n mystring.EmptyString)))
+
+-- "else"
+def str_else : mystring := mystring.String char_e (mystring.String char_l (mystring.String char_s (mystring.String char_e mystring.EmptyString)))
+
+-- "end"
+def str_end : mystring := mystring.String char_e (mystring.String char_n (mystring.String char_d mystring.EmptyString))
+
+-- "while"
+def str_while : mystring := mystring.String char_o (mystring.String char_h (mystring.String char_i (mystring.String char_l (mystring.String char_e mystring.EmptyString))))
+-- Actually: "while" = w h i l e - let me correct
+-- 'w' = 119 = 64+32+16+4+2+1 = 0b01110111
+def char_w : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
+def str_while_correct : mystring := mystring.String char_w (mystring.String char_h (mystring.String char_i (mystring.String char_l (mystring.String char_e mystring.EmptyString))))
+
+-- "do"
+def str_do : mystring := mystring.String char_d (mystring.String char_o mystring.EmptyString)
+
+-- ":="
+-- ':' = 58 = 32+16+8+2 = 0b00111010
+def char_colon_assign : ascii := ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+def str_assign : mystring := mystring.String char_colon_assign (mystring.String char_eq mystring.EmptyString)
+
+-- ";" - semicolon
+-- ';' = 59 = 32+16+8+2+1 = 0b00111011
+def char_semicolon : ascii := ascii.Ascii mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse
+def str_semicolon : mystring := mystring.String char_semicolon mystring.EmptyString
+
+-- Error messages
+def expecting_command_msg : mystring :=
+  mystring.String char_E (mystring.String char_x (mystring.String char_p (mystring.String char_e (mystring.String char_c (mystring.String char_t (mystring.String char_i (mystring.String char_n (mystring.String char_g (mystring.String char_space (mystring.String char_a (mystring.String char_space (mystring.String char_c (mystring.String char_o (mystring.String char_m (mystring.String char_m (mystring.String char_a (mystring.String char_n (mystring.String char_d mystring.EmptyString))))))))))))))))))
+
+-- ============================================================
+-- parseSimpleCommand and parseSequencedCommand (mutually recursive)
+-- ============================================================
+
+def ComParseResult := Original_LF__DOT__ImpParser_LF_ImpParser_optionE (prod Original_LF__DOT__Imp_LF_Imp_com (list Original_LF__DOT__ImpParser_LF_ImpParser_token))
+
+-- Combined mutual recursion
+def comParsers (steps : Nat) : (list Original_LF__DOT__ImpParser_LF_ImpParser_token → ComParseResult) × (list Original_LF__DOT__ImpParser_LF_ImpParser_token → ComParseResult) :=
+  match steps with
+  | Nat.zero => (fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls,
+                 fun _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls)
+  | Nat.succ steps' =>
+    let (parseSimpleCommand', parseSequencedCommand') := comParsers steps'
+    let simpleParser : list Original_LF__DOT__ImpParser_LF_ImpParser_token → ComParseResult := fun xs =>
+      -- TRY skip OR
+      let skip_result :=
+        match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_skip xs with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest) =>
+            Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk Original_LF__DOT__Imp_LF_Imp_com.CSkip rest)
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+      match skip_result with
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+        -- TRY if-then-else-end OR
+        let if_result := id
+          (match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_if (Original_LF__DOT__ImpParser_LF_ImpParser_parseBExp steps') xs with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+              match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_com str_then parseSequencedCommand' rest with
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c rest') =>
+                  match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_com str_else parseSequencedCommand' rest' with
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c' rest'') =>
+                      match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_end rest'' with
+                      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest''') =>
+                          Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_com.CIf e c c') rest''')
+                      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString)
+        match if_result with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+          -- TRY while-do-end OR
+          let while_result :=
+            match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_while_correct (Original_LF__DOT__ImpParser_LF_ImpParser_parseBExp steps') xs with
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+                match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_com str_do parseSequencedCommand' rest with
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c rest') =>
+                    match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_end rest' with
+                    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest'') =>
+                        Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_com.CWhile e c) rest'')
+                    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+          match while_result with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+            -- TRY assignment x := e OR NoneE "Expecting a command"
+            let assign_result :=
+              match Original_LF__DOT__ImpParser_LF_ImpParser_parseIdentifier xs with
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk i rest) =>
+                  match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_assign (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp steps') rest with
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest') =>
+                      Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_com.CAsgn i e) rest')
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+            match assign_result with
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE expecting_command_msg
+    let seqParser : list Original_LF__DOT__ImpParser_LF_ImpParser_token → ComParseResult := fun xs =>
+      match parseSimpleCommand' xs with
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c rest) =>
+          match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_com str_semicolon parseSequencedCommand' rest with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c' rest') =>
+              Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_com.CSeq c c') rest')
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+              Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c rest)
+    (simpleParser, seqParser)
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_parseSimpleCommand (steps : Nat) : list Original_LF__DOT__ImpParser_LF_ImpParser_token → ComParseResult :=
+  (comParsers steps).1
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_parseSequencedCommand (steps : Nat) : list Original_LF__DOT__ImpParser_LF_ImpParser_token → ComParseResult :=
+  (comParsers steps).2
+
+-- Eta-expansion equations
+theorem parseSimpleCommand_zero (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  Original_LF__DOT__ImpParser_LF_ImpParser_parseSimpleCommand Nat.zero xs =
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls := rfl
+
+theorem parseSequencedCommand_zero (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  Original_LF__DOT__ImpParser_LF_ImpParser_parseSequencedCommand Nat.zero xs =
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE too_many_recursive_calls := rfl
+
+-- The theorem reflects what Lean actually compiles to
+-- Key insight: Lean inlines the let bindings and for the if case, inner failures
+-- return NoneE msg directly. Only when firstExpect "if" fails does it fall through to while.
+theorem parseSimpleCommand_succ (n : Nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  Original_LF__DOT__ImpParser_LF_ImpParser_parseSimpleCommand (Nat.succ n) xs =
+    let (parseSimpleCommand', parseSequencedCommand') := comParsers n
+      -- TRY skip OR
+      let skip_result :=
+        match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_skip xs with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest) =>
+            Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk Original_LF__DOT__Imp_LF_Imp_com.CSkip rest)
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+      match skip_result with
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result
+      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+        -- TRY if-then-else-end OR
+        have if_result := (
+          match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_if (Original_LF__DOT__ImpParser_LF_ImpParser_parseBExp n) xs with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+              match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_com str_then parseSequencedCommand' rest with
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c rest') =>
+                  match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_com str_else parseSequencedCommand' rest' with
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c' rest'') =>
+                      match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_end rest'' with
+                      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest''') =>
+                          Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_com.CIf e c c') rest''')
+                      | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString)
+        match if_result with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result
+        | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+          -- TRY while-do-end OR
+          let while_result :=
+            match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_bexp str_while_correct (Original_LF__DOT__ImpParser_LF_ImpParser_parseBExp n) xs with
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest) =>
+                match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_com str_do parseSequencedCommand' rest with
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c rest') =>
+                    match Original_LF__DOT__ImpParser_LF_ImpParser_expect str_end rest' with
+                    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ rest'') =>
+                        Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_com.CWhile e c) rest'')
+                    | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+                | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+          match while_result with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result
+          | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+            -- TRY assignment x := e OR NoneE "Expecting a command"
+            let assign_result :=
+              match Original_LF__DOT__ImpParser_LF_ImpParser_parseIdentifier xs with
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk i rest) =>
+                  match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_aexp str_assign (Original_LF__DOT__ImpParser_LF_ImpParser_parseAExp n) rest with
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk e rest') =>
+                      Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_com.CAsgn i e) rest')
+                  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+              | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE mystring.EmptyString
+            match assign_result with
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE result
+            | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+                Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE expecting_command_msg := rfl
+
+theorem parseSequencedCommand_succ (n : Nat) (xs : list Original_LF__DOT__ImpParser_LF_ImpParser_token) :
+  Original_LF__DOT__ImpParser_LF_ImpParser_parseSequencedCommand (Nat.succ n) xs =
+  (let parseSimpleCommand' := Original_LF__DOT__ImpParser_LF_ImpParser_parseSimpleCommand n
+   let parseSequencedCommand' := Original_LF__DOT__ImpParser_LF_ImpParser_parseSequencedCommand n
+   match parseSimpleCommand' xs with
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg => Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+   | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c rest) =>
+       match Original_LF__DOT__ImpParser_LF_ImpParser_firstExpect Original_LF__DOT__Imp_LF_Imp_com str_semicolon parseSequencedCommand' rest with
+       | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c' rest') =>
+           Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk (Original_LF__DOT__Imp_LF_Imp_com.CSeq c c') rest')
+       | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE _ =>
+           Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c rest)) := rfl
+
+-- ============================================================
+-- bignumber (constant 1000)
+-- ============================================================
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_bignumber : Nat := 1000
+
+-- ============================================================
+-- chartype inductive type
+-- ============================================================
+
+inductive Original_LF__DOT__ImpParser_LF_ImpParser_chartype : Type where
+  | white : Original_LF__DOT__ImpParser_LF_ImpParser_chartype
+  | alpha : Original_LF__DOT__ImpParser_LF_ImpParser_chartype
+  | digit : Original_LF__DOT__ImpParser_LF_ImpParser_chartype
+  | other : Original_LF__DOT__ImpParser_LF_ImpParser_chartype
+
+-- ============================================================
+-- isWhite function
+-- ============================================================
+
+-- ASCII codes: space=32, tab=9, newline=10, carriage return=13
+def mynat2_9 : mynat2 := mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S (mynat2.S mynat2.O))))))))
+def mynat2_10 : mynat2 := mynat2.S mynat2_9
+def mynat2_13 : mynat2 := mynat2.S (mynat2.S (mynat2.S mynat2_10))
+
+def mynat2_eqb : mynat2 → mynat2 → mybool
+  | mynat2.O, mynat2.O => mybool.mytrue
+  | mynat2.S n, mynat2.S m => mynat2_eqb n m
+  | _, _ => mybool.myfalse
+
+def mybool_orb : mybool → mybool → mybool
+  | mybool.mytrue, _ => mybool.mytrue
+  | mybool.myfalse, b => b
+
+def isWhite (c : ascii) : mybool :=
+  let n := nat_of_ascii2 c
+  mybool_orb (mybool_orb (mynat2_eqb n mynat2_32) (mynat2_eqb n mynat2_9))
+             (mybool_orb (mynat2_eqb n mynat2_10) (mynat2_eqb n mynat2_13))
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_isWhite := isWhite
+
+-- isAlpha: checks if char is a-z or A-Z
+-- We already have isLowerAlpha for 97-122. For A-Z (65-90):
+-- 65 = 64 + 1
+def mynat2_65 : mynat2 := mynat2.S mynat2_64
+-- 90 = 65 + 25 = 65 + 16 + 8 + 1
+def mynat2_90 : mynat2 := mynat2_add mynat2_65 (mynat2_add mynat2_16 (mynat2_add mynat2_8 mynat2_1))
+
+def isUpperAlpha (c : ascii) : mybool :=
+  let n := nat_of_ascii2 c
+  mybool_andb (mynat2_leb mynat2_65 n) (mynat2_leb n mynat2_90)
+
+def isAlpha (c : ascii) : mybool :=
+  mybool_orb (isLowerAlpha c) (isUpperAlpha c)
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_isAlpha := isAlpha
+
+-- ============================================================
+-- classifyChar function
+-- ============================================================
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_classifyChar (c : ascii) : Original_LF__DOT__ImpParser_LF_ImpParser_chartype :=
+  match isWhite c with
+  | mybool.mytrue => Original_LF__DOT__ImpParser_LF_ImpParser_chartype.white
+  | mybool.myfalse =>
+    match isAlpha c with
+    | mybool.mytrue => Original_LF__DOT__ImpParser_LF_ImpParser_chartype.alpha
+    | mybool.myfalse =>
+      match isDigit c with
+      | mybool.mytrue => Original_LF__DOT__ImpParser_LF_ImpParser_chartype.digit
+      | mybool.myfalse => Original_LF__DOT__ImpParser_LF_ImpParser_chartype.other
+
+-- ============================================================
+-- string_of_list: fold_right String EmptyString
+-- ============================================================
+
+def fold_right_ascii (f : ascii → mystring → mystring) (init : mystring) : list ascii → mystring
+  | list.nil => init
+  | list.cons x xs => f x (fold_right_ascii f init xs)
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list (xs : list ascii) : mystring :=
+  fold_right_ascii mystring.String mystring.EmptyString xs
+
+-- ============================================================
+-- tokenize_helper function
+-- ============================================================
+
+-- Characters for '(' and ')': ASCII 40 and 41
+def char_lparen_ascii : ascii := ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse  -- 40 = '('
+def char_rparen_ascii : ascii := ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse  -- 41 = ')'
+
+def list_rev_ascii : list ascii → list ascii → list ascii
+  | acc, list.nil => acc
+  | acc, list.cons x xs => list_rev_ascii (list.cons x acc) xs
+
+def rev_ascii (xs : list ascii) : list ascii := list_rev_ascii list.nil xs
+
+def list_app_ascii : list ascii → list ascii → list ascii
+  | list.nil, ys => ys
+  | list.cons x xs, ys => list.cons x (list_app_ascii xs ys)
+
+def list_app_list_ascii : list (list ascii) → list (list ascii) → list (list ascii)
+  | list.nil, ys => ys
+  | list.cons x xs, ys => list.cons x (list_app_list_ascii xs ys)
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper :
+    Original_LF__DOT__ImpParser_LF_ImpParser_chartype → list ascii → list ascii → list (list ascii)
+  | cls, acc, list.nil =>
+    match acc with
+    | list.nil => list.nil
+    | list.cons _ _ => list.cons (rev_ascii acc) list.nil
+  | cls, acc, list.cons x xs =>
+    let tk : list (list ascii) :=
+      match acc with
+      | list.nil => list.nil
+      | list.cons _ _ => list.cons (rev_ascii acc) list.nil
+    -- Check for '(' or ')'
+    match ascii_eq x char_lparen_ascii with
+    | mybool.mytrue =>
+      list_app_list_ascii tk (list.cons (list.cons char_lparen_ascii list.nil)
+        (Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.other list.nil xs))
+    | mybool.myfalse =>
+      match ascii_eq x char_rparen_ascii with
+      | mybool.mytrue =>
+        list_app_list_ascii tk (list.cons (list.cons char_rparen_ascii list.nil)
+          (Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.other list.nil xs))
+      | mybool.myfalse =>
+        let charClass := Original_LF__DOT__ImpParser_LF_ImpParser_classifyChar x
+        match charClass with
+        | Original_LF__DOT__ImpParser_LF_ImpParser_chartype.white =>
+          list_app_list_ascii tk (Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.white list.nil xs)
+        | Original_LF__DOT__ImpParser_LF_ImpParser_chartype.alpha =>
+          match cls with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_chartype.alpha =>
+            Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.alpha (list.cons x acc) xs
+          | _ =>
+            list_app_list_ascii tk (Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.alpha (list.cons x list.nil) xs)
+        | Original_LF__DOT__ImpParser_LF_ImpParser_chartype.digit =>
+          match cls with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_chartype.digit =>
+            Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.digit (list.cons x acc) xs
+          | _ =>
+            list_app_list_ascii tk (Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.digit (list.cons x list.nil) xs)
+        | Original_LF__DOT__ImpParser_LF_ImpParser_chartype.other =>
+          match cls with
+          | Original_LF__DOT__ImpParser_LF_ImpParser_chartype.other =>
+            Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.other (list.cons x acc) xs
+          | _ =>
+            list_app_list_ascii tk (Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.other (list.cons x list.nil) xs)
+
+-- ============================================================
+-- tokenize function
+-- ============================================================
+
+def map_string_of_list : list (list ascii) → list mystring
+  | list.nil => list.nil
+  | list.cons x xs => list.cons (Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list x) (map_string_of_list xs)
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_tokenize (s : mystring) : list mystring :=
+  map_string_of_list (Original_LF__DOT__ImpParser_LF_ImpParser_tokenize__helper Original_LF__DOT__ImpParser_LF_ImpParser_chartype.white list.nil (list_of_string s))
+
+-- ============================================================
+-- parse function
+-- ============================================================
+
+-- String "Trailing tokens remaining: "
+def str_trailing_tokens : mystring :=
+  mystring.String char_T (mystring.String char_r (mystring.String char_a (mystring.String char_i (mystring.String char_l (mystring.String char_i (mystring.String char_n (mystring.String char_g (mystring.String char_space (mystring.String char_t (mystring.String char_o (mystring.String char_k (mystring.String char_e (mystring.String char_n (mystring.String char_s (mystring.String char_space (mystring.String char_r (mystring.String char_e (mystring.String char_m (mystring.String char_a (mystring.String char_i (mystring.String char_n (mystring.String char_i (mystring.String char_n (mystring.String char_g (mystring.String char_colon (mystring.String char_space mystring.EmptyString))))))))))))))))))))))))))
+
+def Original_LF__DOT__ImpParser_LF_ImpParser_parse (s : mystring) : Original_LF__DOT__ImpParser_LF_ImpParser_optionE Original_LF__DOT__Imp_LF_Imp_com :=
+  let tokens := Original_LF__DOT__ImpParser_LF_ImpParser_tokenize s
+  match Original_LF__DOT__ImpParser_LF_ImpParser_parseSequencedCommand Original_LF__DOT__ImpParser_LF_ImpParser_bignumber tokens with
+  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk c list.nil) =>
+      Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE c
+  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE (prod.mk _ (list.cons t _)) =>
+      Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE (mystring_append str_trailing_tokens t)
+  | Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg =>
+      Original_LF__DOT__ImpParser_LF_ImpParser_optionE.NoneE msg
+-- ============================================================
+-- eg1 example (Admitted in original)
+-- ============================================================
+
+-- The eg1 example is Admitted in the original, so we use sorry
+-- The input string is: "\n  if x = y + 1 + 2 - y * 6 + 3 then\n    x := x * 1;\n    y := 0\n  else\n    skip\n  end  "
+def eg1_input_string : mystring :=
+  mystring.String char_newline
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_i
+    (mystring.String char_f
+    (mystring.String char_space
+    (mystring.String char_x
+    (mystring.String char_space
+    (mystring.String char_eq
+    (mystring.String char_space
+    (mystring.String char_y
+    (mystring.String char_space
+    (mystring.String char_plus
+    (mystring.String char_space
+    (mystring.String char_1
+    (mystring.String char_space
+    (mystring.String char_plus
+    (mystring.String char_space
+    (mystring.String char_2
+    (mystring.String char_space
+    (mystring.String char_minus
+    (mystring.String char_space
+    (mystring.String char_y
+    (mystring.String char_space
+    (mystring.String char_star
+    (mystring.String char_space
+    (mystring.String char_6
+    (mystring.String char_space
+    (mystring.String char_plus
+    (mystring.String char_space
+    (mystring.String char_3
+    (mystring.String char_space
+    (mystring.String char_t
+    (mystring.String char_h
+    (mystring.String char_e
+    (mystring.String char_n
+    (mystring.String char_newline
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_x
+    (mystring.String char_space
+    (mystring.String char_colon
+    (mystring.String char_eq
+    (mystring.String char_space
+    (mystring.String char_x
+    (mystring.String char_space
+    (mystring.String char_star
+    (mystring.String char_space
+    (mystring.String char_1
+    (mystring.String char_semicolon
+    (mystring.String char_newline
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_y
+    (mystring.String char_space
+    (mystring.String char_colon
+    (mystring.String char_eq
+    (mystring.String char_space
+    (mystring.String char_0
+    (mystring.String char_newline
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_e
+    (mystring.String char_l
+    (mystring.String char_s
+    (mystring.String char_e
+    (mystring.String char_newline
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_s
+    (mystring.String char_k
+    (mystring.String char_i
+    (mystring.String char_p
+    (mystring.String char_newline
+    (mystring.String char_space
+    (mystring.String char_space
+    (mystring.String char_e
+    (mystring.String char_n
+    (mystring.String char_d
+    (mystring.String char_space
+    (mystring.String char_space
+    mystring.EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+def eg1_expected_result : Original_LF__DOT__ImpParser_LF_ImpParser_optionE Original_LF__DOT__Imp_LF_Imp_com :=
+  Original_LF__DOT__ImpParser_LF_ImpParser_optionE.SomeE
+    (Original_LF__DOT__Imp_LF_Imp_com.CIf
+      (Original_LF__DOT__Imp_LF_Imp_bexp.BEq
+        (Original_LF__DOT__Imp_LF_Imp_aexp.AId (mystring.String char_x mystring.EmptyString))
+        (Original_LF__DOT__Imp_LF_Imp_aexp.APlus
+          (Original_LF__DOT__Imp_LF_Imp_aexp.AMinus
+            (Original_LF__DOT__Imp_LF_Imp_aexp.APlus
+              (Original_LF__DOT__Imp_LF_Imp_aexp.APlus
+                (Original_LF__DOT__Imp_LF_Imp_aexp.AId (mystring.String char_y mystring.EmptyString))
+                (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (Nat.succ Nat.zero)))
+              (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (Nat.succ (Nat.succ Nat.zero))))
+            (Original_LF__DOT__Imp_LF_Imp_aexp.AMult
+              (Original_LF__DOT__Imp_LF_Imp_aexp.AId (mystring.String char_y mystring.EmptyString))
+              (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ Nat.zero)))))))))
+          (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (Nat.succ (Nat.succ (Nat.succ Nat.zero))))))
+      (Original_LF__DOT__Imp_LF_Imp_com.CSeq
+        (Original_LF__DOT__Imp_LF_Imp_com.CAsgn
+          (mystring.String char_x mystring.EmptyString)
           (Original_LF__DOT__Imp_LF_Imp_aexp.AMult
-            (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S nat.O)))
-            (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Y))))
-      (list.cons (Original_LF__DOT__Imp_LF_Imp_sinstr.SLoad Original_LF__DOT__Imp_LF_Imp_X)
-        (list.cons (Original_LF__DOT__Imp_LF_Imp_sinstr.SPush (nat.S (nat.S nat.O)))
-          (list.cons (Original_LF__DOT__Imp_LF_Imp_sinstr.SLoad Original_LF__DOT__Imp_LF_Imp_Y)
-            (list.cons Original_LF__DOT__Imp_LF_Imp_sinstr.SMult
-              (list.cons Original_LF__DOT__Imp_LF_Imp_sinstr.SMinus list.nil))))) :=
-  Corelib_Init_Logic_eq.refl _
+            (Original_LF__DOT__Imp_LF_Imp_aexp.AId (mystring.String char_x mystring.EmptyString))
+            (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (Nat.succ Nat.zero))))
+        (Original_LF__DOT__Imp_LF_Imp_com.CAsgn
+          (mystring.String char_y mystring.EmptyString)
+          (Original_LF__DOT__Imp_LF_Imp_aexp.ANum Nat.zero)))
+      Original_LF__DOT__Imp_LF_Imp_com.CSkip)
 
--- s_execute axiom (admitted in Original.v)
-axiom Original_LF__DOT__Imp_LF_Imp_s__execute :
-  Original_LF__DOT__Imp_LF_Imp_state → list nat → list Original_LF__DOT__Imp_LF_Imp_sinstr → list nat
-
--- aeval: evaluates arithmetic expression in a state
-def Original_LF__DOT__Imp_LF_Imp_aeval (st : Original_LF__DOT__Imp_LF_Imp_state) : Original_LF__DOT__Imp_LF_Imp_aexp → nat
-  | Original_LF__DOT__Imp_LF_Imp_aexp.ANum n => n
-  | Original_LF__DOT__Imp_LF_Imp_aexp.AId x => st x
-  | Original_LF__DOT__Imp_LF_Imp_aexp.APlus a1 a2 => nat_add (Original_LF__DOT__Imp_LF_Imp_aeval st a1) (Original_LF__DOT__Imp_LF_Imp_aeval st a2)
-  | Original_LF__DOT__Imp_LF_Imp_aexp.AMinus a1 a2 => nat_sub (Original_LF__DOT__Imp_LF_Imp_aeval st a1) (Original_LF__DOT__Imp_LF_Imp_aeval st a2)
-  | Original_LF__DOT__Imp_LF_Imp_aexp.AMult a1 a2 => nat_mul (Original_LF__DOT__Imp_LF_Imp_aeval st a1) (Original_LF__DOT__Imp_LF_Imp_aeval st a2)
-
--- s_execute2: Example s_execute2 := s_execute (X !-> 3) [3;4] [SPush 4; SLoad X; SMult; SPlus] = [15; 4].
--- This is admitted in Original.v
--- Note: Using eta-expansion to match Interface expected form
-axiom Original_LF__DOT__Imp_LF_Imp_s__execute2 :
-  @Corelib_Init_Logic_eq (list nat)
-    (Original_LF__DOT__Imp_LF_Imp_s__execute
-       (fun x => Original_LF__DOT__Maps_LF_Maps_t__update (fun x0 => Original_LF__DOT__Imp_LF_Imp_empty__st x0) Original_LF__DOT__Imp_LF_Imp_X (nat.S (nat.S (nat.S nat.O))) x)
-       (list.cons (nat.S (nat.S (nat.S nat.O))) (list.cons (nat.S (nat.S (nat.S (nat.S nat.O)))) list.nil))
-       (list.cons (Original_LF__DOT__Imp_LF_Imp_sinstr.SPush (nat.S (nat.S (nat.S (nat.S nat.O)))))
-          (list.cons (Original_LF__DOT__Imp_LF_Imp_sinstr.SLoad Original_LF__DOT__Imp_LF_Imp_X)
-             (list.cons Original_LF__DOT__Imp_LF_Imp_sinstr.SMult
-                (list.cons Original_LF__DOT__Imp_LF_Imp_sinstr.SPlus list.nil)))))
-    (list.cons (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S nat.O)))))))))))))))
-       (list.cons (nat.S (nat.S (nat.S (nat.S nat.O)))) list.nil))
-
--- s_compile_correct_aux: Lemma s_compile_correct_aux : forall st e stack,
---   s_execute st stack (s_compile e) = aeval st e :: stack.
--- This is admitted in Original.v
-axiom Original_LF__DOT__Imp_LF_Imp_s__compile__correct__aux :
-  ∀ (st : Original_LF__DOT__Imp_LF_Imp_state) (e : Original_LF__DOT__Imp_LF_Imp_aexp) (stack : list nat),
-  @Corelib_Init_Logic_eq (list nat)
-    (Original_LF__DOT__Imp_LF_Imp_s__execute st stack (Original_LF__DOT__Imp_LF_Imp_s__compile e))
-    (list.cons (Original_LF__DOT__Imp_LF_Imp_aeval st e) stack)
+-- The eg1 theorem: parse eg1_input_string = eg1_expected_result
+-- Since it's Admitted in the original, we use an axiom
+axiom Original_LF__DOT__ImpParser_LF_ImpParser_eg1 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__ImpParser_LF_ImpParser_optionE Original_LF__DOT__Imp_LF_Imp_com)
+    (Original_LF__DOT__ImpParser_LF_ImpParser_parse eg1_input_string)
+    eg1_expected_result

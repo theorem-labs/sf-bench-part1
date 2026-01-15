@@ -1,11 +1,11 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+Typeclasses Opaque rel_iso. (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso.
@@ -47,13 +47,12 @@ Lemma string_eqb_compat : forall (s1 s2 : String.string) (t1 t2 : imported_Strin
   IsomorphismDefinitions.eq (bool_to_mybool (String.eqb s1 s2)) (Imported.String_eqb t1 t2).
 Proof.
   intros s1 s2 t1 t2 H1 H2.
-  pose proof (proj_rel_iso H1) as H1'. simpl in H1'.
-  pose proof (proj_rel_iso H2) as H2'. simpl in H2'.
+  unfold rel_iso in H1, H2. simpl in H1, H2.
   pose proof (string_eqb_compat_core s1 s2) as Hcore.
   apply (eq_trans Hcore).
   apply f_equal2.
-  - exact H1'.
-  - exact H2'.
+  - exact H1.
+  - exact H2.
 Qed.
 
 Instance Original_LF__DOT__Maps_LF_Maps_t__update_iso : forall (x1 x2 : Type) (hx : IsoOrSortRelaxed x1 x2) (x3 : Original.LF_DOT_Maps.LF.Maps.total_map x1) (x4 : imported_String_string -> x2),
@@ -79,7 +78,7 @@ Proof.
     { apply eq_of_seq. apply (eq_trans (eq_sym Heqb)). simpl. exact IsomorphismDefinitions.eq_refl. }
     rewrite E2. simpl.
     apply Hm. exact Hx.
-Defined.
+Qed.
 
 Instance: KnownConstant (@Original.LF_DOT_Maps.LF.Maps.t_update) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant (@Imported.Original_LF__DOT__Maps_LF_Maps_t__update) := {}. (* only needed when rel_iso is typeclasses opaque *)

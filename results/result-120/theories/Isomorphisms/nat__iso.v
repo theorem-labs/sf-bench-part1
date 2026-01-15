@@ -1,55 +1,52 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+
 
 
 Definition imported_nat : Type := Imported.nat.
 
-(* Forward and backward conversions between nat and Imported.nat *)
-Fixpoint nat_to_imported (n : nat) : Imported.nat :=
+(* Imported.nat = Lean.Nat which is isomorphic to Coq nat *)
+(* We build an explicit isomorphism *)
+
+Fixpoint nat_to_lean_nat (n : nat) : Lean.Nat :=
   match n with
-  | O => Imported.nat_O
-  | S n' => Imported.nat_S (nat_to_imported n')
+  | O => Lean.Nat_zero
+  | S n' => Lean.Nat_succ (nat_to_lean_nat n')
   end.
 
-Fixpoint imported_to_nat (n : Imported.nat) : nat :=
+Fixpoint lean_nat_to_nat (n : Lean.Nat) : nat :=
   match n with
-  | Imported.nat_O => O
-  | Imported.nat_S n' => S (imported_to_nat n')
+  | Lean.Nat_zero => O
+  | Lean.Nat_succ n' => S (lean_nat_to_nat n')
   end.
 
-Lemma nat_roundtrip : forall n : nat, Logic.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  fix IH 1.
-  intros n. destruct n as [| n']; simpl.
-  - reflexivity.
-  - apply Logic.f_equal. apply IH.
-Qed.
+(* For SProp-based eq, we need to use IsoEq.f_equal *)
+Fixpoint lean_nat_to_nat_to_lean (n : Lean.Nat) : IsomorphismDefinitions.eq (nat_to_lean_nat (lean_nat_to_nat n)) n :=
+  match n with
+  | Lean.Nat_zero => IsomorphismDefinitions.eq_refl
+  | Lean.Nat_succ n' => IsoEq.f_equal Lean.Nat_succ (lean_nat_to_nat_to_lean n')
+  end.
 
-Lemma imported_nat_roundtrip : forall n : Imported.nat, Logic.eq (nat_to_imported (imported_to_nat n)) n.
-Proof.
-  fix IH 1.
-  intros n. destruct n as [| n']; simpl.
-  - reflexivity.
-  - apply Logic.f_equal. apply IH.
-Qed.
+Fixpoint nat_to_lean_nat_to_nat (n : nat) : IsomorphismDefinitions.eq (lean_nat_to_nat (nat_to_lean_nat n)) n :=
+  match n with
+  | O => IsomorphismDefinitions.eq_refl
+  | S n' => IsoEq.f_equal S (nat_to_lean_nat_to_nat n')
+  end.
 
 Instance nat_iso : Iso nat imported_nat.
 Proof.
-  refine {|
-    to := nat_to_imported;
-    from := imported_to_nat;
-    to_from := _;
-    from_to := _
-  |}.
-  - intros n. apply seq_of_eq. apply imported_nat_roundtrip.
-  - intros n. apply seq_of_eq. apply nat_roundtrip.
+  unfold imported_nat, Imported.nat.
+  exact (Build_Iso nat_to_lean_nat lean_nat_to_nat lean_nat_to_nat_to_lean nat_to_lean_nat_to_nat).
 Defined.
+
+(* Aliases for use by other modules *)
+Definition nat_to_imported := nat_to_lean_nat.
+Definition imported_to_nat := lean_nat_to_nat.
 
 Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)

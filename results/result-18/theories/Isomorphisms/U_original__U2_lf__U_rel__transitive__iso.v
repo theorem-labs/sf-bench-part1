@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf__U_rel__relation__iso.
 
-Monomorphic Definition imported_Original_LF_Rel_transitive : forall x : Type, (x -> x -> SProp) -> SProp := fun (x : Type) (x0 : x -> x -> SProp) => forall a' a'0 a'1 : x, x0 a' a'0 -> x0 a'0 a'1 -> x0 a' a'1.
+Monomorphic Definition imported_Original_LF_Rel_transitive : forall x : Type, (x -> x -> SProp) -> SProp := @Imported.Original_LF_Rel_transitive.
 Monomorphic Instance Original_LF_Rel_transitive_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : Original.LF.Rel.relation x1) (x4 : x2 -> x2 -> SProp),
   (forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> forall (x7 : x1) (x8 : x2), rel_iso hx x7 x8 -> Iso (x3 x5 x7) (x4 x6 x8)) ->
   Iso (Original.LF.Rel.transitive x3) (imported_Original_LF_Rel_transitive x4)

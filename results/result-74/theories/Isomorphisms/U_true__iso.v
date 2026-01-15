@@ -5,27 +5,29 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
+Typeclasses Opaque rel_iso. (* for speed *)
 
+(* Imported.True : SProp, Logic.True : Prop *)
+Definition imported_True : SProp := Imported.True.
 
-Definition imported_True : SProp := Imported.Exported_True.
-Instance True_iso : (Iso True imported_True).
+(* We need Iso Logic.True Imported.True *)
+(* Build_Iso needs: to from to_from from_to *)
+(* to : Logic.True -> imported_True *)
+(* from : imported_True -> Logic.True *)
+(* to_from : forall x, to (from x) = x  (in SProp) *)
+(* from_to : forall x, from (to x) = x  (in SProp) *)
+Instance True_iso : (Iso Logic.True imported_True).
 Proof.
-  unshelve eapply Build_Iso.
-  - (* to: True -> Imported.Exported_True *)
-    intro H. exact Imported.Exported_True_intro.
-  - (* from: Imported.Exported_True -> True *)
-    intro H. exact Logic.I.
-  - (* to_from: SProp proof irrelevance is automatic *)
-    intro H. 
-    destruct H.
-    apply IsomorphismDefinitions.eq_refl.
-  - (* from_to *)
-    intro H. 
-    destruct H.
-    apply IsomorphismDefinitions.eq_refl.
+  refine {|
+    to := fun _ => Imported.True_intro;
+    from := fun _ => Logic.I;
+    to_from := _;
+    from_to := _
+  |}.
+  - intro x. exact (IsomorphismDefinitions.eq_refl _).
+  - intro x. destruct x. exact (IsomorphismDefinitions.eq_refl _).
 Defined.
-Instance: KnownConstant True := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.Exported_True := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor True True_iso := {}.
-Instance: IsoStatementProofBetween True Imported.Exported_True True_iso := {}.
+Instance: KnownConstant Logic.True := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.True := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Logic.True True_iso := {}.
+Instance: IsoStatementProofBetween Logic.True Imported.True True_iso := {}.

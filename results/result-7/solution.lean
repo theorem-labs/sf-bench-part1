@@ -1,29 +1,22 @@
 -- Lean 4 translation for pumping lemma and all dependencies
 set_option autoImplicit false
+set_option linter.all false
+
+-- Type alias
+def MyType : Type 1 := Type
 
 -- False proposition 
 inductive MyFalse : Prop where
 
--- Original.False (same as MyFalse, but separate)
-inductive Original_False : Prop where
-
 -- True proposition
 inductive MyTrue : Prop where
   | intro : MyTrue
-
--- Or type (disjunction)
-inductive or (A B : Prop) : Prop where
-  | inl : A → or A B
-  | inr : B → or A B
 
 -- Equality in Prop (becomes SProp when imported)
 inductive Corelib_Init_Logic_eq {A : Type} (a : A) : A → Prop where
   | refl : Corelib_Init_Logic_eq a a
 
 -- Specialization of eq at Prop (needed by checker)
--- Interface expects: forall x : SProp, x -> x -> SProp
--- This means: given an SProp type A (a Prop), and two inhabitants a b of A, return an SProp
--- We need a separate inductive for Prop-indexed equality
 inductive Corelib_Init_Logic_eq_Prop {A : Prop} (a : A) : A → Prop where
   | refl : Corelib_Init_Logic_eq_Prop a a
 
@@ -32,13 +25,49 @@ inductive nat : Type where
   | O : nat
   | S : nat → nat
 
--- Zero alias
-def _0 : nat := nat.O
+def nat_O := nat.O
+def nat_S := nat.S
+def S := nat.S
+def O := nat.O
+def _0 := nat.O
 
 -- Addition on nat
 def Nat_add : nat → nat → nat
   | nat.O, m => m
   | nat.S p, m => nat.S (Nat_add p m)
+
+-- Disjunction (or)
+inductive or (P Q : Prop) : Prop where
+  | inl : P → or P Q
+  | inr : Q → or P Q
+
+def or_inl {P Q : Prop} (hp : P) : or P Q := or.inl hp
+def or_inr {P Q : Prop} (hq : Q) : or P Q := or.inr hq
+def or_introl {P Q : Prop} (hp : P) : or P Q := or.inl hp
+def or_intror {P Q : Prop} (hq : Q) : or P Q := or.inr hq
+
+-- Double function
+def Original_LF__DOT__Induction_LF_Induction_double : nat → nat
+  | nat.O => nat.O
+  | nat.S n' => nat.S (nat.S (Original_LF__DOT__Induction_LF_Induction_double n'))
+
+-- EvPlayground.ev inductive
+inductive Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev : nat → Prop where
+  | ev_0 : Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev nat.O
+  | ev_SS : (n : nat) → Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev n → Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev (nat.S (nat.S n))
+
+def Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_ev_0 := Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev.ev_0
+def Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_ev_SS := Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev.ev_SS
+
+-- ev' inductive (alternative definition of even)
+inductive Original_LF__DOT__IndProp_LF_IndProp_ev' : nat → Prop where
+  | ev'_0 : Original_LF__DOT__IndProp_LF_IndProp_ev' nat.O
+  | ev'_2 : Original_LF__DOT__IndProp_LF_IndProp_ev' (nat.S (nat.S nat.O))
+  | ev'_sum : (n m : nat) → Original_LF__DOT__IndProp_LF_IndProp_ev' n → Original_LF__DOT__IndProp_LF_IndProp_ev' m → Original_LF__DOT__IndProp_LF_IndProp_ev' (Nat_add n m)
+
+def Original_LF__DOT__IndProp_LF_IndProp_ev'_ev'_0 := Original_LF__DOT__IndProp_LF_IndProp_ev'.ev'_0
+def Original_LF__DOT__IndProp_LF_IndProp_ev'_ev'_2 := Original_LF__DOT__IndProp_LF_IndProp_ev'.ev'_2
+def Original_LF__DOT__IndProp_LF_IndProp_ev'_ev'_sum := Original_LF__DOT__IndProp_LF_IndProp_ev'.ev'_sum
 
 -- Conjunction
 structure and (A B : Prop) : Prop where
@@ -52,6 +81,14 @@ inductive ex {A : Type} (P : A → Prop) : Prop where
 
 -- Negation
 def Logic_not (P : Prop) : Prop := P → MyFalse
+
+-- Even definition: exists n, x = double n
+def Original_LF__DOT__Logic_LF_Logic_Even (x : nat) : Prop :=
+  ex (fun n => Corelib_Init_Logic_eq x (Original_LF__DOT__Induction_LF_Induction_double n))
+
+-- excluded_middle definition
+def Original_LF__DOT__Logic_LF_Logic_excluded__middle : Prop :=
+  ∀ (P : Prop), or P (P → MyFalse)
 
 -- Boolean for le definition
 inductive RocqBool : Type where
@@ -190,9 +227,6 @@ axiom Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping :
 
 -- ===== Additional definitions for other isomorphisms =====
 
--- Successor definition for nat (note: _0 is defined above near nat)
-def S : nat → nat := nat.S
-
 -- Inductive le (Peano style)
 inductive le2 : nat → nat → Prop where
   | le_n (n : nat) : le2 n n
@@ -278,61 +312,55 @@ axiom Original_LF__DOT__IndProp_LF_IndProp_Pumping_weak__pumping :
                     (Original_LF__DOT__Poly_LF_Poly_app T (Original_LF__DOT__IndProp_LF_IndProp_Pumping_napp T m s2) s3)) 
                   re)))))
 
--- In predicate for Original.LF_DOT_Poly list
-def Original_LF__DOT__Logic_LF_Logic_In {X : Type} (x : X) : Original_LF__DOT__Poly_LF_Poly_list X → Prop
-  | Original_LF__DOT__Poly_LF_Poly_list.nil => MyFalse
-  | Original_LF__DOT__Poly_LF_Poly_list.cons x' l' => or (Corelib_Init_Logic_eq x' x) (Original_LF__DOT__Logic_LF_Logic_In x l')
+-- auto_example_4 (Admitted in Original.v)
+axiom Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__4 :
+  ∀ (P Q R : Prop), Q → (Q → R) → or P (and Q R)
 
--- repeats predicate (no constructors in original)
-inductive Original_LF__DOT__IndProp_LF_IndProp_repeats (X : Type) : Original_LF__DOT__Poly_LF_Poly_list X → Prop where
+-- nor_comm' (Admitted in Original.v)
+axiom Original_LF__DOT__AltAuto_LF_AltAuto_nor__comm' :
+  ∀ (P Q : Prop), iff (Original_LF__DOT__AltAuto_LF_AltAuto_nor P Q) (Original_LF__DOT__AltAuto_LF_AltAuto_nor Q P)
 
--- excluded_middle definition
-def Original_LF__DOT__Logic_LF_Logic_excluded__middle : Prop := ∀ P : Prop, or P (Logic_not P)
+-- nor_not (Admitted in Original.v)
+axiom Original_LF__DOT__AltAuto_LF_AltAuto_nor__not :
+  ∀ (P : Prop), iff (Original_LF__DOT__AltAuto_LF_AltAuto_nor P P) (Logic_not P)
 
--- pigeonhole_principle axiom (Admitted in Original.v)
-axiom Original_LF__DOT__IndProp_LF_IndProp_pigeonhole__principle :
+-- nor_not_or (Admitted in Original.v)
+axiom Original_LF__DOT__AltAuto_LF_AltAuto_nor__not__or :
+  ∀ (P Q : Prop), Original_LF__DOT__AltAuto_LF_AltAuto_nor P Q → Logic_not (or P Q)
+
+-- ev'_ev (Admitted in Original.v)
+axiom Original_LF__DOT__IndProp_LF_IndProp_ev'__ev :
+  ∀ (n : nat), iff (Original_LF__DOT__IndProp_LF_IndProp_ev' n) (Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev n)
+
+-- ev_Even_iff (Admitted in Original.v)
+axiom Original_LF__DOT__IndProp_LF_IndProp_ev__Even__iff :
+  ∀ (n : nat), iff (Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev n) (Original_LF__DOT__Logic_LF_Logic_Even n)
+
+-- apply_iff_example1 (Admitted in Original.v)
+-- forall P Q R : Prop, (P <-> Q) -> (Q -> R) -> (P -> R)
+axiom Original_LF__DOT__Logic_LF_Logic_apply__iff__example1 :
+  ∀ (P Q R : Prop), iff P Q → (Q → R) → P → R
+
+-- not_exists_dist (Admitted in Original.v)
+axiom Original_LF__DOT__Logic_LF_Logic_not__exists__dist :
   Original_LF__DOT__Logic_LF_Logic_excluded__middle →
-  ∀ (X : Type) (l1 l2 : Original_LF__DOT__Poly_LF_Poly_list X),
-    (∀ x : X, Original_LF__DOT__Logic_LF_Logic_In x l1 → Original_LF__DOT__Logic_LF_Logic_In x l2) →
-    lt (Original_LF__DOT__Poly_LF_Poly_length X l2) (Original_LF__DOT__Poly_LF_Poly_length X l1) →
-    Original_LF__DOT__IndProp_LF_IndProp_repeats X l1
+  ∀ (X : Type) (P : X → Prop), Logic_not (ex (fun x => Logic_not (P x))) → ∀ (x : X), P x
 
--- auto_example_6' axiom (Admitted in Original.v)
-axiom Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__6' :
-  ∀ (n m p : nat),
-    (le n p → and (le n m) (le m n)) →
-    le n p →
-    Corelib_Init_Logic_eq n m
+-- not_implies_our_not (Admitted in Original.v)
+-- forall (P:Prop), ~ P -> (forall (Q:Prop), P -> Q)
+axiom Original_LF__DOT__Logic_LF_Logic_not__implies__our__not :
+  ∀ (P : Prop), Logic_not P → ∀ (Q : Prop), P → Q
 
--- false_assumed axiom (Admitted in Original.v)
--- false_assumed : False -> 0 = 1
-axiom Original_LF__DOT__AltAuto_LF_AltAuto_false__assumed :
-  Original_False → Corelib_Init_Logic_eq _0 (S _0)
+-- restricted_excluded_middle_eq (Admitted in Original.v)
+axiom Original_LF__DOT__Logic_LF_Logic_restricted__excluded__middle__eq :
+  ∀ (n m : nat), or (Corelib_Init_Logic_eq n m) (Logic_not (Corelib_Init_Logic_eq n m))
 
--- pumping_constant_0_false axiom (Admitted in Original.v)
-axiom Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant__0__false :
-  ∀ (T : Type) (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T),
-    Corelib_Init_Logic_eq (Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant re) _0 →
-    Original_False
+-- contradiction_implies_anything (Admitted in Original.v)
+axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_contradiction__implies__anything :
+  ∀ (P Q : Prop), and P (Logic_not P) → Q
 
--- n_le_m__Sn_le_Sm axiom (Admitted in Original.v)
--- Original: forall n m, n <= m -> S n <= S m
-axiom Original_LF__DOT__IndProp_LF_IndProp_n__le__m____Sn__le__Sm :
-  ∀ (n m : nat), le n m → le (S n) (S m)
-
--- and_example2' axiom (Admitted in Original.v)
-axiom Original_LF__DOT__Logic_LF_Logic_and__example2' :
-  ∀ (n m : nat), and (Corelib_Init_Logic_eq n nat.O) (Corelib_Init_Logic_eq m nat.O) →
-    Corelib_Init_Logic_eq (Nat_add n m) nat.O
-
--- de_morgan_not_or axiom (Admitted in Original.v)
-axiom Original_LF__DOT__Logic_LF_Logic_de__morgan__not__or :
-  ∀ (P Q : Prop), Logic_not (or P Q) → and (Logic_not P) (Logic_not Q)
-
--- not_both_true_and_false axiom (Admitted in Original.v)
-axiom Original_LF__DOT__Logic_LF_Logic_not__both__true__and__false :
-  ∀ (P : Prop), Logic_not (and P (Logic_not P))
-
--- and_assoc axiom (Admitted in Original.v)
-axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_and__assoc :
-  ∀ (P Q R : Prop), and P (and Q R) → and (and P Q) R
+-- pe_implies_or_eq (Admitted in Original.v)
+-- propositional_extensionality -> forall (P Q : Prop), (P \/ Q) = (Q \/ P)
+axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_pe__implies__or__eq :
+  Original_LF__DOT__ProofObjects_LF_ProofObjects_propositional__extensionality →
+  ∀ (P Q : Prop), Corelib_Init_Logic_eq (or P Q) (or Q P)

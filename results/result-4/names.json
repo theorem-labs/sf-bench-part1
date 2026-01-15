@@ -1,7 +1,10 @@
 {
-  "True": "MyTrue",
-  "False": "MyFalse",
   "bool": "Stdlib_bool",
-  "true": "Stdlib_bool_true",
-  "false": "Stdlib_bool_false"
+  "true": "mybool_true",
+  "false": "mybool_false",
+  "True": "MyTrue",
+  "_0": "nat_O",
+  "False": "MyFalse",
+  "Original_LF__DOT__Lists_LF_Lists_NatList_surjective__pairing'": "Original_LF__DOT__Lists_LF_Lists_NatList_surjective__pairingSQUOTE",
+  "Original_LF_Rel_lt__trans''": "Original_LF_Rel_lt__transSQUOTESQUOTE"
 }

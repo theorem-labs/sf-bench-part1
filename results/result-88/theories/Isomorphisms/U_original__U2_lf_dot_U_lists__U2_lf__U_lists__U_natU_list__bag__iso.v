@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_bag : Type := imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist.
-Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_NatList_bag_iso : Iso Original.LF_DOT_Lists.LF.Lists.NatList.bag imported_Original_LF__DOT__Lists_LF_Lists_NatList_bag
+Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_bag : Type := imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist.
+Instance Original_LF__DOT__Lists_LF_Lists_NatList_bag_iso : Iso Original.LF_DOT_Lists.LF.Lists.NatList.bag imported_Original_LF__DOT__Lists_LF_Lists_NatList_bag
   := Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso.
 
 Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.bag := {}. (* only needed when rel_iso is typeclasses opaque *)

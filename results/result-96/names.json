@@ -1,7 +1,9 @@
 {
-  "True": "MyTrue",
-  "False": "MyFalse",
-  "bool": "Stdlib_bool",
-  "true": "Stdlib_bool_true",
-  "false": "Stdlib_bool_false"
+  "bool": "mybool",
+  "true": "_true",
+  "false": "_false",
+  "True": "TrueType",
+  "False": "FalseType",
+  "None": "option_None",
+  "Some": "option_Some"
 }

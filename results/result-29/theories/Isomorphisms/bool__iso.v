@@ -1,41 +1,36 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
+(* Typeclasses Opaque rel_iso. *) (* disabled for now *)
 
 
-Definition imported_bool : Type := Imported.Coqbool.
+Definition imported_bool : Type := Imported.Stdlib_bool.
 
-(* Build the isomorphism between bool and Imported.Coqbool *)
-Definition bool_to_mybool (b : bool) : Imported.Coqbool :=
+Definition bool_to_imported (b : bool) : imported_bool :=
   match b with
-  | true => Imported.Coqbool_Coqtrue
-  | false => Imported.Coqbool_Coqfalse
+  | true => Imported.Stdlib_bool_true
+  | false => Imported.Stdlib_bool_false
   end.
 
-Definition mybool_to_bool (b : Imported.Coqbool) : bool :=
+Definition imported_to_bool (b : imported_bool) : bool :=
   match b with
-  | Imported.Coqbool_Coqtrue => true
-  | Imported.Coqbool_Coqfalse => false
+  | Imported.Stdlib_bool_true => true
+  | Imported.Stdlib_bool_false => false
   end.
 
-Instance bool_iso : Iso bool imported_bool :=
-  {| to := bool_to_mybool;
-     from := mybool_to_bool;
-     to_from := fun b => match b with
-       | Imported.Coqbool_Coqtrue => IsomorphismDefinitions.eq_refl
-       | Imported.Coqbool_Coqfalse => IsomorphismDefinitions.eq_refl
-       end;
-     from_to := fun b => match b with
-       | true => IsomorphismDefinitions.eq_refl
-       | false => IsomorphismDefinitions.eq_refl
-       end
-  |}.
-
+Instance bool_iso : Iso bool imported_bool.
+Proof.
+  apply Build_Iso with
+    (to := fun b => match b with true => Imported.Stdlib_bool_true | false => Imported.Stdlib_bool_false end)
+    (from := fun b => match b with Imported.Stdlib_bool_true => true | Imported.Stdlib_bool_false => false end).
+  - intros x. destruct x; apply IsomorphismDefinitions.eq_refl.
+  - intros x. destruct x; apply IsomorphismDefinitions.eq_refl.
+Defined.
 Instance: KnownConstant bool := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.Coqbool := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.Stdlib_bool := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor bool bool_iso := {}.
-Instance: IsoStatementProofBetween bool Imported.Coqbool bool_iso := {}.
+Instance: IsoStatementProofBetween bool Imported.Stdlib_bool bool_iso := {}.

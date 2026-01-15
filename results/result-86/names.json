@@ -1,7 +1,4 @@
 {
-  "True": "MyTrue",
-  "False": "MyFalse",
-  "bool": "Stdlib_bool",
-  "true": "Stdlib_bool_true",
-  "false": "Stdlib_bool_false"
+  "True": "Exported_True",
+  "False": "Exported_False"
 }

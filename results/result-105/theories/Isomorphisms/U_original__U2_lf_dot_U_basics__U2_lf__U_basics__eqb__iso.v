@@ -19,9 +19,7 @@ Lemma eqb_iso_helper : forall n m,
     (bool_to_imported (Original.LF_DOT_Basics.LF.Basics.eqb n m))
     (Imported.Original_LF__DOT__Basics_LF_Basics_eqb (nat_to_imported n) (nat_to_imported m)).
 Proof.
-  fix IH 1.
-  intros n m.
-  destruct n as [|n']; destruct m as [|m']; simpl.
+  induction n as [|n' IH]; intros m; destruct m as [|m']; simpl.
   - apply IsomorphismDefinitions.eq_refl.
   - apply IsomorphismDefinitions.eq_refl.
   - apply IsomorphismDefinitions.eq_refl.

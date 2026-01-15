@@ -9,22 +9,22 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso.
 
-(* Helper: iso between False and Imported.MyFalse *)
-Lemma iso_False_Imported_False : Iso False Imported.MyFalse.
+(* Helper: iso between False and Imported.FalseType *)
+Lemma iso_False_Imported_False : Iso False Imported.FalseType.
 Proof.
-  apply Build_Iso with (to := fun f : False => match f return Imported.MyFalse with end) 
-                       (from := fun f : Imported.MyFalse => match f return False with end);
+  apply Build_Iso with (to := fun f : False => match f return Imported.FalseType with end) 
+                       (from := fun f : Imported.FalseType => match f return False with end);
   intro f; destruct f.
 Defined.
 
 (* Helper: extract P from reflect P true (for SProp) *)
 Definition reflect_true_to_P (P : SProp) 
-  (r : Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect P Imported.Original_LF__DOT__Basics_LF_Basics_bool_true) : P.
+  (r : Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect P Imported.Original_LF__DOT__Basics_LF_Basics_true) : P.
 Proof.
   refine (match r in (Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect _ b) 
                 return (match b with 
                         | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => P 
-                        | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => Imported.MyFalse -> P 
+                        | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => Imported.FalseType -> P 
                         end)
           with
           | Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect_ReflectT _ p => p
@@ -34,11 +34,11 @@ Defined.
 
 (* Helper: extract Not P from reflect P false (for SProp) *)
 Definition reflect_false_to_NotP (P : SProp) 
-  (r : Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect P Imported.Original_LF__DOT__Basics_LF_Basics_bool_false) : Imported.Logic_not P.
+  (r : Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect P Imported.Original_LF__DOT__Basics_LF_Basics_false) : Imported.Logic_not P.
 Proof.
   refine (match r in (Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect _ b) 
                 return (match b with 
-                        | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => Imported.MyFalse -> Imported.Logic_not P
+                        | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => Imported.FalseType -> Imported.Logic_not P
                         | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => Imported.Logic_not P 
                         end)
           with
@@ -55,7 +55,7 @@ Definition reflect_to (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2)
   : Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect x2 x4.
 Proof.
   destruct H2 as [H2]. simpl in H2. destruct H2.
-  destruct r as [p | np]; cbv [Original_LF__DOT__Basics_LF_Basics_bool_iso to bool_to_imported].
+  destruct r as [p | np]; simpl.
   - apply Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect_ReflectT.
     exact (H1.(to) p).
   - apply Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect_ReflectF.
@@ -73,7 +73,7 @@ Definition reflect_from (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2)
   : Original.LF_DOT_IndProp.LF.IndProp.reflect x1 x3.
 Proof.
   destruct H2 as [H2]. simpl in H2. destruct H2.
-  destruct x3; cbv [Original_LF__DOT__Basics_LF_Basics_bool_iso to bool_to_imported] in r;
+  destruct x3; simpl in r;
   [ apply Original.LF_DOT_IndProp.LF.IndProp.ReflectT;
     apply H1.(from);
     exact (@reflect_true_to_P x2 r)

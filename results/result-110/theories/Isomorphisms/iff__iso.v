@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 Definition imported_iff : SProp -> SProp -> SProp := Imported.iff.
@@ -25,9 +25,10 @@ Proof.
     exact (Imported.iff_intro x2 x4 (fun a => hx0.(to) (H1 (hx.(from) a))) (fun b => hx.(to) (H2 (hx0.(from) b)))).
   - (* from : imported_iff x2 x4 -> (x1 <-> x3) *)
     intros H.
+    destruct H as [fwd bwd].
     split.
-    + intros a. exact (hx0.(from) (Imported.mp _ _ H (hx.(to) a))).
-    + intros b. exact (hx.(from) (Imported.mpr _ _ H (hx0.(to) b))).
+    + intros a. exact (hx0.(from) (fwd (hx.(to) a))).
+    + intros b. exact (hx.(from) (bwd (hx0.(to) b))).
   - (* to_from *)
     intros x.
     (* Since imported_iff is in SProp, this is trivial by proof irrelevance *)

@@ -11,7 +11,6 @@ From IsomorphismChecker Require Original Imported.
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__bexp__iso.
 
 Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b : imported_Original_LF__DOT__Imp_LF_Imp_AExp_bexp -> imported_Original_LF__DOT__Imp_LF_Imp_AExp_bexp := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b.
-(* optimize_0plus_b is Admitted in Original.v, so we can admit this isomorphism *)
 Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.AExp.bexp) (x2 : imported_Original_LF__DOT__Imp_LF_Imp_AExp_bexp),
   rel_iso Original_LF__DOT__Imp_LF_Imp_AExp_bexp_iso x1 x2 ->
   rel_iso Original_LF__DOT__Imp_LF_Imp_AExp_bexp_iso (Original.LF_DOT_Imp.LF.Imp.AExp.optimize_0plus_b x1) (imported_Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b x2).

@@ -46,14 +46,25 @@ Proof.
 Qed.
 
 (* Equality conversion for Imported.Corelib_Init_Logic_eq *)
-Lemma eq_to_imported_eq : forall A (x y : A), x = y -> Imported.Corelib_Init_Logic_eq A x y.
+Lemma eq_to_Corelib_eq : forall A (x y : A), x = y -> Imported.Corelib_Init_Logic_eq A x y.
 Proof.
   intros. subst. apply Imported.Corelib_Init_Logic_eq_refl.
 Qed.
 
-Lemma imported_eq_to_eq : forall A (x y : A), Imported.Corelib_Init_Logic_eq A x y -> x = y.
+Lemma Corelib_eq_to_eq : forall A (x y : A), Imported.Corelib_Init_Logic_eq A x y -> x = y.
 Proof.
   intros A x y H. destruct H. reflexivity.
+Qed.
+
+(* Equality conversion for Imported.Eq (different from Corelib_Init_Logic_eq) *)
+Lemma Eq_to_eq : forall A (x y : A), Imported.Eq A x y -> x = y.
+Proof.
+  intros A x y H. destruct H. reflexivity.
+Qed.
+
+Lemma eq_to_Eq : forall A (x y : A), x = y -> Imported.Eq A x y.
+Proof.
+  intros A x y H. subst. apply Imported.Eq_refl.
 Qed.
 
 (* Key lemma: aeval commutes with state_to_imported *)
@@ -254,8 +265,8 @@ Proof.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_x Heq_a.
     apply sinhabits.
-    match goal with | H : Imported.Corelib_Init_Logic_eq _ _ _ |- _ => rename H into e end.
-    apply imported_eq_to_eq in e.
+    rename a____at___Solution__hyg1810 into e.
+    apply Eq_to_eq in e.
     rewrite Heq_a in e.
     pose proof (t_update_compat st_orig x0 (Original.LF_DOT_Imp.LF.Imp.aeval st_orig a0)) as Ht_update.
     pose proof (fun y' => Logic.f_equal (fun f => f y') Ht_update) as Hpt.
@@ -319,9 +330,9 @@ Proof.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_b Heq_c1 Heq_c2.
     apply sinhabits.
-    match goal with | H : Imported.Corelib_Init_Logic_eq _ _ _ |- _ => rename H into Hcond end.
+    rename a____at___Solution__hyg1863 into Hcond.
     rename H into Heval.
-    apply imported_eq_to_eq in Hcond.
+    apply Eq_to_eq in Hcond.
     rewrite Heq_st1 in Hcond.
     rewrite Heq_b in Hcond.
     pose proof (beval_compat st_orig b0) as Hcompat.
@@ -336,9 +347,9 @@ Proof.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_b Heq_c1 Heq_c2.
     apply sinhabits.
-    match goal with | H : Imported.Corelib_Init_Logic_eq _ _ _ |- _ => rename H into Hcond end.
+    rename a____at___Solution__hyg1892 into Hcond.
     rename H into Heval.
-    apply imported_eq_to_eq in Hcond.
+    apply Eq_to_eq in Hcond.
     rewrite Heq_st1 in Hcond.
     rewrite Heq_b in Hcond.
     pose proof (beval_compat st_orig b0) as Hcompat.
@@ -353,8 +364,8 @@ Proof.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_b Heq_c.
     apply sinhabits.
-    match goal with | H : Imported.Corelib_Init_Logic_eq _ _ _ |- _ => rename H into Hcond end.
-    apply imported_eq_to_eq in Hcond.
+    rename a____at___Solution__hyg1919 into Hcond.
+    apply Eq_to_eq in Hcond.
     rewrite Heq_st1 in Hcond.
     rewrite Heq_b in Hcond.
     pose proof (beval_compat st_orig b0) as Hcompat.
@@ -378,9 +389,9 @@ Proof.
       - apply to_from.
       - apply f_equal. apply to_from. }
     symmetry in Heq_st_mid.
-    match goal with | H : Imported.Corelib_Init_Logic_eq _ _ _ |- _ => rename H into Hcond end.
+    rename a____at___Solution__hyg1942 into Hcond.
     rename H into Heval.
-    apply imported_eq_to_eq in Hcond.
+    apply Eq_to_eq in Hcond.
     rewrite Heq_st1 in Hcond.
     rewrite Heq_b in Hcond.
     pose proof (beval_compat st_orig b0) as Hcompat.
@@ -416,28 +427,28 @@ Proof.
   - apply Imported.Original_LF__DOT__Imp_LF_Imp_ceval_E_Skip.
   - rewrite t_update_compat.
     apply Imported.Original_LF__DOT__Imp_LF_Imp_ceval_E_Asgn.
-    apply eq_to_imported_eq.
+    apply eq_to_Eq.
     rewrite <- aeval_compat. f_equal. exact H.
   - eapply Imported.Original_LF__DOT__Imp_LF_Imp_ceval_E_Seq; [apply IH; exact H | apply IH; exact H0].
   - apply Imported.Original_LF__DOT__Imp_LF_Imp_ceval_E_IfTrue.
-    + apply eq_to_imported_eq.
+    + apply eq_to_Eq.
       rewrite <- beval_compat.
       replace (Original.LF_DOT_Imp.LF.Imp.beval st b) with true.
       reflexivity.
     + apply IH. exact H0.
   - apply Imported.Original_LF__DOT__Imp_LF_Imp_ceval_E_IfFalse.
-    + apply eq_to_imported_eq.
+    + apply eq_to_Eq.
       rewrite <- beval_compat.
       replace (Original.LF_DOT_Imp.LF.Imp.beval st b) with false.
       reflexivity.
     + apply IH. exact H0.
   - apply Imported.Original_LF__DOT__Imp_LF_Imp_ceval_E_WhileFalse.
-    apply eq_to_imported_eq.
+    apply eq_to_Eq.
     rewrite <- beval_compat.
     replace (Original.LF_DOT_Imp.LF.Imp.beval st b) with false.
     reflexivity.
   - eapply Imported.Original_LF__DOT__Imp_LF_Imp_ceval_E_WhileTrue.
-    + apply eq_to_imported_eq. rewrite <- beval_compat.
+    + apply eq_to_Eq. rewrite <- beval_compat.
       replace (Original.LF_DOT_Imp.LF.Imp.beval st b) with true.
       reflexivity.
     + apply IH. exact H0.
@@ -457,7 +468,7 @@ Instance Original_LF__DOT__Imp_LF_Imp_ceval_iso : (forall (x1 : Original.LF_DOT_
    Iso (Original.LF_DOT_Imp.LF.Imp.ceval x1 x3 x5) (imported_Original_LF__DOT__Imp_LF_Imp_ceval x2 x4 x6)).
 Proof.
   intros c c' Hc st1 st1' Hst1 st2 st2' Hst2.
-  destruct Hc as [Hc]. simpl in Hc.
+  simpl in Hc. simpl in Hc.
   (* c' = com_to_imported c *)
   (* st1' and state_to_imported st1 should be extensionally equal *)
   (* Same for st2' and state_to_imported st2 *)
@@ -473,16 +484,14 @@ Proof.
     { apply eq_of_seq.
       apply functional_extensionality. intros x'.
       specialize (Hst1 (from String_string_iso x') x' (to_from String_string_iso x')).
-      destruct Hst1 as [Hst1']. simpl in Hst1'.
       unfold state_to_imported.
-      exact Hst1'. }
+      exact (proj_rel_iso Hst1). }
     assert (Heq_st2: state_to_imported st2 = st2').
     { apply eq_of_seq.
       apply functional_extensionality. intros x'.
       specialize (Hst2 (from String_string_iso x') x' (to_from String_string_iso x')).
-      destruct Hst2 as [Hst2']. simpl in Hst2'.
       unfold state_to_imported.
-      exact Hst2'. }
+      exact (proj_rel_iso Hst2). }
     rewrite <- Heq_c, <- Heq_st1, <- Heq_st2.
     exact H.
   - (* from: imported_ceval c' st1' st2' -> ceval c st1 st2 *)
@@ -493,16 +502,14 @@ Proof.
     { apply eq_of_seq.
       apply functional_extensionality. intros x'.
       specialize (Hst1 (from String_string_iso x') x' (to_from String_string_iso x')).
-      destruct Hst1 as [Hst1']. simpl in Hst1'.
       unfold state_to_imported.
-      symmetry. exact Hst1'. }
+      apply eq_sym. exact (proj_rel_iso Hst1). }
     assert (Heq_st2: st2' = state_to_imported st2).
     { apply eq_of_seq.
       apply functional_extensionality. intros x'.
       specialize (Hst2 (from String_string_iso x') x' (to_from String_string_iso x')).
-      destruct Hst2 as [Hst2']. simpl in Hst2'.
       unfold state_to_imported.
-      symmetry. exact Hst2'. }
+      apply eq_sym. exact (proj_rel_iso Hst2). }
     rewrite Heq_c, Heq_st1, Heq_st2 in Heval'.
     apply sinhabitant.
     eapply ceval_from_imported_to_sinhabited; try reflexivity.

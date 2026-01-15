@@ -5,10 +5,39 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
+
+(* Conversion function from nat to imported_nat *)
+Fixpoint nat_to_imported (n : nat) : imported_nat :=
+  match n with
+  | O => Imported.nat_O
+  | S m => Imported.nat_S (nat_to_imported m)
+  end.
+
+(* Conversion function from imported_nat to nat *)
+Fixpoint imported_to_nat (n : imported_nat) : nat :=
+  match n with
+  | Imported.nat_O => O
+  | Imported.nat_S m => S (imported_to_nat m)
+  end.
+
+(* Roundtrip lemmas *)
+Lemma imported_nat_roundtrip : forall n : imported_nat, nat_to_imported (imported_to_nat n) = n.
+Proof.
+  fix IH 1. intros n. destruct n as [|m].
+  - reflexivity.
+  - simpl. apply (Logic.f_equal Imported.nat_S). apply IH.
+Qed.
+
+Lemma nat_roundtrip : forall n : nat, imported_to_nat (nat_to_imported n) = n.
+Proof.
+  fix IH 1. intros n. destruct n as [|m].
+  - reflexivity.
+  - simpl. apply (Logic.f_equal S). apply IH.
+Qed.
+
 Instance nat_iso : Iso nat imported_nat.
 Proof.
   exists (fix f (n : nat) : imported_nat :=
@@ -33,35 +62,3 @@ Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses op
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor nat nat_iso := {}.
 Instance: IsoStatementProofBetween nat Imported.nat nat_iso := {}.
-Definition nat_to_imported : nat -> imported_nat := to nat_iso.
-Definition imported_to_nat : imported_nat -> nat := from nat_iso.
-
-(* Helper lemmas for roundtripping *)
-Lemma nat_roundtrip : forall n : nat, Logic.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  unfold imported_to_nat, nat_to_imported. simpl.
-  fix IH 1.
-  intros n. destruct n as [|m].
-  - reflexivity.
-  - simpl. apply Logic.f_equal. apply IH.
-Qed.
-
-Lemma imported_nat_roundtrip : forall n : imported_nat, Logic.eq (nat_to_imported (imported_to_nat n)) n.
-Proof.
-  unfold imported_to_nat, nat_to_imported. simpl.
-  fix IH 1.
-  intros n. destruct n as [|m].
-  - reflexivity.
-  - simpl. apply Logic.f_equal. apply IH.
-Qed.
-
-(* ISO versions of roundtrip lemmas *)
-Lemma nat_from_to : forall n : nat, IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  intros. apply seq_of_eq. apply nat_roundtrip.
-Qed.
-
-Lemma nat_to_from : forall n : imported_nat, IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n.
-Proof.
-  intros. apply seq_of_eq. apply imported_nat_roundtrip.
-Qed.

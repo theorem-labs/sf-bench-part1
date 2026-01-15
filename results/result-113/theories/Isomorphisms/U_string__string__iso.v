@@ -5,100 +5,74 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
+
 
 Definition imported_String_string : Type := Imported.String_string.
 
-(* mybool <-> bool *)
-Definition bool_to_mybool (b : bool) : Imported.mybool :=
+(* Bool isomorphism *)
+Definition mybool_to (b : bool) : Imported.mybool :=
   match b with
-  | true => Imported.bool_true
-  | false => Imported.bool_false
+  | true => Imported.mybool_mytrue
+  | false => Imported.mybool_myfalse
   end.
 
-Definition mybool_to_bool (b : Imported.mybool) : bool :=
+Definition mybool_from (b : Imported.mybool) : bool :=
   match b with
-  | Imported.bool_true => true
-  | Imported.bool_false => false
+  | Imported.mybool_mytrue => true
+  | Imported.mybool_myfalse => false
   end.
 
-(* ascii <-> Ascii_ascii *)
-Definition ascii_to_lean (a : Ascii.ascii) : Imported.Ascii_ascii :=
+(* Ascii isomorphism *)
+Definition ascii_to (a : Ascii.ascii) : Imported.Ascii_ascii :=
   match a with
   | Ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
-      Imported.Ascii_ascii_Ascii
-        (bool_to_mybool b0) (bool_to_mybool b1) (bool_to_mybool b2) (bool_to_mybool b3)
-        (bool_to_mybool b4) (bool_to_mybool b5) (bool_to_mybool b6) (bool_to_mybool b7)
+    Imported.Ascii_ascii_Ascii (mybool_to b0) (mybool_to b1) (mybool_to b2) (mybool_to b3)
+                               (mybool_to b4) (mybool_to b5) (mybool_to b6) (mybool_to b7)
   end.
 
-Definition lean_to_ascii (a : Imported.Ascii_ascii) : Ascii.ascii :=
-  Ascii.Ascii 
-    (mybool_to_bool (Imported.a____at___U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso__hyg25 a))
-    (mybool_to_bool (Imported.a____at___U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso__hyg27 a))
-    (mybool_to_bool (Imported.a____at___U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso__hyg29 a))
-    (mybool_to_bool (Imported.a____at___U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso__hyg31 a))
-    (mybool_to_bool (Imported.a____at___U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso__hyg33 a))
-    (mybool_to_bool (Imported.a____at___U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso__hyg35 a))
-    (mybool_to_bool (Imported.a____at___U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso__hyg37 a))
-    (mybool_to_bool (Imported.a____at___U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso__hyg39 a)).
-
-(* string <-> String_string *)
-Fixpoint string_to_lean (s : String.string) : imported_String_string :=
-  match s with
-  | String.EmptyString => Imported.String_string_EmptyString
-  | String.String a s' => Imported.String_string_String (ascii_to_lean a) (string_to_lean s')
+Definition ascii_from (a : Imported.Ascii_ascii) : Ascii.ascii :=
+  match a with
+  | Imported.Ascii_ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
+    Ascii.Ascii (mybool_from b0) (mybool_from b1) (mybool_from b2) (mybool_from b3)
+                (mybool_from b4) (mybool_from b5) (mybool_from b6) (mybool_from b7)
   end.
-
-Fixpoint lean_to_string (s : imported_String_string) : String.string :=
-  match s with
-  | Imported.String_string_EmptyString => String.EmptyString
-  | Imported.String_string_String a s' => String.String (lean_to_ascii a) (lean_to_string s')
-  end.
-
-Lemma mybool_roundtrip1 : forall b, mybool_to_bool (bool_to_mybool b) = b.
-Proof. destruct b; reflexivity. Qed.
-
-Lemma mybool_roundtrip2 : forall b, bool_to_mybool (mybool_to_bool b) = b.
-Proof. destruct b; reflexivity. Qed.
-
-Lemma ascii_roundtrip1 : forall a, lean_to_ascii (ascii_to_lean a) = a.
-Proof. 
-  destruct a. unfold ascii_to_lean, lean_to_ascii. cbn.
-  f_equal; apply mybool_roundtrip1.
-Qed.
-
-Lemma ascii_roundtrip2 : forall a, ascii_to_lean (lean_to_ascii a) = a.
-Proof. 
-  intro a. destruct a.
-  unfold lean_to_ascii, ascii_to_lean. cbn.
-  f_equal; apply mybool_roundtrip2.
-Qed.
-
-Lemma string_roundtrip1 : forall s, lean_to_string (string_to_lean s) = s.
-Proof.
-  induction s; simpl.
-  - reflexivity.
-  - f_equal. apply ascii_roundtrip1. apply IHs.
-Qed.
-
-Lemma string_roundtrip2 : forall s, string_to_lean (lean_to_string s) = s.
-Proof.
-  induction s; simpl.
-  - reflexivity.
-  - f_equal. apply ascii_roundtrip2. apply IHs.
-Qed.
 
 Instance String_string_iso : Iso String.string imported_String_string.
 Proof.
-  refine {| to := string_to_lean; from := lean_to_string |}.
-  - intro x. 
-    pose proof (string_roundtrip2 x) as H.
-    rewrite H. exact IsomorphismDefinitions.eq_refl.
-  - intro x.
-    pose proof (string_roundtrip1 x) as H.
-    rewrite H. exact IsomorphismDefinitions.eq_refl.
+  exists (fix f (s : String.string) : imported_String_string :=
+            match s with
+            | String.EmptyString => Imported.String_string_EmptyString
+            | String.String c rest => Imported.String_string_String (ascii_to c) (f rest)
+            end)
+         (fix g (s : imported_String_string) : String.string :=
+            match s with
+            | Imported.String_string_EmptyString => String.EmptyString
+            | Imported.String_string_String c rest => String.String (ascii_from c) (g rest)
+            end).
+  - fix IH 1. intros s.
+    destruct s as [|c rest].
+    + apply IsomorphismDefinitions.eq_refl.
+    + simpl.
+      apply (IsoEq.f_equal2 Imported.String_string_String).
+      * destruct c as [b0 b1 b2 b3 b4 b5 b6 b7].
+        simpl. unfold ascii_to, ascii_from.
+        destruct b0; destruct b1; destruct b2; destruct b3;
+        destruct b4; destruct b5; destruct b6; destruct b7;
+        apply IsomorphismDefinitions.eq_refl.
+      * apply IH.
+  - fix IH 1. intros s.
+    destruct s as [|c rest].
+    + apply IsomorphismDefinitions.eq_refl.
+    + simpl.
+      apply (IsoEq.f_equal2 String.String).
+      * destruct c as [b0 b1 b2 b3 b4 b5 b6 b7].
+        simpl. unfold ascii_to, ascii_from.
+        destruct b0; destruct b1; destruct b2; destruct b3;
+        destruct b4; destruct b5; destruct b6; destruct b7;
+        apply IsomorphismDefinitions.eq_refl.
+      * apply IH.
 Defined.
-
 Instance: KnownConstant String.string := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.String_string := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor String.string String_string_iso := {}.

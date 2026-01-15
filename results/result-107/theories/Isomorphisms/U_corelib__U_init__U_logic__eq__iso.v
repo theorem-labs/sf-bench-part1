@@ -1,67 +1,78 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
-From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
-From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
+From IsomorphismChecker Require Original.
+From IsomorphismChecker Require Imported.
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_true__iso.
-From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.
 
-Definition imported_Corelib_Init_Logic_eq : forall x : Type, x -> x -> SProp := (@Imported.Corelib_Init_Logic_eq).
+(* Imported.Corelib_Init_Logic_eq is now in SProp (defined in Prop in Lean) *)
+Definition imported_Corelib_Init_Logic_eq : forall x : Type, x -> x -> SProp := @Imported.Corelib_Init_Logic_eq.
 
-(* Helper: transport along IsomorphismDefinitions.eq to construct Imported.Corelib_Init_Logic_eq *)
-Definition imported_eq_transport {A : Type} {x y z : A} 
-  (H1 : IsomorphismDefinitions.eq x y) (H2 : IsomorphismDefinitions.eq x z) 
-  : Imported.Corelib_Init_Logic_eq A y z :=
-  IsoEq.eq_srect (fun w => Imported.Corelib_Init_Logic_eq A w z) 
-    (IsoEq.eq_srect (fun w => Imported.Corelib_Init_Logic_eq A x w) 
-      (Imported.Corelib_Init_Logic_eq_refl A x) H2) H1.
+(* Helper: extract Logic.eq from Imported.Corelib_Init_Logic_eq *)
+Definition seq_to_eq {A : Type} {x y : A} (H : Imported.Corelib_Init_Logic_eq A x y) : x = y :=
+  match H with Imported.Corelib_Init_Logic_eq_refl _ _ => Logic.eq_refl end.
 
-(* Helper to convert Imported eq to IsomorphismDefinitions eq *)
-Definition imported_eq_to_iso_eq {A : Type} {x y : A} 
-  (H : Imported.Corelib_Init_Logic_eq A x y) : IsomorphismDefinitions.eq x y :=
-  Imported.Corelib_Init_Logic_eq_indl A x 
-    (fun z _ => IsomorphismDefinitions.eq x z) 
-    IsomorphismDefinitions.eq_refl y H.
+(* Helper lemma: isomorphisms are injective *)
+Lemma iso_injective : forall (A B : Type) (i : Iso A B) (x y : A),
+  to i x = to i y -> x = y.
+Proof.
+  intros A B i x y H.
+  rewrite <- (from_to i x).
+  rewrite <- (from_to i y).
+  apply Logic.f_equal. exact H.
+Defined.
+
+(* We define the isomorphism by providing explicit functions *)
+Definition eq_iso_to (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1) (x4 : x2) (H34 : IsomorphismDefinitions.eq (to hx x3) x4) (x5 : x1) (x6 : x2) (H56 : IsomorphismDefinitions.eq (to hx x5) x6)
+  : x3 = x5 -> imported_Corelib_Init_Logic_eq x4 x6.
+Proof.
+  intro Heq.
+  destruct H34. destruct H56. destruct Heq.
+  exact (Imported.Corelib_Init_Logic_eq_refl _ _).
+Defined.
+
+Definition eq_iso_from (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1) (x4 : x2) (H34 : IsomorphismDefinitions.eq (to hx x3) x4) (x5 : x1) (x6 : x2) (H56 : IsomorphismDefinitions.eq (to hx x5) x6)
+  : imported_Corelib_Init_Logic_eq x4 x6 -> x3 = x5.
+Proof.
+  intro Hseq.
+  destruct H34. destruct H56.
+  apply (@iso_injective x1 x2 hx x3 x5).
+  apply seq_to_eq. exact Hseq.
+Defined.
+
+From Stdlib Require Import Logic.Eqdep_dec.
+
+(* Use proof irrelevance to handle all equality proofs *)
+Lemma eq_proofs_equal : forall (A : Type) (x y : A) (p q : x = y), p = q.
+Proof.
+  intros A x y p q.
+  apply Stdlib.Logic.ProofIrrelevance.proof_irrelevance.
+Defined.
 
 Instance Corelib_Init_Logic_eq_iso : (forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1) (x4 : x2) (_ : @rel_iso x1 x2 hx x3 x4) (x5 : x1) (x6 : x2) (_ : @rel_iso x1 x2 hx x5 x6),
    Iso (@Corelib.Init.Logic.eq x1 x3 x5) (@imported_Corelib_Init_Logic_eq x2 x4 x6)).
 Proof.
   intros x1 x2 hx x3 x4 H34 x5 x6 H56.
+  destruct H34 as [H34]. destruct H56 as [H56].
   unshelve eapply Build_Iso.
-  - (* to: eq in Prop -> eq in SProp *)
-    intro Heq.
-    destruct Heq.
-    unfold imported_Corelib_Init_Logic_eq.
-    exact (imported_eq_transport H34 H56).
-  - (* from: eq in SProp -> eq in Prop *)
-    intro Heq.
-    pose proof (from_to hx x3) as Hx3.
-    pose proof (from_to hx x5) as Hx5.
-    pose proof (IsoEq.f_equal (from hx) H34) as Hf34.
-    pose proof (IsoEq.f_equal (from hx) H56) as Hf56.
-    pose proof (imported_eq_to_iso_eq Heq) as HfeqHeq.
-    pose proof (IsoEq.f_equal (from hx) HfeqHeq) as HfromHeq.
-    apply IsoEq.eq_of_seq.
-    apply (IsoEq.eq_trans (IsoEq.eq_sym Hx3)).
-    apply (IsoEq.eq_trans Hf34).
-    apply (IsoEq.eq_trans HfromHeq).
-    apply (IsoEq.eq_trans (IsoEq.eq_sym Hf56)).
-    exact Hx5.
-  - (* to_from *)
-    intro Heq.
-    apply IsomorphismDefinitions.eq_refl.
-  - (* from_to *)
-    intro Heq.
-    destruct Heq.
+  + exact (@eq_iso_to x1 x2 hx x3 x4 H34 x5 x6 H56).
+  + exact (@eq_iso_from x1 x2 hx x3 x4 H34 x5 x6 H56).
+  + intro Hseq.
+    reflexivity.
+  + intro Heq.
+    destruct H34. destruct H56. destruct Heq.
+    unfold eq_iso_from, eq_iso_to. simpl.
+    rewrite (@eq_proofs_equal x1 x3 x3 (iso_injective hx x3 x3 Logic.eq_refl) Logic.eq_refl).
     apply IsomorphismDefinitions.eq_refl.
 Defined.
 
-Instance: KnownConstant (@Corelib.Init.Logic.eq) := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant (@Imported.Corelib_Init_Logic_eq) := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant (@Corelib.Init.Logic.eq) := {}.
+Instance: KnownConstant (@Imported.Corelib_Init_Logic_eq) := {}.
 Instance: IsoStatementProofFor (@Corelib.Init.Logic.eq) Corelib_Init_Logic_eq_iso := {}.
 Instance: IsoStatementProofBetween (@Corelib.Init.Logic.eq) (@Imported.Corelib_Init_Logic_eq) Corelib_Init_Logic_eq_iso := {}.
+
+(* Re-export the Prop version *)
+From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.

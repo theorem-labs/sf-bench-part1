@@ -16,6 +16,10 @@ def Original_False : Prop := MyFalse
 inductive MyTrue : Prop where
   | intro : MyTrue
 
+-- Alias for TrueType used by isomorphisms
+def TrueType : Prop := MyTrue
+def TrueType_I : TrueType := MyTrue.intro
+
 -- Equality in Prop (becomes SProp when imported)
 inductive Corelib_Init_Logic_eq {A : Type} (a : A) : A → Prop where
   | refl : Corelib_Init_Logic_eq a a
@@ -489,166 +493,104 @@ def Original_LF__DOT__Poly_LF_Poly_list123Prime : Original_LF__DOT__Poly_LF_Poly
         (Original_LF__DOT__Poly_LF_Poly_nil nat)))
 
 -- ============================================================
--- Additional definitions for tests
+-- NatList natoption type
 -- ============================================================
 
--- filter: filters a list based on a predicate
-def Original_LF__DOT__Poly_LF_Poly_filter (X : Type) (test : X → Original_LF__DOT__Basics_LF_Basics_bool)
-    : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X
-  | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_LF__DOT__Poly_LF_Poly_nil X
-  | Original_LF__DOT__Poly_LF_Poly_list.cons h t =>
-    match test h with
-    | Original_LF__DOT__Basics_LF_Basics_bool.true =>
-        Original_LF__DOT__Poly_LF_Poly_cons X h (Original_LF__DOT__Poly_LF_Poly_filter X test t)
-    | Original_LF__DOT__Basics_LF_Basics_bool.false =>
-        Original_LF__DOT__Poly_LF_Poly_filter X test t
+inductive Original_LF__DOT__Lists_LF_Lists_NatList_natoption : Type where
+  | None : Original_LF__DOT__Lists_LF_Lists_NatList_natoption
+  | Some : nat → Original_LF__DOT__Lists_LF_Lists_NatList_natoption
 
--- map: maps a function over a list
-def Original_LF__DOT__Poly_LF_Poly_map (X Y : Type) (f : X → Y)
-    : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list Y
-  | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_LF__DOT__Poly_LF_Poly_nil Y
-  | Original_LF__DOT__Poly_LF_Poly_list.cons h t =>
-      Original_LF__DOT__Poly_LF_Poly_cons Y (f h) (Original_LF__DOT__Poly_LF_Poly_map X Y f t)
+def Original_LF__DOT__Lists_LF_Lists_NatList_None : Original_LF__DOT__Lists_LF_Lists_NatList_natoption :=
+  Original_LF__DOT__Lists_LF_Lists_NatList_natoption.None
 
--- length_is_1: checks if length equals 1
-def Original_LF__DOT__Poly_LF_Poly_length__is__1 (X : Type) (l : Original_LF__DOT__Poly_LF_Poly_list X)
-    : Original_LF__DOT__Basics_LF_Basics_bool :=
-  Original_LF__DOT__Basics_LF_Basics_eqb (Original_LF__DOT__Poly_LF_Poly_length X l) (S _0)
+def Original_LF__DOT__Lists_LF_Lists_NatList_Some : nat → Original_LF__DOT__Lists_LF_Lists_NatList_natoption :=
+  Original_LF__DOT__Lists_LF_Lists_NatList_natoption.Some
 
--- countoddmembers': counts odd members using filter and length
-def Original_LF__DOT__Poly_LF_Poly_countoddmembers' (l : Original_LF__DOT__Poly_LF_Poly_list nat) : nat :=
-  Original_LF__DOT__Poly_LF_Poly_length nat (Original_LF__DOT__Poly_LF_Poly_filter nat Original_LF__DOT__Basics_LF_Basics_odd l)
+-- hd_error function (Admitted in Original.v, so we define it properly)
+def Original_LF__DOT__Lists_LF_Lists_NatList_hd__error (l : Original_LF__DOT__Lists_LF_Lists_NatList_natlist) : Original_LF__DOT__Lists_LF_Lists_NatList_natoption :=
+  match l with
+  | .nil => Original_LF__DOT__Lists_LF_Lists_NatList_natoption.None
+  | .cons h _ => Original_LF__DOT__Lists_LF_Lists_NatList_natoption.Some h
 
--- forallb: checks if all elements satisfy a predicate
-def Original_LF__DOT__Tactics_LF_Tactics_forallb (X : Type) (test : X → Original_LF__DOT__Basics_LF_Basics_bool)
-    : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Basics_LF_Basics_bool
-  | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_LF__DOT__Basics_LF_Basics_true
-  | Original_LF__DOT__Poly_LF_Poly_list.cons h t =>
-      Original_LF__DOT__Basics_LF_Basics_andb (test h) (Original_LF__DOT__Tactics_LF_Tactics_forallb X test t)
-
--- sillyfun1: checks if n is 3 or 5
-def Original_LF__DOT__Tactics_LF_Tactics_sillyfun1 (n : nat) : Original_LF__DOT__Basics_LF_Basics_bool :=
-  match Original_LF__DOT__Basics_LF_Basics_eqb n (S (S (S _0))) with  -- n =? 3
-  | Original_LF__DOT__Basics_LF_Basics_bool.true => Original_LF__DOT__Basics_LF_Basics_true
-  | Original_LF__DOT__Basics_LF_Basics_bool.false =>
-    match Original_LF__DOT__Basics_LF_Basics_eqb n (S (S (S (S (S _0))))) with  -- n =? 5
-    | Original_LF__DOT__Basics_LF_Basics_bool.true => Original_LF__DOT__Basics_LF_Basics_true
-    | Original_LF__DOT__Basics_LF_Basics_bool.false => Original_LF__DOT__Basics_LF_Basics_false
-
--- sillyfun1_odd theorem (Admitted)
-axiom Original_LF__DOT__Tactics_LF_Tactics_sillyfun1__odd :
-  ∀ (n : nat),
-    Corelib_Init_Logic_eq (Original_LF__DOT__Tactics_LF_Tactics_sillyfun1 n) Original_LF__DOT__Basics_LF_Basics_true →
-    Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_odd n) Original_LF__DOT__Basics_LF_Basics_true
-
--- test_countoddmembers'1 (Admitted)
-axiom Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1 :
+-- test_hd1: hd 0 [1;2;3] = 1
+def Original_LF__DOT__Lists_LF_Lists_NatList_test__hd1 :
   Corelib_Init_Logic_eq
-    (Original_LF__DOT__Poly_LF_Poly_countoddmembers'
-      (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
-        (Original_LF__DOT__Poly_LF_Poly_cons nat _0
-          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
-            (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
-              (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
-                (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S _0)))))
-                  (Original_LF__DOT__Poly_LF_Poly_nil nat))))))))
-    (S (S (S (S _0))))
+    (Original_LF__DOT__Lists_LF_Lists_NatList_hd _0
+      (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0)
+        (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S _0))
+          (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S _0)))
+            Original_LF__DOT__Lists_LF_Lists_NatList_nil))))
+    (S _0) :=
+  Corelib_Init_Logic_eq.refl
 
--- test_countoddmembers'3 (Admitted)
-axiom Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'3 :
+-- test_hd_error3: hd_error [5;6] = Some 5
+def Original_LF__DOT__Lists_LF_Lists_NatList_test__hd__error3 :
   Corelib_Init_Logic_eq
-    (Original_LF__DOT__Poly_LF_Poly_countoddmembers' (Original_LF__DOT__Poly_LF_Poly_nil nat))
-    _0
+    (Original_LF__DOT__Lists_LF_Lists_NatList_hd__error
+      (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S (S (S _0)))))
+        (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S (S (S (S _0))))))
+          Original_LF__DOT__Lists_LF_Lists_NatList_nil)))
+    (Original_LF__DOT__Lists_LF_Lists_NatList_Some (S (S (S (S (S _0)))))) :=
+  Corelib_Init_Logic_eq.refl
 
--- test_filter1 (Admitted)
-axiom Original_LF__DOT__Poly_LF_Poly_test__filter1 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Poly_LF_Poly_filter nat Original_LF__DOT__Basics_LF_Basics_even
-      (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
-        (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
-          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
-            (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
-              (Original_LF__DOT__Poly_LF_Poly_nil nat))))))
-    (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
-      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
-        (Original_LF__DOT__Poly_LF_Poly_nil nat)))
+-- ============================================================
+-- id type and eqb_id function
+-- ============================================================
 
--- test_filter2 (Admitted)
-axiom Original_LF__DOT__Poly_LF_Poly_test__filter2 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Poly_LF_Poly_filter (Original_LF__DOT__Poly_LF_Poly_list nat) (Original_LF__DOT__Poly_LF_Poly_length__is__1 nat)
-      (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-        (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
-          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
-            (Original_LF__DOT__Poly_LF_Poly_nil nat)))
-        (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
-            (Original_LF__DOT__Poly_LF_Poly_nil nat))
-          (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-            (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
-              (Original_LF__DOT__Poly_LF_Poly_nil nat))
-            (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-              (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S _0)))))
-                (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S _0))))))
-                  (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S _0)))))))
-                    (Original_LF__DOT__Poly_LF_Poly_nil nat))))
-              (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-                (Original_LF__DOT__Poly_LF_Poly_nil nat)
-                (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-                  (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S (S _0))))))))
-                    (Original_LF__DOT__Poly_LF_Poly_nil nat))
-                  (Original_LF__DOT__Poly_LF_Poly_nil (Original_LF__DOT__Poly_LF_Poly_list nat)))))))))
-    (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
-        (Original_LF__DOT__Poly_LF_Poly_nil nat))
-      (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-        (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
-          (Original_LF__DOT__Poly_LF_Poly_nil nat))
-        (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
-          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S (S _0))))))))
-            (Original_LF__DOT__Poly_LF_Poly_nil nat))
-          (Original_LF__DOT__Poly_LF_Poly_nil (Original_LF__DOT__Poly_LF_Poly_list nat)))))
+inductive Original_LF__DOT__Lists_LF_Lists_id : Type where
+  | Id : nat → Original_LF__DOT__Lists_LF_Lists_id
 
--- test_map2 (Admitted)
-axiom Original_LF__DOT__Poly_LF_Poly_test__map2 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Poly_LF_Poly_map nat Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_odd
-      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
-        (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
-          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
-            (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S _0)))))
-              (Original_LF__DOT__Poly_LF_Poly_nil nat))))))
-    (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_false
-      (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_true
-        (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_false
-          (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_true
-            (Original_LF__DOT__Poly_LF_Poly_nil Original_LF__DOT__Basics_LF_Basics_bool)))))
+def Original_LF__DOT__Lists_LF_Lists_id_Id : nat → Original_LF__DOT__Lists_LF_Lists_id :=
+  Original_LF__DOT__Lists_LF_Lists_id.Id
 
--- test_forallb_1 (Admitted)
-axiom Original_LF__DOT__Tactics_LF_Tactics_test__forallb__1 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Tactics_LF_Tactics_forallb nat Original_LF__DOT__Basics_LF_Basics_odd
-      (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
-        (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
-          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S _0)))))
-            (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S _0)))))))
-              (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S (S (S _0)))))))))
-                (Original_LF__DOT__Poly_LF_Poly_nil nat)))))))
-    Original_LF__DOT__Basics_LF_Basics_true
+def Original_LF__DOT__Lists_LF_Lists_eqb__id (x1 x2 : Original_LF__DOT__Lists_LF_Lists_id) : Original_LF__DOT__Basics_LF_Basics_bool :=
+  match x1, x2 with
+  | Original_LF__DOT__Lists_LF_Lists_id.Id n1, Original_LF__DOT__Lists_LF_Lists_id.Id n2 =>
+      Original_LF__DOT__Basics_LF_Basics_eqb n1 n2
 
--- test_forallb_4 (Admitted)
-axiom Original_LF__DOT__Tactics_LF_Tactics_test__forallb__4 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Tactics_LF_Tactics_forallb nat Original_LF__DOT__Basics_LF_Basics_even
-      (Original_LF__DOT__Poly_LF_Poly_nil nat))
-    Original_LF__DOT__Basics_LF_Basics_true
+-- eqb_id_refl (Admitted in Original.v)
+axiom Original_LF__DOT__Lists_LF_Lists_eqb__id__refl :
+  ∀ (x : Original_LF__DOT__Lists_LF_Lists_id),
+    Corelib_Init_Logic_eq (Original_LF__DOT__Lists_LF_Lists_eqb__id x x)
+      Original_LF__DOT__Basics_LF_Basics_true
 
--- inversion_ex1 (Admitted): [n; m] = [o; o] -> [n] = [m]
-axiom Original_LF__DOT__IndProp_LF_IndProp_inversion__ex1 :
-  ∀ (n m o : nat),
+-- ============================================================
+-- partial_map, find, update
+-- ============================================================
+
+inductive Original_LF__DOT__Lists_LF_Lists_partial__map : Type where
+  | empty : Original_LF__DOT__Lists_LF_Lists_partial__map
+  | record : Original_LF__DOT__Lists_LF_Lists_id → nat → Original_LF__DOT__Lists_LF_Lists_partial__map → Original_LF__DOT__Lists_LF_Lists_partial__map
+
+def Original_LF__DOT__Lists_LF_Lists_find (x : Original_LF__DOT__Lists_LF_Lists_id) : Original_LF__DOT__Lists_LF_Lists_partial__map → Original_LF__DOT__Lists_LF_Lists_NatList_natoption
+  | .empty => Original_LF__DOT__Lists_LF_Lists_NatList_natoption.None
+  | .record y v d' =>
+    match Original_LF__DOT__Lists_LF_Lists_eqb__id x y with
+    | .true => Original_LF__DOT__Lists_LF_Lists_NatList_natoption.Some v
+    | .false => Original_LF__DOT__Lists_LF_Lists_find x d'
+
+def Original_LF__DOT__Lists_LF_Lists_update
+    (d : Original_LF__DOT__Lists_LF_Lists_partial__map)
+    (x : Original_LF__DOT__Lists_LF_Lists_id)
+    (value : nat)
+    : Original_LF__DOT__Lists_LF_Lists_partial__map :=
+  Original_LF__DOT__Lists_LF_Lists_partial__map.record x value d
+
+-- update_eq (Admitted in Original.v)
+axiom Original_LF__DOT__Lists_LF_Lists_update__eq :
+  ∀ (d : Original_LF__DOT__Lists_LF_Lists_partial__map)
+    (x : Original_LF__DOT__Lists_LF_Lists_id)
+    (v : nat),
     Corelib_Init_Logic_eq
-      (Original_LF__DOT__Poly_LF_Poly_cons nat n (Original_LF__DOT__Poly_LF_Poly_cons nat m (Original_LF__DOT__Poly_LF_Poly_nil nat)))
-      (Original_LF__DOT__Poly_LF_Poly_cons nat o (Original_LF__DOT__Poly_LF_Poly_cons nat o (Original_LF__DOT__Poly_LF_Poly_nil nat))) →
-    Corelib_Init_Logic_eq
-      (Original_LF__DOT__Poly_LF_Poly_cons nat n (Original_LF__DOT__Poly_LF_Poly_nil nat))
-      (Original_LF__DOT__Poly_LF_Poly_cons nat m (Original_LF__DOT__Poly_LF_Poly_nil nat))
+      (Original_LF__DOT__Lists_LF_Lists_find x (Original_LF__DOT__Lists_LF_Lists_update d x v))
+      (Original_LF__DOT__Lists_LF_Lists_NatList_Some v)
+
+-- ============================================================
+-- mynil' for polymorphic list
+-- ============================================================
+
+-- Note: After export, manually rename Original_LF__DOT__Poly_LF_Poly_mynilPrime 
+-- to Original_LF__DOT__Poly_LF_Poly_mynil' in Imported.out 
+-- (sed -i "s/Original_LF__DOT__Poly_LF_Poly_mynilPrime/Original_LF__DOT__Poly_LF_Poly_mynil'/g" /workdir/Imported.out)
+def Original_LF__DOT__Poly_LF_Poly_mynilPrime : Original_LF__DOT__Poly_LF_Poly_list nat :=
+  Original_LF__DOT__Poly_LF_Poly_nil nat

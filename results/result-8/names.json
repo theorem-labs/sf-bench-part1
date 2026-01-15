@@ -1,15 +1,12 @@
 {
-  "bool": "mybool",
-  "true": "true",
-  "false": "false",
-  "Ascii_Ascii": "Ascii_Ascii",
-  "Ascii_ascii": "Ascii_ascii",
-  "True": "TrueType",
-  "False": "FalseType",
+  "True": "MyTrue",
+  "False": "MyFalse",
+  "bool": "Stdlib_bool",
   "_0": "nat_O",
-  "S": "nat_S",
-  "Nat_add": "nat_add",
-  "Nat_mul": "nat_mul",
-  "Nat_pred": "nat_pred",
-  "Nat_sub": "nat_sub"
+  "Original_LF__DOT__IndProp_LF_IndProp_EmptyStr": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_EmptyStr",
+  "Original_LF__DOT__IndProp_LF_IndProp_EmptySet": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_EmptySet",
+  "Original_LF__DOT__IndProp_LF_IndProp_Char": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Char",
+  "Original_LF__DOT__IndProp_LF_IndProp_App": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_App",
+  "Original_LF__DOT__IndProp_LF_IndProp_Union": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Union",
+  "Original_LF__DOT__IndProp_LF_IndProp_Star": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Star"
 }

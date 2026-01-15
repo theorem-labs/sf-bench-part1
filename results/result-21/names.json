@@ -1,5 +1,4 @@
 {
-  "_0": "nat_O",
-  "True": "True_",
-  "False": "False_"
+  "True": "Exported_True",
+  "False": "Exported_False"
 }

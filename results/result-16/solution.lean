@@ -1,56 +1,47 @@
--- Translation of nat, aexp, and aevalR from Rocq
+-- Lean 4 translation of Rocq aevalR_extended module
 
--- nat
+-- Use our own nat to avoid Lean stdlib issues
 inductive nat : Type where
   | O : nat
-  | S : nat -> nat
+  | S : nat → nat
 
--- aexp type with division
-inductive Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp : Type where
-  | ANum : nat -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp
-  | APlus : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp
-  | AMinus : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp
-  | AMult : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp
-  | ADiv : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp
-
--- Arithmetic operations on nat
-def add : nat -> nat -> nat
+def nat.add : nat → nat → nat
   | nat.O, n => n
-  | nat.S m, n => nat.S (add m n)
+  | nat.S m, n => nat.S (nat.add m n)
 
-def sub : nat -> nat -> nat
+def nat.sub : nat → nat → nat
   | nat.O, _ => nat.O
-  | m, nat.O => m
-  | nat.S m, nat.S n => sub m n
+  | nat.S m, nat.O => nat.S m
+  | nat.S m, nat.S n => nat.sub m n
 
-def mul : nat -> nat -> nat
+def nat.mul : nat → nat → nat
   | nat.O, _ => nat.O
-  | nat.S m, n => add n (mul m n)
+  | nat.S m, n => nat.add n (nat.mul m n)
 
--- Greater than
-inductive gt : nat -> nat -> Prop where
-  | gt_succ : forall n, gt (nat.S n) nat.O
-  | gt_step : forall m n, gt m n -> gt (nat.S m) (nat.S n)
+-- aexp type from aevalR_extended module
+inductive Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp : Type where
+  | AAny : Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp
+  | ANum : nat → Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp
+  | APlus : Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp → Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp → Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp
+  | AMinus : Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp → Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp → Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp
+  | AMult : Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp → Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp → Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp
 
--- aevalR evaluation relation
-inductive Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp -> nat -> Prop where
-  | E_ANum : forall (n : nat),
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp.ANum n) n
-  | E_APlus : forall (a1 a2 : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp) (n1 n2 : nat),
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR a1 n1 ->
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR a2 n2 ->
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp.APlus a1 a2) (add n1 n2)
-  | E_AMinus : forall (a1 a2 : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp) (n1 n2 : nat),
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR a1 n1 ->
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR a2 n2 ->
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp.AMinus a1 a2) (sub n1 n2)
-  | E_AMult : forall (a1 a2 : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp) (n1 n2 : nat),
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR a1 n1 ->
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR a2 n2 ->
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp.AMult a1 a2) (mul n1 n2)
-  | E_ADiv : forall (a1 a2 : Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp) (n1 n2 n3 : nat),
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR a1 n1 ->
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR a2 n2 ->
-      gt n2 nat.O ->
-      mul n2 n3 = n1 ->
-      Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp.ADiv a1 a2) n3
+-- aevalR relation from aevalR_extended module
+-- Keep as Prop - will export to SProp in Rocq
+inductive Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR : Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp → nat → Prop where
+  | E_Any : ∀ (n : nat),
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp.AAny n
+  | E_ANum : ∀ (n : nat),
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp.ANum n) n
+  | E_APlus : ∀ (a1 a2 : Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp) (n1 n2 : nat),
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR a1 n1 →
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR a2 n2 →
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp.APlus a1 a2) (nat.add n1 n2)
+  | E_AMinus : ∀ (a1 a2 : Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp) (n1 n2 : nat),
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR a1 n1 →
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR a2 n2 →
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp.AMinus a1 a2) (nat.sub n1 n2)
+  | E_AMult : ∀ (a1 a2 : Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp) (n1 n2 : nat),
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR a1 n1 →
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR a2 n2 →
+      Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR (Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp.AMult a1 a2) (nat.mul n1 n2)

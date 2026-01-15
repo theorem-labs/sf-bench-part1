@@ -1,10 +1,16 @@
 {
-  "True": "MyTrue",
-  "False": "MyFalse",
-  "_0": "_0",
-  "lt": "lt",
-  "iff": "iff",
-  "Original_LF__DOT__Poly_LF_Poly_Exercises_two'": "Original_LF__DOT__Poly_LF_Poly_Exercises_twoPrime",
-  "Original_LF__DOT__AltAuto_LF_AltAuto_simple__semi''": "Original_LF__DOT__AltAuto_LF_AltAuto_simple__semiPrimePrime",
-  "Original_LF__DOT__Poly_LF_Poly_list123'": "Original_LF__DOT__Poly_LF_Poly_list123Prime"
+  "bool": "mybool",
+  "true": "true",
+  "false": "false",
+  "Ascii_Ascii": "Ascii_Ascii",
+  "Ascii_ascii": "Ascii_ascii",
+  "True": "TrueType",
+  "False": "FalseType",
+  "_0": "nat_O",
+  "S": "nat_S",
+  "Nat_add": "nat_add",
+  "Nat_mul": "nat_mul",
+  "Nat_pred": "nat_pred",
+  "Nat_sub": "nat_sub",
+  "Original_LF__DOT__Poly_LF_Poly_mynil'": "Original_LF__DOT__Poly_LF_Poly_mynilPrime"
 }

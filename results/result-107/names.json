@@ -1,4 +1,8 @@
 {
-  "True": "Exported_True",
-  "False": "Exported_False"
+  "_0": "nat_O",
+  "True": "MyTrue",
+  "PeanoNat_Nat_add": "PeanoNat_Nat_add",
+  "bool": "Stdlib_bool",
+  "Ascii_Ascii": "Ascii_ascii_Ascii",
+  "False": "MyFalse"
 }

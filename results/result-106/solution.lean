@@ -1,35 +1,37 @@
--- Comprehensive Lean translation merging all required definitions
-set_option linter.all false
+-- Comprehensive Lean 4 translation for all required isomorphisms
 set_option autoImplicit false
+set_option linter.unusedVariables false
 
 -- ============================================================
--- Basic Types
+-- Basic Types: True, False, Equality
 -- ============================================================
 
--- True in Prop
+-- False proposition 
+inductive MyFalse : Prop where
+
+-- Alias for Original.False
+def Original_False : Prop := MyFalse
+
+-- True proposition
 inductive MyTrue : Prop where
   | intro : MyTrue
 
--- False in Prop (empty type)
-inductive MyFalse : Prop where
+-- Equality in Prop (becomes SProp when imported)
+inductive Corelib_Init_Logic_eq {A : Type} (a : A) : A → Prop where
+  | refl : Corelib_Init_Logic_eq a a
 
--- Standard list type
-inductive list (A : Type) : Type where
-  | nil : list A
-  | cons : A → list A → list A
+-- Specialization of eq at Prop (needed by checker)
+inductive Corelib_Init_Logic_eq_Prop {A : Prop} (a : A) : A → Prop where
+  | refl : Corelib_Init_Logic_eq_Prop a a
 
-def list_nil {A : Type} : list A := list.nil
-def list_cons {A : Type} (x : A) (xs : list A) : list A := list.cons x xs
+-- Equality for Prop (used in some proofs)
+inductive Prop_eq {A : Prop} (a : A) : A → Prop where
+  | refl : Prop_eq a a
 
--- Equality in Prop (will be exported to SProp in Rocq)
-inductive Corelib_Init_Logic_eq {A : Type} : A → A → Prop where
-  | refl (a : A) : Corelib_Init_Logic_eq a a
+-- ============================================================
+-- Natural numbers
+-- ============================================================
 
--- Equality for Prop (also exported to SProp)
-inductive Corelib_Init_Logic_eq_Prop {A : Prop} : A → A → Prop where
-  | refl (a : A) : Corelib_Init_Logic_eq_Prop a a
-
--- Custom nat
 inductive nat : Type where
   | O : nat
   | S : nat → nat
@@ -38,85 +40,129 @@ def _0 : nat := nat.O
 def S : nat → nat := nat.S
 
 -- Addition on nat
-def PeanoNat_Nat_add : nat → nat → nat
+def Nat_add : nat → nat → nat
   | nat.O, m => m
-  | nat.S n, m => nat.S (PeanoNat_Nat_add n m)
+  | nat.S p, m => nat.S (Nat_add p m)
 
--- Custom bool for Stdlib
-inductive Stdlib_bool : Type where
-  | true : Stdlib_bool
-  | false : Stdlib_bool
+-- Multiplication on nat
+def Nat_mul : nat → nat → nat
+  | nat.O, _ => nat.O
+  | nat.S n', m => Nat_add m (Nat_mul n' m)
 
--- Aliases for true/false
-def true : Stdlib_bool := Stdlib_bool.true
-def false : Stdlib_bool := Stdlib_bool.false
+-- ============================================================
+-- Logic: and, or, ex, not, iff
+-- ============================================================
 
--- Ascii type (8 booleans)
-inductive Ascii_ascii : Type where
-  | Ascii : Stdlib_bool → Stdlib_bool → Stdlib_bool → Stdlib_bool → 
-            Stdlib_bool → Stdlib_bool → Stdlib_bool → Stdlib_bool → Ascii_ascii
+-- Conjunction
+structure and (A B : Prop) : Prop where
+  intro ::
+  left : A
+  right : B
 
--- Existential quantifier in Prop
+-- Existential quantifier
 inductive ex {A : Type} (P : A → Prop) : Prop where
   | intro (w : A) (h : P w) : ex P
 
--- Iff type
-structure iff (a b : Prop) : Prop where
+-- Negation
+def Logic_not (P : Prop) : Prop := P → MyFalse
+
+-- Disjunction
+inductive or (A B : Prop) : Prop where
+  | inl : A → or A B
+  | inr : B → or A B
+
+-- Iff (if and only if)
+structure iff (A B : Prop) : Prop where
   intro ::
-  mp : a → b
-  mpr : b → a
+  mp : A → B
+  mpr : B → A
 
 -- ============================================================
--- String type
+-- Boolean type (LF.Basics.bool)
 -- ============================================================
 
-inductive String_string : Type where
-  | EmptyString : String_string
-  | String : Ascii_ascii → String_string → String_string
+inductive Original_LF__DOT__Basics_LF_Basics_bool : Type where
+  | true : Original_LF__DOT__Basics_LF_Basics_bool
+  | false : Original_LF__DOT__Basics_LF_Basics_bool
+
+def Original_LF__DOT__Basics_LF_Basics_true : Original_LF__DOT__Basics_LF_Basics_bool :=
+  Original_LF__DOT__Basics_LF_Basics_bool.true
+
+def Original_LF__DOT__Basics_LF_Basics_false : Original_LF__DOT__Basics_LF_Basics_bool :=
+  Original_LF__DOT__Basics_LF_Basics_bool.false
+
+-- negb function
+def Original_LF__DOT__Basics_LF_Basics_negb (b : Original_LF__DOT__Basics_LF_Basics_bool) : Original_LF__DOT__Basics_LF_Basics_bool :=
+  match b with
+  | .true => .false
+  | .false => .true
+
+-- andb function
+def Original_LF__DOT__Basics_LF_Basics_andb (b1 b2 : Original_LF__DOT__Basics_LF_Basics_bool) : Original_LF__DOT__Basics_LF_Basics_bool :=
+  match b1 with
+  | .true => b2
+  | .false => .false
+
+-- even function
+def Original_LF__DOT__Basics_LF_Basics_even : nat → Original_LF__DOT__Basics_LF_Basics_bool
+  | nat.O => .true
+  | nat.S nat.O => .false
+  | nat.S (nat.S n') => Original_LF__DOT__Basics_LF_Basics_even n'
+
+-- odd function
+def Original_LF__DOT__Basics_LF_Basics_odd (n : nat) : Original_LF__DOT__Basics_LF_Basics_bool :=
+  Original_LF__DOT__Basics_LF_Basics_negb (Original_LF__DOT__Basics_LF_Basics_even n)
+
+-- plus function
+def Original_LF__DOT__Basics_LF_Basics_plus : nat → nat → nat
+  | nat.O, m => m
+  | nat.S n', m => nat.S (Original_LF__DOT__Basics_LF_Basics_plus n' m)
+
+-- mult function
+def Original_LF__DOT__Basics_LF_Basics_mult : nat → nat → nat
+  | nat.O, _ => nat.O
+  | nat.S n', m => Original_LF__DOT__Basics_LF_Basics_plus m (Original_LF__DOT__Basics_LF_Basics_mult n' m)
+
+-- eqb function (nat equality)
+def Original_LF__DOT__Basics_LF_Basics_eqb : nat → nat → Original_LF__DOT__Basics_LF_Basics_bool
+  | nat.O, nat.O => .true
+  | nat.S n, nat.S m => Original_LF__DOT__Basics_LF_Basics_eqb n m
+  | _, _ => .false
+
+-- leb function (nat less-or-equal)
+def Original_LF__DOT__Basics_LF_Basics_leb : nat → nat → Original_LF__DOT__Basics_LF_Basics_bool
+  | nat.O, _ => .true
+  | nat.S _, nat.O => .false
+  | nat.S n, nat.S m => Original_LF__DOT__Basics_LF_Basics_leb n m
 
 -- ============================================================
--- Original.LF_DOT_Basics types (letter, modifier, grade)
+-- Boolean for le/lt definitions (RocqBool to avoid name collision)
 -- ============================================================
 
-inductive Original_LF__DOT__Basics_LF_Basics_letter : Type where
-  | A : Original_LF__DOT__Basics_LF_Basics_letter
-  | B : Original_LF__DOT__Basics_LF_Basics_letter
-  | C : Original_LF__DOT__Basics_LF_Basics_letter
-  | D : Original_LF__DOT__Basics_LF_Basics_letter
-  | F : Original_LF__DOT__Basics_LF_Basics_letter
+inductive RocqBool : Type where
+  | false : RocqBool
+  | true : RocqBool
 
-inductive Original_LF__DOT__Basics_LF_Basics_modifier : Type where
-  | Plus : Original_LF__DOT__Basics_LF_Basics_modifier
-  | Natural : Original_LF__DOT__Basics_LF_Basics_modifier
-  | Minus : Original_LF__DOT__Basics_LF_Basics_modifier
+def RocqBool_false : RocqBool := RocqBool.false
+def RocqBool_true : RocqBool := RocqBool.true
 
-inductive Original_LF__DOT__Basics_LF_Basics_grade : Type where
-  | Grade : Original_LF__DOT__Basics_LF_Basics_letter → Original_LF__DOT__Basics_LF_Basics_modifier → Original_LF__DOT__Basics_LF_Basics_grade
+-- Less than or equal (boolean version for le)
+def nat_leb : nat → nat → RocqBool
+  | nat.O, _ => RocqBool.true
+  | nat.S _, nat.O => RocqBool.false
+  | nat.S n, nat.S m => nat_leb n m
 
-def Original_LF__DOT__Basics_LF_Basics_A : Original_LF__DOT__Basics_LF_Basics_letter := 
-  Original_LF__DOT__Basics_LF_Basics_letter.A
+-- le as Prop based on boolean
+def le (n m : nat) : Prop := Corelib_Init_Logic_eq (nat_leb n m) RocqBool.true
 
-def Original_LF__DOT__Basics_LF_Basics_Plus : Original_LF__DOT__Basics_LF_Basics_modifier := 
-  Original_LF__DOT__Basics_LF_Basics_modifier.Plus
+-- Successor for le
+def le2 (n m : nat) : Prop := le (nat.S n) (nat.S m)
 
-def Original_LF__DOT__Basics_LF_Basics_Natural : Original_LF__DOT__Basics_LF_Basics_modifier := 
-  Original_LF__DOT__Basics_LF_Basics_modifier.Natural
-
-def Original_LF__DOT__Basics_LF_Basics_Grade : Original_LF__DOT__Basics_LF_Basics_letter → Original_LF__DOT__Basics_LF_Basics_modifier → Original_LF__DOT__Basics_LF_Basics_grade :=
-  Original_LF__DOT__Basics_LF_Basics_grade.Grade
-
--- lower_grade is Admitted in Original.v
-axiom Original_LF__DOT__Basics_LF_Basics_lower__grade : Original_LF__DOT__Basics_LF_Basics_grade → Original_LF__DOT__Basics_LF_Basics_grade
-
--- lower_grade_A_Plus is Admitted in Original.v
-axiom Original_LF__DOT__Basics_LF_Basics_lower__grade__A__Plus : 
-  Corelib_Init_Logic_eq 
-    (Original_LF__DOT__Basics_LF_Basics_lower__grade 
-       (Original_LF__DOT__Basics_LF_Basics_Grade Original_LF__DOT__Basics_LF_Basics_A Original_LF__DOT__Basics_LF_Basics_Plus))
-    (Original_LF__DOT__Basics_LF_Basics_Grade Original_LF__DOT__Basics_LF_Basics_A Original_LF__DOT__Basics_LF_Basics_Natural)
+-- lt as Prop
+def lt (n m : nat) : Prop := le (nat.S n) m
 
 -- ============================================================
--- Original.LF_DOT_Poly types (list)
+-- Polymorphic list type (LF.Poly.list)
 -- ============================================================
 
 inductive Original_LF__DOT__Poly_LF_Poly_list (X : Type) : Type where
@@ -126,16 +172,21 @@ inductive Original_LF__DOT__Poly_LF_Poly_list (X : Type) : Type where
 def Original_LF__DOT__Poly_LF_Poly_nil (X : Type) : Original_LF__DOT__Poly_LF_Poly_list X :=
   Original_LF__DOT__Poly_LF_Poly_list.nil
 
-def Original_LF__DOT__Poly_LF_Poly_cons (X : Type) (x : X) (xs : Original_LF__DOT__Poly_LF_Poly_list X) : Original_LF__DOT__Poly_LF_Poly_list X :=
-  Original_LF__DOT__Poly_LF_Poly_list.cons x xs
+def Original_LF__DOT__Poly_LF_Poly_cons (X : Type) : X → Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X :=
+  Original_LF__DOT__Poly_LF_Poly_list.cons
 
-def Original_LF__DOT__Poly_LF_Poly_app (X : Type) (l1 l2 : Original_LF__DOT__Poly_LF_Poly_list X) : Original_LF__DOT__Poly_LF_Poly_list X :=
-  match l1 with
-  | .nil => l2
-  | .cons x xs => .cons x (Original_LF__DOT__Poly_LF_Poly_app X xs l2)
+-- List append
+def Original_LF__DOT__Poly_LF_Poly_app (X : Type) : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X
+  | .nil, l2 => l2
+  | .cons h t, l2 => .cons h (Original_LF__DOT__Poly_LF_Poly_app X t l2)
+
+-- List length
+def Original_LF__DOT__Poly_LF_Poly_length (X : Type) : Original_LF__DOT__Poly_LF_Poly_list X → nat
+  | .nil => nat.O
+  | .cons _ t => nat.S (Original_LF__DOT__Poly_LF_Poly_length X t)
 
 -- ============================================================
--- Original.LF_DOT_Lists.LF.Lists.NatList types
+-- NatList (LF.Lists.NatList)
 -- ============================================================
 
 inductive Original_LF__DOT__Lists_LF_Lists_NatList_natlist : Type where
@@ -148,173 +199,16 @@ def Original_LF__DOT__Lists_LF_Lists_NatList_nil : Original_LF__DOT__Lists_LF_Li
 def Original_LF__DOT__Lists_LF_Lists_NatList_cons : nat → Original_LF__DOT__Lists_LF_Lists_NatList_natlist → Original_LF__DOT__Lists_LF_Lists_NatList_natlist :=
   Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons
 
-def Original_LF__DOT__Lists_LF_Lists_NatList_app : Original_LF__DOT__Lists_LF_Lists_NatList_natlist → Original_LF__DOT__Lists_LF_Lists_NatList_natlist → Original_LF__DOT__Lists_LF_Lists_NatList_natlist
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil, l2 => l2
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h t, l2 => 
-      Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h (Original_LF__DOT__Lists_LF_Lists_NatList_app t l2)
-
-def Original_LF__DOT__Lists_LF_Lists_NatList_rev : Original_LF__DOT__Lists_LF_Lists_NatList_natlist → Original_LF__DOT__Lists_LF_Lists_NatList_natlist
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil => Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h t => 
-      Original_LF__DOT__Lists_LF_Lists_NatList_app 
-        (Original_LF__DOT__Lists_LF_Lists_NatList_rev t) 
-        (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil)
-
--- alternate is Admitted in Original.v
-axiom Original_LF__DOT__Lists_LF_Lists_NatList_alternate : 
-  Original_LF__DOT__Lists_LF_Lists_NatList_natlist → 
-  Original_LF__DOT__Lists_LF_Lists_NatList_natlist → 
-  Original_LF__DOT__Lists_LF_Lists_NatList_natlist
-
--- rev_injective is Admitted in Original.v
-axiom Original_LF__DOT__Lists_LF_Lists_NatList_rev__injective : 
-  ∀ (l1 l2 : Original_LF__DOT__Lists_LF_Lists_NatList_natlist),
-    Corelib_Init_Logic_eq (Original_LF__DOT__Lists_LF_Lists_NatList_rev l1) (Original_LF__DOT__Lists_LF_Lists_NatList_rev l2) →
-    Corelib_Init_Logic_eq l1 l2
-
--- test_alternate4 is Admitted in Original.v
--- test_alternate4 : alternate [] [20;30] = [20;30]
-axiom Original_LF__DOT__Lists_LF_Lists_NatList_test__alternate4 : 
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Lists_LF_Lists_NatList_alternate
-       Original_LF__DOT__Lists_LF_Lists_NatList_nil
-       (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S _0))))))))))))))))))))
-          (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S _0))))))))))))))))))))))))))))))
-             Original_LF__DOT__Lists_LF_Lists_NatList_nil)))
-    (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S _0))))))))))))))))))))
-       (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S _0))))))))))))))))))))))))))))))
-          Original_LF__DOT__Lists_LF_Lists_NatList_nil))
+-- hd function
+def Original_LF__DOT__Lists_LF_Lists_NatList_hd (default : nat) (l : Original_LF__DOT__Lists_LF_Lists_NatList_natlist) : nat :=
+  match l with
+  | .nil => default
+  | .cons h _ => h
 
 -- ============================================================
--- Original.LF_DOT_Imp types
+-- Regular expressions and exp_match (LF.IndProp)
 -- ============================================================
 
--- aexp type (arithmetic expressions)
-inductive Original_LF__DOT__Imp_LF_Imp_aexp : Type where
-  | ANum : nat → Original_LF__DOT__Imp_LF_Imp_aexp
-  | AId : String_string → Original_LF__DOT__Imp_LF_Imp_aexp
-  | APlus : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp
-  | AMinus : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp
-  | AMult : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp
-
-def Original_LF__DOT__Imp_LF_Imp_ANum := Original_LF__DOT__Imp_LF_Imp_aexp.ANum
-def Original_LF__DOT__Imp_LF_Imp_AId := Original_LF__DOT__Imp_LF_Imp_aexp.AId
-def Original_LF__DOT__Imp_LF_Imp_APlus := Original_LF__DOT__Imp_LF_Imp_aexp.APlus
-def Original_LF__DOT__Imp_LF_Imp_AMinus := Original_LF__DOT__Imp_LF_Imp_aexp.AMinus
-def Original_LF__DOT__Imp_LF_Imp_AMult := Original_LF__DOT__Imp_LF_Imp_aexp.AMult
-
--- bexp type (boolean expressions)
-inductive Original_LF__DOT__Imp_LF_Imp_bexp : Type where
-  | BTrue : Original_LF__DOT__Imp_LF_Imp_bexp
-  | BFalse : Original_LF__DOT__Imp_LF_Imp_bexp
-  | BEq : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_bexp
-  | BNeq : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_bexp
-  | BLe : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_bexp
-  | BGt : Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_bexp
-  | BNot : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp
-  | BAnd : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_bexp
-
--- com type (commands)
-inductive Original_LF__DOT__Imp_LF_Imp_com : Type where
-  | CSkip : Original_LF__DOT__Imp_LF_Imp_com
-  | CAsgn : String_string → Original_LF__DOT__Imp_LF_Imp_aexp → Original_LF__DOT__Imp_LF_Imp_com
-  | CSeq : Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com
-  | CIf : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com
-  | CWhile : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com
-
-def Original_LF__DOT__Imp_LF_Imp_CAsgn := Original_LF__DOT__Imp_LF_Imp_com.CAsgn
-def Original_LF__DOT__Imp_LF_Imp_CSeq := Original_LF__DOT__Imp_LF_Imp_com.CSeq
-def Original_LF__DOT__Imp_LF_Imp_CWhile := Original_LF__DOT__Imp_LF_Imp_com.CWhile
-
--- andb function for bool
-def mybool_andb : Stdlib_bool → Stdlib_bool → Stdlib_bool
-  | Stdlib_bool.true, b => b
-  | Stdlib_bool.false, _ => Stdlib_bool.false
-
--- no_whiles function
-def Original_LF__DOT__Imp_LF_Imp_no__whiles : Original_LF__DOT__Imp_LF_Imp_com → Stdlib_bool
-  | Original_LF__DOT__Imp_LF_Imp_com.CSkip => Stdlib_bool.true
-  | Original_LF__DOT__Imp_LF_Imp_com.CAsgn _ _ => Stdlib_bool.true
-  | Original_LF__DOT__Imp_LF_Imp_com.CSeq c1 c2 => mybool_andb (Original_LF__DOT__Imp_LF_Imp_no__whiles c1) (Original_LF__DOT__Imp_LF_Imp_no__whiles c2)
-  | Original_LF__DOT__Imp_LF_Imp_com.CIf _ c1 c2 => mybool_andb (Original_LF__DOT__Imp_LF_Imp_no__whiles c1) (Original_LF__DOT__Imp_LF_Imp_no__whiles c2)
-  | Original_LF__DOT__Imp_LF_Imp_com.CWhile _ _ => Stdlib_bool.false
-
--- no_whilesR - empty inductive type (no constructors)
-inductive Original_LF__DOT__Imp_LF_Imp_no__whilesR : Original_LF__DOT__Imp_LF_Imp_com → Prop where
-
--- no_whiles_eqv: Admitted theorem in original
-axiom Original_LF__DOT__Imp_LF_Imp_no__whiles__eqv : ∀ (c : Original_LF__DOT__Imp_LF_Imp_com),
-  iff (Corelib_Init_Logic_eq (Original_LF__DOT__Imp_LF_Imp_no__whiles c) true) (Original_LF__DOT__Imp_LF_Imp_no__whilesR c)
-
--- Variable names X, Y, Z as strings
--- "X" = Ascii 88 = 01011000
-def charX : Ascii_ascii := Ascii_ascii.Ascii Stdlib_bool.false Stdlib_bool.false Stdlib_bool.false Stdlib_bool.true Stdlib_bool.true Stdlib_bool.false Stdlib_bool.true Stdlib_bool.false
--- "Y" = Ascii 89 = 01011001
-def charY : Ascii_ascii := Ascii_ascii.Ascii Stdlib_bool.true Stdlib_bool.false Stdlib_bool.false Stdlib_bool.true Stdlib_bool.true Stdlib_bool.false Stdlib_bool.true Stdlib_bool.false
--- "Z" = Ascii 90 = 01011010
-def charZ : Ascii_ascii := Ascii_ascii.Ascii Stdlib_bool.false Stdlib_bool.true Stdlib_bool.false Stdlib_bool.true Stdlib_bool.true Stdlib_bool.false Stdlib_bool.true Stdlib_bool.false
-
-def Original_LF__DOT__Imp_LF_Imp_X : String_string := String_string.String charX String_string.EmptyString
-def Original_LF__DOT__Imp_LF_Imp_Y : String_string := String_string.String charY String_string.EmptyString
-def Original_LF__DOT__Imp_LF_Imp_Z : String_string := String_string.String charZ String_string.EmptyString
-
--- subtract_slowly_body: Z := Z - 1; X := X - 1
-def Original_LF__DOT__Imp_LF_Imp_subtract__slowly__body : Original_LF__DOT__Imp_LF_Imp_com :=
-  Original_LF__DOT__Imp_LF_Imp_com.CSeq
-    (Original_LF__DOT__Imp_LF_Imp_com.CAsgn 
-      Original_LF__DOT__Imp_LF_Imp_Z
-      (Original_LF__DOT__Imp_LF_Imp_aexp.AMinus 
-        (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Z)
-        (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (S _0))))
-    (Original_LF__DOT__Imp_LF_Imp_com.CAsgn
-      Original_LF__DOT__Imp_LF_Imp_X
-      (Original_LF__DOT__Imp_LF_Imp_aexp.AMinus
-        (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
-        (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (S _0))))
-
--- subtract_slowly: while X <> 0 do subtract_slowly_body end
-def Original_LF__DOT__Imp_LF_Imp_subtract__slowly : Original_LF__DOT__Imp_LF_Imp_com :=
-  Original_LF__DOT__Imp_LF_Imp_com.CWhile
-    (Original_LF__DOT__Imp_LF_Imp_bexp.BNeq
-      (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
-      (Original_LF__DOT__Imp_LF_Imp_aexp.ANum _0))
-    Original_LF__DOT__Imp_LF_Imp_subtract__slowly__body
-
--- subtract_3_from_5_slowly: X := 3; Z := 5; subtract_slowly
-def Original_LF__DOT__Imp_LF_Imp_subtract__3__from__5__slowly : Original_LF__DOT__Imp_LF_Imp_com :=
-  Original_LF__DOT__Imp_LF_Imp_com.CSeq
-    (Original_LF__DOT__Imp_LF_Imp_com.CAsgn
-      Original_LF__DOT__Imp_LF_Imp_X
-      (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (S (S (S _0))))) -- 3
-    (Original_LF__DOT__Imp_LF_Imp_com.CSeq
-      (Original_LF__DOT__Imp_LF_Imp_com.CAsgn
-        Original_LF__DOT__Imp_LF_Imp_Z
-        (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (S (S (S (S (S _0))))))) -- 5
-      Original_LF__DOT__Imp_LF_Imp_subtract__slowly)
-
--- fact_in_coq: Z := X; Y := 1; while Z <> 0 do Y := Y * Z; Z := Z - 1 end
-def Original_LF__DOT__Imp_LF_Imp_fact__in__coq : Original_LF__DOT__Imp_LF_Imp_com :=
-  Original_LF__DOT__Imp_LF_Imp_com.CSeq
-    (Original_LF__DOT__Imp_LF_Imp_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Z (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X))
-    (Original_LF__DOT__Imp_LF_Imp_com.CSeq
-      (Original_LF__DOT__Imp_LF_Imp_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Y (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (S _0)))
-      (Original_LF__DOT__Imp_LF_Imp_com.CWhile
-        (Original_LF__DOT__Imp_LF_Imp_bexp.BNeq (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Z) (Original_LF__DOT__Imp_LF_Imp_aexp.ANum _0))
-        (Original_LF__DOT__Imp_LF_Imp_com.CSeq
-          (Original_LF__DOT__Imp_LF_Imp_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Y
-            (Original_LF__DOT__Imp_LF_Imp_aexp.AMult (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Y) (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Z)))
-          (Original_LF__DOT__Imp_LF_Imp_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Z
-            (Original_LF__DOT__Imp_LF_Imp_aexp.AMinus (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Z) (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (S _0)))))))
-
--- add_comm__lia is Admitted in Original.v
-axiom Original_LF__DOT__Imp_LF_Imp_AExp_add__comm____lia : 
-  ∀ (x x0 : nat), Corelib_Init_Logic_eq (PeanoNat_Nat_add x x0) (PeanoNat_Nat_add x0 x)
-
--- ============================================================
--- Original.LF_DOT_IndProp types (reg_exp, exp_match, derive)
--- ============================================================
-
--- Regular expression type
 inductive Original_LF__DOT__IndProp_LF_IndProp_reg__exp (T : Type) : Type where
   | EmptySet : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T
   | EmptyStr : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T
@@ -323,103 +217,438 @@ inductive Original_LF__DOT__IndProp_LF_IndProp_reg__exp (T : Type) : Type where
   | Union : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T
   | Star : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T
 
-def Original_LF__DOT__IndProp_LF_IndProp_EmptySet (T : Type) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T := Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet
-def Original_LF__DOT__IndProp_LF_IndProp_EmptyStr (T : Type) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T := Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptyStr
-def Original_LF__DOT__IndProp_LF_IndProp_Char (T : Type) (t : T) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T := Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Char t
-def Original_LF__DOT__IndProp_LF_IndProp_App (T : Type) (r1 r2 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T := Original_LF__DOT__IndProp_LF_IndProp_reg__exp.App r1 r2
-def Original_LF__DOT__IndProp_LF_IndProp_Union (T : Type) (r1 r2 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T := Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union r1 r2
-def Original_LF__DOT__IndProp_LF_IndProp_Star (T : Type) (r : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T := Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star r
+def Original_LF__DOT__IndProp_LF_IndProp_EmptySet (T : Type) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T :=
+  Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet
 
--- exp_match inductive predicate
+def Original_LF__DOT__IndProp_LF_IndProp_EmptyStr (T : Type) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T :=
+  Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptyStr
+
+def Original_LF__DOT__IndProp_LF_IndProp_Char (T : Type) : T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T :=
+  Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Char
+
+def Original_LF__DOT__IndProp_LF_IndProp_App (T : Type) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T :=
+  Original_LF__DOT__IndProp_LF_IndProp_reg__exp.App
+
+def Original_LF__DOT__IndProp_LF_IndProp_Union (T : Type) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T :=
+  Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union
+
+def Original_LF__DOT__IndProp_LF_IndProp_Star (T : Type) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T :=
+  Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star
+
+-- exp_match inductive
 inductive Original_LF__DOT__IndProp_LF_IndProp_exp__match {T : Type} : Original_LF__DOT__Poly_LF_Poly_list T → Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Prop where
-  | MEmpty : Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_list.nil) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptyStr)
-  | MChar (x : T) : Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_list.cons x Original_LF__DOT__Poly_LF_Poly_list.nil) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Char x)
-  | MApp (s1 s2 : Original_LF__DOT__Poly_LF_Poly_list T) (re1 re2 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T)
-         (H1 : Original_LF__DOT__IndProp_LF_IndProp_exp__match s1 re1)
-         (H2 : Original_LF__DOT__IndProp_LF_IndProp_exp__match s2 re2)
-       : Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_app T s1 s2) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.App re1 re2)
-  | MUnionL (s1 : Original_LF__DOT__Poly_LF_Poly_list T) (re1 re2 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T)
-            (H1 : Original_LF__DOT__IndProp_LF_IndProp_exp__match s1 re1)
-          : Original_LF__DOT__IndProp_LF_IndProp_exp__match s1 (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union re1 re2)
-  | MUnionR (s2 : Original_LF__DOT__Poly_LF_Poly_list T) (re1 re2 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T)
-            (H2 : Original_LF__DOT__IndProp_LF_IndProp_exp__match s2 re2)
-          : Original_LF__DOT__IndProp_LF_IndProp_exp__match s2 (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union re1 re2)
-  | MStar0 (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) : Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_list.nil) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star re)
-  | MStarApp (s1 s2 : Original_LF__DOT__Poly_LF_Poly_list T) (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T)
-             (H1 : Original_LF__DOT__IndProp_LF_IndProp_exp__match s1 re)
-             (H2 : Original_LF__DOT__IndProp_LF_IndProp_exp__match s2 (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star re))
-           : Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_app T s1 s2) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star re)
-
--- is_der: a character derivative relation
-def Original_LF__DOT__IndProp_LF_IndProp_is__der 
-    (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii)
-    (a : Ascii_ascii)
-    (re' : Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii) : Prop :=
-  ∀ (s : Original_LF__DOT__Poly_LF_Poly_list Ascii_ascii),
-    iff (Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_list.cons a s) re)
-        (Original_LF__DOT__IndProp_LF_IndProp_exp__match s re')
-
--- derives: a derivative function is correct
-def Original_LF__DOT__IndProp_LF_IndProp_derives 
-    (d : Ascii_ascii → Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii → Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii) : Prop :=
-  ∀ (a : Ascii_ascii) (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii),
-    Original_LF__DOT__IndProp_LF_IndProp_is__der re a (d a re)
-
--- derive function (axiom since Admitted in Original.v)
-axiom Original_LF__DOT__IndProp_LF_IndProp_derive : 
-  Ascii_ascii → Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii → Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii
-
--- derive_corr (axiom since Admitted in Original.v)
-axiom Original_LF__DOT__IndProp_LF_IndProp_derive__corr :
-  ∀ (x : Ascii_ascii) (x0 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii) 
-    (x1 : Original_LF__DOT__Poly_LF_Poly_list Ascii_ascii),
-  iff (Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_list.cons x x1) x0)
-      (Original_LF__DOT__IndProp_LF_IndProp_exp__match x1 (Original_LF__DOT__IndProp_LF_IndProp_derive x x0))
+  | MEmpty : Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_nil T) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptyStr)
+  | MChar (x : T) : Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_cons T x (Original_LF__DOT__Poly_LF_Poly_nil T)) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Char x)
+  | MApp (s1 : Original_LF__DOT__Poly_LF_Poly_list T) (re1 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T)
+         (s2 : Original_LF__DOT__Poly_LF_Poly_list T) (re2 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) :
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match s1 re1 →
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match s2 re2 →
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_app T s1 s2) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.App re1 re2)
+  | MUnionL (s : Original_LF__DOT__Poly_LF_Poly_list T) (re1 re2 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) :
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match s re1 →
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match s (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union re1 re2)
+  | MUnionR (s : Original_LF__DOT__Poly_LF_Poly_list T) (re1 re2 : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) :
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match s re2 →
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match s (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union re1 re2)
+  | MStar0 (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) :
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_nil T) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star re)
+  | MStarApp (s1 s2 : Original_LF__DOT__Poly_LF_Poly_list T) (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) :
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match s1 re →
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match s2 (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star re) →
+    Original_LF__DOT__IndProp_LF_IndProp_exp__match (Original_LF__DOT__Poly_LF_Poly_app T s1 s2) (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star re)
 
 -- ============================================================
--- Original.LF_DOT_ProofObjects and IndPrinciples (ev, ev')
+-- Pumping lemma definitions
 -- ============================================================
 
--- The ev predicate: ev n holds when n is even
-inductive Original_LF__DOT__ProofObjects_LF_ProofObjects_ev : nat → Prop where
-  | ev_0 : Original_LF__DOT__ProofObjects_LF_ProofObjects_ev nat.O
-  | ev_SS : ∀ (n : nat), Original_LF__DOT__ProofObjects_LF_ProofObjects_ev n → Original_LF__DOT__ProofObjects_LF_ProofObjects_ev (nat.S (nat.S n))
+-- pumping_constant
+def Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant {T : Type} : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → nat
+  | .EmptySet => nat.S nat.O
+  | .EmptyStr => nat.S nat.O
+  | .Char _ => nat.S (nat.S nat.O)
+  | .App re1 re2 => Nat_add (Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant re1) (Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant re2)
+  | .Union re1 re2 => Nat_add (Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant re1) (Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant re2)
+  | .Star re1 => Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant re1
 
--- The ev' predicate: alternative definition of evenness
-inductive Original_LF__DOT__IndPrinciples_LF_IndPrinciples_ev' : nat → Prop where
-  | ev'_0 : Original_LF__DOT__IndPrinciples_LF_IndPrinciples_ev' nat.O
-  | ev'_2 : Original_LF__DOT__IndPrinciples_LF_IndPrinciples_ev' (nat.S (nat.S nat.O))
-  | ev'_sum : ∀ (n m : nat), Original_LF__DOT__IndPrinciples_LF_IndPrinciples_ev' n → Original_LF__DOT__IndPrinciples_LF_IndPrinciples_ev' m → Original_LF__DOT__IndPrinciples_LF_IndPrinciples_ev' (PeanoNat_Nat_add n m)
-
--- ev_ev' is Admitted in Original.v
-axiom Original_LF__DOT__IndPrinciples_LF_IndPrinciples_ev__ev' : ∀ (n : nat), Original_LF__DOT__ProofObjects_LF_ProofObjects_ev n → Original_LF__DOT__IndPrinciples_LF_IndPrinciples_ev' n
+-- napp (repeat list n times)
+def Original_LF__DOT__IndProp_LF_IndProp_Pumping_napp (T : Type) : nat → Original_LF__DOT__Poly_LF_Poly_list T → Original_LF__DOT__Poly_LF_Poly_list T
+  | nat.O, _ => Original_LF__DOT__Poly_LF_Poly_nil T
+  | nat.S n', l => Original_LF__DOT__Poly_LF_Poly_app T l (Original_LF__DOT__IndProp_LF_IndProp_Pumping_napp T n' l)
 
 -- ============================================================
--- Original.LF_DOT_Auto (silly2_fixed)
+-- Perm3 (permutation of 3-element lists)
 -- ============================================================
 
--- silly2_fixed is Admitted in Original.v
-axiom Original_LF__DOT__Auto_LF_Auto_silly2__fixed :
-  ∀ (P : nat → nat → Prop) (Q : nat → Prop),
-    ex (fun y : nat => P (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S _0)))))))))))))))))))))))))))))))))))))))))) y) →
-    (∀ x y : nat, P x y → Q x) →
-    Q (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S (S _0))))))))))))))))))))))))))))))))))))))))))
+inductive Original_LF__DOT__IndProp_LF_IndProp_Perm3 {X : Type} : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X → Prop where
+  | perm3_swap12 (a b c : X) :
+      Original_LF__DOT__IndProp_LF_IndProp_Perm3
+        (Original_LF__DOT__Poly_LF_Poly_cons X a (Original_LF__DOT__Poly_LF_Poly_cons X b (Original_LF__DOT__Poly_LF_Poly_cons X c (Original_LF__DOT__Poly_LF_Poly_nil X))))
+        (Original_LF__DOT__Poly_LF_Poly_cons X b (Original_LF__DOT__Poly_LF_Poly_cons X a (Original_LF__DOT__Poly_LF_Poly_cons X c (Original_LF__DOT__Poly_LF_Poly_nil X))))
+  | perm3_swap23 (a b c : X) :
+      Original_LF__DOT__IndProp_LF_IndProp_Perm3
+        (Original_LF__DOT__Poly_LF_Poly_cons X a (Original_LF__DOT__Poly_LF_Poly_cons X b (Original_LF__DOT__Poly_LF_Poly_cons X c (Original_LF__DOT__Poly_LF_Poly_nil X))))
+        (Original_LF__DOT__Poly_LF_Poly_cons X a (Original_LF__DOT__Poly_LF_Poly_cons X c (Original_LF__DOT__Poly_LF_Poly_cons X b (Original_LF__DOT__Poly_LF_Poly_nil X))))
+  | perm3_trans (l1 l2 l3 : Original_LF__DOT__Poly_LF_Poly_list X) :
+      Original_LF__DOT__IndProp_LF_IndProp_Perm3 l1 l2 →
+      Original_LF__DOT__IndProp_LF_IndProp_Perm3 l2 l3 →
+      Original_LF__DOT__IndProp_LF_IndProp_Perm3 l1 l3
 
--- auto_example_2 is Admitted in Original.v
-axiom Original_LF__DOT__Auto_LF_Auto_auto__example__2 : ∀ (P Q R S T U : Prop),
-  (P → Q) →
-  (P → R) →
-  (T → R) →
-  (S → T → U) →
-  ((P → Q) → (P → S)) →
-  T →
-  P →
-  U
+-- ============================================================
+-- Logic.In predicate
+-- ============================================================
 
--- provable_equiv_true is Admitted in Original.v
-axiom Original_LF__DOT__IndProp_LF_IndProp_provable__equiv__true : ∀ (P : Prop), P → iff P MyTrue
+def Original_LF__DOT__Logic_LF_Logic_In {X : Type} (x : X) : Original_LF__DOT__Poly_LF_Poly_list X → Prop
+  | .nil => MyFalse
+  | .cons x' l' => or (Corelib_Init_Logic_eq x' x) (Original_LF__DOT__Logic_LF_Logic_In x l')
 
--- silly3 is Admitted in Original.v
-axiom Original_LF__DOT__Tactics_LF_Tactics_silly3 : ∀ (n m : nat), Corelib_Init_Logic_eq n m → Corelib_Init_Logic_eq m n
+-- ============================================================
+-- combine_odd_even
+-- ============================================================
 
+-- combine_odd_even: (nat -> Prop) -> (nat -> Prop) -> nat -> Prop
+def Original_LF__DOT__Logic_LF_Logic_combine__odd__even (Podd Peven : nat → Prop) (n : nat) : Prop :=
+  match Original_LF__DOT__Basics_LF_Basics_odd n with
+  | .true => Podd n
+  | .false => Peven n
 
+-- ============================================================
+-- Church numerals (cnat)
+-- ============================================================
+
+def Original_LF__DOT__Poly_LF_Poly_Exercises_cnat : Type 1 :=
+  (X : Type) → (X → X) → X → X
+
+def Original_LF__DOT__Poly_LF_Poly_Exercises_one : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  fun _ f x => f x
+
+def Original_LF__DOT__Poly_LF_Poly_Exercises_two : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  fun _ f x => f (f x)
+
+-- two' is defined as succ one
+def Original_LF__DOT__Poly_LF_Poly_Exercises_succ (n : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat) : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  fun X f x => f (n X f x)
+
+def Original_LF__DOT__Poly_LF_Poly_Exercises_twoPrime : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  Original_LF__DOT__Poly_LF_Poly_Exercises_succ Original_LF__DOT__Poly_LF_Poly_Exercises_one
+
+-- ============================================================
+-- fold function
+-- ============================================================
+
+def Original_LF__DOT__Poly_LF_Poly_fold (X Y : Type) (f : X → Y → Y) (l : Original_LF__DOT__Poly_LF_Poly_list X) (b : Y) : Y :=
+  match l with
+  | .nil => b
+  | .cons h t => f h (Original_LF__DOT__Poly_LF_Poly_fold X Y f t b)
+
+-- ============================================================
+-- AltAuto definitions (Admitted axioms)
+-- ============================================================
+
+-- nor function
+def Original_LF__DOT__AltAuto_LF_AltAuto_nor (b1 b2 : Original_LF__DOT__Basics_LF_Basics_bool) : Original_LF__DOT__Basics_LF_Basics_bool :=
+  Original_LF__DOT__Basics_LF_Basics_negb (match b1 with
+    | .true => .true
+    | .false => b2)
+
+-- andb_true_elim2 (Admitted in Original.v)
+axiom Original_LF__DOT__AltAuto_LF_AltAuto_andb__true__elim2 :
+  ∀ (b c : Original_LF__DOT__Basics_LF_Basics_bool),
+    Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_andb b c) Original_LF__DOT__Basics_LF_Basics_true →
+    Corelib_Init_Logic_eq c Original_LF__DOT__Basics_LF_Basics_true
+
+-- simple_semi'' (Admitted in Original.v): forall n, (n + 1 =? 0) = false
+axiom Original_LF__DOT__AltAuto_LF_AltAuto_simple__semiPrimePrime :
+  ∀ (n : nat), Corelib_Init_Logic_eq 
+    (Original_LF__DOT__Basics_LF_Basics_eqb (Nat_add n (S _0)) _0)
+    Original_LF__DOT__Basics_LF_Basics_false
+
+-- ============================================================
+-- Tactics definitions (Admitted axioms)
+-- ============================================================
+
+-- silly4 (Admitted in Original.v): forall n m p q, (n=m -> p=q) -> m=n -> q=p
+axiom Original_LF__DOT__Tactics_LF_Tactics_silly4 :
+  ∀ (n m p q : nat),
+    (Corelib_Init_Logic_eq n m → Corelib_Init_Logic_eq p q) →
+    Corelib_Init_Logic_eq m n →
+    Corelib_Init_Logic_eq q p
+
+-- ============================================================
+-- IndProp axioms (Admitted in Original.v)
+-- ============================================================
+
+-- Perm3_rev (Admitted): specific lemma Perm3 [1;2;3] [3;2;1]
+axiom Original_LF__DOT__IndProp_LF_IndProp_Perm3__rev :
+  @Original_LF__DOT__IndProp_LF_IndProp_Perm3 nat
+    (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
+        (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
+          (Original_LF__DOT__Poly_LF_Poly_nil nat))))
+    (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
+        (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+          (Original_LF__DOT__Poly_LF_Poly_nil nat))))
+
+-- pumping (Admitted)
+axiom Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping :
+  ∀ (T : Type) (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) (s : Original_LF__DOT__Poly_LF_Poly_list T),
+    @Original_LF__DOT__IndProp_LF_IndProp_exp__match T s re →
+    le (Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant re) (Original_LF__DOT__Poly_LF_Poly_length T s) →
+    ex (fun s1 : Original_LF__DOT__Poly_LF_Poly_list T =>
+      ex (fun s2 : Original_LF__DOT__Poly_LF_Poly_list T =>
+        ex (fun s3 : Original_LF__DOT__Poly_LF_Poly_list T =>
+          and (Corelib_Init_Logic_eq s (Original_LF__DOT__Poly_LF_Poly_app T s1 (Original_LF__DOT__Poly_LF_Poly_app T s2 s3)))
+            (and (Logic_not (Corelib_Init_Logic_eq s2 (Original_LF__DOT__Poly_LF_Poly_nil T)))
+              (∀ (m : nat),
+                @Original_LF__DOT__IndProp_LF_IndProp_exp__match T
+                  (Original_LF__DOT__Poly_LF_Poly_app T s1 
+                    (Original_LF__DOT__Poly_LF_Poly_app T (Original_LF__DOT__IndProp_LF_IndProp_Pumping_napp T m s2) s3)) 
+                  re)))))
+
+-- re_chars as separate definition
+def Original_LF__DOT__IndProp_LF_IndProp_re__chars (T : Type) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__Poly_LF_Poly_list (Original_LF__DOT__IndProp_LF_IndProp_reg__exp T)
+  | .EmptySet => .nil
+  | .EmptyStr => .nil
+  | .Char x => .cons (.Char x) .nil
+  | .App re1 re2 => Original_LF__DOT__Poly_LF_Poly_app _ (Original_LF__DOT__IndProp_LF_IndProp_re__chars T re1) (Original_LF__DOT__IndProp_LF_IndProp_re__chars T re2)
+  | .Union re1 re2 => Original_LF__DOT__Poly_LF_Poly_app _ (Original_LF__DOT__IndProp_LF_IndProp_re__chars T re1) (Original_LF__DOT__IndProp_LF_IndProp_re__chars T re2)
+  | .Star re1 => Original_LF__DOT__IndProp_LF_IndProp_re__chars T re1
+
+-- in_re_match (Admitted)
+axiom Original_LF__DOT__IndProp_LF_IndProp_in__re__match :
+  ∀ (T : Type) (re : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) (s : Original_LF__DOT__Poly_LF_Poly_list T) (x : T),
+    @Original_LF__DOT__IndProp_LF_IndProp_exp__match T s re →
+    @Original_LF__DOT__Logic_LF_Logic_In T x s →
+    ex (fun re' : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T =>
+      and (@Original_LF__DOT__Logic_LF_Logic_In (Original_LF__DOT__IndProp_LF_IndProp_reg__exp T) re' (Original_LF__DOT__IndProp_LF_IndProp_re__chars T re))
+           (@Original_LF__DOT__IndProp_LF_IndProp_exp__match T (Original_LF__DOT__Poly_LF_Poly_cons T x (Original_LF__DOT__Poly_LF_Poly_nil T)) re'))
+
+-- ============================================================
+-- Lists axioms (Admitted in Original.v)
+-- ============================================================
+
+-- leb_n_Sn (Admitted): forall n, n <=? S n = true
+axiom Original_LF__DOT__Lists_LF_Lists_NatList_leb__n__Sn :
+  ∀ (n : nat), Corelib_Init_Logic_eq 
+    (Original_LF__DOT__Basics_LF_Basics_leb n (S n))
+    Original_LF__DOT__Basics_LF_Basics_true
+
+-- mylist3: defines a specific natlist [1;2;3]
+def Original_LF__DOT__Lists_LF_Lists_NatList_mylist3 : Original_LF__DOT__Lists_LF_Lists_NatList_natlist :=
+  Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0)
+    (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S _0))
+      (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S _0)))
+        Original_LF__DOT__Lists_LF_Lists_NatList_nil))
+
+-- test_hd2 (Admitted): hd 0 [] = 0
+axiom Original_LF__DOT__Lists_LF_Lists_NatList_test__hd2 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Lists_LF_Lists_NatList_hd _0 Original_LF__DOT__Lists_LF_Lists_NatList_nil)
+    _0
+
+-- ============================================================
+-- Logic axioms (Admitted in Original.v)
+-- ============================================================
+
+-- combine_odd_even_intro (Admitted)
+axiom Original_LF__DOT__Logic_LF_Logic_combine__odd__even__intro :
+  ∀ (Podd Peven : nat → Prop) (n : nat),
+    (Original_LF__DOT__Basics_LF_Basics_odd n = Original_LF__DOT__Basics_LF_Basics_true → Podd n) →
+    (Original_LF__DOT__Basics_LF_Basics_odd n = Original_LF__DOT__Basics_LF_Basics_false → Peven n) →
+    Original_LF__DOT__Logic_LF_Logic_combine__odd__even Podd Peven n
+
+-- ============================================================
+-- Poly axioms (Admitted in Original.v)
+-- ============================================================
+
+-- two' (Admitted): two' = two
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_twoPrime__eq :
+  ∀ (X : Type), Corelib_Init_Logic_eq
+    (Original_LF__DOT__Poly_LF_Poly_Exercises_twoPrime X)
+    (Original_LF__DOT__Poly_LF_Poly_Exercises_two X)
+
+-- fold_example2 (Admitted): fold andb [true; true; false] true = false
+axiom Original_LF__DOT__Poly_LF_Poly_fold__example2 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Poly_LF_Poly_fold
+      Original_LF__DOT__Basics_LF_Basics_bool
+      Original_LF__DOT__Basics_LF_Basics_bool
+      Original_LF__DOT__Basics_LF_Basics_andb
+      (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_true
+        (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_true
+          (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_false
+            (Original_LF__DOT__Poly_LF_Poly_nil Original_LF__DOT__Basics_LF_Basics_bool))))
+      Original_LF__DOT__Basics_LF_Basics_true)
+    Original_LF__DOT__Basics_LF_Basics_false
+
+-- list123' (Admitted): defines the list [1;2;3]
+def Original_LF__DOT__Poly_LF_Poly_list123Prime : Original_LF__DOT__Poly_LF_Poly_list nat :=
+  Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+    (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
+        (Original_LF__DOT__Poly_LF_Poly_nil nat)))
+
+-- ============================================================
+-- Additional definitions for tests
+-- ============================================================
+
+-- filter: filters a list based on a predicate
+def Original_LF__DOT__Poly_LF_Poly_filter (X : Type) (test : X → Original_LF__DOT__Basics_LF_Basics_bool)
+    : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X
+  | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_LF__DOT__Poly_LF_Poly_nil X
+  | Original_LF__DOT__Poly_LF_Poly_list.cons h t =>
+    match test h with
+    | Original_LF__DOT__Basics_LF_Basics_bool.true =>
+        Original_LF__DOT__Poly_LF_Poly_cons X h (Original_LF__DOT__Poly_LF_Poly_filter X test t)
+    | Original_LF__DOT__Basics_LF_Basics_bool.false =>
+        Original_LF__DOT__Poly_LF_Poly_filter X test t
+
+-- map: maps a function over a list
+def Original_LF__DOT__Poly_LF_Poly_map (X Y : Type) (f : X → Y)
+    : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list Y
+  | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_LF__DOT__Poly_LF_Poly_nil Y
+  | Original_LF__DOT__Poly_LF_Poly_list.cons h t =>
+      Original_LF__DOT__Poly_LF_Poly_cons Y (f h) (Original_LF__DOT__Poly_LF_Poly_map X Y f t)
+
+-- length_is_1: checks if length equals 1
+def Original_LF__DOT__Poly_LF_Poly_length__is__1 (X : Type) (l : Original_LF__DOT__Poly_LF_Poly_list X)
+    : Original_LF__DOT__Basics_LF_Basics_bool :=
+  Original_LF__DOT__Basics_LF_Basics_eqb (Original_LF__DOT__Poly_LF_Poly_length X l) (S _0)
+
+-- countoddmembers': counts odd members using filter and length
+def Original_LF__DOT__Poly_LF_Poly_countoddmembers' (l : Original_LF__DOT__Poly_LF_Poly_list nat) : nat :=
+  Original_LF__DOT__Poly_LF_Poly_length nat (Original_LF__DOT__Poly_LF_Poly_filter nat Original_LF__DOT__Basics_LF_Basics_odd l)
+
+-- forallb: checks if all elements satisfy a predicate
+def Original_LF__DOT__Tactics_LF_Tactics_forallb (X : Type) (test : X → Original_LF__DOT__Basics_LF_Basics_bool)
+    : Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Basics_LF_Basics_bool
+  | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_LF__DOT__Basics_LF_Basics_true
+  | Original_LF__DOT__Poly_LF_Poly_list.cons h t =>
+      Original_LF__DOT__Basics_LF_Basics_andb (test h) (Original_LF__DOT__Tactics_LF_Tactics_forallb X test t)
+
+-- sillyfun1: checks if n is 3 or 5
+def Original_LF__DOT__Tactics_LF_Tactics_sillyfun1 (n : nat) : Original_LF__DOT__Basics_LF_Basics_bool :=
+  match Original_LF__DOT__Basics_LF_Basics_eqb n (S (S (S _0))) with  -- n =? 3
+  | Original_LF__DOT__Basics_LF_Basics_bool.true => Original_LF__DOT__Basics_LF_Basics_true
+  | Original_LF__DOT__Basics_LF_Basics_bool.false =>
+    match Original_LF__DOT__Basics_LF_Basics_eqb n (S (S (S (S (S _0))))) with  -- n =? 5
+    | Original_LF__DOT__Basics_LF_Basics_bool.true => Original_LF__DOT__Basics_LF_Basics_true
+    | Original_LF__DOT__Basics_LF_Basics_bool.false => Original_LF__DOT__Basics_LF_Basics_false
+
+-- sillyfun1_odd theorem (Admitted)
+axiom Original_LF__DOT__Tactics_LF_Tactics_sillyfun1__odd :
+  ∀ (n : nat),
+    Corelib_Init_Logic_eq (Original_LF__DOT__Tactics_LF_Tactics_sillyfun1 n) Original_LF__DOT__Basics_LF_Basics_true →
+    Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_odd n) Original_LF__DOT__Basics_LF_Basics_true
+
+-- test_countoddmembers'1 (Admitted)
+axiom Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Poly_LF_Poly_countoddmembers'
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+        (Original_LF__DOT__Poly_LF_Poly_cons nat _0
+          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
+            (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+              (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
+                (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S _0)))))
+                  (Original_LF__DOT__Poly_LF_Poly_nil nat))))))))
+    (S (S (S (S _0))))
+
+-- test_countoddmembers'3 (Admitted)
+axiom Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'3 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Poly_LF_Poly_countoddmembers' (Original_LF__DOT__Poly_LF_Poly_nil nat))
+    _0
+
+-- test_filter1 (Admitted)
+axiom Original_LF__DOT__Poly_LF_Poly_test__filter1 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Poly_LF_Poly_filter nat Original_LF__DOT__Basics_LF_Basics_even
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+        (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
+          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
+            (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
+              (Original_LF__DOT__Poly_LF_Poly_nil nat))))))
+    (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
+        (Original_LF__DOT__Poly_LF_Poly_nil nat)))
+
+-- test_filter2 (Admitted)
+axiom Original_LF__DOT__Poly_LF_Poly_test__filter2 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Poly_LF_Poly_filter (Original_LF__DOT__Poly_LF_Poly_list nat) (Original_LF__DOT__Poly_LF_Poly_length__is__1 nat)
+      (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+        (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
+            (Original_LF__DOT__Poly_LF_Poly_nil nat)))
+        (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
+            (Original_LF__DOT__Poly_LF_Poly_nil nat))
+          (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+            (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
+              (Original_LF__DOT__Poly_LF_Poly_nil nat))
+            (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+              (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S _0)))))
+                (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S _0))))))
+                  (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S _0)))))))
+                    (Original_LF__DOT__Poly_LF_Poly_nil nat))))
+              (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+                (Original_LF__DOT__Poly_LF_Poly_nil nat)
+                (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+                  (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S (S _0))))))))
+                    (Original_LF__DOT__Poly_LF_Poly_nil nat))
+                  (Original_LF__DOT__Poly_LF_Poly_nil (Original_LF__DOT__Poly_LF_Poly_list nat)))))))))
+    (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
+        (Original_LF__DOT__Poly_LF_Poly_nil nat))
+      (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+        (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S _0))))
+          (Original_LF__DOT__Poly_LF_Poly_nil nat))
+        (Original_LF__DOT__Poly_LF_Poly_cons (Original_LF__DOT__Poly_LF_Poly_list nat)
+          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S (S _0))))))))
+            (Original_LF__DOT__Poly_LF_Poly_nil nat))
+          (Original_LF__DOT__Poly_LF_Poly_nil (Original_LF__DOT__Poly_LF_Poly_list nat)))))
+
+-- test_map2 (Admitted)
+axiom Original_LF__DOT__Poly_LF_Poly_test__map2 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Poly_LF_Poly_map nat Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_odd
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
+        (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S _0))
+            (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S _0)))))
+              (Original_LF__DOT__Poly_LF_Poly_nil nat))))))
+    (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_false
+      (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_true
+        (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_false
+          (Original_LF__DOT__Poly_LF_Poly_cons Original_LF__DOT__Basics_LF_Basics_bool Original_LF__DOT__Basics_LF_Basics_true
+            (Original_LF__DOT__Poly_LF_Poly_nil Original_LF__DOT__Basics_LF_Basics_bool)))))
+
+-- test_forallb_1 (Admitted)
+axiom Original_LF__DOT__Tactics_LF_Tactics_test__forallb__1 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Tactics_LF_Tactics_forallb nat Original_LF__DOT__Basics_LF_Basics_odd
+      (Original_LF__DOT__Poly_LF_Poly_cons nat (S _0)
+        (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S _0)))
+          (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S _0)))))
+            (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S _0)))))))
+              (Original_LF__DOT__Poly_LF_Poly_cons nat (S (S (S (S (S (S (S (S (S _0)))))))))
+                (Original_LF__DOT__Poly_LF_Poly_nil nat)))))))
+    Original_LF__DOT__Basics_LF_Basics_true
+
+-- test_forallb_4 (Admitted)
+axiom Original_LF__DOT__Tactics_LF_Tactics_test__forallb__4 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Tactics_LF_Tactics_forallb nat Original_LF__DOT__Basics_LF_Basics_even
+      (Original_LF__DOT__Poly_LF_Poly_nil nat))
+    Original_LF__DOT__Basics_LF_Basics_true
+
+-- inversion_ex1 (Admitted): [n; m] = [o; o] -> [n] = [m]
+axiom Original_LF__DOT__IndProp_LF_IndProp_inversion__ex1 :
+  ∀ (n m o : nat),
+    Corelib_Init_Logic_eq
+      (Original_LF__DOT__Poly_LF_Poly_cons nat n (Original_LF__DOT__Poly_LF_Poly_cons nat m (Original_LF__DOT__Poly_LF_Poly_nil nat)))
+      (Original_LF__DOT__Poly_LF_Poly_cons nat o (Original_LF__DOT__Poly_LF_Poly_cons nat o (Original_LF__DOT__Poly_LF_Poly_nil nat))) →
+    Corelib_Init_Logic_eq
+      (Original_LF__DOT__Poly_LF_Poly_cons nat n (Original_LF__DOT__Poly_LF_Poly_nil nat))
+      (Original_LF__DOT__Poly_LF_Poly_cons nat m (Original_LF__DOT__Poly_LF_Poly_nil nat))

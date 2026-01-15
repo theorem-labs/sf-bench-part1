@@ -35,23 +35,22 @@ Fixpoint imported_to_bexp (b : imported_Original_LF__DOT__Imp_LF_Imp_AExp_bexp) 
   | Imported.Original_LF__DOT__Imp_LF_Imp_AExp_bexp_BAnd b1 b2 => Original.LF_DOT_Imp.LF.Imp.AExp.BAnd (imported_to_bexp b1) (imported_to_bexp b2)
   end.
 
-(* Helper lemmas for the bexp proof
-   from_to gives: from (to a) = a for a : A (original)
-   to_from gives: to (from b) = b for b : B (imported) *)
-Definition aexp_to_from (a : imported_Original_LF__DOT__Imp_LF_Imp_AExp_aexp) :
-  IsomorphismDefinitions.eq (aexp_to_imported (imported_to_aexp a)) a :=
-  to_from Original_LF__DOT__Imp_LF_Imp_AExp_aexp_iso a.
+(* Lemma for aexp round-trip *)
+Lemma aexp_to_from : forall a, IsomorphismDefinitions.eq (aexp_to_imported (imported_to_aexp a)) a.
+Proof.
+  exact (to_from Original_LF__DOT__Imp_LF_Imp_AExp_aexp_iso).
+Qed.
 
-Definition aexp_from_to (a : Original.LF_DOT_Imp.LF.Imp.AExp.aexp) :
-  IsomorphismDefinitions.eq (imported_to_aexp (aexp_to_imported a)) a :=
-  from_to Original_LF__DOT__Imp_LF_Imp_AExp_aexp_iso a.
+Lemma aexp_from_to : forall a, IsomorphismDefinitions.eq (imported_to_aexp (aexp_to_imported a)) a.
+Proof.
+  exact (from_to Original_LF__DOT__Imp_LF_Imp_AExp_aexp_iso).
+Qed.
 
 Instance Original_LF__DOT__Imp_LF_Imp_AExp_bexp_iso : Iso Original.LF_DOT_Imp.LF.Imp.AExp.bexp imported_Original_LF__DOT__Imp_LF_Imp_AExp_bexp.
 Proof.
   unshelve eapply Build_Iso.
   - exact bexp_to_imported.
   - exact imported_to_bexp.
-  (* to_from: b : imported, need eq (to (from b)) b, use aexp_to_from for imported aexp *)
   - intro b. induction b as [| | a1 a2 | a1 a2 | a1 a2 | a1 a2 | b1 IH1 | b1 IH1 b2 IH2].
     + simpl. apply IsomorphismDefinitions.eq_refl.
     + simpl. apply IsomorphismDefinitions.eq_refl.
@@ -61,7 +60,6 @@ Proof.
     + simpl. apply (IsoEq.f_equal2 Imported.Original_LF__DOT__Imp_LF_Imp_AExp_bexp_BGt (aexp_to_from a1) (aexp_to_from a2)).
     + simpl. apply (IsoEq.f_equal Imported.Original_LF__DOT__Imp_LF_Imp_AExp_bexp_BNot IH1).
     + simpl. apply (IsoEq.f_equal2 Imported.Original_LF__DOT__Imp_LF_Imp_AExp_bexp_BAnd IH1 IH2).
-  (* from_to: b : original, need eq (from (to b)) b, use aexp_from_to for original aexp *)
   - intro b. induction b as [| | a1 a2 | a1 a2 | a1 a2 | a1 a2 | b1 IH1 | b1 IH1 b2 IH2].
     + simpl. apply IsomorphismDefinitions.eq_refl.
     + simpl. apply IsomorphismDefinitions.eq_refl.

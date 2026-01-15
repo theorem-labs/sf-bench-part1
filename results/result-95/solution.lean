@@ -1,10 +1,4 @@
 -- Lean translation of Imp language definitions including ceval_step and ceval__ceval_step
--- 
--- MANUAL EDIT REQUIRED in Imported.out after export:
--- The exported names use SQUOTE suffix, but Rocq expects single quotes.
--- Run these sed commands after lean_export:
---   sed -i "s/Original_LF__DOT__Auto_LF_Auto_auto__example__1SQUOTE/Original_LF__DOT__Auto_LF_Auto_auto__example__1'/g" /workdir/Imported.out
---   sed -i "s/Original_LF__DOT__Basics_LF_Basics_plus__O__nSQUOTE/Original_LF__DOT__Basics_LF_Basics_plus__O__n'/g" /workdir/Imported.out
 
 set_option linter.all false
 
@@ -16,14 +10,6 @@ def TrueType_I := TrueType.I
 
 inductive FalseType : Prop where
 
--- Equality type in Prop (will become SProp in Rocq)
-inductive Corelib_Init_Logic_eq {A : Type} (a : A) : A → Prop
-| refl : Corelib_Init_Logic_eq a a
-
--- Equality type for Prop arguments (will become SProp -> SProp in Rocq)
-inductive Corelib_Init_Logic_eq_Prop {A : Prop} (a : A) : A → Prop
-| refl : Corelib_Init_Logic_eq_Prop a a
-
 -- Define our own bool type with names that won't conflict  
 inductive mybool : Type where
   | mytrue : mybool
@@ -32,11 +18,9 @@ inductive mybool : Type where
 -- Aliases for the checker - these become Imported.mybool_mytrue, etc.
 def mybool_mytrue : mybool := mybool.mytrue
 def mybool_myfalse : mybool := mybool.myfalse
-def _true : mybool := mybool.mytrue
-def _false : mybool := mybool.myfalse
 
--- Alias for _bool
-def _bool : Type := mybool
+-- Alias for _bool - must be exported
+abbrev _bool : Type := mybool
 
 -- Define our own nat type
 inductive nat : Type where
@@ -48,7 +32,6 @@ def nat_O := nat.O
 def nat_S := nat.S
 def S := nat.S
 def O := nat.O
-def _0 := nat.O
 
 -- Nat operations
 def nat_add : nat → nat → nat
@@ -100,12 +83,6 @@ inductive option (A : Type) : Type where
 def None := @option.None
 def Some := @option.Some
 
--- Product type
-inductive prod (A B : Type) : Type where
-  | pair : A → B → prod A B
-
-def pair := @prod.pair
-
 -- List type
 inductive list (A : Type) : Type where
   | nil : list A
@@ -118,12 +95,6 @@ def cons := @list.cons
 inductive or (A B : Prop) : Prop where
   | inl : A → or A B
   | inr : B → or A B
-
--- And type (conjunction)
-inductive and (A B : Prop) : Prop where
-  | intro : A → B → and A B
-
-def and_intro := @and.intro
 
 -- Logic_not (negation)
 def Logic_not (A : Prop) : Prop := A → FalseType
@@ -159,10 +130,6 @@ inductive String_string : Type where
   | EmptyString : String_string
   | String : Ascii_ascii → String_string → String_string
 
--- Alias for EmptyString
-def String_EmptyString : String_string := String_string.EmptyString
-def String_String : Ascii_ascii → String_string → String_string := String_string.String
-
 -- String equality
 def String_eqb : String_string → String_string → mybool
   | String_string.EmptyString, String_string.EmptyString => mybool.mytrue
@@ -170,25 +137,8 @@ def String_eqb : String_string → String_string → mybool
     bool_andb (Ascii_eqb c1 c2) (String_eqb s1 s2)
   | _, _ => mybool.myfalse
 
--- Helper to make an ASCII character from 8 bools
--- ASCII "X" = 88 = 0x58 = 01011000 (little endian: false false false true true false true false)
-def char_X : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse
--- ASCII "Y" = 89 = 0x59 = 01011001 (little endian: true false false true true false true false)
-def char_Y : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse
--- ASCII "Z" = 90 = 0x5A = 01011010 (little endian: false true false true true false true false)
-def char_Z : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse
-
--- String constants X, Y, Z
-def Original_LF__DOT__Imp_LF_Imp_X : String_string := String_string.String char_X String_string.EmptyString
-def Original_LF__DOT__Imp_LF_Imp_Y : String_string := String_string.String char_Y String_string.EmptyString
-def Original_LF__DOT__Imp_LF_Imp_Z : String_string := String_string.String char_Z String_string.EmptyString
-
 -- total_map type (function from string to A)
 def Original_LF__DOT__Maps_LF_Maps_total__map (A : Type) := String_string → A
-
--- t_empty function  
-def Original_LF__DOT__Maps_LF_Maps_t__empty {A : Type} (v : A) : Original_LF__DOT__Maps_LF_Maps_total__map A :=
-  fun _ => v
 
 -- t_update function
 def Original_LF__DOT__Maps_LF_Maps_t__update {A : Type} (m : Original_LF__DOT__Maps_LF_Maps_total__map A)
@@ -197,117 +147,8 @@ def Original_LF__DOT__Maps_LF_Maps_t__update {A : Type} (m : Original_LF__DOT__M
     | mybool.mytrue => v
     | mybool.myfalse => m x'
 
--- partial_map type (total_map of option)
-def Original_LF__DOT__Maps_LF_Maps_partial__map (A : Type) := Original_LF__DOT__Maps_LF_Maps_total__map (option A)
-
--- empty partial map (returns None for all keys)
-def Original_LF__DOT__Maps_LF_Maps_empty {A : Type} : Original_LF__DOT__Maps_LF_Maps_partial__map A :=
-  Original_LF__DOT__Maps_LF_Maps_t__empty (option.None)
-
--- update for partial maps
-def Original_LF__DOT__Maps_LF_Maps_update {A : Type} (m : Original_LF__DOT__Maps_LF_Maps_partial__map A)
-    (x : String_string) (v : A) : Original_LF__DOT__Maps_LF_Maps_partial__map A :=
-  Original_LF__DOT__Maps_LF_Maps_t__update m x (option.Some v)
-
--- includedin definition
-def Original_LF__DOT__Maps_LF_Maps_includedin {A : Type} (m m' : Original_LF__DOT__Maps_LF_Maps_partial__map A) : Prop :=
-  ∀ x v, Corelib_Init_Logic_eq (m x) (option.Some v) → Corelib_Init_Logic_eq (m' x) (option.Some v)
-
--- examplemap: t_update (t_update (t_empty false) "foo" true) "bar" true
--- "foo" = String char_f EmptyString where char_f = ASCII 102 = 0x66 = 01100110
--- little endian: false true true false false true true false
-def char_f : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
--- "o" = ASCII 111 = 0x6F = 01101111, little endian: true true true true false true true false
-def char_o : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
--- "b" = ASCII 98 = 0x62 = 01100010, little endian: false true false false false true true false
-def char_b : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
--- "a" = ASCII 97 = 0x61 = 01100001, little endian: true false false false false true true false
-def char_a : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
--- "r" = ASCII 114 = 0x72 = 01110010, little endian: false true false false true true true false
-def char_r : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
-
-def string_foo : String_string := String_string.String char_f (String_string.String char_o (String_string.String char_o String_string.EmptyString))
-def string_bar : String_string := String_string.String char_b (String_string.String char_a (String_string.String char_r String_string.EmptyString))
-
-def Original_LF__DOT__Maps_LF_Maps_examplemap : Original_LF__DOT__Maps_LF_Maps_total__map mybool :=
-  Original_LF__DOT__Maps_LF_Maps_t__update 
-    (Original_LF__DOT__Maps_LF_Maps_t__update (Original_LF__DOT__Maps_LF_Maps_t__empty mybool.myfalse) string_foo mybool.mytrue)
-    string_bar mybool.mytrue
-
--- examplepmap: ("Church" |-> true ; "Turing" |-> false)
--- "C" = 67 = 0x43 = 01000011, little endian: true true false false false false true false
-def char_C : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse
--- "h" = 104 = 0x68 = 01101000, little endian: false false false true false true true false
-def char_h : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
--- "u" = 117 = 0x75 = 01110101, little endian: true false true false true true true false
-def char_u : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse
--- "c" = 99 = 0x63 = 01100011, little endian: true true false false false true true false
-def char_c : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
--- "T" = 84 = 0x54 = 01010100, little endian: false false true false true false true false
-def char_T : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.myfalse
--- "i" = 105 = 0x69 = 01101001, little endian: true false false true false true true false
-def char_i : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
--- "n" = 110 = 0x6E = 01101110, little endian: false true true true false true true false
-def char_n : Ascii_ascii := Ascii_ascii.Ascii mybool.myfalse mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
--- "g" = 103 = 0x67 = 01100111, little endian: true true true false false true true false
-def char_g : Ascii_ascii := Ascii_ascii.Ascii mybool.mytrue mybool.mytrue mybool.mytrue mybool.myfalse mybool.myfalse mybool.mytrue mybool.mytrue mybool.myfalse
-
-def string_Church : String_string := String_string.String char_C (String_string.String char_h (String_string.String char_u (String_string.String char_r (String_string.String char_c (String_string.String char_h String_string.EmptyString)))))
-def string_Turing : String_string := String_string.String char_T (String_string.String char_u (String_string.String char_r (String_string.String char_i (String_string.String char_n (String_string.String char_g String_string.EmptyString)))))
-
-def Original_LF__DOT__Maps_LF_Maps_examplepmap : Original_LF__DOT__Maps_LF_Maps_partial__map mybool :=
-  Original_LF__DOT__Maps_LF_Maps_update 
-    (Original_LF__DOT__Maps_LF_Maps_update Original_LF__DOT__Maps_LF_Maps_empty string_Turing mybool.myfalse)
-    string_Church mybool.mytrue
-
--- apply_empty lemma (Admitted in Original.v)
-axiom Original_LF__DOT__Maps_LF_Maps_apply__empty :
-  ∀ (A : Type) (x : String_string), Corelib_Init_Logic_eq (@Original_LF__DOT__Maps_LF_Maps_empty A x) (option.None)
-
--- t_update_eq lemma (Admitted in Original.v)
-axiom Original_LF__DOT__Maps_LF_Maps_t__update__eq :
-  ∀ (A : Type) (m : Original_LF__DOT__Maps_LF_Maps_total__map A) (x : String_string) (v : A),
-  Corelib_Init_Logic_eq (Original_LF__DOT__Maps_LF_Maps_t__update m x v x) v
-
--- t_update_neq theorem (Admitted in Original.v)
-axiom Original_LF__DOT__Maps_LF_Maps_t__update__neq :
-  ∀ (A : Type) (m : Original_LF__DOT__Maps_LF_Maps_total__map A) (x1 x2 : String_string) (v : A),
-  Logic_not (Corelib_Init_Logic_eq x1 x2) →
-  Corelib_Init_Logic_eq (Original_LF__DOT__Maps_LF_Maps_t__update m x1 v x2) (m x2)
-
--- update_eq lemma (Admitted in Original.v)
-axiom Original_LF__DOT__Maps_LF_Maps_update__eq :
-  ∀ (A : Type) (m : Original_LF__DOT__Maps_LF_Maps_partial__map A) (x : String_string) (v : A),
-  Corelib_Init_Logic_eq (Original_LF__DOT__Maps_LF_Maps_update m x v x) (option.Some v)
-
--- update_same theorem (Admitted in Original.v)
-axiom Original_LF__DOT__Maps_LF_Maps_update__same :
-  ∀ (A : Type) (m : Original_LF__DOT__Maps_LF_Maps_partial__map A) (x : String_string) (v : A),
-  Corelib_Init_Logic_eq (m x) (option.Some v) →
-  Corelib_Init_Logic_eq (Original_LF__DOT__Maps_LF_Maps_update m x v) m
-
--- update_permute theorem (Admitted in Original.v)
-axiom Original_LF__DOT__Maps_LF_Maps_update__permute :
-  ∀ (A : Type) (m : Original_LF__DOT__Maps_LF_Maps_partial__map A) (x1 x2 : String_string) (v1 v2 : A),
-  Logic_not (Corelib_Init_Logic_eq x2 x1) →
-  Corelib_Init_Logic_eq 
-    (Original_LF__DOT__Maps_LF_Maps_update (Original_LF__DOT__Maps_LF_Maps_update m x2 v2) x1 v1)
-    (Original_LF__DOT__Maps_LF_Maps_update (Original_LF__DOT__Maps_LF_Maps_update m x1 v1) x2 v2)
-
--- includedin_update theorem (Admitted in Original.v)
-axiom Original_LF__DOT__Maps_LF_Maps_includedin__update :
-  ∀ (A : Type) (m m' : Original_LF__DOT__Maps_LF_Maps_partial__map A) (x : String_string) (vx : A),
-  Original_LF__DOT__Maps_LF_Maps_includedin m m' →
-  Original_LF__DOT__Maps_LF_Maps_includedin 
-    (Original_LF__DOT__Maps_LF_Maps_update m x vx) 
-    (Original_LF__DOT__Maps_LF_Maps_update m' x vx)
-
 -- State is total_map nat
 def Original_LF__DOT__Imp_LF_Imp_state := Original_LF__DOT__Maps_LF_Maps_total__map nat
-
--- empty_st: the empty state (all variables map to 0)
-def Original_LF__DOT__Imp_LF_Imp_empty__st : Original_LF__DOT__Imp_LF_Imp_state := 
-  Original_LF__DOT__Maps_LF_Maps_t__empty nat.O
 
 -- Arithmetic expressions (matches Original.LF_DOT_Imp.LF.Imp.aexp)
 inductive Original_LF__DOT__Imp_LF_Imp_aexp : Type where
@@ -337,24 +178,6 @@ inductive Original_LF__DOT__Imp_LF_Imp_com : Type where
   | CWhile : Original_LF__DOT__Imp_LF_Imp_bexp → Original_LF__DOT__Imp_LF_Imp_com → Original_LF__DOT__Imp_LF_Imp_com
 
 -- Constructor aliases for the checkers
--- Aliases for aexp constructors
-def Original_LF__DOT__Imp_LF_Imp_ANum := Original_LF__DOT__Imp_LF_Imp_aexp.ANum
-def Original_LF__DOT__Imp_LF_Imp_AId := Original_LF__DOT__Imp_LF_Imp_aexp.AId
-def Original_LF__DOT__Imp_LF_Imp_APlus := Original_LF__DOT__Imp_LF_Imp_aexp.APlus
-def Original_LF__DOT__Imp_LF_Imp_AMinus := Original_LF__DOT__Imp_LF_Imp_aexp.AMinus
-def Original_LF__DOT__Imp_LF_Imp_AMult := Original_LF__DOT__Imp_LF_Imp_aexp.AMult
-
--- Aliases for bexp constructors
-def Original_LF__DOT__Imp_LF_Imp_BTrue := Original_LF__DOT__Imp_LF_Imp_bexp.BTrue
-def Original_LF__DOT__Imp_LF_Imp_BFalse := Original_LF__DOT__Imp_LF_Imp_bexp.BFalse
-def Original_LF__DOT__Imp_LF_Imp_BEq := Original_LF__DOT__Imp_LF_Imp_bexp.BEq
-def Original_LF__DOT__Imp_LF_Imp_BNeq := Original_LF__DOT__Imp_LF_Imp_bexp.BNeq
-def Original_LF__DOT__Imp_LF_Imp_BLe := Original_LF__DOT__Imp_LF_Imp_bexp.BLe
-def Original_LF__DOT__Imp_LF_Imp_BGt := Original_LF__DOT__Imp_LF_Imp_bexp.BGt
-def Original_LF__DOT__Imp_LF_Imp_BNot := Original_LF__DOT__Imp_LF_Imp_bexp.BNot
-def Original_LF__DOT__Imp_LF_Imp_BAnd := Original_LF__DOT__Imp_LF_Imp_bexp.BAnd
-
--- Aliases for com constructors
 def Original_LF__DOT__Imp_LF_Imp_CSkip := Original_LF__DOT__Imp_LF_Imp_com.CSkip
 def Original_LF__DOT__Imp_LF_Imp_CAsgn := Original_LF__DOT__Imp_LF_Imp_com.CAsgn
 def Original_LF__DOT__Imp_LF_Imp_CSeq := Original_LF__DOT__Imp_LF_Imp_com.CSeq
@@ -408,7 +231,14 @@ inductive Original_LF__DOT__Imp_LF_Imp_ceval : Original_LF__DOT__Imp_LF_Imp_com 
       Original_LF__DOT__Imp_LF_Imp_ceval (Original_LF__DOT__Imp_LF_Imp_com.CWhile b c) st st''
 
 -- Note: TrueType already defined at top of file
--- Note: Corelib_Init_Logic_eq already defined at top of file
+
+-- Equality type in Prop (will become SProp in Rocq)
+inductive Corelib_Init_Logic_eq {A : Type} (a : A) : A → Prop
+| refl : Corelib_Init_Logic_eq a a
+
+-- Equality type for Prop arguments (will become SProp -> SProp in Rocq)
+inductive Corelib_Init_Logic_eq_Prop {A : Prop} (a : A) : A → Prop
+| refl : Corelib_Init_Logic_eq_Prop a a
 
 -- List_In (membership predicate)
 def List_In {A : Type} (x : A) (l : list A) : Prop :=
@@ -458,52 +288,35 @@ def Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step
             | option.None => option.None
         | mybool.myfalse => option.Some st
 
--- test_ceval function (500 steps)
--- Building nat10 as S applied 10 times
-def nat10 : nat := nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S nat.O)))))))))
--- nat100 = 10 * 10
-def nat100 : nat := nat_add (nat_add (nat_add (nat_add (nat_add (nat_add (nat_add (nat_add (nat_add nat10 nat10) nat10) nat10) nat10) nat10) nat10) nat10) nat10) nat10
--- nat500 = 5 * 100
-def nat500 : nat := nat_add (nat_add (nat_add (nat_add nat100 nat100) nat100) nat100) nat100
-
-def Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_test__ceval 
+-- ceval_step3 - identical to ceval_step, just a different name in Original
+def Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step3 
     (st : Original_LF__DOT__Imp_LF_Imp_state) 
     (c : Original_LF__DOT__Imp_LF_Imp_com) 
-    : option (prod (prod nat nat) nat) :=
-  match Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st c nat500 with
-  | option.None => option.None
-  | option.Some st' => option.Some (prod.pair (prod.pair (st' Original_LF__DOT__Imp_LF_Imp_X) (st' Original_LF__DOT__Imp_LF_Imp_Y)) (st' Original_LF__DOT__Imp_LF_Imp_Z))
-
--- example_test_ceval is Admitted in Original.v
-axiom Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_example__test__ceval : 
-  Corelib_Init_Logic_eq 
-    (Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_test__ceval 
-      Original_LF__DOT__Imp_LF_Imp_empty__st
-      (Original_LF__DOT__Imp_LF_Imp_com.CSeq 
-        (Original_LF__DOT__Imp_LF_Imp_com.CAsgn Original_LF__DOT__Imp_LF_Imp_X 
-          (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S nat.O))))
-        (Original_LF__DOT__Imp_LF_Imp_com.CIf 
-          (Original_LF__DOT__Imp_LF_Imp_bexp.BLe 
-            (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
-            (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S nat.O)))
-          (Original_LF__DOT__Imp_LF_Imp_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Y 
-            (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S (nat.S nat.O)))))
-          (Original_LF__DOT__Imp_LF_Imp_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Z 
-            (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S (nat.S (nat.S nat.O)))))))))
-    (option.Some (prod.pair (prod.pair (nat.S (nat.S nat.O)) nat.O) (nat.S (nat.S (nat.S (nat.S nat.O))))))
-
--- pup_to_n is Admitted in Original.v, so we treat it as an axiom
-axiom Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_pup__to__n : Original_LF__DOT__Imp_LF_Imp_com
-
--- pup_to_n_1 is an admitted example, so we make it an axiom
-axiom Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_pup__to__n__1 : 
-  Corelib_Init_Logic_eq 
-    (Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_test__ceval 
-      (Original_LF__DOT__Maps_LF_Maps_t__update Original_LF__DOT__Imp_LF_Imp_empty__st Original_LF__DOT__Imp_LF_Imp_X 
-        (nat.S (nat.S (nat.S (nat.S (nat.S nat.O)))))) 
-      Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_pup__to__n)
-    (option.Some (prod.pair (prod.pair nat.O 
-      (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S nat.O)))))))))))))))) nat.O))
+    (i : nat) 
+    : option Original_LF__DOT__Imp_LF_Imp_state :=
+  match i with
+  | nat.O => option.None
+  | nat.S i' =>
+    match c with
+    | Original_LF__DOT__Imp_LF_Imp_com.CSkip => 
+        option.Some st
+    | Original_LF__DOT__Imp_LF_Imp_com.CAsgn x a => 
+        option.Some (Original_LF__DOT__Maps_LF_Maps_t__update st x (Original_LF__DOT__Imp_LF_Imp_aeval st a))
+    | Original_LF__DOT__Imp_LF_Imp_com.CSeq c1 c2 =>
+        match Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step3 st c1 i' with
+        | option.Some st' => Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step3 st' c2 i'
+        | option.None => option.None
+    | Original_LF__DOT__Imp_LF_Imp_com.CIf b c1 c2 =>
+        match Original_LF__DOT__Imp_LF_Imp_beval st b with
+        | mybool.mytrue => Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step3 st c1 i'
+        | mybool.myfalse => Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step3 st c2 i'
+    | Original_LF__DOT__Imp_LF_Imp_com.CWhile b c1 =>
+        match Original_LF__DOT__Imp_LF_Imp_beval st b with
+        | mybool.mytrue =>
+            match Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step3 st c1 i' with
+            | option.Some st' => Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step3 st' c i'
+            | option.None => option.None
+        | mybool.myfalse => option.Some st
 
 -- The theorem ceval__ceval_step as axiom (it's Admitted in Original)
 axiom Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval____ceval__step :
@@ -518,28 +331,3 @@ axiom Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__and__ceval__step__coin
     (st st' : Original_LF__DOT__Imp_LF_Imp_state),
   iff (Original_LF__DOT__Imp_LF_Imp_ceval c st st')
       (ex (fun i : nat => Corelib_Init_Logic_eq (Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st c i) (option.Some st')))
-
--- auto_example_1' : forall (P Q R: Prop), (P -> Q) -> (Q -> R) -> P -> R
--- Admitted in Original.v
-axiom Original_LF__DOT__Auto_LF_Auto_auto__example__1SQUOTE :
-  ∀ (P Q R : Prop), (P → Q) → (Q → R) → P → R
-
--- plus_O_n' : forall n : nat, 0 + n = n
--- Admitted in Original.v  
-axiom Original_LF__DOT__Basics_LF_Basics_plus__O__nSQUOTE :
-  ∀ n : nat, Corelib_Init_Logic_eq (nat_add nat.O n) n
-
--- add_0_r : forall n:nat, n + 0 = n  
--- Admitted in Original.v
-axiom Original_LF__DOT__Induction_LF_Induction_add__0__r :
-  ∀ n : nat, Corelib_Init_Logic_eq (nat_add n nat.O) n
-
--- apply_iff_example2: forall P Q R : Prop, (P <-> Q) -> (P -> R) -> (Q -> R)
--- Admitted in Original.v
-axiom Original_LF__DOT__Logic_LF_Logic_apply__iff__example2 :
-  ∀ (P Q R : Prop), iff P Q → (P → R) → Q → R
-
--- de_morgan_not_or : forall P Q : Prop, ~ (P \/ Q) -> ~P /\ ~Q
--- Admitted in Original.v
-axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_de__morgan__not__or :
-  forall (P Q : Prop), Logic_not (or P Q) -> and (Logic_not P) (Logic_not Q)

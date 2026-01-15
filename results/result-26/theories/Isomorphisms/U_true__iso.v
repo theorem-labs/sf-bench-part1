@@ -1,22 +1,31 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Typeclasses Opaque rel_iso. (* for speed *) *)
+(* Print Imported. *)
 
-Definition imported_True : SProp := Imported.MyTrue.
 
-Instance True_iso : Iso True imported_True.
+Definition imported_True : SProp := Imported.CoqTrue.
+Instance True_iso : (Iso Logic.True imported_True).
 Proof.
   unshelve eapply Build_Iso.
-  - intro H; exact Imported.MyTrue_intro.
-  - intro H; exact Logic.I.
-  - intro x; apply IsomorphismDefinitions.eq_refl.
-  - intro x; destruct x; apply IsomorphismDefinitions.eq_refl.
+  - (* to: True -> imported_True *)
+    exact (fun _ => Imported.CoqTrue_I).
+  - (* from: imported_True -> True *)
+    exact (fun _ => I).
+  - (* to_from: forall x, eq (to (from x)) x *)
+    intro x. 
+    (* In SProp, all inhabitants are equal by definition *)
+    apply IsomorphismDefinitions.eq_refl.
+  - (* from_to: forall x, eq (from (to x)) x *)
+    intro x.
+    (* x : True (Prop), need to show eq I x *)
+    destruct x.
+    apply IsomorphismDefinitions.eq_refl.
 Defined.
-Instance: KnownConstant True := {}.
-Instance: KnownConstant Imported.MyTrue := {}.
-Instance: IsoStatementProofFor True True_iso := {}.
-Instance: IsoStatementProofBetween True Imported.MyTrue True_iso := {}.
+Instance: KnownConstant Logic.True := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.CoqTrue := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Logic.True True_iso := {}.
+Instance: IsoStatementProofBetween Logic.True Imported.CoqTrue True_iso := {}.

@@ -17,7 +17,7 @@ Fixpoint nat_to_imported_add_compat (n m : nat) :
   nat_to_imported (n + m) = Imported.Nat_add (nat_to_imported n) (nat_to_imported m) :=
   match n with
   | O => Corelib.Init.Logic.eq_refl
-  | Datatypes.S n' => match nat_to_imported_add_compat n' m in (_ = r) 
+  | S n' => match nat_to_imported_add_compat n' m in (_ = r) 
             return (Imported.nat_S (nat_to_imported (n' + m)) = Imported.nat_S r) with
             | Corelib.Init.Logic.eq_refl => Corelib.Init.Logic.eq_refl
             end

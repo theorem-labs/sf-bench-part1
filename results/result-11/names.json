@@ -1,15 +1,11 @@
 {
   "bool": "mybool",
-  "true": "true",
-  "false": "false",
-  "Ascii_Ascii": "Ascii_Ascii",
-  "Ascii_ascii": "Ascii_ascii",
-  "True": "TrueType",
-  "False": "FalseType",
   "_0": "nat_O",
-  "S": "nat_S",
-  "Nat_add": "nat_add",
-  "Nat_mul": "nat_mul",
-  "Nat_pred": "nat_pred",
-  "Nat_sub": "nat_sub"
+  "and": "PandType",
+  "Original_LF__DOT__Lists_LF_Lists_NatList_fst'": "Original_LF__DOT__Lists_LF_Lists_NatList_fstSQUOTE",
+  "True": "True_alias",
+  "list": "mylist",
+  "option": "myoption",
+  "None": "myoption_myNone",
+  "Some": "myoption_mySome"
 }

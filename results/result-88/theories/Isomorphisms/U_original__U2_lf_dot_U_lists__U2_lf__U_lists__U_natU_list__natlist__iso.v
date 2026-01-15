@@ -4,7 +4,7 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Typeclasses Opaque rel_iso. *)
+
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 

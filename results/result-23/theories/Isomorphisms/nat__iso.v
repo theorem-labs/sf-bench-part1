@@ -10,19 +10,18 @@ From IsomorphismChecker Require Original Imported.
 
 Definition imported_nat : Type := Imported.nat.
 
-Definition nat_to_imported : nat -> imported_nat :=
-  fix f (n : nat) : imported_nat :=
-    match n with
-    | O => Imported.nat_O
-    | S m => Imported.nat_S (f m)
-    end.
+(* Helper conversion functions *)
+Fixpoint nat_to_imported (n : nat) : imported_nat :=
+  match n with
+  | O => Imported.nat_O
+  | S m => Imported.nat_S (nat_to_imported m)
+  end.
 
-Definition imported_to_nat : imported_nat -> nat :=
-  fix g (n : imported_nat) : nat :=
-    match n with
-    | Imported.nat_O => O
-    | Imported.nat_S m => S (g m)
-    end.
+Fixpoint nat_from_imported (n : imported_nat) : nat :=
+  match n with
+  | Imported.nat_O => O
+  | Imported.nat_S m => S (nat_from_imported m)
+  end.
 
 Instance nat_iso : Iso nat imported_nat.
 Proof.

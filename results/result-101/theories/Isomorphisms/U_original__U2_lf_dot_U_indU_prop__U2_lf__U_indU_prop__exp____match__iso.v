@@ -6,7 +6,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__reg____exp__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__list__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__app__iso.
@@ -130,7 +130,7 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso : (forall (x1 x2 : 
    Iso (@Original.LF_DOT_IndProp.LF.IndProp.exp_match x1 x3 x5) (@imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x2 x4 x6)).
 Proof.
   intros x1 x2 hx x3 x4 Hx34 x5 x6 Hx56.
-  unfold rel_iso in Hx34, Hx56. simpl in Hx34, Hx56.
+  destruct Hx34 as [Hx34]. destruct Hx56 as [Hx56]. simpl in Hx34, Hx56.
   unshelve eapply Build_Iso.
   - (* to: Original.exp_match x3 x5 -> imported exp_match x4 x6 *)
     intro Hmatch.

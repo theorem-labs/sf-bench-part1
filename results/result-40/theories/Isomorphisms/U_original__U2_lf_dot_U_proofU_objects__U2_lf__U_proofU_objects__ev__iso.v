@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
@@ -48,9 +48,9 @@ Inductive sUnit : SProp := stt : sUnit.
 
 Fixpoint even_imported (m : Imported.nat) : bool :=
   match m with
-  | Imported.nat_zero => true
-  | Imported.nat_succ Imported.nat_zero => false
-  | Imported.nat_succ (Imported.nat_succ k) => even_imported k
+  | Imported.nat_O => true
+  | Imported.nat_S Imported.nat_O => false
+  | Imported.nat_S (Imported.nat_S k) => even_imported k
   end.
 
 Lemma even_nat_to_imported : forall n, even_nat n = even_imported (nat_to_imported n).
@@ -83,24 +83,24 @@ Proof.
   - (* m = 1, even_imported 1 = false, have Hev : Imported.ev 1 *)
     (* Use elimination to SProp with sEmpty at index 1, sUnit elsewhere *)
     exact (Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_sind
-        (fun m' _ => match m' return SProp with Imported.nat_succ Imported.nat_zero => Lean.sEmpty | _ => sUnit end)
+        (fun m' _ => match m' return SProp with Imported.nat_S Imported.nat_O => Lean.sEmpty | _ => sUnit end)
         stt
         (fun _ _ _ => stt)
-        (Imported.nat_succ Imported.nat_zero)
+        (Imported.nat_S Imported.nat_O)
         Hev).
   - (* m = S (S k), even_imported (S (S k)) = even_imported k = false *)
     (* Use elimination to extract the sub-proof and recurse *)
     simpl in Hf.
     exact (Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_sind
         (fun m' _ => match m' return SProp with 
-          | Imported.nat_succ (Imported.nat_succ k') => 
+          | Imported.nat_S (Imported.nat_S k') => 
               (even_imported k' = false -> Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_ev k' -> Lean.sEmpty) -> 
               even_imported k' = false -> Lean.sEmpty
           | _ => sUnit 
           end)
         stt
         (fun k' Hev' _ IH' Hf' => IH' Hf' Hev')
-        (Imported.nat_succ (Imported.nat_succ k))
+        (Imported.nat_S (Imported.nat_S k))
         Hev
         (IH k)
         Hf).
@@ -126,9 +126,8 @@ Require Import Stdlib.Logic.ProofIrrelevance.
 Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso : (forall (x1 : nat) (x2 : imported_nat) (_ : @rel_iso nat imported_nat nat_iso x1 x2),
    Iso (Original.LF_DOT_ProofObjects.LF.ProofObjects.ev x1) (imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev x2)).
 Proof.
-  intros x1 x2 Hrel.
+  intros x1 x2 [Hrel].
   unfold imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev.
-  unfold rel_iso in Hrel.
   simpl in Hrel.
   destruct Hrel.
   refine (@Build_Iso 

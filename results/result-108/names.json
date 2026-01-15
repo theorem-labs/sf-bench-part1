@@ -1,16 +1,14 @@
 {
   "bool": "mybool",
-  "true": "true",
-  "false": "false",
-  "Ascii_Ascii": "Ascii_Ascii",
+  "true": "mybool_mytrue",
+  "false": "mybool_myfalse",
+  "Ascii_Ascii": "Ascii_ascii_Ascii",
   "Ascii_ascii": "Ascii_ascii",
   "True": "TrueType",
   "False": "FalseType",
   "_0": "nat_O",
   "S": "nat_S",
-  "Nat_add": "nat_add",
-  "Nat_mul": "nat_mul",
-  "Nat_pred": "nat_pred",
-  "Nat_sub": "nat_sub",
-  "Original_LF__DOT__Poly_LF_Poly_mynil'": "Original_LF__DOT__Poly_LF_Poly_mynilPrime"
+  "PeanoNat_Nat_leb": "nat_leb",
+  "Original_LF__DOT__Imp_LF_Imp_AExp_foo'": "Original_LF__DOT__Imp_LF_Imp_AExp_fooSQUOTE",
+  "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_P__m0r'": "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_P__m0rSQUOTE"
 }

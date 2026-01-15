@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 Definition imported_Original_LF__DOT__Poly_LF_Poly_doit3times : forall x : Type, (x -> x) -> x -> x := (@Imported.Original_LF__DOT__Poly_LF_Poly_doit3times).
@@ -13,15 +13,11 @@ Instance Original_LF__DOT__Poly_LF_Poly_doit3times_iso : forall (x1 x2 : Type) (
   (forall (x5 : x1) (x6 : x2), rel_iso_sort hx x5 x6 -> rel_iso_sort hx (x3 x5) (x4 x6)) ->
   forall (x5 : x1) (x6 : x2), rel_iso_sort hx x5 x6 -> rel_iso_sort hx (Original.LF_DOT_Poly.LF.Poly.doit3times x3 x5) (imported_Original_LF__DOT__Poly_LF_Poly_doit3times x4 x6).
 Proof.
-  intros x1 x2 hx x3 x4 Hf x5 x6 Hx.
-  (* doit3times f n = f (f (f n)) *)
-  unfold Original.LF_DOT_Poly.LF.Poly.doit3times.
-  unfold imported_Original_LF__DOT__Poly_LF_Poly_doit3times.
+  intros x1 x2 hx x3 x4 Hf x5 x6 Hx56.
+  unfold Original.LF_DOT_Poly.LF.Poly.doit3times, imported_Original_LF__DOT__Poly_LF_Poly_doit3times.
   unfold Imported.Original_LF__DOT__Poly_LF_Poly_doit3times.
-  apply Hf.
-  apply Hf.
-  apply Hf.
-  exact Hx.
+  (* doit3times f x = f (f (f x)), so we need rel_iso_sort hx (x3 (x3 (x3 x5))) (x4 (x4 (x4 x6))) *)
+  apply Hf. apply Hf. apply Hf. exact Hx56.
 Defined.
 Instance: KnownConstant (@Original.LF_DOT_Poly.LF.Poly.doit3times) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant (@Imported.Original_LF__DOT__Poly_LF_Poly_doit3times) := {}. (* only needed when rel_iso is typeclasses opaque *)

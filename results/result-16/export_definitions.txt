@@ -1,1 +1,1 @@
-nat Original_LF__DOT__Imp_LF_Imp_aevalR__division_aexp add sub mul gt Original_LF__DOT__Imp_LF_Imp_aevalR__division_aevalR
+nat nat nat nat Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR

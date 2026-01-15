@@ -1,7 +1,13 @@
 {
-  "True": "MyTrue",
-  "False": "MyFalse",
-  "_0": "_0",
-  "lt": "lt",
-  "iff": "iff"
+  "bool": "mybool",
+  "true": "mybool_mytrue",
+  "false": "mybool_myfalse",
+  "Ascii_Ascii": "Ascii_ascii_Ascii",
+  "Ascii_ascii": "Ascii_ascii",
+  "True": "TrueType",
+  "False": "FalseType",
+  "_0": "nat_O",
+  "S": "nat_S",
+  "Original_LF__DOT__Logic_LF_Logic_and__example2''": "Original_LF__DOT__Logic_LF_Logic_and__example2SQUOTESQUOTE",
+  "Original_LF__DOT__ProofObjects_LF_ProofObjects_four'": "Original_LF__DOT__ProofObjects_LF_ProofObjects_fourSQUOTE"
 }

@@ -10,38 +10,69 @@ Typeclasses Opaque rel_iso. (* for speed *)
 
 Definition imported_nat : Type := Imported.nat.
 
-Fixpoint nat_to_imported (n : nat) : imported_nat :=
+(* Convert from standard nat to imported nat *)
+Fixpoint nat_to_imported (n : Datatypes.nat) : Imported.nat :=
   match n with
-  | O => Imported.nat_O
-  | S m => Imported.nat_S (nat_to_imported m)
+  | Datatypes.O => Imported.nat_O
+  | Datatypes.S m => Imported.nat_S (nat_to_imported m)
   end.
 
-Fixpoint nat_from_imported (n : imported_nat) : nat :=
+(* Convert from imported nat to standard nat *)
+Fixpoint imported_to_nat (n : Imported.nat) : Datatypes.nat :=
   match n with
-  | Imported.nat_O => O
-  | Imported.nat_S m => S (nat_from_imported m)
+  | Imported.nat_O => Datatypes.O
+  | Imported.nat_S m => Datatypes.S (imported_to_nat m)
   end.
 
-Lemma nat_to_from : forall x : imported_nat, IsomorphismDefinitions.eq (nat_to_imported (nat_from_imported x)) x.
+Lemma nat_roundtrip1 : forall n, imported_to_nat (nat_to_imported n) = n.
 Proof.
-  fix IH 1.
-  intros x. destruct x.
-  - apply IsomorphismDefinitions.eq_refl.
-  - simpl. apply IsoEq.f_equal. apply IH.
+  intro n. induction n as [|n IHn].
+  - reflexivity.
+  - simpl. f_equal. exact IHn.
 Qed.
 
-Lemma nat_from_to : forall x : nat, IsomorphismDefinitions.eq (nat_from_imported (nat_to_imported x)) x.
+Lemma nat_roundtrip2 : forall n, nat_to_imported (imported_to_nat n) = n.
 Proof.
-  fix IH 1.
-  intros x. destruct x.
-  - apply IsomorphismDefinitions.eq_refl.
-  - simpl. apply IsoEq.f_equal. apply IH.
+  intro n. induction n as [|n IHn].
+  - reflexivity.
+  - simpl. f_equal. exact IHn.
 Qed.
 
-Instance nat_iso : Iso nat imported_nat :=
-  Build_Iso nat_to_imported nat_from_imported nat_to_from nat_from_to.
+(* Congruence lemmas for IsomorphismDefinitions.eq *)
+Lemma natS_cong : forall x y : Imported.nat, 
+  IsomorphismDefinitions.eq x y -> 
+  IsomorphismDefinitions.eq (Imported.nat_S x) (Imported.nat_S y).
+Proof.
+  intros x y H. destruct H. apply IsomorphismDefinitions.eq_refl.
+Qed.
 
-Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
+Lemma S_cong : forall x y : Datatypes.nat, 
+  IsomorphismDefinitions.eq x y -> 
+  IsomorphismDefinitions.eq (Datatypes.S x) (Datatypes.S y).
+Proof.
+  intros x y H. destruct H. apply IsomorphismDefinitions.eq_refl.
+Qed.
+
+Lemma nat_to_from : forall x : Imported.nat, 
+  IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat x)) x.
+Proof.
+  intro x. induction x.
+  - simpl. apply IsomorphismDefinitions.eq_refl.
+  - simpl. apply natS_cong. exact IHx.
+Qed.
+
+Lemma nat_from_to : forall x : Datatypes.nat, 
+  IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported x)) x.
+Proof.
+  intro x. induction x.
+  - simpl. apply IsomorphismDefinitions.eq_refl.
+  - simpl. apply S_cong. exact IHx.
+Qed.
+
+Instance nat_iso : Iso Datatypes.nat imported_nat :=
+  @Build_Iso Datatypes.nat Imported.nat nat_to_imported imported_to_nat nat_to_from nat_from_to.
+
+Instance: KnownConstant Datatypes.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor nat nat_iso := {}.
-Instance: IsoStatementProofBetween nat Imported.nat nat_iso := {}.
+Instance: IsoStatementProofFor Datatypes.nat nat_iso := {}.
+Instance: IsoStatementProofBetween Datatypes.nat Imported.nat nat_iso := {}.

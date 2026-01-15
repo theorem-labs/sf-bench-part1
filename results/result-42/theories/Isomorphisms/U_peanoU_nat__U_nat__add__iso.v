@@ -18,7 +18,7 @@ Lemma nat_to_imported_add : forall n m : nat,
   Logic.eq (nat_to_imported (n + m)) (Imported.PeanoNat_Nat_add (nat_to_imported n) (nat_to_imported m)).
 Proof.
   induction n as [|n' IH]; intros m.
-  - (* n = 0 *)
+  - (* n = O *)
     reflexivity.
   - (* n = S n' *)
     simpl (nat_to_imported (S n' + m)).

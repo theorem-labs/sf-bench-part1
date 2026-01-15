@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *) (* for speed *) (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
@@ -40,12 +40,19 @@ Fixpoint imported_round_trip (n : Imported.nat) : nat_to_imported (imported_to_n
                          end
   end.
 
+(* Coercions for round-trip to SProp equality *)
+Definition nat_to_from (n : Imported.nat) : IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n :=
+  seq_of_eq (imported_round_trip n).
+
+Definition nat_from_to (n : nat) : IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported n)) n :=
+  seq_of_eq (nat_round_trip n).
+
 (* Build the isomorphism *)
 Instance nat_iso : Iso nat imported_nat := {|
   to := nat_to_imported;
   from := imported_to_nat;
-  to_from := fun n => seq_of_eq (imported_round_trip n);
-  from_to := fun n => seq_of_eq (nat_round_trip n)
+  to_from := nat_to_from;
+  from_to := nat_from_to
 |}.
 
 Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -12,6 +12,13 @@ From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp_
 
 Definition imported_Original_LF__DOT__Imp_LF_Imp_beval : (imported_String_string -> imported_nat) -> imported_Original_LF__DOT__Imp_LF_Imp_bexp -> imported_bool := Imported.Original_LF__DOT__Imp_LF_Imp_beval.
 
+(* Helper for converting bool to imported mybool *)
+Definition bool_to_imported (b : bool) : imported_bool :=
+  match b with
+  | true => Imported.mybool_mytrue
+  | false => Imported.mybool_myfalse
+  end.
+
 (* nat comparison compatibility *)
 Fixpoint nat_eqb_i (n m : imported_nat) : imported_bool :=
   match n, m with
@@ -93,13 +100,13 @@ Proof.
 Qed.
 
 Lemma negb_i_eq : forall b : imported_bool,
-  IsomorphismDefinitions.eq (negb_i b) (Imported.negb b).
+  IsomorphismDefinitions.eq (negb_i b) (Imported.bool_negb b).
 Proof.
   intros b. destruct b; apply IsomorphismDefinitions.eq_refl.
 Qed.
 
 Lemma andb_i_eq : forall b1 b2 : imported_bool,
-  IsomorphismDefinitions.eq (andb_i b1 b2) (Imported.andb b1 b2).
+  IsomorphismDefinitions.eq (andb_i b1 b2) (Imported.bool_andb b1 b2).
 Proof.
   intros b1 b2. destruct b1, b2; apply IsomorphismDefinitions.eq_refl.
 Qed.
@@ -132,7 +139,7 @@ Proof.
     apply (f_equal2 Imported.nat_eqb (aeval_aux_eq st a1) (aeval_aux_eq st a2)).
   - (* BNeq *)
     apply (eq_trans (negb_i_eq _)).
-    apply (f_equal Imported.negb).
+    apply (f_equal Imported.bool_negb).
     apply (eq_trans (nat_eqb_i_eq _ _)).
     apply (f_equal2 Imported.nat_eqb (aeval_aux_eq st a1) (aeval_aux_eq st a2)).
   - (* BLe *)
@@ -140,15 +147,15 @@ Proof.
     apply (f_equal2 Imported.nat_leb (aeval_aux_eq st a1) (aeval_aux_eq st a2)).
   - (* BGt *)
     apply (eq_trans (negb_i_eq _)).
-    apply (f_equal Imported.negb).
+    apply (f_equal Imported.bool_negb).
     apply (eq_trans (nat_leb_i_eq _ _)).
     apply (f_equal2 Imported.nat_leb (aeval_aux_eq st a1) (aeval_aux_eq st a2)).
   - (* BNot *)
     apply (eq_trans (negb_i_eq _)).
-    apply (f_equal Imported.negb IHb1).
+    apply (f_equal Imported.bool_negb IHb1).
   - (* BAnd *)
     apply (eq_trans (andb_i_eq _ _)).
-    apply (f_equal2 Imported.andb IHb1 IHb2).
+    apply (f_equal2 Imported.bool_andb IHb1 IHb2).
 Qed.
 
 Lemma beval_iso_core : forall (st : Original.LF_DOT_Imp.LF.Imp.state) (st' : imported_String_string -> imported_nat),

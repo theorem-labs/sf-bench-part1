@@ -1,41 +1,64 @@
--- Lean 4 translation for and_example and its dependencies
+-- Lean translation for exp_3 and all dependencies
+prelude
 
--- Define nat as an inductive type to match Rocq's nat
-inductive nat : Type where
-  | O : nat
-  | S : nat -> nat
+-- cnat type: forall X : Type, (X -> X) -> X -> X
+def Original_LF__DOT__Poly_LF_Poly_Exercises_cnat : Type 1 := 
+  (X : Type) → (X → X) → X → X
 
--- Define Nat_add to match Rocq's Nat.add
-def Nat_add : nat -> nat -> nat
-  | nat.O, m => m
-  | nat.S p, m => nat.S (Nat_add p m)
+-- doit3times: applies f three times
+def Original_LF__DOT__Poly_LF_Poly_doit3times (X : Type) (f : X → X) (n : X) : X :=
+  f (f (f n))
 
--- Define Nat_mul to match Rocq's Nat.mul
-def Nat_mul : nat -> nat -> nat
-  | nat.O, _ => nat.O
-  | nat.S p, m => Nat_add m (Nat_mul p m)
+-- one: cnat (applies f once)
+def Original_LF__DOT__Poly_LF_Poly_Exercises_one : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  fun _ f x => f x
 
--- Aliases for 0 and S
-def _0 : nat := nat.O
-def S : nat -> nat := nat.S
+-- two: cnat (applies f twice)
+def Original_LF__DOT__Poly_LF_Poly_Exercises_two : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  fun _ f x => f (f x)
 
--- True in Prop
-inductive PTrue : Prop where
-  | intro : PTrue
+-- three: cnat := @doit3times
+def Original_LF__DOT__Poly_LF_Poly_Exercises_three : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  Original_LF__DOT__Poly_LF_Poly_doit3times
 
--- Define equality in Prop (becomes SProp when imported)
-inductive Corelib_Init_Logic_eq {A : Type} : A -> A -> Prop where
-  | refl : (a : A) -> Corelib_Init_Logic_eq a a
+-- plus is an axiom since it's Admitted in the original
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_plus : 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
 
--- Define and as a structure matching Rocq's and
-structure and (A B : Prop) : Prop where
-  intro ::
-  left : A
-  right : B
+-- mult is an axiom since it's Admitted in the original
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_mult : 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
 
--- The main theorem - and_example is Admitted in Original.v
--- 3 + 4 = 7 /\ 2 * 2 = 4
-axiom Original_LF__DOT__Logic_LF_Logic_and__example :
-  and
-    (Corelib_Init_Logic_eq (Nat_add (S (S (S _0))) (S (S (S (S _0))))) (S (S (S (S (S (S (S _0))))))))
-    (Corelib_Init_Logic_eq (Nat_mul (S (S _0)) (S (S _0))) (S (S (S (S _0)))))
+-- exp is an axiom since it's Admitted in the original
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_exp : 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
+
+-- Equality in Prop (universe polymorphic)
+inductive Corelib_Init_Logic_eq.{u} {A : Sort u} : A → A → Prop where
+  | refl (a : A) : Corelib_Init_Logic_eq a a
+
+-- True as SProp (named "True" to match what checker expects)
+inductive «True» : Prop where
+  | intro : «True»
+
+-- exp_3 is an axiom: exp three two = plus (mult two (mult two two)) one
+-- It's Admitted in the original
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_exp__3 : 
+  @Corelib_Init_Logic_eq 
+    Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
+    (Original_LF__DOT__Poly_LF_Poly_Exercises_exp 
+      Original_LF__DOT__Poly_LF_Poly_Exercises_three 
+      Original_LF__DOT__Poly_LF_Poly_Exercises_two)
+    (Original_LF__DOT__Poly_LF_Poly_Exercises_plus 
+      (Original_LF__DOT__Poly_LF_Poly_Exercises_mult 
+        Original_LF__DOT__Poly_LF_Poly_Exercises_two 
+        (Original_LF__DOT__Poly_LF_Poly_Exercises_mult 
+          Original_LF__DOT__Poly_LF_Poly_Exercises_two 
+          Original_LF__DOT__Poly_LF_Poly_Exercises_two)) 
+      Original_LF__DOT__Poly_LF_Poly_Exercises_one)

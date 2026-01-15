@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_string__string__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_X : imported_String_string := Imported.Original_LF__DOT__Imp_LF_Imp_X.
-Instance Original_LF__DOT__Imp_LF_Imp_X_iso : rel_iso String_string_iso Original.LF_DOT_Imp.LF.Imp.X imported_Original_LF__DOT__Imp_LF_Imp_X.
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_X : imported_String_string := Imported.Original_LF__DOT__Imp_LF_Imp_X.
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_X_iso : rel_iso String_string_iso Original.LF_DOT_Imp.LF.Imp.X imported_Original_LF__DOT__Imp_LF_Imp_X.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Imp.LF.Imp.X := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Imp_LF_Imp_X := {}. (* only needed when rel_iso is typeclasses opaque *)

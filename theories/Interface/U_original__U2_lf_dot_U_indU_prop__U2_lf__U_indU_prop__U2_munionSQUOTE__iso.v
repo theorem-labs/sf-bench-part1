@@ -28,28 +28,9 @@ Parameter Original_LF__DOT__IndProp_LF_IndProp_MUnion'_iso : forall (x1 x2 : Typ
     (hx1 : rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) x5 x6) (x7 : Original.LF_DOT_IndProp.LF.IndProp.reg_exp x1) (x8 : imported_Original_LF__DOT__IndProp_LF_IndProp_reg__exp x2)
     (hx2 : rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) x7 x8) (x9 : Original.LF_DOT_IndProp.LF.IndProp.exp_match x3 x5 \/ Original.LF_DOT_IndProp.LF.IndProp.exp_match x3 x7)
     (x10 : imported_or (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x4 x6) (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x4 x8)),
-  rel_iso
-    {|
-      to := or_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx2);
-      from := from (or_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx2));
-      to_from :=
-        fun x : imported_or (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x4 x6) (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x4 x8) =>
-        to_from (or_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx2)) x;
-      from_to :=
-        fun x : Original.LF_DOT_IndProp.LF.IndProp.exp_match x3 x5 \/ Original.LF_DOT_IndProp.LF.IndProp.exp_match x3 x7 =>
-        seq_p_of_t (from_to (or_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx2)) x)
-    |} x9 x10 ->
-  rel_iso
-    {|
-      to := Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 (Original_LF__DOT__IndProp_LF_IndProp_Union_iso hx1 hx2);
-      from := from (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 (Original_LF__DOT__IndProp_LF_IndProp_Union_iso hx1 hx2));
-      to_from :=
-        fun x : imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x4 (imported_Original_LF__DOT__IndProp_LF_IndProp_Union x6 x8) =>
-        to_from (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 (Original_LF__DOT__IndProp_LF_IndProp_Union_iso hx1 hx2)) x;
-      from_to :=
-        fun x : Original.LF_DOT_IndProp.LF.IndProp.exp_match x3 (Original.LF_DOT_IndProp.LF.IndProp.Union x5 x7) =>
-        seq_p_of_t (from_to (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 (Original_LF__DOT__IndProp_LF_IndProp_Union_iso hx1 hx2)) x)
-    |} (Original.LF_DOT_IndProp.LF.IndProp.MUnion' x1 x3 x5 x7 x9) (imported_Original_LF__DOT__IndProp_LF_IndProp_MUnion' x10).
+  rel_iso (relax_Iso_Ts_Ps (or_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx2))) x9 x10 ->
+  rel_iso (relax_Iso_Ts_Ps (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 (Original_LF__DOT__IndProp_LF_IndProp_Union_iso hx1 hx2)))
+    (Original.LF_DOT_IndProp.LF.IndProp.MUnion' x1 x3 x5 x7 x9) (imported_Original_LF__DOT__IndProp_LF_IndProp_MUnion' x10).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_MUnion'_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.MUnion' ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_MUnion'_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.MUnion' imported_Original_LF__DOT__IndProp_LF_IndProp_MUnion' ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_MUnion'_iso; constructor : typeclass_instances.

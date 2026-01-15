@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,10 +10,10 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.__0__iso Isomorphisms.U_nat__add__iso Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__ev__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus4' : forall x : imported_nat,
+Monomorphic Definition imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus4' : forall x : imported_nat,
   imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev x ->
   imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev (imported_Nat_add (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) x) := Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus4'.
-Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus4'_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : Original.LF_DOT_ProofObjects.LF.ProofObjects.ev x1) (x4 : imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev x2),
+Monomorphic Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus4'_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : Original.LF_DOT_ProofObjects.LF.ProofObjects.ev x1) (x4 : imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev x2),
   rel_iso (Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso hx) x3 x4 ->
   rel_iso (Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso (Nat_add_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 0 imported_0 _0_iso)))) hx))
     (Original.LF_DOT_ProofObjects.LF.ProofObjects.ev_plus4' x1 x3) (imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus4' x4).

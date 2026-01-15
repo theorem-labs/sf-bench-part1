@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,11 +10,11 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_ascii__U_ascii__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__ceval__iso Isomorphisms.U_string__U_emptyU_string__iso Isomorphisms.U_string__U_string__iso Isomorphisms.false__iso Isomorphisms.true__iso.
 
-Definition imported_Original_LF__DOT__Auto_LF_Auto_ceval__deterministic'' : forall (x : imported_Original_LF__DOT__Imp_LF_Imp_com) (x0 x1 x2 : imported_String_string -> imported_nat),
+Monomorphic Definition imported_Original_LF__DOT__Auto_LF_Auto_ceval__deterministic'' : forall (x : imported_Original_LF__DOT__Imp_LF_Imp_com) (x0 x1 x2 : imported_String_string -> imported_nat),
   imported_Original_LF__DOT__Imp_LF_Imp_ceval x (fun x3 : imported_String_string => x0 x3) (fun x3 : imported_String_string => x1 x3) ->
   imported_Original_LF__DOT__Imp_LF_Imp_ceval x (fun x3 : imported_String_string => x0 x3) (fun x3 : imported_String_string => x2 x3) ->
   imported_Corelib_Init_Logic_eq (fun x14 : imported_String_string => x1 x14) (fun x14 : imported_String_string => x2 x14) := Imported.Original_LF__DOT__Auto_LF_Auto_ceval__deterministic''.
-Instance Original_LF__DOT__Auto_LF_Auto_ceval__deterministic''_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.com) (x2 : imported_Original_LF__DOT__Imp_LF_Imp_com) (hx : rel_iso Original_LF__DOT__Imp_LF_Imp_com_iso x1 x2) (x3 : Original.LF_DOT_Imp.LF.Imp.state)
+Monomorphic Instance Original_LF__DOT__Auto_LF_Auto_ceval__deterministic''_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.com) (x2 : imported_Original_LF__DOT__Imp_LF_Imp_com) (hx : rel_iso Original_LF__DOT__Imp_LF_Imp_com_iso x1 x2) (x3 : Original.LF_DOT_Imp.LF.Imp.state)
     (x4 : imported_String_string -> imported_nat) (hx0 : forall (x5 : String.string) (x6 : imported_String_string), rel_iso String_string_iso x5 x6 -> rel_iso nat_iso (x3 x5) (x4 x6))
     (x5 : Original.LF_DOT_Imp.LF.Imp.state) (x6 : imported_String_string -> imported_nat)
     (hx1 : forall (x7 : String.string) (x8 : imported_String_string), rel_iso String_string_iso x7 x8 -> rel_iso nat_iso (x5 x7) (x6 x8)) (x7 : Original.LF_DOT_Imp.LF.Imp.state)

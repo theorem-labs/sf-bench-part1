@@ -26,40 +26,12 @@ Parameter imported_Original_LF__DOT__Logic_LF_Logic_leb__plus__exists : forall x
 Parameter Original_LF__DOT__Logic_LF_Logic_leb__plus__exists_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4)
     (x5 : Original.LF_DOT_Basics.LF.Basics.leb x1 x3 = Original.LF_DOT_Basics.LF.Basics.true)
     (x6 : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_leb x2 x4) imported_Original_LF__DOT__Basics_LF_Basics_true),
+  rel_iso (relax_Iso_Ts_Ps (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_leb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_true_iso)) x5 x6 ->
   rel_iso
-    {|
-      to := Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_leb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_true_iso;
-      from := from (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_leb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_true_iso);
-      to_from :=
-        fun x : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_leb x2 x4) imported_Original_LF__DOT__Basics_LF_Basics_true =>
-        to_from (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_leb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_true_iso) x;
-      from_to :=
-        fun x : Original.LF_DOT_Basics.LF.Basics.leb x1 x3 = Original.LF_DOT_Basics.LF.Basics.true =>
-        seq_p_of_t (from_to (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_leb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_true_iso) x)
-    |} x5 x6 ->
-  rel_iso
-    {|
-      to :=
-        ex_iso (fun x : nat => x3 = x1 + x) (fun H : imported_nat => imported_Corelib_Init_Logic_eq x4 (imported_Nat_add x2 H))
-          (fun (x7 : nat) (x8 : imported_nat) (hx2 : rel_iso nat_iso x7 x8) => Corelib_Init_Logic_eq_iso hx0 (Nat_add_iso hx hx2));
-      from :=
-        from
-          (ex_iso (fun x : nat => x3 = x1 + x) (fun H : imported_nat => imported_Corelib_Init_Logic_eq x4 (imported_Nat_add x2 H))
-             (fun (x7 : nat) (x8 : imported_nat) (hx2 : rel_iso nat_iso x7 x8) => Corelib_Init_Logic_eq_iso hx0 (Nat_add_iso hx hx2)));
-      to_from :=
-        fun x : imported_ex (fun H : imported_nat => imported_Corelib_Init_Logic_eq x4 (imported_Nat_add x2 H)) =>
-        to_from
-          (ex_iso (fun x0 : nat => x3 = x1 + x0) (fun H : imported_nat => imported_Corelib_Init_Logic_eq x4 (imported_Nat_add x2 H))
-             (fun (x7 : nat) (x8 : imported_nat) (hx2 : rel_iso nat_iso x7 x8) => Corelib_Init_Logic_eq_iso hx0 (Nat_add_iso hx hx2)))
-          x;
-      from_to :=
-        fun x : exists y : nat, x3 = x1 + y =>
-        seq_p_of_t
-          (from_to
-             (ex_iso (fun x0 : nat => x3 = x1 + x0) (fun H : imported_nat => imported_Corelib_Init_Logic_eq x4 (imported_Nat_add x2 H))
-                (fun (x7 : nat) (x8 : imported_nat) (hx2 : rel_iso nat_iso x7 x8) => Corelib_Init_Logic_eq_iso hx0 (Nat_add_iso hx hx2)))
-             x)
-    |} (Original.LF_DOT_Logic.LF.Logic.leb_plus_exists x1 x3 x5) (imported_Original_LF__DOT__Logic_LF_Logic_leb__plus__exists x6).
+    (relax_Iso_Ts_Ps
+       (ex_iso (fun x : nat => x3 = x1 + x) (fun H : imported_nat => imported_Corelib_Init_Logic_eq x4 (imported_Nat_add x2 H))
+          (fun (x7 : nat) (x8 : imported_nat) (hx2 : rel_iso nat_iso x7 x8) => Corelib_Init_Logic_eq_iso hx0 (Nat_add_iso hx hx2))))
+    (Original.LF_DOT_Logic.LF.Logic.leb_plus_exists x1 x3 x5) (imported_Original_LF__DOT__Logic_LF_Logic_leb__plus__exists x6).
 Existing Instance Original_LF__DOT__Logic_LF_Logic_leb__plus__exists_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Logic.LF.Logic.leb_plus_exists ?x) => unify x Original_LF__DOT__Logic_LF_Logic_leb__plus__exists_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Logic.LF.Logic.leb_plus_exists imported_Original_LF__DOT__Logic_LF_Logic_leb__plus__exists ?x) => unify x Original_LF__DOT__Logic_LF_Logic_leb__plus__exists_iso; constructor : typeclass_instances.

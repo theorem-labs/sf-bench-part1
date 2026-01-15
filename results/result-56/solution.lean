@@ -1,33 +1,64 @@
--- Translation of nat, S, ev, ex, and ex_match
+-- Lean translation for exp_3 and all dependencies
+prelude
 
--- Define nat as an alias to avoid large Lean stdlib exports
-inductive nat : Type where
-  | zero : nat
-  | succ : nat -> nat
+-- cnat type: forall X : Type, (X -> X) -> X -> X
+def Original_LF__DOT__Poly_LF_Poly_Exercises_cnat : Type 1 := 
+  (X : Type) → (X → X) → X → X
 
--- Aliases for names
-def _0 : nat := nat.zero
-def S : nat → nat := nat.succ
+-- doit3times: applies f three times
+def Original_LF__DOT__Poly_LF_Poly_doit3times (X : Type) (f : X → X) (n : X) : X :=
+  f (f (f n))
 
--- The ev predicate: ev n holds when n is even
--- Using Prop (exports to SProp in Rocq)
-inductive Original_LF__DOT__ProofObjects_LF_ProofObjects_ev : nat -> Prop where
-  | ev_0 : Original_LF__DOT__ProofObjects_LF_ProofObjects_ev nat.zero
-  | ev_SS : forall n : nat, Original_LF__DOT__ProofObjects_LF_ProofObjects_ev n -> Original_LF__DOT__ProofObjects_LF_ProofObjects_ev (nat.succ (nat.succ n))
+-- one: cnat (applies f once)
+def Original_LF__DOT__Poly_LF_Poly_Exercises_one : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  fun _ f x => f x
 
--- Existential type (Props.ex in Original.v)
-inductive Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex {A : Type} (P : A -> Prop) : Prop where
-  | ex_intro : forall x : A, P x -> Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex P
+-- two: cnat (applies f twice)
+def Original_LF__DOT__Poly_LF_Poly_Exercises_two : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  fun _ f x => f (f x)
 
--- The axiom: there exists n such that ev (S n)
--- This is Admitted in Original.v, so we use an axiom
-axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex__ev__Sn : 
-  Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun n : nat => Original_LF__DOT__ProofObjects_LF_ProofObjects_ev (S n))
+-- three: cnat := @doit3times
+def Original_LF__DOT__Poly_LF_Poly_Exercises_three : Original_LF__DOT__Poly_LF_Poly_Exercises_cnat :=
+  Original_LF__DOT__Poly_LF_Poly_doit3times
 
--- ex_match: transforms existential witnesses
--- This is Admitted in Original.v, so we use an axiom
-axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex__match :
-  forall (A : Type) (P Q : A -> Prop),
-    (forall x : A, P x -> Q x) ->
-    Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun x : A => P x) -> 
-    Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun x : A => Q x)
+-- plus is an axiom since it's Admitted in the original
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_plus : 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
+
+-- mult is an axiom since it's Admitted in the original
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_mult : 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
+
+-- exp is an axiom since it's Admitted in the original
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_exp : 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat → 
+  Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
+
+-- Equality in Prop (universe polymorphic)
+inductive Corelib_Init_Logic_eq.{u} {A : Sort u} : A → A → Prop where
+  | refl (a : A) : Corelib_Init_Logic_eq a a
+
+-- True as SProp (named "True" to match what checker expects)
+inductive «True» : Prop where
+  | intro : «True»
+
+-- exp_3 is an axiom: exp three two = plus (mult two (mult two two)) one
+-- It's Admitted in the original
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_exp__3 : 
+  @Corelib_Init_Logic_eq 
+    Original_LF__DOT__Poly_LF_Poly_Exercises_cnat
+    (Original_LF__DOT__Poly_LF_Poly_Exercises_exp 
+      Original_LF__DOT__Poly_LF_Poly_Exercises_three 
+      Original_LF__DOT__Poly_LF_Poly_Exercises_two)
+    (Original_LF__DOT__Poly_LF_Poly_Exercises_plus 
+      (Original_LF__DOT__Poly_LF_Poly_Exercises_mult 
+        Original_LF__DOT__Poly_LF_Poly_Exercises_two 
+        (Original_LF__DOT__Poly_LF_Poly_Exercises_mult 
+          Original_LF__DOT__Poly_LF_Poly_Exercises_two 
+          Original_LF__DOT__Poly_LF_Poly_Exercises_two)) 
+      Original_LF__DOT__Poly_LF_Poly_Exercises_one)

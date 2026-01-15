@@ -1,1 +1,0 @@
-RocqTrue RocqTrue_intro iff Corelib_Init_Logic_eq Corelib_Init_Logic_eq_Prop nat Original_LF__DOT__IndProp_LF_IndProp_R

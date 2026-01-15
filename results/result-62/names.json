@@ -1,0 +1,14 @@
+{
+  "bool": "mybool",
+  "true": "mybool_mytrue",
+  "false": "mybool_myfalse",
+  "Ascii_Ascii": "Ascii_ascii_Ascii",
+  "Ascii_ascii": "Ascii_ascii",
+  "True": "TrueType",
+  "False": "FalseType",
+  "_0": "nat_O",
+  "S": "nat_S",
+  "PeanoNat_Nat_leb": "nat_leb",
+  "Original_LF__DOT__Imp_LF_Imp_AExp_foo'": "Original_LF__DOT__Imp_LF_Imp_AExp_fooSQUOTE",
+  "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_P__m0r'": "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_P__m0rSQUOTE"
+}

@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,12 +10,12 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__U_in__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__filter__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso Isomorphisms.U_logic__not__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__eqb__iso.
 
-Definition imported_Original_LF__DOT__IndProp_LF_IndProp_filter__not__empty__In : forall (x : imported_nat) (x0 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_nat),
+Monomorphic Definition imported_Original_LF__DOT__IndProp_LF_IndProp_filter__not__empty__In : forall (x : imported_nat) (x0 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_nat),
   (imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Poly_LF_Poly_filter (fun x1 : imported_nat => imported_Original_LF__DOT__Basics_LF_Basics_eqb x x1) x0)
      (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat) ->
    imported_False) ->
   imported_Original_LF__DOT__Logic_LF_Logic_In x x0 := Imported.Original_LF__DOT__IndProp_LF_IndProp_filter__not__empty__In.
-Instance Original_LF__DOT__IndProp_LF_IndProp_filter__not__empty__In_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : Original.LF_DOT_Poly.LF.Poly.list nat) (x4 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_nat)
+Monomorphic Instance Original_LF__DOT__IndProp_LF_IndProp_filter__not__empty__In_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : Original.LF_DOT_Poly.LF.Poly.list nat) (x4 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_nat)
     (hx0 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso nat_iso) x3 x4)
     (x5 : Original.LF_DOT_Poly.LF.Poly.filter (fun x : nat => Original.LF_DOT_Basics.LF.Basics.eqb x1 x) x3 <> Original.LF_DOT_Poly.LF.Poly.nil)
     (x6 : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Poly_LF_Poly_filter (fun x : imported_nat => imported_Original_LF__DOT__Basics_LF_Basics_eqb x2 x) x4)

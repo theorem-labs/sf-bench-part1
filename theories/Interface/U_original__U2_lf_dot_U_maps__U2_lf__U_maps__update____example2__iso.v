@@ -28,54 +28,14 @@ Parameter imported_Original_LF__DOT__Maps_LF_Maps_update__example2 : @imported_C
              (String.String (Ascii.Ascii true true true true false true true false) (String.String (Ascii.Ascii true true true true false true true false) String.EmptyString)))))
     imported_true.
 Parameter Original_LF__DOT__Maps_LF_Maps_update__example2_iso : rel_iso
-    {|
-      to :=
-        Corelib_Init_Logic_eq_iso
+    (relax_Iso_Ts_Ps
+       (Corelib_Init_Logic_eq_iso
           (Original_LF__DOT__Maps_LF_Maps_examplemap'_iso
              (StringOptimizations.imported_string_iso true_iso false_iso Ascii_Ascii_iso String_EmptyString_iso String_String_iso
                 (String.String (Ascii.Ascii false true true false false true true false)
                    (String.String (Ascii.Ascii true true true true false true true false) (String.String (Ascii.Ascii true true true true false true true false) String.EmptyString)))))
-          true_iso;
-      from :=
-        from
-          (Corelib_Init_Logic_eq_iso
-             (Original_LF__DOT__Maps_LF_Maps_examplemap'_iso
-                (StringOptimizations.imported_string_iso true_iso false_iso Ascii_Ascii_iso String_EmptyString_iso String_String_iso
-                   (String.String (Ascii.Ascii false true true false false true true false)
-                      (String.String (Ascii.Ascii true true true true false true true false) (String.String (Ascii.Ascii true true true true false true true false) String.EmptyString)))))
-             true_iso);
-      to_from :=
-        fun
-          x : imported_Corelib_Init_Logic_eq
-                (imported_Original_LF__DOT__Maps_LF_Maps_examplemap'
-                   (StringOptimizations.imported_string
-                      (String.String (Ascii.Ascii false true true false false true true false)
-                         (String.String (Ascii.Ascii true true true true false true true false) (String.String (Ascii.Ascii true true true true false true true false) String.EmptyString)))))
-                imported_true =>
-        to_from
-          (Corelib_Init_Logic_eq_iso
-             (Original_LF__DOT__Maps_LF_Maps_examplemap'_iso
-                (StringOptimizations.imported_string_iso true_iso false_iso Ascii_Ascii_iso String_EmptyString_iso String_String_iso
-                   (String.String (Ascii.Ascii false true true false false true true false)
-                      (String.String (Ascii.Ascii true true true true false true true false) (String.String (Ascii.Ascii true true true true false true true false) String.EmptyString)))))
-             true_iso)
-          x;
-      from_to :=
-        fun
-          x : Original.LF_DOT_Maps.LF.Maps.examplemap'
-                (String.String (Ascii.Ascii false true true false false true true false)
-                   (String.String (Ascii.Ascii true true true true false true true false) (String.String (Ascii.Ascii true true true true false true true false) String.EmptyString))) =
-              true =>
-        seq_p_of_t
-          (from_to
-             (Corelib_Init_Logic_eq_iso
-                (Original_LF__DOT__Maps_LF_Maps_examplemap'_iso
-                   (StringOptimizations.imported_string_iso true_iso false_iso Ascii_Ascii_iso String_EmptyString_iso String_String_iso
-                      (String.String (Ascii.Ascii false true true false false true true false)
-                         (String.String (Ascii.Ascii true true true true false true true false) (String.String (Ascii.Ascii true true true true false true true false) String.EmptyString)))))
-                true_iso)
-             x)
-    |} Original.LF_DOT_Maps.LF.Maps.update_example2 imported_Original_LF__DOT__Maps_LF_Maps_update__example2.
+          true_iso))
+    Original.LF_DOT_Maps.LF.Maps.update_example2 imported_Original_LF__DOT__Maps_LF_Maps_update__example2.
 Existing Instance Original_LF__DOT__Maps_LF_Maps_update__example2_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Maps.LF.Maps.update_example2 ?x) => unify x Original_LF__DOT__Maps_LF_Maps_update__example2_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Maps.LF.Maps.update_example2 imported_Original_LF__DOT__Maps_LF_Maps_update__example2 ?x) => unify x Original_LF__DOT__Maps_LF_Maps_update__example2_iso; constructor : typeclass_instances.

@@ -4,51 +4,75 @@ Import IsoEq.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original.
 From IsomorphismChecker Require Imported.
-Typeclasses Opaque rel_iso.
 
 From IsomorphismChecker Require Export Isomorphisms.U_true__iso.
+From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.
 
+(* Use imported Corelib_Init_Logic_eq which is now in SProp *)
 Definition imported_Corelib_Init_Logic_eq : forall x : Type, x -> x -> SProp := @Imported.Corelib_Init_Logic_eq.
 
-(* Helper: convert from standard eq to SProp eq *)
-Definition prop_eq_to_sprop_eq {A : Type} {x y : A} (H : x = y) : Imported.Corelib_Init_Logic_eq A x y :=
-  match H with
-  | Corelib.Init.Logic.eq_refl => Imported.Corelib_Init_Logic_eq_refl A x
-  end.
-
-(* Helper: convert from SProp eq to standard eq 
-   Use Corelib_Init_Logic_eq_recl which works with Type (includes Prop) *)
-Definition sprop_eq_to_prop_eq {A : Type} {x y : A} (H : Imported.Corelib_Init_Logic_eq A x y) : x = y :=
-  Imported.Corelib_Init_Logic_eq_recl A x (fun z _ => x = z) (Corelib.Init.Logic.eq_refl x) y H.
-
-(* Helper: proof irrelevance for Prop eq expressed in SProp eq *)
-Lemma prop_eq_proof_irrel {A : Type} {x y : A} (p q : x = y) : IsomorphismDefinitions.eq p q.
-Proof.
-  pose proof (Stdlib.Logic.ProofIrrelevance.proof_irrelevance _ p q) as H.
-  destruct H. exact (IsomorphismDefinitions.eq_refl _).
-Defined.
-
-(* This is an isomorphism between Prop eq and SProp eq *)
-Instance Corelib_Init_Logic_eq_iso : (forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1) (x4 : x2) (H34 : @rel_iso x1 x2 hx x3 x4) (x5 : x1) (x6 : x2) (H56 : @rel_iso x1 x2 hx x5 x6),
+Instance Corelib_Init_Logic_eq_iso : (forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1) (x4 : x2) (_ : @rel_iso x1 x2 hx x3 x4) (x5 : x1) (x6 : x2) (_ : @rel_iso x1 x2 hx x5 x6),
    Iso (@Corelib.Init.Logic.eq x1 x3 x5) (@imported_Corelib_Init_Logic_eq x2 x4 x6)).
 Proof.
   intros x1 x2 hx x3 x4 H34 x5 x6 H56.
-  destruct H34. destruct H56.
   unshelve eapply Build_Iso.
-  - intro Heq. subst x5. apply Imported.Corelib_Init_Logic_eq_refl.
-  - intro Heq.
-    pose proof (sprop_eq_to_prop_eq Heq) as H.
-    pose proof (Corelib.Init.Logic.f_equal (from hx) H) as H'.
-    pose proof (from_to hx x3) as Hft3.
-    pose proof (from_to hx x5) as Hft5.
-    destruct Hft3. destruct Hft5.
-    exact H'.
-  - intro Heq. exact (IsomorphismDefinitions.eq_refl _).
-  - intro Heq.
-    apply prop_eq_proof_irrel.
+  - (* to: eq in Prop -> eq in SProp *)
+    intro Heq.
+    subst x5.
+    unfold imported_Corelib_Init_Logic_eq.
+    destruct H34 as [H34]. destruct H56 as [H56].
+    simpl in H34, H56.
+    (* H34 : to hx x3 = x4, H56 : to hx x3 = x6, goal: Imported.eq x4 x6 *)
+    destruct H34. destruct H56.
+    apply Imported.Corelib_Init_Logic_eq_refl.
+  - (* from: eq in SProp -> eq in Prop *)
+    intro Heq.
+    unfold imported_Corelib_Init_Logic_eq in Heq.
+    destruct H34 as [H34]. destruct H56 as [H56].
+    simpl in H34, H56.
+    (* Heq : Imported.eq x4 x6, H34 : to hx x3 = x4, H56 : to hx x5 = x6 *)
+    destruct Heq.
+    (* Now x4 = x6, so from hx x4 = from hx x6 by injectivity *)
+    (* We know from_to hx x3, from_to hx x5 *)
+    assert (Hinj : x3 = x5).
+    { transitivity (from hx (to hx x3)).
+      - symmetry. apply eq_of_seq. apply (from_to hx).
+      - transitivity (from hx (to hx x5)).
+        + f_equal. apply eq_of_seq. eapply eq_trans. exact H34. apply eq_sym. exact H56.
+        + apply eq_of_seq. apply (from_to hx).
+    }
+    exact Hinj.
+  - (* to_from - SProp terms are definitionally equal *)
+    intro Heq; apply IsomorphismDefinitions.eq_refl.
+  - (* from_to - use Prop proof irrelevance *)
+    intro Heq.
+    apply seq_of_eq.
+    apply Stdlib.Logic.ProofIrrelevance.proof_irrelevance.
 Defined.
 
 Instance: KnownConstant (@Corelib.Init.Logic.eq) := {}.
 Instance: KnownConstant (@Imported.Corelib_Init_Logic_eq) := {}.
 Instance: IsoStatementProofFor (@Corelib.Init.Logic.eq) Corelib_Init_Logic_eq_iso := {}.
 Instance: IsoStatementProofBetween (@Corelib.Init.Logic.eq) (@Imported.Corelib_Init_Logic_eq) Corelib_Init_Logic_eq_iso := {}.
+
+(* Prop version - for equality specialized to Prop/SProp *)
+(* This is exposed via the file Isomorphisms/U_corelib__U_init__U_logic__eq__iso__U_prop.v *)
+Definition imported_Corelib_Init_Logic_eq_Prop : forall x : SProp, x -> x -> SProp := @Imported.Corelib_Init_Logic_eq_Prop.
+
+Instance Corelib_Init_Logic_eq_iso_Prop : forall (x1 : Type) (x2 : SProp) (hx : Iso x1 x2) (x3 : x1) (x4 : x2), rel_iso hx x3 x4 -> forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> Iso (x3 = x5) (imported_Corelib_Init_Logic_eq_Prop x4 x6).
+Proof.
+  intros x1 x2 hx x3 x4 H34 x5 x6 H56.
+  unshelve eapply Build_Iso.
+  - (* to: x3 = x5 -> imported_Corelib_Init_Logic_eq_Prop x4 x6 *)
+    intro Heq.
+    apply Imported.Corelib_Init_Logic_eq_Prop_refl.
+  - (* from: imported_Corelib_Init_Logic_eq_Prop x4 x6 -> x3 = x5 *)
+    intro Heq.
+    transitivity (from hx (to hx x3)).
+    + symmetry. apply eq_of_seq. apply (from_to hx).
+    + transitivity (from hx (to hx x5)).
+      * reflexivity.
+      * apply eq_of_seq. apply (from_to hx).
+  - intro x; apply IsomorphismDefinitions.eq_refl.
+  - intro x; apply seq_of_eq. apply Stdlib.Logic.ProofIrrelevance.proof_irrelevance.
+Defined.

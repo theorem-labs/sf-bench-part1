@@ -1,5 +1,15 @@
 {
-  "and__iso": 1.0,
-  "or__iso": 1.0,
-  "U_original__U2_lf_dot_U_auto__U2_lf__U_auto__auto____example____4__iso": 1.0
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aeval__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__beval__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__bexp__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__com__iso": 1.0,
+  "U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____update__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso": 1.0,
+  "U_string__string__iso": 1.0,
+  "bool__iso": 1.0,
+  "nat__iso": 1.0,
+  "option__iso": 1.0,
+  "U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____step3__iso": 1.0
 }

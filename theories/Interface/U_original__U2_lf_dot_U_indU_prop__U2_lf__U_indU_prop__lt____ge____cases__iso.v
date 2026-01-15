@@ -21,14 +21,11 @@ Module Type Args := Interface.nat__iso.Interface <+ Interface.ge__iso.Interface 
 Module Type Interface (Import args : Args).
 
 Parameter imported_Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases : forall x x0 : imported_nat, imported_or (imported_lt x x0) (imported_ge x x0).
-Parameter Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4),
-  rel_iso
-    {|
-      to := or_iso (lt_iso hx hx0) (ge_iso hx hx0);
-      from := from (or_iso (lt_iso hx hx0) (ge_iso hx hx0));
-      to_from := fun x : imported_or (imported_lt x2 x4) (imported_ge x2 x4) => to_from (or_iso (lt_iso hx hx0) (ge_iso hx hx0)) x;
-      from_to := fun x : x1 < x3 \/ x1 >= x3 => seq_p_of_t (from_to (or_iso (lt_iso hx hx0) (ge_iso hx hx0)) x)
-    |} (Original.LF_DOT_IndProp.LF.IndProp.lt_ge_cases x1 x3) (imported_Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases x2 x4).
+Parameter Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases_iso : forall (x1 : nat) (x2 : imported_nat) (hx : @rel_iso nat imported_nat nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : @rel_iso nat imported_nat nat_iso x3 x4),
+  @rel_iso (x1 < x3 \/ x1 >= x3) (imported_or (imported_lt x2 x4) (imported_ge x2 x4))
+    (@relax_Iso_Ts_Ps (x1 < x3 \/ x1 >= x3) (imported_or (imported_lt x2 x4) (imported_ge x2 x4))
+       (@or_iso (x1 < x3) (imported_lt x2 x4) (@lt_iso x1 x2 hx x3 x4 hx0) (x1 >= x3) (imported_ge x2 x4) (@ge_iso x1 x2 hx x3 x4 hx0)))
+    (Original.LF_DOT_IndProp.LF.IndProp.lt_ge_cases x1 x3) (imported_Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases x2 x4).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.lt_ge_cases ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.lt_ge_cases imported_Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_lt__ge__cases_iso; constructor : typeclass_instances.

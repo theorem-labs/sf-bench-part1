@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__com__iso Isomorphisms.U_string__string__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_CAsgn : imported_String_string -> imported_Original_LF__DOT__Imp_LF_Imp_aexp -> imported_Original_LF__DOT__Imp_LF_Imp_com := Imported.Original_LF__DOT__Imp_LF_Imp_CAsgn.
-Instance Original_LF__DOT__Imp_LF_Imp_CAsgn_iso : forall (x1 : String.string) (x2 : imported_String_string),
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_CAsgn : imported_String_string -> imported_Original_LF__DOT__Imp_LF_Imp_aexp -> imported_Original_LF__DOT__Imp_LF_Imp_com := Imported.Original_LF__DOT__Imp_LF_Imp_CAsgn.
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_CAsgn_iso : forall (x1 : String.string) (x2 : imported_String_string),
   rel_iso String_string_iso x1 x2 ->
   forall (x3 : Original.LF_DOT_Imp.LF.Imp.aexp) (x4 : imported_Original_LF__DOT__Imp_LF_Imp_aexp),
   rel_iso Original_LF__DOT__Imp_LF_Imp_aexp_iso x3 x4 -> rel_iso Original_LF__DOT__Imp_LF_Imp_com_iso (Original.LF_DOT_Imp.LF.Imp.CAsgn x1 x3) (imported_Original_LF__DOT__Imp_LF_Imp_CAsgn x2 x4).

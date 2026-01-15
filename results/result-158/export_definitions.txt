@@ -1,1 +1,0 @@
-MyFalse MyOr Logic_not

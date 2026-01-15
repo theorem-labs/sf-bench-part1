@@ -4,42 +4,63 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
 
 
-(* Imported.nat is Lean.Nat, which is different from Datatypes.nat.
-   We need to build an isomorphism between Datatypes.nat and Lean.Nat. *)
 Definition imported_nat : Type := Imported.nat.
-Instance nat_iso : Iso Datatypes.nat imported_nat.
+
+(* Conversion functions between nat and Imported.nat *)
+Fixpoint nat_to_imported (n : nat) : Imported.nat :=
+  match n with
+  | O => Imported.nat_O
+  | S m => Imported.nat_S (nat_to_imported m)
+  end.
+
+Fixpoint imported_to_nat (n : Imported.nat) : nat :=
+  match n with
+  | Imported.nat_O => O
+  | Imported.nat_S m => S (imported_to_nat m)
+  end.
+
+(* Prove round-trip properties using SProp eq *)
+Lemma to_from_nat : forall n : Imported.nat, IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n.
 Proof.
-  unshelve eapply Build_Iso.
-  - (* to: Datatypes.nat -> Lean.Nat *)
-    exact (fix to_nat (n : Datatypes.nat) : Lean.Nat :=
-      match n with
-      | O => Lean.Nat_zero
-      | Datatypes.S n' => Lean.Nat_succ (to_nat n')
-      end).
-  - (* from: Lean.Nat -> Datatypes.nat *)
-    exact (fix from_nat (n : Lean.Nat) : Datatypes.nat :=
-      match n with
-      | Lean.Nat_zero => O
-      | Lean.Nat_succ n' => Datatypes.S (from_nat n')
-      end).
-  - (* to_from *)
-    intro n.
-    induction n as [|n' IH].
-    + apply IsomorphismDefinitions.eq_refl.
-    + simpl.
-      apply (IsoEq.f_equal Lean.Nat_succ IH).
-  - (* from_to *)
-    intro n.
-    induction n as [|n' IH].
-    + apply IsomorphismDefinitions.eq_refl.
-    + simpl.
-      apply (IsoEq.f_equal Datatypes.S IH).
+  fix IH 1.
+  intros n.
+  destruct n as [|m].
+  - apply IsomorphismDefinitions.eq_refl.
+  - simpl. apply f_equal. apply IH.
 Defined.
-Instance: KnownConstant Datatypes.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
+
+Lemma from_to_nat : forall n : nat, IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported n)) n.
+Proof.
+  fix IH 1.
+  intros n.
+  destruct n as [|m].
+  - apply IsomorphismDefinitions.eq_refl.
+  - simpl. apply f_equal. apply IH.
+Defined.
+
+Instance nat_iso : Iso nat imported_nat :=
+  Build_Iso nat_to_imported imported_to_nat to_from_nat from_to_nat.
+
+(* Additional Logic.eq roundtrip lemmas for use in other files *)
+Lemma nat_roundtrip : forall n : nat, Logic.eq (imported_to_nat (nat_to_imported n)) n.
+Proof.
+  fix IH 1.
+  intros n. destruct n as [|m].
+  - reflexivity.
+  - simpl. apply Logic.f_equal. apply IH.
+Qed.
+
+Lemma imported_nat_roundtrip : forall n : Imported.nat, Logic.eq (nat_to_imported (imported_to_nat n)) n.
+Proof.
+  fix IH 1.
+  intros n. destruct n as [|m].
+  - reflexivity.
+  - simpl. apply Logic.f_equal. apply IH.
+Qed.
+
+Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor Datatypes.nat nat_iso := {}.
-Instance: IsoStatementProofBetween Datatypes.nat Imported.nat nat_iso := {}.
+Instance: IsoStatementProofFor nat nat_iso := {}.
+Instance: IsoStatementProofBetween nat Imported.nat nat_iso := {}.

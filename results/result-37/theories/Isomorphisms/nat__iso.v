@@ -5,7 +5,6 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
@@ -16,6 +15,28 @@ Fixpoint nat_to_imported (n : nat) : imported_nat :=
   | O => Imported.nat_O
   | S m => Imported.nat_S (nat_to_imported m)
   end.
+
+(* Conversion function from imported_nat to nat *)
+Fixpoint imported_to_nat (n : imported_nat) : nat :=
+  match n with
+  | Imported.nat_O => O
+  | Imported.nat_S m => S (imported_to_nat m)
+  end.
+
+(* Roundtrip lemmas *)
+Lemma imported_nat_roundtrip : forall n : imported_nat, nat_to_imported (imported_to_nat n) = n.
+Proof.
+  fix IH 1. intros n. destruct n as [|m].
+  - reflexivity.
+  - simpl. apply (Logic.f_equal Imported.nat_S). apply IH.
+Qed.
+
+Lemma nat_roundtrip : forall n : nat, imported_to_nat (nat_to_imported n) = n.
+Proof.
+  fix IH 1. intros n. destruct n as [|m].
+  - reflexivity.
+  - simpl. apply (Logic.f_equal S). apply IH.
+Qed.
 
 Instance nat_iso : Iso nat imported_nat.
 Proof.

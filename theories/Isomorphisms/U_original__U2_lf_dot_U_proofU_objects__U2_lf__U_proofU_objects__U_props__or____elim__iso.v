@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__or__iso.
 
-Definition imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__elim : forall x x0 x1 : SProp, imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or x x0 -> (x -> x1) -> (x0 -> x1) -> x1 := Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__elim.
-Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__elim_iso : forall (x1 : Prop) (x2 : SProp) (hx : Iso x1 x2) (x3 : Prop) (x4 : SProp) (hx0 : Iso x3 x4) (x5 : Prop) (x6 : SProp) (hx1 : Iso x5 x6)
+Monomorphic Definition imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__elim : forall x x0 x1 : SProp, imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or x x0 -> (x -> x1) -> (x0 -> x1) -> x1 := Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__elim.
+Monomorphic Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or__elim_iso : forall (x1 : Prop) (x2 : SProp) (hx : Iso x1 x2) (x3 : Prop) (x4 : SProp) (hx0 : Iso x3 x4) (x5 : Prop) (x6 : SProp) (hx1 : Iso x5 x6)
     (x7 : Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or x1 x3) (x8 : imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or x2 x4),
   rel_iso (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso hx hx0) x7 x8 ->
   forall (x9 : x1 -> x5) (x10 : x2 -> x6),

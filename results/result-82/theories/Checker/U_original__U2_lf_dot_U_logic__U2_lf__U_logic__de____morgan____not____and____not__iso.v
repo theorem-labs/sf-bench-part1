@@ -1,0 +1,31 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__de____morgan____not____and____not__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__de____morgan____not____and____not__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__de____morgan____not____and____not__iso.Args. End Args.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__de____morgan____not____and____not__iso.imported_Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not Isomorphisms.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__de____morgan____not____and____not__iso.Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__de____morgan____not____and____not__iso.Interface args
+  with Definition imported_Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not := Imported.Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not.
+
+Definition imported_Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not := Isomorphisms.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__de____morgan____not____and____not__iso.imported_Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not.
+Definition Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not_iso := Isomorphisms.U_original__U2_lf_dot_U_logic__U2_lf__U_logic__de____morgan____not____and____not__iso.Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__Logic_LF_Logic_de__morgan__not__and__not_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

@@ -25,27 +25,9 @@ Parameter imported_Original_LF__DOT__Logic_LF_Logic_eqb__neq : forall x x0 : imp
     (imported_Corelib_Init_Logic_eq x x0 -> imported_False).
 Parameter Original_LF__DOT__Logic_LF_Logic_eqb__neq_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4),
   rel_iso
-    {|
-      to :=
-        iff_iso (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_eqb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_false_iso) (IsoArrow (Corelib_Init_Logic_eq_iso hx hx0) False_iso);
-      from :=
-        from
-          (iff_iso (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_eqb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_false_iso) (IsoArrow (Corelib_Init_Logic_eq_iso hx hx0) False_iso));
-      to_from :=
-        fun
-          x : imported_iff (imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_eqb x2 x4) imported_Original_LF__DOT__Basics_LF_Basics_false)
-                (imported_Corelib_Init_Logic_eq x2 x4 -> imported_False) =>
-        to_from
-          (iff_iso (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_eqb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_false_iso) (IsoArrow (Corelib_Init_Logic_eq_iso hx hx0) False_iso))
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_Basics.LF.Basics.eqb x1 x3 = Original.LF_DOT_Basics.LF.Basics.false <-> x1 <> x3 =>
-        seq_p_of_t
-          (from_to
-             (iff_iso (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_eqb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_false_iso)
-                (IsoArrow (Corelib_Init_Logic_eq_iso hx hx0) False_iso))
-             x)
-    |} (Original.LF_DOT_Logic.LF.Logic.eqb_neq x1 x3) (imported_Original_LF__DOT__Logic_LF_Logic_eqb__neq x2 x4).
+    (relax_Iso_Ts_Ps
+       (iff_iso (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_eqb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_false_iso) (IsoArrow (Corelib_Init_Logic_eq_iso hx hx0) False_iso)))
+    (Original.LF_DOT_Logic.LF.Logic.eqb_neq x1 x3) (imported_Original_LF__DOT__Logic_LF_Logic_eqb__neq x2 x4).
 Existing Instance Original_LF__DOT__Logic_LF_Logic_eqb__neq_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Logic.LF.Logic.eqb_neq ?x) => unify x Original_LF__DOT__Logic_LF_Logic_eqb__neq_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Logic.LF.Logic.eqb_neq imported_Original_LF__DOT__Logic_LF_Logic_eqb__neq ?x) => unify x Original_LF__DOT__Logic_LF_Logic_eqb__neq_iso; constructor : typeclass_instances.

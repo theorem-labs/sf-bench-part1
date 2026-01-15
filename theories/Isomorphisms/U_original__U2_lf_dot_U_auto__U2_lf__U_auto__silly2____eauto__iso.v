@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,10 +10,10 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.__0__iso Isomorphisms.U_s__iso Isomorphisms.ex__iso.
 
-Definition imported_Original_LF__DOT__Auto_LF_Auto_silly2__eauto : forall (x : imported_nat -> imported_nat -> SProp) (x0 : imported_nat -> SProp),
+Monomorphic Definition imported_Original_LF__DOT__Auto_LF_Auto_silly2__eauto : forall (x : imported_nat -> imported_nat -> SProp) (x0 : imported_nat -> SProp),
   imported_ex (fun x1 : imported_nat => x (imported_S (imported_S (imported_S (iterate1 imported_S 39 imported_0)))) x1) ->
   (forall x1 x2 : imported_nat, x x1 x2 -> x0 x1) -> x0 (imported_S (imported_S (imported_S (iterate1 imported_S 39 imported_0)))) := Imported.Original_LF__DOT__Auto_LF_Auto_silly2__eauto.
-Instance Original_LF__DOT__Auto_LF_Auto_silly2__eauto_iso : forall (x1 : nat -> nat -> Prop) (x2 : imported_nat -> imported_nat -> SProp)
+Monomorphic Instance Original_LF__DOT__Auto_LF_Auto_silly2__eauto_iso : forall (x1 : nat -> nat -> Prop) (x2 : imported_nat -> imported_nat -> SProp)
     (hx : forall (x3 : nat) (x4 : imported_nat), rel_iso nat_iso x3 x4 -> forall (x5 : nat) (x6 : imported_nat), rel_iso nat_iso x5 x6 -> Iso (x1 x3 x5) (x2 x4 x6)) (x3 : nat -> Prop)
     (x4 : imported_nat -> SProp) (hx0 : forall (x5 : nat) (x6 : imported_nat), rel_iso nat_iso x5 x6 -> Iso (x3 x5) (x4 x6)) (x5 : exists y : nat, x1 42 y)
     (x6 : imported_ex (fun x : imported_nat => x2 (imported_S (imported_S (imported_S (iterate1 imported_S 39 imported_0)))) x)),

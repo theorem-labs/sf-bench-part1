@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.cons__iso Isomorphisms.nil__iso Isomorphisms.__0__iso Isomorphisms.U_list__U_in__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_In10 : imported_List_In (imported_S (imported_S (imported_S (iterate1 imported_S 7 imported_0))))
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_In10 : imported_List_In (imported_S (imported_S (imported_S (iterate1 imported_S 7 imported_0))))
     (imported_cons (imported_S imported_0)
        (imported_cons (imported_S (imported_S imported_0))
           (imported_cons (imported_S (imported_S (imported_S imported_0)))
@@ -21,7 +21,7 @@ Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_In10 : imported_List_In (i
                          (imported_cons (imported_S (imported_S (imported_S (iterate1 imported_S 5 imported_0))))
                             (imported_cons (imported_S (imported_S (imported_S (iterate1 imported_S 6 imported_0))))
                                (imported_cons (imported_S (imported_S (imported_S (iterate1 imported_S 7 imported_0)))) (imported_nil imported_nat))))))))))) := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_In10.
-Instance Original_LF__DOT__Imp_LF_Imp_AExp_In10_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_AExp_In10_iso : rel_iso
     (List_In_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 7 0 imported_0 _0_iso))))
        (cons_iso (S_iso _0_iso)
           (cons_iso (S_iso (S_iso _0_iso))

@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,14 +10,14 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__nostutter__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__cons__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso Isomorphisms.__0__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__1 : imported_Original_LF__DOT__IndProp_LF_IndProp_nostutter
+Monomorphic Definition imported_Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__1 : imported_Original_LF__DOT__IndProp_LF_IndProp_nostutter
     (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S imported_0)))
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
              (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
                 (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))
                    (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 3 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))))) := Imported.Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__1.
-Instance Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__1_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__1_iso : rel_iso
     (Original_LF__DOT__IndProp_LF_IndProp_nostutter_iso
        (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso _0_iso)))
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)

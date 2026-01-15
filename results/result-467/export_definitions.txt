@@ -1,1 +1,0 @@
-PTrue Corelib_Init_Logic_eq Corelib_Init_Logic_eq_Prop nat S Original_LF__DOT__Basics_LF_Basics_minustwo Original_LF__DOT__Poly_LF_Poly_doit3times

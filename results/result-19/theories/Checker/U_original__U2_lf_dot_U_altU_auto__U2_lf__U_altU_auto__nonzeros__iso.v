@@ -1,0 +1,32 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nonzeros__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nonzeros__iso.
+From IsomorphismChecker Require Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__list__iso Checker.nat__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nonzeros__iso.Args := Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__list__iso.Checker <+ Checker.nat__iso.Checker.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nonzeros__iso.imported_Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nonzeros__iso.Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nonzeros__iso.Interface args
+  with Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros := Imported.Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros.
+
+Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros := Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nonzeros__iso.imported_Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros.
+Definition Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros_iso := Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__nonzeros__iso.Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__AltAuto_LF_AltAuto_nonzeros_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

@@ -9,24 +9,24 @@ Typeclasses Opaque rel_iso. (* for speed *)
 
 
 Definition imported_True : SProp := Imported.True.
-
-(* Iso between Prop True and SProp True *)
-(* Note: to_from is in SProp, from_to is in IsomorphismDefinitions.eq (which is also SProp) *)
-Instance True_iso : (Iso True imported_True).
+Instance True_iso : (Iso Logic.True imported_True).
 Proof.
   unshelve eapply Build_Iso.
-  - (* to: True -> imported_True (SProp) *)
-    intro H. exact Imported.True_intro.
+  - (* to: True -> imported_True *)
+    exact (fun _ => Imported.True_intro).
   - (* from: imported_True -> True *)
-    intro H. exact Logic.I.
-  - (* to_from: eq in SProp, so proof irrelevance applies automatically *)
+    exact (fun _ => I).
+  - (* to_from: forall x, eq (to (from x)) x *)
+    intro x. 
+    (* In SProp, all inhabitants are equal by definition *)
+    apply IsomorphismDefinitions.eq_refl.
+  - (* from_to: forall x, eq (from (to x)) x *)
     intro x.
-    (* SProp values are definitionally equal *)
-    exact (IsomorphismDefinitions.eq_refl Imported.True_intro).
-  - (* from_to *)
-    intro x; destruct x; apply IsomorphismDefinitions.eq_refl.
+    (* x : True (Prop), need to show eq I x *)
+    destruct x.
+    apply IsomorphismDefinitions.eq_refl.
 Defined.
-Instance: KnownConstant True := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Logic.True := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.True := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor True True_iso := {}.
-Instance: IsoStatementProofBetween True Imported.True True_iso := {}.
+Instance: IsoStatementProofFor Logic.True True_iso := {}.
+Instance: IsoStatementProofBetween Logic.True Imported.True True_iso := {}.

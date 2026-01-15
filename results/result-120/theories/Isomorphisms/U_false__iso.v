@@ -1,28 +1,25 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
-(* Define False manually since it's not in Imported.v *)
-Inductive imported_False : SProp := .
+Definition imported_False : SProp := Imported.FalseType.
+
+Definition False_to_imported (f : False) : imported_False := False_sind _ f.
+Definition imported_to_False (f : imported_False) : False := Imported.FalseType_recl (fun _ => False) f.
+
 Instance False_iso : (Iso False imported_False).
 Proof.
-  unshelve eapply Build_Iso.
-  - (* to: False -> imported_False *)
-    exact (fun f => match f with end).
-  - (* from: imported_False -> False *)
-    exact (fun f => match f with end).
-  - (* to_from *)
-    intro f. destruct f.
-  - (* from_to *)
-    intro f. destruct f.
+  exists False_to_imported imported_to_False.
+  - intro x. apply IsomorphismDefinitions.eq_refl.
+  - intro x. destruct x.
 Defined.
-Instance: KnownConstant False := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant imported_False := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor False False_iso := {}.
-Instance: IsoStatementProofBetween False imported_False False_iso := {}.
+Instance: KnownConstant Logic.False := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.FalseType := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Logic.False False_iso := {}.
+Instance: IsoStatementProofBetween Logic.False Imported.FalseType False_iso := {}.

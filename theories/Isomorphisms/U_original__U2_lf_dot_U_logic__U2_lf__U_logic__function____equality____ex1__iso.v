@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,9 +10,9 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.__0__iso Isomorphisms.U_nat__add__iso Isomorphisms.U_nat__pred__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__Logic_LF_Logic_function__equality__ex1 : imported_Corelib_Init_Logic_eq (fun x2 : imported_nat => imported_Nat_add (imported_S (imported_S (imported_S imported_0))) x2)
+Monomorphic Definition imported_Original_LF__DOT__Logic_LF_Logic_function__equality__ex1 : imported_Corelib_Init_Logic_eq (fun x2 : imported_nat => imported_Nat_add (imported_S (imported_S (imported_S imported_0))) x2)
     (fun x2 : imported_nat => imported_Nat_add (imported_Nat_pred (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))) x2) := Imported.Original_LF__DOT__Logic_LF_Logic_function__equality__ex1.
-Instance Original_LF__DOT__Logic_LF_Logic_function__equality__ex1_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Logic_LF_Logic_function__equality__ex1_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (IsoFunND (fun x : nat => 3 + x) (fun x2 : imported_nat => imported_Nat_add (imported_S (imported_S (imported_S imported_0))) x2)
           (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) => Nat_add_iso (S_iso (S_iso (S_iso _0_iso))) hx))

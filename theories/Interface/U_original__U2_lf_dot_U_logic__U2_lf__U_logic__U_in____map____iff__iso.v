@@ -27,45 +27,13 @@ Parameter Original_LF__DOT__Logic_LF_Logic_In__map__iff_iso : forall (x1 x2 : Ty
     (x7 : Original.LF_DOT_Poly.LF.Poly.list x1) (x8 : imported_Original_LF__DOT__Poly_LF_Poly_list x2) (hx2 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso hx) x7 x8) (x9 : x3) 
     (x10 : x4) (hx3 : rel_iso hx0 x9 x10),
   rel_iso
-    {|
-      to :=
-        iff_iso
+    (relax_Iso_Ts_Ps
+       (iff_iso
           (Original_LF__DOT__Logic_LF_Logic_In_iso hx3 (Original_LF__DOT__Poly_LF_Poly_map_iso x5 (fun H : x2 => x6 H) (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => hx1 x11 x12 hx4) hx2))
           (ex_iso (fun x : x1 => x5 x = x9 /\ Original.LF_DOT_Logic.LF.Logic.In x x7)
              (fun H : x2 => imported_and (imported_Corelib_Init_Logic_eq (x6 H) x10) (imported_Original_LF__DOT__Logic_LF_Logic_In H x8))
-             (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => and_iso (Corelib_Init_Logic_eq_iso (hx1 x11 x12 hx4) hx3) (Original_LF__DOT__Logic_LF_Logic_In_iso hx4 hx2)));
-      from :=
-        from
-          (iff_iso
-             (Original_LF__DOT__Logic_LF_Logic_In_iso hx3
-                (Original_LF__DOT__Poly_LF_Poly_map_iso x5 (fun H : x2 => x6 H) (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => hx1 x11 x12 hx4) hx2))
-             (ex_iso (fun x : x1 => x5 x = x9 /\ Original.LF_DOT_Logic.LF.Logic.In x x7)
-                (fun H : x2 => imported_and (imported_Corelib_Init_Logic_eq (x6 H) x10) (imported_Original_LF__DOT__Logic_LF_Logic_In H x8))
-                (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => and_iso (Corelib_Init_Logic_eq_iso (hx1 x11 x12 hx4) hx3) (Original_LF__DOT__Logic_LF_Logic_In_iso hx4 hx2))));
-      to_from :=
-        fun
-          x : imported_iff (imported_Original_LF__DOT__Logic_LF_Logic_In x10 (imported_Original_LF__DOT__Poly_LF_Poly_map (fun H : x2 => x6 H) x8))
-                (imported_ex (fun H : x2 => imported_and (imported_Corelib_Init_Logic_eq (x6 H) x10) (imported_Original_LF__DOT__Logic_LF_Logic_In H x8))) =>
-        to_from
-          (iff_iso
-             (Original_LF__DOT__Logic_LF_Logic_In_iso hx3
-                (Original_LF__DOT__Poly_LF_Poly_map_iso x5 (fun H : x2 => x6 H) (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => hx1 x11 x12 hx4) hx2))
-             (ex_iso (fun x0 : x1 => x5 x0 = x9 /\ Original.LF_DOT_Logic.LF.Logic.In x0 x7)
-                (fun H : x2 => imported_and (imported_Corelib_Init_Logic_eq (x6 H) x10) (imported_Original_LF__DOT__Logic_LF_Logic_In H x8))
-                (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => and_iso (Corelib_Init_Logic_eq_iso (hx1 x11 x12 hx4) hx3) (Original_LF__DOT__Logic_LF_Logic_In_iso hx4 hx2))))
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_Logic.LF.Logic.In x9 (Original.LF_DOT_Poly.LF.Poly.map x5 x7) <-> (exists x : x1, x5 x = x9 /\ Original.LF_DOT_Logic.LF.Logic.In x x7) =>
-        seq_p_of_t
-          (from_to
-             (iff_iso
-                (Original_LF__DOT__Logic_LF_Logic_In_iso hx3
-                   (Original_LF__DOT__Poly_LF_Poly_map_iso x5 (fun H : x2 => x6 H) (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => hx1 x11 x12 hx4) hx2))
-                (ex_iso (fun x0 : x1 => x5 x0 = x9 /\ Original.LF_DOT_Logic.LF.Logic.In x0 x7)
-                   (fun H : x2 => imported_and (imported_Corelib_Init_Logic_eq (x6 H) x10) (imported_Original_LF__DOT__Logic_LF_Logic_In H x8))
-                   (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => and_iso (Corelib_Init_Logic_eq_iso (hx1 x11 x12 hx4) hx3) (Original_LF__DOT__Logic_LF_Logic_In_iso hx4 hx2))))
-             x)
-    |} (Original.LF_DOT_Logic.LF.Logic.In_map_iff x1 x3 x5 x7 x9) (imported_Original_LF__DOT__Logic_LF_Logic_In__map__iff x6 x8 x10).
+             (fun (x11 : x1) (x12 : x2) (hx4 : rel_iso hx x11 x12) => and_iso (Corelib_Init_Logic_eq_iso (hx1 x11 x12 hx4) hx3) (Original_LF__DOT__Logic_LF_Logic_In_iso hx4 hx2)))))
+    (Original.LF_DOT_Logic.LF.Logic.In_map_iff x1 x3 x5 x7 x9) (imported_Original_LF__DOT__Logic_LF_Logic_In__map__iff x6 x8 x10).
 Existing Instance Original_LF__DOT__Logic_LF_Logic_In__map__iff_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Logic.LF.Logic.In_map_iff ?x) => unify x Original_LF__DOT__Logic_LF_Logic_In__map__iff_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Logic.LF.Logic.In_map_iff imported_Original_LF__DOT__Logic_LF_Logic_In__map__iff ?x) => unify x Original_LF__DOT__Logic_LF_Logic_In__map__iff_iso; constructor : typeclass_instances.

@@ -27,12 +27,7 @@ Definition imported_Original_LF__DOT__Logic_LF_Logic_excluded__middle : SProp
 Definition Original_LF__DOT__Logic_LF_Logic_excluded__middle_iso : Iso Original.LF_DOT_Logic.LF.Logic.excluded_middle imported_Original_LF__DOT__Logic_LF_Logic_excluded__middle
   := IsoForall (fun a : Prop => a \/ ~ a) (fun x2 : SProp => imported_or x2 (x2 -> imported_False))
     (fun (x1 : Prop) (x2 : SProp) (hx : rel_iso iso_Prop_SProp x1 x2) =>
-     {|
-       to := or_iso (iso_of_rel_iso_iso_sort_PropSProp_T hx) (IsoArrow (iso_of_rel_iso_iso_sort_PropSProp_T hx) False_iso);
-       from := from (or_iso (iso_of_rel_iso_iso_sort_PropSProp_T hx) (IsoArrow (iso_of_rel_iso_iso_sort_PropSProp_T hx) False_iso));
-       to_from := fun x : imported_or x2 (x2 -> imported_False) => to_from (or_iso (iso_of_rel_iso_iso_sort_PropSProp_T hx) (IsoArrow (iso_of_rel_iso_iso_sort_PropSProp_T hx) False_iso)) x;
-       from_to := fun x : x1 \/ ~ x1 => seq_p_of_t (from_to (or_iso (iso_of_rel_iso_iso_sort_PropSProp_T hx) (IsoArrow (iso_of_rel_iso_iso_sort_PropSProp_T hx) False_iso)) x)
-     |}).
+     relax_Iso_Ts_Ps (or_iso (iso_of_rel_iso_iso_sort_PropSProp_T hx) (IsoArrow (iso_of_rel_iso_iso_sort_PropSProp_T hx) False_iso))).
 Existing Instance Original_LF__DOT__Logic_LF_Logic_excluded__middle_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Logic.LF.Logic.excluded_middle ?x) => unify x Original_LF__DOT__Logic_LF_Logic_excluded__middle_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Logic.LF.Logic.excluded_middle imported_Original_LF__DOT__Logic_LF_Logic_excluded__middle ?x) => unify x Original_LF__DOT__Logic_LF_Logic_excluded__middle_iso; constructor : typeclass_instances.

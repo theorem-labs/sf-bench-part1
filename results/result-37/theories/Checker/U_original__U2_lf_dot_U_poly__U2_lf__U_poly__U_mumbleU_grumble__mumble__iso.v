@@ -1,0 +1,31 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_mumbleU_grumble__mumble__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_mumbleU_grumble__mumble__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_mumbleU_grumble__mumble__iso.Args. End Args.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_mumbleU_grumble__mumble__iso.imported_Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_mumbleU_grumble__mumble__iso.Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_mumbleU_grumble__mumble__iso.Interface args
+  with Definition imported_Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble := Imported.Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble.
+
+Definition imported_Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble := Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_mumbleU_grumble__mumble__iso.imported_Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble.
+Definition Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble_iso := Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_mumbleU_grumble__mumble__iso.Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__Poly_LF_Poly_MumbleGrumble_mumble_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

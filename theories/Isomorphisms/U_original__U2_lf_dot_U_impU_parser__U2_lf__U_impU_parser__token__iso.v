@@ -1,15 +1,15 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 #[local] Set Printing Coercions.
 
 
-Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_token : Type := Imported.Original_LF__DOT__ImpParser_LF_ImpParser_token.
-Instance Original_LF__DOT__ImpParser_LF_ImpParser_token_iso : Iso Original.LF_DOT_ImpParser.LF.ImpParser.token imported_Original_LF__DOT__ImpParser_LF_ImpParser_token.
+Monomorphic Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_token : Type := Imported.Original_LF__DOT__ImpParser_LF_ImpParser_token.
+Monomorphic Instance Original_LF__DOT__ImpParser_LF_ImpParser_token_iso : Iso Original.LF_DOT_ImpParser.LF.ImpParser.token imported_Original_LF__DOT__ImpParser_LF_ImpParser_token.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_ImpParser.LF.ImpParser.token := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__ImpParser_LF_ImpParser_token := {}. (* only needed when rel_iso is typeclasses opaque *)

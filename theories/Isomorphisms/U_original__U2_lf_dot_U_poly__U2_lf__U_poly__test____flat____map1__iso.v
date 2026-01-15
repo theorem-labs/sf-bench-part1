@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__cons__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__flat____map__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso Isomorphisms.__0__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__Poly_LF_Poly_test__flat__map1 : imported_Corelib_Init_Logic_eq
+Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_test__flat__map1 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Poly_LF_Poly_flat__map
        (fun x : imported_nat =>
         imported_Original_LF__DOT__Poly_LF_Poly_cons x
@@ -28,7 +28,7 @@ Definition imported_Original_LF__DOT__Poly_LF_Poly_test__flat__map1 : imported_C
                          (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
                             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
                                (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))))))) := Imported.Original_LF__DOT__Poly_LF_Poly_test__flat__map1.
-Instance Original_LF__DOT__Poly_LF_Poly_test__flat__map1_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_test__flat__map1_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Poly_LF_Poly_flat__map_iso
           (fun n : nat => Original.LF_DOT_Poly.LF.Poly.cons n (Original.LF_DOT_Poly.LF.Poly.cons n (Original.LF_DOT_Poly.LF.Poly.cons n Original.LF_DOT_Poly.LF.Poly.nil)))

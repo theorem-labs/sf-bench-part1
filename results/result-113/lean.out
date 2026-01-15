@@ -1,274 +1,248 @@
-1 #NS 0 nat
-2 #NS 1 zero
+1 #NS 0 bool
+2 #NS 1 true
 0 #EC 1 
-3 #NS 1 succ
-4 #NS 0 a
-5 #NS 4 _@
-6 #NS 5 U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__ev____plus2__iso
-7 #NS 6 _hyg
-8 #NI 7 6
-1 #EP #BD 8 0 0
+3 #NS 1 false
 1 #US 0
-2 #ES 1
-#IND 0 1 2 2 2 0 3 1 
-9 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_ev
-10 #NS 9 ev_0
-3 #EC 9 
-4 #EC 2 
-5 #EA 3 4
-11 #NS 9 ev_SS
-12 #NS 0 n
-13 #NI 7 97
-6 #EV 0
-7 #EA 3 6
-8 #EC 3 
-9 #EV 1
-10 #EA 8 9
-11 #EA 8 10
-12 #EA 3 11
-13 #EP #BD 13 7 12
-14 #EP #BD 12 0 13
-14 #NI 7 87
-15 #ES 0
-16 #EP #BD 14 0 15
-#IND 0 9 16 2 10 5 11 14 
-15 #NS 0 PUnit
-16 #NS 15 unit
-17 #NS 0 u
-2 #UP 17
-17 #EC 15 2
-18 #ES 2
-#IND 0 15 18 1 16 17 17
-18 #NS 0 PProd
-19 #NS 18 mk
-20 #NS 0 α
-21 #NS 0 β
-22 #NS 0 v
-3 #UP 22
-19 #ES 3
-23 #NS 0 fst
-24 #NS 0 snd
-20 #EC 18 2 3
-21 #EV 3
-22 #EA 20 21
-23 #EV 2
-24 #EA 22 23
-25 #EP #BD 24 9 24
-26 #EP #BD 23 9 25
-27 #EP #BI 21 19 26
-28 #EP #BI 20 18 27
-4 #UM 1 2
-5 #UM 4 3
-29 #ES 5
-30 #EP #BD 21 19 29
-31 #EP #BD 20 18 30
-#IND 2 18 31 1 19 28 17 22
-25 #NS 1 below
-26 #NS 0 motive
-27 #NS 0 t
-32 #EP #BD 27 0 18
-33 #ES 4
-34 #EP #BD 27 0 33
-35 #EP #BI 26 32 34
-28 #NS 1 rec
-6 #US 4
-36 #EC 28 6
-37 #EL #BD 27 0 33
-38 #EA 36 37
-39 #EC 15 4
-40 #EA 38 39
-29 #NS 0 a_ih
-30 #NS 29 _@
-31 #NS 30 U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__ev____plus2__iso
-32 #NS 31 _hyg
-33 #NI 32 6
-41 #EC 18 2 4
-42 #EA 21 9
-43 #EA 41 42
-44 #EA 43 6
-45 #EL #BD 33 33 44
-46 #EL #BD 8 0 45
-47 #EA 40 46
-48 #EA 47 6
-49 #EL #BD 27 0 48
-50 #EL #BI 26 32 49
-#DEF 25 35 50 17
-34 #NS 1 brecOn
-35 #NS 0 F_1
-36 #NS 0 f
-51 #EC 25 2
-52 #EA 51 23
-53 #EA 52 6
-54 #EP #BD 36 53 42
-55 #EP #BD 27 0 54
-56 #EA 23 9
-57 #EP #BD 35 55 56
-58 #EP #BD 27 0 57
-59 #EP #BI 26 32 58
-60 #EC 28 4
-61 #EA 21 6
-62 #EA 41 61
-63 #EA 51 21
-64 #EA 63 6
-65 #EA 62 64
-66 #EL #BD 27 0 65
-67 #EA 60 66
-68 #EC 19 2 4
-69 #EA 23 4
-70 #EA 68 69
-71 #EA 70 39
-72 #EA 6 4
-73 #EC 16 4
-74 #EA 72 73
-75 #EA 71 74
-76 #EA 75 73
-77 #EA 67 76
-78 #EV 4
-79 #EA 78 10
-80 #EA 68 79
-81 #EA 78 9
-82 #EA 41 81
-83 #EA 51 78
-84 #EA 83 9
-85 #EA 82 84
-86 #EA 80 85
-87 #EA 23 10
-88 #EA 87 6
-89 #EA 86 88
-90 #EA 89 6
-91 #EL #BD 33 65 90
-92 #EL #BD 8 0 91
-93 #EA 77 92
-94 #EA 93 9
-95 #EJ 18 0 94
-96 #EL #BD 35 55 95
-97 #EL #BD 27 0 96
-98 #EL #BI 26 32 97
-#DEF 34 59 98 17
-37 #NS 1 casesOn
-38 #NS 0 zero
-99 #EA 9 4
-39 #NS 0 succ
-100 #EA 8 6
-101 #EA 21 100
-102 #EP #BD 8 0 101
-103 #EA 21 23
-104 #EP #BD 39 102 103
-105 #EP #BD 38 99 104
-106 #EP #BD 27 0 105
-107 #EP #BI 26 32 106
-108 #EC 28 2
-109 #EA 108 21
-110 #EA 109 9
-111 #EA 78 6
-112 #EL #BD 33 111 56
-113 #EL #BD 8 0 112
-114 #EA 110 113
-115 #EA 114 23
-116 #EL #BD 39 102 115
-117 #EL #BD 38 99 116
-118 #EL #BD 27 0 117
-119 #EL #BI 26 32 118
-#DEF 37 107 119 17
-40 #NS 1 add
-41 #NS 40 match_1
-42 #NS 0 x
-43 #NS 42 _@
-44 #NS 43 U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__ev____plus2__iso
-45 #NS 44 _hyg
-46 #NI 45 28
-47 #NI 46 47
-48 #NI 45 29
-49 #NI 48 50
-50 #NS 0 u_1
-7 #UP 50
-120 #ES 7
-121 #EP #BD 49 0 120
-122 #EP #BD 47 0 121
-51 #NS 0 h_1
-52 #NS 0 m
-123 #EA 21 4
-124 #EA 123 6
-125 #EP #BD 52 0 124
-53 #NS 0 h_2
-126 #EV 5
-127 #EA 126 10
-128 #EA 127 6
-129 #EP #BD 52 0 128
-130 #EP #BD 12 0 129
-131 #EA 78 21
-132 #EA 131 23
-133 #EP #BD 53 130 132
-134 #EP #BD 51 125 133
-135 #EP #BD 49 0 134
-136 #EP #BD 47 0 135
-137 #EP #BD 26 122 136
-138 #EC 37 7
-139 #EA 126 6
-140 #EA 139 21
-141 #EL #BD 42 0 140
-142 #EA 138 141
-143 #EA 142 21
-144 #EA 9 23
-145 #EA 143 144
-54 #NI 8 73
-146 #EA 9 6
-147 #EA 146 21
-148 #EL #BD 54 0 147
-149 #EA 145 148
-150 #EL #BD 53 130 149
-151 #EL #BD 51 125 150
-152 #EL #BD 49 0 151
-153 #EL #BD 47 0 152
-154 #EL #BD 26 122 153
-#DEF 41 137 154 50
-55 #NI 7 23
-155 #EP #BD 55 0 1
-156 #EC 34 1
-157 #EL #BD 46 0 1
-158 #EA 156 157
-159 #EA 158 9
-160 #EC 25 1
-161 #EA 160 157
-162 #EA 161 6
-163 #EC 41 1
-56 #NI 45 74
-164 #EA 161 9
-165 #EP #BD 56 164 0
-166 #EL #BD 49 0 165
-167 #EL #BD 47 0 166
-168 #EA 163 167
-169 #EA 168 23
-170 #EA 169 6
-171 #EA 161 4
-172 #EL #BD 56 171 9
-173 #EL #BD 52 0 172
-174 #EA 170 173
-175 #EA 161 10
-176 #EJ 18 0 6
-177 #EA 176 9
-178 #EA 8 177
-179 #EL #BD 56 175 178
-180 #EL #BD 52 0 179
-181 #EL #BD 12 0 180
-182 #EA 174 181
-183 #EA 182 9
-184 #EL #BD 48 0 183
-185 #EL #BD 36 162 184
-186 #EL #BD 46 0 185
-187 #EA 159 186
-188 #EA 187 6
-189 #EL #BD 48 0 188
-190 #EL #BD 46 0 189
-#DEF 40 155 190 
-57 #NS 0 Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus2
-58 #NI 7 123
-191 #EC 40 
-192 #EA 191 9
-193 #EA 8 4
-194 #EA 8 193
-195 #EA 192 194
-196 #EA 3 195
-197 #EP #BD 58 7 196
-198 #EP #BD 12 0 197
-#DEF 57 15 198 
+1 #ES 1
+#IND 0 1 1 2 2 0 3 0 
+4 #NS 0 mybool
+#DEF 4 1 0 
+5 #NS 0 mybool_mytrue
+2 #EC 2 
+#DEF 5 0 2 
+6 #NS 0 mybool_myfalse
+3 #EC 3 
+#DEF 6 0 3 
+7 #NS 0 Ascii_ascii
+8 #NS 7 Ascii
+9 #NS 0 a
+10 #NS 9 _@
+11 #NS 10 U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__break____ignore__iso
+12 #NS 11 _hyg
+13 #NI 12 25
+4 #EC 4 
+14 #NI 12 27
+15 #NI 12 29
+16 #NI 12 31
+17 #NI 12 33
+18 #NI 12 35
+19 #NI 12 37
+20 #NI 12 39
+5 #EC 7 
+6 #EP #BD 20 4 5
+7 #EP #BD 19 4 6
+8 #EP #BD 18 4 7
+9 #EP #BD 17 4 8
+10 #EP #BD 16 4 9
+11 #EP #BD 15 4 10
+12 #EP #BD 14 4 11
+13 #EP #BD 13 4 12
+#IND 0 7 1 1 8 13 
+21 #NS 0 Ascii_Ascii
+14 #EC 8 
+#DEF 21 13 14 
+22 #NS 0 String_string
+23 #NS 22 EmptyString
+15 #EC 22 
+24 #NS 22 String
+25 #NI 12 107
+26 #NI 12 109
+16 #EP #BD 26 15 15
+17 #EP #BD 25 5 16
+#IND 0 22 1 2 23 15 24 17 
+27 #NS 0 nat
+28 #NS 27 O
+18 #EC 27 
+29 #NS 27 S
+30 #NI 12 131
+19 #EP #BD 30 18 18
+#IND 0 27 1 2 28 18 29 19 
+31 #NS 0 Original_LF__DOT__Maps_LF_Maps_total__map
+32 #NS 0 A
+20 #EP #BD 32 1 1
+33 #NI 12 146
+21 #EV 1
+22 #EP #BD 33 15 21
+23 #EL #BD 32 1 22
+#DEF 31 20 23 
+34 #NS 0 Original_LF__DOT__Imp_LF_Imp_state
+24 #EC 31 
+25 #EA 24 18
+#DEF 34 1 25 
+35 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp
+36 #NS 35 ANum
+37 #NI 12 157
+26 #EC 35 
+27 #EP #BD 37 18 26
+38 #NS 35 AId
+39 #NI 12 160
+28 #EP #BD 39 15 26
+40 #NS 35 APlus
+41 #NI 12 163
+42 #NI 12 165
+29 #EP #BD 42 26 26
+30 #EP #BD 41 26 29
+43 #NS 35 AMinus
+44 #NS 35 AMult
+#IND 0 35 1 5 36 27 38 28 40 30 43 30 44 30 
+45 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp
+46 #NS 45 BTrue
+31 #EC 45 
+47 #NS 45 BFalse
+48 #NS 45 BEq
+49 #NI 12 244
+50 #NI 12 246
+32 #EP #BD 50 26 31
+33 #EP #BD 49 26 32
+51 #NS 45 BNeq
+52 #NS 45 BLe
+53 #NS 45 BGt
+54 #NS 45 BNot
+55 #NI 12 264
+34 #EP #BD 55 31 31
+56 #NS 45 BAnd
+57 #NI 12 267
+35 #EP #BD 57 31 34
+#IND 0 45 1 8 46 31 47 31 48 33 51 33 52 33 53 33 54 34 56 35 
+58 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_result
+59 #NS 58 SContinue
+36 #EC 58 
+60 #NS 58 SBreak
+#IND 0 58 1 2 59 36 60 36 
+61 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_SContinue
+37 #EC 59 
+#DEF 61 36 37 
+62 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_SBreak
+38 #EC 60 
+#DEF 62 36 38 
+63 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_com
+64 #NS 63 CSkip
+39 #EC 63 
+65 #NS 63 CBreak
+66 #NS 63 CAsgn
+67 #NI 12 376
+68 #NI 12 378
+40 #EP #BD 68 26 39
+41 #EP #BD 67 15 40
+69 #NS 63 CSeq
+70 #NI 12 381
+71 #NI 12 383
+42 #EP #BD 71 39 39
+43 #EP #BD 70 39 42
+72 #NS 63 CIf
+73 #NI 12 386
+44 #EP #BD 73 31 43
+74 #NS 63 CWhile
+75 #NI 12 393
+45 #EP #BD 75 31 42
+#IND 0 63 1 6 64 39 65 39 66 41 69 43 72 44 74 45 
+76 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_CSkip
+46 #EC 64 
+#DEF 76 39 46 
+77 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_CBreak
+47 #EC 65 
+#DEF 77 39 47 
+78 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_CAsgn
+48 #EC 66 
+#DEF 78 41 48 
+79 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_CSeq
+49 #EC 69 
+#DEF 79 43 49 
+80 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_CIf
+50 #EC 72 
+#DEF 80 44 50 
+81 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_CWhile
+51 #EC 74 
+#DEF 81 45 51 
+82 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval
+83 #NS 82 E_Skip
+84 #NS 0 st
+52 #EC 34 
+53 #EC 82 
+54 #EA 53 46
+55 #EV 0
+56 #EA 54 55
+57 #EA 56 37
+58 #EA 57 55
+59 #EP #BD 84 52 58
+85 #NI 12 491
+86 #NI 12 493
+87 #NI 12 495
+88 #NI 12 497
+60 #ES 0
+61 #EP #BD 88 52 60
+62 #EP #BD 87 36 61
+63 #EP #BD 86 52 62
+64 #EP #BD 85 39 63
+#IND 0 82 64 1 83 59 
+89 #NS 0 True
+90 #NS 89 intro
+65 #EC 89 
+#IND 0 89 60 1 90 65 
+91 #NS 0 myTrue
+#DEF 91 60 65 
+92 #NS 0 True_I
+66 #EC 91 
+67 #EC 90 
+#DEF 92 66 67 
+93 #NS 0 False
+#IND 0 93 60 0  
+94 #NS 0 list
+95 #NS 94 nil
+68 #EC 94 
+69 #EA 68 55
+70 #EP #BI 32 1 69
+96 #NS 94 cons
+97 #NI 12 529
+98 #NI 12 531
+71 #EA 68 21
+72 #EV 2
+73 #EA 68 72
+74 #EP #BD 98 71 73
+75 #EP #BD 97 55 74
+76 #EP #BI 32 1 75
+#IND 1 94 20 2 95 70 96 76 
+99 #NS 0 Corelib_Init_Logic_eq
+100 #NS 99 refl
+77 #EC 99 
+78 #EA 77 21
+79 #EA 78 55
+80 #EA 79 55
+81 #EP #BI 9 55 80
+82 #EP #BI 32 1 81
+101 #NI 12 614
+83 #EP #BD 101 21 60
+84 #EP #BD 9 55 83
+85 #EP #BI 32 1 84
+#IND 2 99 85 1 100 82 
+102 #NS 0 Corelib_Init_Logic_eq_Prop
+103 #NS 102 refl
+86 #EC 102 
+87 #EA 86 21
+88 #EA 87 55
+89 #EA 88 55
+90 #EP #BI 9 55 89
+91 #EP #BI 32 60 90
+92 #EP #BI 32 60 84
+#IND 2 102 92 1 103 91 
+104 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_break__ignore
+105 #NS 0 c
+106 #NS 0 st'
+107 #NS 0 s
+108 #NI 12 638
+93 #EA 49 47
+94 #EV 3
+95 #EA 93 94
+96 #EA 53 95
+97 #EA 96 72
+98 #EA 97 55
+99 #EA 98 21
+100 #EA 77 52
+101 #EA 100 94
+102 #EA 101 72
+103 #EP #BD 108 99 102
+104 #EP #BD 107 36 103
+105 #EP #BD 106 52 104
+106 #EP #BD 84 52 105
+107 #EP #BD 105 39 106
+#AX 104 107 

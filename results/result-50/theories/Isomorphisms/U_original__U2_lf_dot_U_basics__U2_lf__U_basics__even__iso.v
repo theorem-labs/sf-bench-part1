@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso Isomorphisms.nat__iso.
@@ -27,10 +27,14 @@ Qed.
 Instance Original_LF__DOT__Basics_LF_Basics_even_iso : forall (x1 : nat) (x2 : imported_nat),
   rel_iso nat_iso x1 x2 -> rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso (Original.LF_DOT_Basics.LF.Basics.even x1) (imported_Original_LF__DOT__Basics_LF_Basics_even x2).
 Proof.
-  unfold rel_iso, imported_Original_LF__DOT__Basics_LF_Basics_even.
   intros x1 x2 H.
-  rewrite even_commutes_with_to.
-  apply (IsoEq.f_equal Imported.Original_LF__DOT__Basics_LF_Basics_even H).
+  constructor.
+  unfold imported_Original_LF__DOT__Basics_LF_Basics_even.
+  pose proof (proj_rel_iso H) as Heq.
+  pose proof (even_commutes_with_to x1) as HComm.
+  pose proof (IsoEq.f_equal Imported.Original_LF__DOT__Basics_LF_Basics_even Heq) as H2.
+  destruct Heq.
+  apply (seq_of_eq HComm).
 Defined.
 Instance: KnownConstant Original.LF_DOT_Basics.LF.Basics.even := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Basics_LF_Basics_even := {}. (* only needed when rel_iso is typeclasses opaque *)

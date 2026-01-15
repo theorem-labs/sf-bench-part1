@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,10 +10,10 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso.
 
-Definition imported_Original_LF__DOT__Basics_LF_Basics_identity__fn__applied__twice : forall x : imported_Original_LF__DOT__Basics_LF_Basics_bool -> imported_Original_LF__DOT__Basics_LF_Basics_bool,
+Monomorphic Definition imported_Original_LF__DOT__Basics_LF_Basics_identity__fn__applied__twice : forall x : imported_Original_LF__DOT__Basics_LF_Basics_bool -> imported_Original_LF__DOT__Basics_LF_Basics_bool,
   (forall x0 : imported_Original_LF__DOT__Basics_LF_Basics_bool, imported_Corelib_Init_Logic_eq (x x0) x0) ->
   forall x1 : imported_Original_LF__DOT__Basics_LF_Basics_bool, imported_Corelib_Init_Logic_eq (x (x x1)) x1 := Imported.Original_LF__DOT__Basics_LF_Basics_identity__fn__applied__twice.
-Instance Original_LF__DOT__Basics_LF_Basics_identity__fn__applied__twice_iso : forall (x1 : Original.LF_DOT_Basics.LF.Basics.bool -> Original.LF_DOT_Basics.LF.Basics.bool)
+Monomorphic Instance Original_LF__DOT__Basics_LF_Basics_identity__fn__applied__twice_iso : forall (x1 : Original.LF_DOT_Basics.LF.Basics.bool -> Original.LF_DOT_Basics.LF.Basics.bool)
     (x2 : imported_Original_LF__DOT__Basics_LF_Basics_bool -> imported_Original_LF__DOT__Basics_LF_Basics_bool)
     (hx : forall (x3 : Original.LF_DOT_Basics.LF.Basics.bool) (x4 : imported_Original_LF__DOT__Basics_LF_Basics_bool),
           rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso x3 x4 -> rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso (x1 x3) (x2 x4))

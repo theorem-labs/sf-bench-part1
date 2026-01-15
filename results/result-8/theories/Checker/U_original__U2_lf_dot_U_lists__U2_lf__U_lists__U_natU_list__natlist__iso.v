@@ -1,0 +1,31 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.Args. End Args.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.Interface args
+  with Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natlist.
+
+Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist := Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist.
+Definition Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso := Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

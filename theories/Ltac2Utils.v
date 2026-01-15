@@ -1073,6 +1073,8 @@ Module Constant.
   Ltac2 to_constr (c : constant) := Env.instantiate (Std.ConstRef c).
   Ltac2 to_message (c : constant) := Message.of_constr (to_constr c).
   Ltac2 pr (c : constant) := to_message c.
+  Ltac2 pr_qualified (c : constant) := Reference.pr_qualified (Std.ConstRef c).
+  Ltac2 to_qualified_string (c : constant) := Reference.to_qualified_string (Std.ConstRef c).
 End Constant.
 Ltac2 better_apply0 adv ev cb cl :=
 enter_h ev (fun _ () => Std.apply adv true cb cl) (fun () => ()).

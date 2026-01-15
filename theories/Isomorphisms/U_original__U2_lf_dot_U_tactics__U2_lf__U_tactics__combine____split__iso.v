@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,11 +10,11 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__combine__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__pair__iso Isomorphisms.U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__split__iso.
 
-Definition imported_Original_LF__DOT__Tactics_LF_Tactics_combine__split : forall (x x0 : Type) (x1 : imported_Original_LF__DOT__Poly_LF_Poly_list (imported_Original_LF__DOT__Poly_LF_Poly_prod x x0)) (x2 : imported_Original_LF__DOT__Poly_LF_Poly_list x)
+Monomorphic Definition imported_Original_LF__DOT__Tactics_LF_Tactics_combine__split : forall (x x0 : Type) (x1 : imported_Original_LF__DOT__Poly_LF_Poly_list (imported_Original_LF__DOT__Poly_LF_Poly_prod x x0)) (x2 : imported_Original_LF__DOT__Poly_LF_Poly_list x)
     (x3 : imported_Original_LF__DOT__Poly_LF_Poly_list x0),
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Tactics_LF_Tactics_split x1) (imported_Original_LF__DOT__Poly_LF_Poly_pair x2 x3) ->
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Poly_LF_Poly_combine x2 x3) x1 := Imported.Original_LF__DOT__Tactics_LF_Tactics_combine__split.
-Instance Original_LF__DOT__Tactics_LF_Tactics_combine__split_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 x4 : Type) (hx0 : Iso x3 x4) (x5 : Original.LF_DOT_Poly.LF.Poly.list (Original.LF_DOT_Poly.LF.Poly.prod x1 x3))
+Monomorphic Instance Original_LF__DOT__Tactics_LF_Tactics_combine__split_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 x4 : Type) (hx0 : Iso x3 x4) (x5 : Original.LF_DOT_Poly.LF.Poly.list (Original.LF_DOT_Poly.LF.Poly.prod x1 x3))
     (x6 : imported_Original_LF__DOT__Poly_LF_Poly_list (imported_Original_LF__DOT__Poly_LF_Poly_prod x2 x4))
     (hx1 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso (Original_LF__DOT__Poly_LF_Poly_prod_iso hx hx0)) x5 x6) (x7 : Original.LF_DOT_Poly.LF.Poly.list x1)
     (x8 : imported_Original_LF__DOT__Poly_LF_Poly_list x2) (hx2 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso hx) x7 x8) (x9 : Original.LF_DOT_Poly.LF.Poly.list x3)

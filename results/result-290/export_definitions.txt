@@ -1,1 +1,0 @@
-nat Nat_add Nat_mul PTrue Corelib_Init_Logic_eq Corelib_Init_Logic_eq_Prop Original_LF__DOT__Tactics_LF_Tactics_square

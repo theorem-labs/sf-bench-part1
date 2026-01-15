@@ -1,32 +1,264 @@
-1 #NS 0 True
-2 #NS 1 intro
+1 #NS 0 mybool
+2 #NS 1 bool_true
 0 #EC 1 
-1 #ES 0
-#IND 0 1 1 1 2 0 
-3 #NS 0 and
-4 #NS 3 conj
-5 #NS 0 A
-6 #NS 0 B
-7 #NS 0 a
-8 #NS 7 _@
-9 #NS 8 U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__match____ex2SQUOTE__iso
-10 #NS 9 _hyg
-11 #NI 10 11
-2 #EV 1
-12 #NI 10 13
-3 #EC 3 
-4 #EV 3
-5 #EA 3 4
-6 #EV 2
-7 #EA 5 6
-8 #EP #BD 12 2 7
-9 #EP #BD 11 2 8
-10 #EP #BI 6 1 9
-11 #EP #BI 5 1 10
-12 #EP #BD 6 1 1
-13 #EP #BD 5 1 12
-#IND 2 3 13 1 4 11 
-13 #NS 0 Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'
-14 #EA 3 0
-15 #EA 14 0
-#AX 13 15 
+3 #NS 1 bool_false
+1 #US 0
+1 #ES 1
+#IND 0 1 1 2 2 0 3 0 
+4 #NS 0 Ascii_ascii
+5 #NS 4 mk
+6 #NS 0 b0
+7 #NS 0 b1
+8 #NS 0 b2
+9 #NS 0 b3
+10 #NS 0 b4
+11 #NS 0 b5
+12 #NS 0 b6
+13 #NS 0 b7
+2 #EC 4 
+3 #EP #BD 13 0 2
+4 #EP #BD 12 0 3
+5 #EP #BD 11 0 4
+6 #EP #BD 10 0 5
+7 #EP #BD 9 0 6
+8 #EP #BD 8 0 7
+9 #EP #BD 7 0 8
+10 #EP #BD 6 0 9
+#IND 0 4 1 1 5 10 
+14 #NS 0 String_string
+15 #NS 14 EmptyString
+11 #EC 14 
+16 #NS 14 String
+17 #NS 0 a
+18 #NS 17 _@
+19 #NS 18 U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_breakU_imp__ceval____deterministic__iso
+20 #NS 19 _hyg
+21 #NI 20 112
+22 #NI 20 114
+12 #EP #BD 22 11 11
+13 #EP #BD 21 2 12
+#IND 0 14 1 2 15 11 16 13 
+23 #NS 0 nat
+24 #NS 23 O
+14 #EC 23 
+25 #NS 23 S
+26 #NI 20 144
+15 #EP #BD 26 14 14
+#IND 0 23 1 2 24 14 25 15 
+27 #NS 0 Original_LF__DOT__Imp_LF_Imp_aexp
+28 #NS 27 ANum
+29 #NI 20 170
+16 #EC 27 
+17 #EP #BD 29 14 16
+30 #NS 27 AId
+31 #NI 20 173
+18 #EP #BD 31 11 16
+32 #NS 27 APlus
+33 #NI 20 176
+34 #NI 20 178
+19 #EP #BD 34 16 16
+20 #EP #BD 33 16 19
+35 #NS 27 AMinus
+36 #NS 27 AMult
+#IND 0 27 1 5 28 17 30 18 32 20 35 20 36 20 
+37 #NS 0 Original_LF__DOT__Imp_LF_Imp_bexp
+38 #NS 37 BTrue
+21 #EC 37 
+39 #NS 37 BFalse
+40 #NS 37 BEq
+41 #NI 20 257
+42 #NI 20 259
+22 #EP #BD 42 16 21
+23 #EP #BD 41 16 22
+43 #NS 37 BNeq
+44 #NS 37 BLe
+45 #NS 37 BGt
+46 #NS 37 BNot
+47 #NI 20 277
+24 #EP #BD 47 21 21
+48 #NS 37 BAnd
+49 #NI 20 280
+25 #EP #BD 49 21 24
+#IND 0 37 1 8 38 21 39 21 40 23 43 23 44 23 45 23 46 24 48 25 
+50 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_com
+51 #NS 50 CSkip
+26 #EC 50 
+52 #NS 50 CBreak
+53 #NS 50 CAsgn
+54 #NI 20 389
+55 #NI 20 391
+27 #EP #BD 55 16 26
+28 #EP #BD 54 11 27
+56 #NS 50 CSeq
+57 #NI 20 394
+58 #NI 20 396
+29 #EP #BD 58 26 26
+30 #EP #BD 57 26 29
+59 #NS 50 CIf
+60 #NI 20 399
+31 #EP #BD 60 21 30
+61 #NS 50 CWhile
+62 #NI 20 406
+32 #EP #BD 62 21 29
+#IND 0 50 1 6 51 26 52 26 53 28 56 30 59 31 61 32 
+63 #NS 0 Original_LF__DOT__Maps_LF_Maps_total__map
+64 #NS 0 A
+33 #EP #BD 64 1 1
+65 #NI 20 159
+34 #EV 1
+35 #EP #BD 65 11 34
+36 #EL #BD 64 1 35
+#DEF 63 33 36 
+66 #NS 0 Original_LF__DOT__Imp_LF_Imp_state
+37 #EC 63 
+38 #EA 37 14
+#DEF 66 1 38 
+67 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_result
+68 #NS 67 SContinue
+39 #EC 67 
+69 #NS 67 SBreak
+#IND 0 67 1 2 68 39 69 39 
+70 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval
+71 #NS 70 E_Skip
+72 #NS 0 st
+40 #EC 66 
+41 #EC 70 
+42 #EC 51 
+43 #EA 41 42
+44 #EV 0
+45 #EA 43 44
+46 #EC 68 
+47 #EA 45 46
+48 #EA 47 44
+49 #EP #BD 72 40 48
+73 #NI 20 504
+74 #NI 20 506
+75 #NI 20 508
+76 #NI 20 510
+50 #ES 0
+51 #EP #BD 76 40 50
+52 #EP #BD 75 39 51
+53 #EP #BD 74 40 52
+54 #EP #BD 73 26 53
+#IND 0 70 54 1 71 49 
+77 #NS 0 and
+78 #NS 77 intro
+79 #NS 0 P
+80 #NS 0 Q
+81 #NS 0 left
+82 #NS 0 right
+55 #EC 77 
+56 #EV 3
+57 #EA 55 56
+58 #EV 2
+59 #EA 57 58
+60 #EP #BD 82 34 59
+61 #EP #BD 81 34 60
+62 #EP #BI 80 50 61
+63 #EP #BI 79 50 62
+64 #EP #BD 80 50 50
+65 #EP #BD 79 50 64
+#IND 2 77 65 1 78 63 
+83 #NS 0 Corelib_Init_Logic_eq
+84 #NS 83 refl
+66 #EC 83 
+67 #EA 66 34
+68 #EA 67 44
+69 #EA 68 44
+70 #EP #BI 17 44 69
+71 #EP #BI 64 1 70
+85 #NI 20 544
+72 #EP #BD 85 34 50
+73 #EP #BD 17 44 72
+74 #EP #BI 64 1 73
+#IND 2 83 74 1 84 71 
+86 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval__deterministic
+87 #NS 0 c
+88 #NS 0 st1
+89 #NS 0 st2
+90 #NS 0 s1
+91 #NS 0 s2
+92 #NI 20 577
+75 #EV 5
+76 #EA 41 75
+77 #EV 4
+78 #EA 76 77
+79 #EA 78 34
+80 #EA 79 56
+93 #NI 20 583
+81 #EV 6
+82 #EA 41 81
+83 #EA 82 75
+84 #EA 83 34
+85 #EA 84 56
+86 #EA 66 40
+87 #EA 86 75
+88 #EA 87 77
+89 #EA 55 88
+90 #EA 66 39
+91 #EA 90 56
+92 #EA 91 58
+93 #EA 89 92
+94 #EP #BD 93 85 93
+95 #EP #BD 92 80 94
+96 #EP #BD 91 39 95
+97 #EP #BD 90 39 96
+98 #EP #BD 89 40 97
+99 #EP #BD 88 40 98
+100 #EP #BD 72 40 99
+101 #EP #BD 87 26 100
+#AX 86 101 
+94 #NS 0 Corelib_Init_Logic_eq_Prop
+95 #NS 94 refl
+102 #EC 94 
+103 #EA 102 34
+104 #EA 103 44
+105 #EA 104 44
+106 #EP #BI 17 44 105
+107 #EP #BI 64 50 106
+108 #EP #BI 64 50 73
+#IND 2 94 108 1 95 107 
+96 #NS 0 String_string_EmptyString
+109 #EC 15 
+#DEF 96 11 109 
+97 #NS 0 String_string_String
+110 #EC 16 
+#DEF 97 13 110 
+98 #NS 0 True
+99 #NS 98 I
+111 #EC 98 
+#IND 0 98 50 1 99 111 
+100 #NS 0 myTrue
+#DEF 100 50 111 
+101 #NS 0 True_I
+112 #EC 100 
+113 #EC 99 
+#DEF 101 112 113 
+102 #NS 0 Original_LF__DOT__Imp_LF_Imp_BreakImp_SContinue
+#DEF 102 39 46 
+103 #NS 0 bool_true
+114 #EC 2 
+#DEF 103 0 114 
+104 #NS 0 bool_false
+115 #EC 3 
+#DEF 104 0 115 
+105 #NS 0 Ascii_ascii_Ascii
+116 #EC 5 
+117 #EV 7
+118 #EA 116 117
+119 #EA 118 81
+120 #EA 119 75
+121 #EA 120 77
+122 #EA 121 56
+123 #EA 122 58
+124 #EA 123 34
+125 #EA 124 44
+126 #EL #BD 13 0 125
+127 #EL #BD 12 0 126
+128 #EL #BD 11 0 127
+129 #EL #BD 10 0 128
+130 #EL #BD 9 0 129
+131 #EL #BD 8 0 130
+132 #EL #BD 7 0 131
+133 #EL #BD 6 0 132
+#DEF 105 10 133 

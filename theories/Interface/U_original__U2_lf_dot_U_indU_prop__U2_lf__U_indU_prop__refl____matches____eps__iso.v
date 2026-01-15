@@ -42,21 +42,8 @@ Definition Original_LF__DOT__IndProp_LF_IndProp_refl__matches__eps_iso : forall 
      imported_Original_LF__DOT__IndProp_LF_IndProp_reflect (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_Ascii_ascii) x4) (x2 x4))
     (fun (x3 : Original.LF_DOT_IndProp.LF.IndProp.reg_exp Ascii.ascii) (x4 : imported_Original_LF__DOT__IndProp_LF_IndProp_reg__exp imported_Ascii_ascii)
        (hx0 : rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso Ascii_ascii_iso) x3 x4) =>
-     {|
-       to := Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso) hx0) (hx x3 x4 hx0);
-       from :=
-         from (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso) hx0) (hx x3 x4 hx0));
-       to_from :=
-         fun
-           x : imported_Original_LF__DOT__IndProp_LF_IndProp_reflect (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_Ascii_ascii) x4)
-                 (x2 x4) =>
-         to_from (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso) hx0) (hx x3 x4 hx0)) x;
-       from_to :=
-         fun x : Original.LF_DOT_IndProp.LF.IndProp.reflect (Original.LF_DOT_IndProp.LF.IndProp.exp_match Original.LF_DOT_Poly.LF.Poly.nil x3) (x1 x3) =>
-         seq_p_of_t
-           (from_to
-              (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso) hx0) (hx x3 x4 hx0)) x)
-     |}).
+     relax_Iso_Ts_Ps
+       (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso) hx0) (hx x3 x4 hx0))).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_refl__matches__eps_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.refl_matches_eps ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_refl__matches__eps_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.refl_matches_eps imported_Original_LF__DOT__IndProp_LF_IndProp_refl__matches__eps ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_refl__matches__eps_iso; constructor : typeclass_instances.

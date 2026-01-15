@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso Isomorphisms.nat__iso.
 
-Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_repeat : imported_nat -> imported_nat -> imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_repeat.
-Instance Original_LF__DOT__Lists_LF_Lists_NatList_repeat_iso : forall (x1 : nat) (x2 : imported_nat),
+Monomorphic Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_repeat : imported_nat -> imported_nat -> imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_repeat.
+Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_NatList_repeat_iso : forall (x1 : nat) (x2 : imported_nat),
   rel_iso nat_iso x1 x2 ->
   forall (x3 : nat) (x4 : imported_nat),
   rel_iso nat_iso x3 x4 ->

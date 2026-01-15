@@ -29,63 +29,17 @@ Parameter Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_dist__exists__or_
     (x7 : Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.ex (fun x : x1 => Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or (x3 x) (x5 x)))
     (x8 : imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun H : x2 => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or (x4 H) (x6 H))),
   rel_iso
-    {|
-      to :=
-        Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x : x1 => Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or (x3 x) (x5 x))
+    (relax_Iso_Ts_Ps
+       (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x : x1 => Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or (x3 x) (x5 x))
           (fun H : x2 => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or (x4 H) (x6 H))
-          (fun (x9 : x1) (x10 : x2) (hx2 : rel_iso hx x9 x10) => Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso (hx0 x9 x10 hx2) (hx1 x9 x10 hx2));
-      from :=
-        from
-          (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x : x1 => Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or (x3 x) (x5 x))
-             (fun H : x2 => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or (x4 H) (x6 H))
-             (fun (x9 : x1) (x10 : x2) (hx2 : rel_iso hx x9 x10) => Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso (hx0 x9 x10 hx2) (hx1 x9 x10 hx2)));
-      to_from :=
-        fun x : imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun H : x2 => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or (x4 H) (x6 H)) =>
-        to_from
-          (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x0 : x1 => Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or (x3 x0) (x5 x0))
-             (fun H : x2 => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or (x4 H) (x6 H))
-             (fun (x9 : x1) (x10 : x2) (hx2 : rel_iso hx x9 x10) => Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso (hx0 x9 x10 hx2) (hx1 x9 x10 hx2)))
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.ex (fun x : x1 => Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or (x3 x) (x5 x)) =>
-        seq_p_of_t
-          (from_to
-             (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x0 : x1 => Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or (x3 x0) (x5 x0))
-                (fun H : x2 => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or (x4 H) (x6 H))
-                (fun (x9 : x1) (x10 : x2) (hx2 : rel_iso hx x9 x10) => Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso (hx0 x9 x10 hx2) (hx1 x9 x10 hx2)))
-             x)
-    |} x7 x8 ->
+          (fun (x9 : x1) (x10 : x2) (hx2 : rel_iso hx x9 x10) => Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso (hx0 x9 x10 hx2) (hx1 x9 x10 hx2))))
+    x7 x8 ->
   rel_iso
-    {|
-      to :=
-        Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso
+    (relax_Iso_Ts_Ps
+       (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso
           (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x : x1 => x3 x) (fun H : x2 => x4 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx0 x9 x10 hx3))
-          (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x : x1 => x5 x) (fun H : x2 => x6 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx1 x9 x10 hx3));
-      from :=
-        from
-          (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso
-             (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x : x1 => x3 x) (fun H : x2 => x4 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx0 x9 x10 hx3))
-             (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x : x1 => x5 x) (fun H : x2 => x6 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx1 x9 x10 hx3)));
-      to_from :=
-        fun
-          x : imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or (imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun H : x2 => x4 H))
-                (imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun H : x2 => x6 H)) =>
-        to_from
-          (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso
-             (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x0 : x1 => x3 x0) (fun H : x2 => x4 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx0 x9 x10 hx3))
-             (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x0 : x1 => x5 x0) (fun H : x2 => x6 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx1 x9 x10 hx3)))
-          x;
-      from_to :=
-        fun
-          x : Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.or (Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.ex (fun x : x1 => x3 x))
-                (Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.ex (fun x : x1 => x5 x)) =>
-        seq_p_of_t
-          (from_to
-             (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or_iso
-                (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x0 : x1 => x3 x0) (fun H : x2 => x4 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx0 x9 x10 hx3))
-                (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x0 : x1 => x5 x0) (fun H : x2 => x6 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx1 x9 x10 hx3)))
-             x)
-    |} (Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.dist_exists_or_term x1 x3 x5 x7) (imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_dist__exists__or__term x4 x6 x8).
+          (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun x : x1 => x5 x) (fun H : x2 => x6 H) (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => hx1 x9 x10 hx3))))
+    (Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.dist_exists_or_term x1 x3 x5 x7) (imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_dist__exists__or__term x4 x6 x8).
 Existing Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_dist__exists__or__term_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.dist_exists_or_term ?x) => unify x Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_dist__exists__or__term_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.dist_exists_or_term imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_dist__exists__or__term ?x) => unify x Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_dist__exists__or__term_iso; constructor : typeclass_instances.

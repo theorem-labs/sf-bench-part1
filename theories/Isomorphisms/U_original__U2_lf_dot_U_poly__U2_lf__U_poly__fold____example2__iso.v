@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__cons__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__fold__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__mult__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__Poly_LF_Poly_fold__example2 : imported_Corelib_Init_Logic_eq
+Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_fold__example2 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Poly_LF_Poly_fold (fun x x0 : imported_nat => imported_Original_LF__DOT__Basics_LF_Basics_mult x x0)
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
@@ -18,7 +18,7 @@ Definition imported_Original_LF__DOT__Poly_LF_Poly_fold__example2 : imported_Cor
                 (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))
        (imported_S imported_0))
     (imported_S (imported_S (imported_S (iterate1 imported_S 21 imported_0)))) := Imported.Original_LF__DOT__Poly_LF_Poly_fold__example2.
-Instance Original_LF__DOT__Poly_LF_Poly_fold__example2_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_fold__example2_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (unwrap_sprop
           (Original_LF__DOT__Poly_LF_Poly_fold_iso nat_iso Original.LF_DOT_Basics.LF.Basics.mult (fun x x0 : imported_nat => imported_Original_LF__DOT__Basics_LF_Basics_mult x x0)

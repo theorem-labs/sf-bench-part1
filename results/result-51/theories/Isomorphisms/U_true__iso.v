@@ -4,20 +4,19 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-Typeclasses Opaque rel_iso.
+(* Print Imported. *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
-(* Imported.True is now SProp (alias to PTrue) *)
-Definition imported_True : SProp := Imported.True.
 
-Instance True_iso : (Iso True imported_True).
+Definition imported_True : SProp := Imported.TrueType.
+
+Instance True_iso : (Iso Logic.True imported_True).
 Proof.
-  unshelve eapply Build_Iso.
-  - intro t. exact Imported.PTrue_intro.
-  - intro s. exact Logic.I.
-  - intro s. destruct s. apply IsomorphismDefinitions.eq_refl.
-  - intro t. destruct t. apply IsomorphismDefinitions.eq_refl.
+  exists (fun _ => Imported.TrueType_I) (fun _ => I).
+  - intro x. destruct x. apply IsomorphismDefinitions.eq_refl.
+  - intro x. destruct x. apply IsomorphismDefinitions.eq_refl.
 Defined.
-Instance: KnownConstant True := {}.
-Instance: KnownConstant Imported.True := {}.
-Instance: IsoStatementProofFor True True_iso := {}.
-Instance: IsoStatementProofBetween True Imported.True True_iso := {}.
+Instance: KnownConstant Logic.True := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.TrueType := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Logic.True True_iso := {}.
+Instance: IsoStatementProofBetween Logic.True Imported.TrueType True_iso := {}.

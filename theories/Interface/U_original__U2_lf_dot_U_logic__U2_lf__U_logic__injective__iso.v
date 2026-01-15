@@ -30,14 +30,7 @@ Definition Original_LF__DOT__Logic_LF_Logic_injective_iso : forall (x1 x2 : Type
   IsoForall (fun a : x1 => forall y : x1, x5 a = x5 y -> a = y) (fun x8 : x2 => forall a' : x2, imported_Corelib_Init_Logic_eq (x6 x8) (x6 a') -> imported_Corelib_Init_Logic_eq x8 a')
     (fun (x7 : x1) (x8 : x2) (hx2 : rel_iso hx x7 x8) =>
      IsoForall (fun a : x1 => x5 x7 = x5 a -> x7 = a) (fun x10 : x2 => imported_Corelib_Init_Logic_eq (x6 x8) (x6 x10) -> imported_Corelib_Init_Logic_eq x8 x10)
-       (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) =>
-        IsoArrow (Corelib_Init_Logic_eq_iso (hx1 x7 x8 hx2) (hx1 x9 x10 hx3))
-          {|
-            to := Corelib_Init_Logic_eq_iso hx2 hx3;
-            from := from (Corelib_Init_Logic_eq_iso hx2 hx3);
-            to_from := fun x : imported_Corelib_Init_Logic_eq x8 x10 => to_from (Corelib_Init_Logic_eq_iso hx2 hx3) x;
-            from_to := fun x : x7 = x9 => seq_p_of_t (from_to (Corelib_Init_Logic_eq_iso hx2 hx3) x)
-          |})).
+       (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) => IsoArrow (Corelib_Init_Logic_eq_iso (hx1 x7 x8 hx2) (hx1 x9 x10 hx3)) (relax_Iso_Ts_Ps (Corelib_Init_Logic_eq_iso hx2 hx3)))).
 Existing Instance Original_LF__DOT__Logic_LF_Logic_injective_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor (@Original.LF_DOT_Logic.LF.Logic.injective) ?x) => unify x Original_LF__DOT__Logic_LF_Logic_injective_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween (@Original.LF_DOT_Logic.LF.Logic.injective) imported_Original_LF__DOT__Logic_LF_Logic_injective ?x) => unify x Original_LF__DOT__Logic_LF_Logic_injective_iso; constructor : typeclass_instances.

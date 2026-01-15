@@ -1,1 +1,0 @@
-nat S Nat_add Nat_sub PTrue True Corelib_Init_Logic_eq

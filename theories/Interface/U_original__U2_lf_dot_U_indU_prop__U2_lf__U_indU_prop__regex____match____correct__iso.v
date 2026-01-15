@@ -26,18 +26,8 @@ Parameter Original_LF__DOT__IndProp_LF_IndProp_regex__match__correct_iso : foral
     (hx : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x1 x2) (x3 : Original.LF_DOT_IndProp.LF.IndProp.reg_exp Ascii.ascii)
     (x4 : imported_Original_LF__DOT__IndProp_LF_IndProp_reg__exp imported_Ascii_ascii) (hx0 : rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso Ascii_ascii_iso) x3 x4),
   rel_iso
-    {|
-      to := Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_regex__match_iso hx hx0);
-      from := from (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_regex__match_iso hx hx0));
-      to_from :=
-        fun
-          x : imported_Original_LF__DOT__IndProp_LF_IndProp_reflect (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x2 x4) (imported_Original_LF__DOT__IndProp_LF_IndProp_regex__match x2 x4) =>
-        to_from (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_regex__match_iso hx hx0)) x;
-      from_to :=
-        fun x : Original.LF_DOT_IndProp.LF.IndProp.reflect (Original.LF_DOT_IndProp.LF.IndProp.exp_match x1 x3) (Original.LF_DOT_IndProp.LF.IndProp.regex_match x1 x3) =>
-        seq_p_of_t
-          (from_to (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_regex__match_iso hx hx0)) x)
-    |} (Original.LF_DOT_IndProp.LF.IndProp.regex_match_correct x1 x3) (imported_Original_LF__DOT__IndProp_LF_IndProp_regex__match__correct x2 x4).
+    (relax_Iso_Ts_Ps (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_regex__match_iso hx hx0)))
+    (Original.LF_DOT_IndProp.LF.IndProp.regex_match_correct x1 x3) (imported_Original_LF__DOT__IndProp_LF_IndProp_regex__match__correct x2 x4).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_regex__match__correct_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.regex_match_correct ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_regex__match__correct_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.regex_match_correct imported_Original_LF__DOT__IndProp_LF_IndProp_regex__match__correct ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_regex__match__correct_iso; constructor : typeclass_instances.

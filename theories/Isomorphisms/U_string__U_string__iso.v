@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_ascii__ascii__iso Isomorphisms.U_string__string__iso.
 
-Definition imported_String_String : imported_Ascii_ascii -> imported_String_string -> imported_String_string := Imported.String_String.
-Instance String_String_iso : forall (x1 : Ascii.ascii) (x2 : imported_Ascii_ascii),
+Monomorphic Definition imported_String_String : imported_Ascii_ascii -> imported_String_string -> imported_String_string := Imported.String_String.
+Monomorphic Instance String_String_iso : forall (x1 : Ascii.ascii) (x2 : imported_Ascii_ascii),
   rel_iso Ascii_ascii_iso x1 x2 ->
   forall (x3 : String.string) (x4 : imported_String_string), rel_iso String_string_iso x3 x4 -> rel_iso String_string_iso (String.String x1 x3) (imported_String_String x2 x4).
 Admitted.

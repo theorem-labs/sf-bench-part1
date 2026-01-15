@@ -7,43 +7,38 @@ From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 Typeclasses Opaque rel_iso. (* for speed *)
 
-
 Definition imported_nat : Type := Imported.nat.
 
-(* Convert Coq nat to Imported.nat *)
-Fixpoint nat_to_imported (n : nat) : Imported.nat :=
+Fixpoint nat_to_imported (n : nat) : imported_nat :=
   match n with
-  | O => Imported.nat_zero
-  | S m => Imported.nat_succ (nat_to_imported m)
+  | O => Imported.nat_O
+  | S n' => Imported.nat_S (nat_to_imported n')
   end.
 
-(* Convert Imported.nat to Coq nat *)
-Fixpoint imported_to_nat (n : Imported.nat) : nat :=
+Fixpoint imported_to_nat (n : imported_nat) : nat :=
   match n with
-  | Imported.nat_zero => O
-  | Imported.nat_succ m => S (imported_to_nat m)
+  | Imported.nat_O => O
+  | Imported.nat_S n' => S (imported_to_nat n')
   end.
 
-Lemma nat_to_from : forall x : Imported.nat, IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat x)) x.
-Proof.
-  fix IH 1.
-  intros x.
-  destruct x.
-  - apply IsomorphismDefinitions.eq_refl.
-  - simpl. apply IsoEq.f_equal. apply IH.
-Qed.
+Lemma nat_roundtrip1 : forall n, imported_to_nat (nat_to_imported n) = n.
+Proof. induction n; simpl; [reflexivity | f_equal; exact IHn]. Qed.
 
-Lemma nat_from_to : forall x : nat, IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported x)) x.
-Proof.
-  fix IH 1.
-  intros x.
-  destruct x.
-  - apply IsomorphismDefinitions.eq_refl.
-  - simpl. apply IsoEq.f_equal. apply IH.
-Qed.
+Lemma nat_roundtrip2 : forall n, nat_to_imported (imported_to_nat n) = n.
+Proof. induction n; simpl; [reflexivity | f_equal; exact IHn]. Qed.
 
-Instance nat_iso : Iso nat imported_nat :=
-  Build_Iso nat_to_imported imported_to_nat nat_to_from nat_from_to.
+Instance nat_iso : Iso nat imported_nat.
+Proof.
+  refine {| to := nat_to_imported; from := imported_to_nat |}.
+  - (* to_from: to (from x) = x for x : imported_nat *)
+    intro x. 
+    pose proof (nat_roundtrip2 x) as H.
+    rewrite H. exact IsomorphismDefinitions.eq_refl.
+  - (* from_to: from (to x) = x for x : nat *)
+    intro x.
+    pose proof (nat_roundtrip1 x) as H.
+    rewrite H. exact IsomorphismDefinitions.eq_refl.
+Defined.
 
 Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)

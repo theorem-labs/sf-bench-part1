@@ -1,1 +1,1 @@
-Original_LF__DOT__Logic_LF_Logic_consequentia__mirabilis
+nat nat nat nat Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR

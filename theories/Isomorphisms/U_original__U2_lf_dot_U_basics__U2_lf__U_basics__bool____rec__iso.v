@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,9 +10,9 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__false__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso.
 
-Definition imported_Original_LF__DOT__Basics_LF_Basics_bool__rec : forall x : imported_Original_LF__DOT__Basics_LF_Basics_bool -> Type,
+Monomorphic Definition imported_Original_LF__DOT__Basics_LF_Basics_bool__rec : forall x : imported_Original_LF__DOT__Basics_LF_Basics_bool -> Type,
   x imported_Original_LF__DOT__Basics_LF_Basics_true -> x imported_Original_LF__DOT__Basics_LF_Basics_false -> forall x2 : imported_Original_LF__DOT__Basics_LF_Basics_bool, x x2 := Imported.Original_LF__DOT__Basics_LF_Basics_bool__rec.
-Instance Original_LF__DOT__Basics_LF_Basics_bool__rec_iso : forall (x1 : Original.LF_DOT_Basics.LF.Basics.bool -> Set) (x2 : imported_Original_LF__DOT__Basics_LF_Basics_bool -> Type)
+Monomorphic Instance Original_LF__DOT__Basics_LF_Basics_bool__rec_iso : forall (x1 : Original.LF_DOT_Basics.LF.Basics.bool -> Set) (x2 : imported_Original_LF__DOT__Basics_LF_Basics_bool -> Type)
     (hx : forall (x3 : Original.LF_DOT_Basics.LF.Basics.bool) (x4 : imported_Original_LF__DOT__Basics_LF_Basics_bool),
           rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso x3 x4 -> IsoOrSortRelaxed (x1 x3) (x2 x4))
     (x3 : x1 Original.LF_DOT_Basics.LF.Basics.true) (x4 : x2 imported_Original_LF__DOT__Basics_LF_Basics_true),

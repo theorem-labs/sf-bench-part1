@@ -1,0 +1,31 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso.Args. End Args.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso.imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2 Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso.Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso.Interface args
+  with Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2 := Imported.Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2.
+
+Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2 := Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso.imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2.
+Definition Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2_iso := Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____2__iso.Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__2_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

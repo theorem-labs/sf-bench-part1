@@ -1,0 +1,32 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____7SQUOTE__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____7SQUOTE__iso.
+From IsomorphismChecker Require Checker.and__iso Checker.nat__iso Checker.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__is____fortytwo__iso Checker.U_s__iso Checker.__0__iso Checker.le__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____7SQUOTE__iso.Args := Checker.and__iso.Checker <+ Checker.nat__iso.Checker <+ Checker.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__is____fortytwo__iso.Checker <+ Checker.U_s__iso.Checker <+ Checker.__0__iso.Checker <+ Checker.le__iso.Checker.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____7SQUOTE__iso.imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7' Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____7SQUOTE__iso.Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____7SQUOTE__iso.Interface args
+  with Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7' := Imported.Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'.
+
+Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7' := Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____7SQUOTE__iso.imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'.
+Definition Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'_iso := Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__auto____example____7SQUOTE__iso.Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

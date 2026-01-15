@@ -1,3 +1,27 @@
 {
-  "U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__imp3__iso": 1.0
+  "U_ascii__U_ascii__iso": 1.0,
+  "U_ascii__ascii__iso": 1.0,
+  "U_corelib__U_init__U_logic__eq__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_natU_playground__nat__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__examplemapSQUOTE__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____empty__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____update__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso": 1.0,
+  "U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__or__iso": 1.0,
+  "U_string__U_emptyU_string__iso": 1.0,
+  "U_string__U_string__iso": 1.0,
+  "U_string__string__iso": 1.0,
+  "U_true__iso": 1.0,
+  "bool__iso": 1.0,
+  "false__iso": 1.0,
+  "true__iso": 1.0,
+  "U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__match____ex5__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_natU_playground__pred__iso": 1.0,
+  "U_original__U2_lf_dot_U_logic__U2_lf__U_logic__U_true____is____true__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____apply____empty__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__update____example1__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__update____example2__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__update____example3__iso": 1.0,
+  "U_original__U2_lf_dot_U_maps__U2_lf__U_maps__update____example4__iso": 1.0,
+  "U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__inj____l__iso": 1.0
 }

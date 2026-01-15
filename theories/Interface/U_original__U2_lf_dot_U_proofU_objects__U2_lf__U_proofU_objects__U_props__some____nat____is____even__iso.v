@@ -22,32 +22,11 @@ Module Type Interface (Import args : Args).
 
 Parameter imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_some__nat__is__even : imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun H : imported_nat => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev H).
 Parameter Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_some__nat__is__even_iso : rel_iso
-    {|
-      to :=
-        Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun n : nat => Original.LF_DOT_ProofObjects.LF.ProofObjects.ev n)
+    (relax_Iso_Ts_Ps
+       (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun n : nat => Original.LF_DOT_ProofObjects.LF.ProofObjects.ev n)
           (fun H : imported_nat => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev H)
-          (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) => Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso hx);
-      from :=
-        from
-          (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun n : nat => Original.LF_DOT_ProofObjects.LF.ProofObjects.ev n)
-             (fun H : imported_nat => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev H)
-             (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) => Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso hx));
-      to_from :=
-        fun x : imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex (fun H : imported_nat => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev H) =>
-        to_from
-          (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun n : nat => Original.LF_DOT_ProofObjects.LF.ProofObjects.ev n)
-             (fun H : imported_nat => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev H)
-             (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) => Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso hx))
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.ex (fun n : nat => Original.LF_DOT_ProofObjects.LF.ProofObjects.ev n) =>
-        seq_p_of_t
-          (from_to
-             (Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex_iso (fun n : nat => Original.LF_DOT_ProofObjects.LF.ProofObjects.ev n)
-                (fun H : imported_nat => imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev H)
-                (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) => Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso hx))
-             x)
-    |} Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.some_nat_is_even imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_some__nat__is__even.
+          (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) => Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso hx)))
+    Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.some_nat_is_even imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_some__nat__is__even.
 Existing Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_some__nat__is__even_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.some_nat_is_even ?x) => unify x Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_some__nat__is__even_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_ProofObjects.LF.ProofObjects.Props.some_nat_is_even imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_some__nat__is__even ?x) => unify x Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_some__nat__is__even_iso; constructor : typeclass_instances.

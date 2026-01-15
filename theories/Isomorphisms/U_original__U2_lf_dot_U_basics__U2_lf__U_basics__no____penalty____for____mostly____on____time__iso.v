@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,11 +10,11 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__apply____late____policy__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__ltb__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__Basics_LF_Basics_no__penalty__for__mostly__on__time : forall (x : imported_nat) (x0 : imported_Original_LF__DOT__Basics_LF_Basics_grade),
+Monomorphic Definition imported_Original_LF__DOT__Basics_LF_Basics_no__penalty__for__mostly__on__time : forall (x : imported_nat) (x0 : imported_Original_LF__DOT__Basics_LF_Basics_grade),
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_ltb x (imported_S (imported_S (imported_S (iterate1 imported_S 6 imported_0)))))
     imported_Original_LF__DOT__Basics_LF_Basics_true ->
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_apply__late__policy x x0) x0 := Imported.Original_LF__DOT__Basics_LF_Basics_no__penalty__for__mostly__on__time.
-Instance Original_LF__DOT__Basics_LF_Basics_no__penalty__for__mostly__on__time_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : Original.LF_DOT_Basics.LF.Basics.grade) (x4 : imported_Original_LF__DOT__Basics_LF_Basics_grade)
+Monomorphic Instance Original_LF__DOT__Basics_LF_Basics_no__penalty__for__mostly__on__time_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : Original.LF_DOT_Basics.LF.Basics.grade) (x4 : imported_Original_LF__DOT__Basics_LF_Basics_grade)
     (hx0 : rel_iso Original_LF__DOT__Basics_LF_Basics_grade_iso x3 x4) (x5 : Original.LF_DOT_Basics.LF.Basics.ltb x1 9 = Original.LF_DOT_Basics.LF.Basics.true)
     (x6 : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_ltb x2 (imported_S (imported_S (imported_S (iterate1 imported_S 6 imported_0)))))
             imported_Original_LF__DOT__Basics_LF_Basics_true),

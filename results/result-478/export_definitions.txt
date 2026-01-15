@@ -1,1 +1,0 @@
-RocqFalse TrueProp eq' Corelib_Init_Logic_eq Corelib_Init_Logic_eq_refl eq'_Prop Corelib_Init_Logic_eq_Prop Original_LF__DOT__Poly_LF_Poly_list Original_LF__DOT__Poly_LF_Poly_nil Original_LF__DOT__Poly_LF_Poly_cons Logic_not

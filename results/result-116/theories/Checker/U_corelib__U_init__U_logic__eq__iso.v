@@ -7,6 +7,9 @@ From IsomorphismChecker Require Checker.U_true__iso.
 
 Module Type Args <: Interface.U_corelib__U_init__U_logic__eq__iso.Args := Checker.U_true__iso.Args <+ Checker.U_true__iso.Checker.
 
+#[global] Strategy -1 [ Isomorphisms.U_corelib__U_init__U_logic__eq__iso.imported_Corelib_Init_Logic_eq Isomorphisms.U_corelib__U_init__U_logic__eq__iso.Corelib_Init_Logic_eq_iso ].
+#[global] Strategy -1 [ Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.imported_Corelib_Init_Logic_eq_Prop Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.Corelib_Init_Logic_eq_iso_Prop ].
+
 Module Checker (Import args : Args) <: Interface.U_corelib__U_init__U_logic__eq__iso.Interface args
   with Definition imported_Corelib_Init_Logic_eq := (@Imported.Corelib_Init_Logic_eq)
   with Definition imported_Corelib_Init_Logic_eq_Prop := (@Imported.Corelib_Init_Logic_eq_Prop).

@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_r__iso Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__fU_r__iso Isomorphisms.iff__iso.
 
-Definition imported_Original_LF__DOT__IndProp_LF_IndProp_R__equiv__fR : forall x x0 x1 : imported_nat, imported_iff (imported_Original_LF__DOT__IndProp_LF_IndProp_R x x0 x1) (imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__IndProp_LF_IndProp_fR x x0) x1) := Imported.Original_LF__DOT__IndProp_LF_IndProp_R__equiv__fR.
-Instance Original_LF__DOT__IndProp_LF_IndProp_R__equiv__fR_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4) (x5 : nat) (x6 : imported_nat) (hx1 : rel_iso nat_iso x5 x6),
+Monomorphic Definition imported_Original_LF__DOT__IndProp_LF_IndProp_R__equiv__fR : forall x x0 x1 : imported_nat, imported_iff (imported_Original_LF__DOT__IndProp_LF_IndProp_R x x0 x1) (imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__IndProp_LF_IndProp_fR x x0) x1) := Imported.Original_LF__DOT__IndProp_LF_IndProp_R__equiv__fR.
+Monomorphic Instance Original_LF__DOT__IndProp_LF_IndProp_R__equiv__fR_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4) (x5 : nat) (x6 : imported_nat) (hx1 : rel_iso nat_iso x5 x6),
   rel_iso
     {|
       to := iff_iso (Original_LF__DOT__IndProp_LF_IndProp_R_iso hx hx0 hx1) (Corelib_Init_Logic_eq_iso (Original_LF__DOT__IndProp_LF_IndProp_fR_iso hx hx0) hx1);

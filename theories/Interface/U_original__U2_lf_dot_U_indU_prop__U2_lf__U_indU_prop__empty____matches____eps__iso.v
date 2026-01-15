@@ -26,30 +26,10 @@ Parameter imported_Original_LF__DOT__IndProp_LF_IndProp_empty__matches__eps : fo
 Parameter Original_LF__DOT__IndProp_LF_IndProp_empty__matches__eps_iso : forall (x1 : Original.LF_DOT_IndProp.LF.IndProp.string) (x2 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
     (hx : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x1 x2),
   rel_iso
-    {|
-      to :=
-        iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx (Original_LF__DOT__IndProp_LF_IndProp_EmptyStr_iso Ascii_ascii_iso))
-          (Corelib_Init_Logic_eq_iso hx (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso));
-      from :=
-        from
-          (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx (Original_LF__DOT__IndProp_LF_IndProp_EmptyStr_iso Ascii_ascii_iso))
-             (Corelib_Init_Logic_eq_iso hx (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso)));
-      to_from :=
-        fun
-          x : imported_iff (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x2 (imported_Original_LF__DOT__IndProp_LF_IndProp_EmptyStr imported_Ascii_ascii))
-                (imported_Corelib_Init_Logic_eq x2 (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_Ascii_ascii)) =>
-        to_from
-          (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx (Original_LF__DOT__IndProp_LF_IndProp_EmptyStr_iso Ascii_ascii_iso))
-             (Corelib_Init_Logic_eq_iso hx (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso)))
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_IndProp.LF.IndProp.exp_match x1 Original.LF_DOT_IndProp.LF.IndProp.EmptyStr <-> x1 = Original.LF_DOT_Poly.LF.Poly.nil =>
-        seq_p_of_t
-          (from_to
-             (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx (Original_LF__DOT__IndProp_LF_IndProp_EmptyStr_iso Ascii_ascii_iso))
-                (Corelib_Init_Logic_eq_iso hx (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso)))
-             x)
-    |} (Original.LF_DOT_IndProp.LF.IndProp.empty_matches_eps x1) (imported_Original_LF__DOT__IndProp_LF_IndProp_empty__matches__eps x2).
+    (relax_Iso_Ts_Ps
+       (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx (Original_LF__DOT__IndProp_LF_IndProp_EmptyStr_iso Ascii_ascii_iso))
+          (Corelib_Init_Logic_eq_iso hx (Original_LF__DOT__Poly_LF_Poly_nil_iso Ascii_ascii_iso))))
+    (Original.LF_DOT_IndProp.LF.IndProp.empty_matches_eps x1) (imported_Original_LF__DOT__IndProp_LF_IndProp_empty__matches__eps x2).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_empty__matches__eps_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.empty_matches_eps ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_empty__matches__eps_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.empty_matches_eps imported_Original_LF__DOT__IndProp_LF_IndProp_empty__matches__eps ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_empty__matches__eps_iso; constructor : typeclass_instances.

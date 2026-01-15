@@ -12,28 +12,27 @@ From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
 Definition imported_Nat_add : imported_nat -> imported_nat -> imported_nat := Imported.Nat_add.
 
-(* Prove that Nat_add commutes with the isomorphism *)
-Lemma Nat_add_commutes : forall n m : nat,
-  Logic.eq (nat_to_imported (n + m)) (Imported.Nat_add (nat_to_imported n) (nat_to_imported m)).
-Proof.
-  induction n as [| n' IH]; intro m; simpl.
-  { reflexivity. }
-  { change (Imported.Nat_add (Imported.nat_S (nat_to_imported n')) (nat_to_imported m))
-      with (Imported.nat_S (Imported.Nat_add (nat_to_imported n') (nat_to_imported m))).
-    apply Logic.f_equal.
-    apply IH. }
-Qed.
+(* Prove that nat_to_imported preserves addition *)
+Fixpoint nat_to_imported_add_compat (n m : nat) : 
+  nat_to_imported (n + m) = Imported.Nat_add (nat_to_imported n) (nat_to_imported m) :=
+  match n with
+  | O => Corelib.Init.Logic.eq_refl
+  | S n' => match nat_to_imported_add_compat n' m in (_ = r) 
+            return (Imported.nat_succ (nat_to_imported (n' + m)) = Imported.nat_succ r) with
+            | Corelib.Init.Logic.eq_refl => Corelib.Init.Logic.eq_refl
+            end
+  end.
 
 Instance Nat_add_iso : forall (x1 : nat) (x2 : imported_nat), rel_iso nat_iso x1 x2 -> forall (x3 : nat) (x4 : imported_nat), rel_iso nat_iso x3 x4 -> rel_iso nat_iso (x1 + x3) (imported_Nat_add x2 x4).
 Proof.
+  unfold rel_iso. simpl.
   intros x1 x2 H12 x3 x4 H34.
-  unfold rel_iso in *.
-  simpl in *.
-  destruct H12. destruct H34.
-  apply seq_of_eq.
-  transitivity (Imported.Nat_add (nat_to_imported x1) (nat_to_imported x3)).
-  { apply Nat_add_commutes. }
-  { reflexivity. }
+  (* H12 : eq (nat_to_imported x1) x2 *)
+  (* H34 : eq (nat_to_imported x3) x4 *)
+  (* Goal : eq (nat_to_imported (x1 + x3)) (Imported.Nat_add x2 x4) *)
+  eapply eq_trans.
+  - apply seq_of_eq. apply nat_to_imported_add_compat.
+  - apply f_equal2; assumption.
 Defined.
 Instance: KnownConstant Nat.add := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Nat_add := {}. (* only needed when rel_iso is typeclasses opaque *)

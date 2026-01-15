@@ -1,0 +1,32 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__four__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__four__iso.
+From IsomorphismChecker Require Checker.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__eq__iso Checker.nat__iso Checker.U_nat__add__iso Checker.U_s__iso Checker.__0__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__four__iso.Args := Checker.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__eq__iso.Checker <+ Checker.nat__iso.Checker <+ Checker.U_nat__add__iso.Checker <+ Checker.U_s__iso.Checker <+ Checker.__0__iso.Checker.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__four__iso.imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_four Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__four__iso.Original_LF__DOT__ProofObjects_LF_ProofObjects_four_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__four__iso.Interface args
+  with Definition imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_four := Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_four.
+
+Definition imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_four := Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__four__iso.imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_four.
+Definition Original_LF__DOT__ProofObjects_LF_ProofObjects_four_iso := Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__four__iso.Original_LF__DOT__ProofObjects_LF_ProofObjects_four_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__ProofObjects_LF_ProofObjects_four_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

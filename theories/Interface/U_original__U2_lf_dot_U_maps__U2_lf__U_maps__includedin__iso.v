@@ -39,13 +39,7 @@ Definition Original_LF__DOT__Maps_LF_Maps_includedin_iso : forall (x1 x2 : Type)
      IsoForall (fun a : x1 => x3 x7 = Some a -> x5 x7 = Some a)
        (fun x10 : x2 => imported_Corelib_Init_Logic_eq (x4 x8) (imported_Some x10) -> imported_Corelib_Init_Logic_eq (x6 x8) (imported_Some x10))
        (fun (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) =>
-        IsoArrow (Corelib_Init_Logic_eq_iso (hx0 x7 x8 hx2) (Some_iso hx3))
-          {|
-            to := Corelib_Init_Logic_eq_iso (hx1 x7 x8 hx2) (Some_iso hx3);
-            from := from (Corelib_Init_Logic_eq_iso (hx1 x7 x8 hx2) (Some_iso hx3));
-            to_from := fun x : imported_Corelib_Init_Logic_eq (x6 x8) (imported_Some x10) => to_from (Corelib_Init_Logic_eq_iso (hx1 x7 x8 hx2) (Some_iso hx3)) x;
-            from_to := fun x : x5 x7 = Some x9 => seq_p_of_t (from_to (Corelib_Init_Logic_eq_iso (hx1 x7 x8 hx2) (Some_iso hx3)) x)
-          |})).
+        IsoArrow (Corelib_Init_Logic_eq_iso (hx0 x7 x8 hx2) (Some_iso hx3)) (relax_Iso_Ts_Ps (Corelib_Init_Logic_eq_iso (hx1 x7 x8 hx2) (Some_iso hx3))))).
 Existing Instance Original_LF__DOT__Maps_LF_Maps_includedin_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor (@Original.LF_DOT_Maps.LF.Maps.includedin) ?x) => unify x Original_LF__DOT__Maps_LF_Maps_includedin_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween (@Original.LF_DOT_Maps.LF.Maps.includedin) imported_Original_LF__DOT__Maps_LF_Maps_includedin ?x) => unify x Original_LF__DOT__Maps_LF_Maps_includedin_iso; constructor : typeclass_instances.

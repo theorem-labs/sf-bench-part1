@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__cons__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__pair__iso Isomorphisms.nat__iso.
 
-Definition imported_Original_LF__DOT__Tactics_LF_Tactics_silly2a : forall x x0 : imported_nat,
+Monomorphic Definition imported_Original_LF__DOT__Tactics_LF_Tactics_silly2a : forall x x0 : imported_nat,
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Poly_LF_Poly_pair x x) (imported_Original_LF__DOT__Poly_LF_Poly_pair x0 x0) ->
   (forall x1 x2 : imported_nat,
    imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Poly_LF_Poly_pair x1 x1) (imported_Original_LF__DOT__Poly_LF_Poly_pair x2 x2) ->
@@ -18,7 +18,7 @@ Definition imported_Original_LF__DOT__Tactics_LF_Tactics_silly2a : forall x x0 :
      (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))) ->
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Poly_LF_Poly_cons x (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))
     (imported_Original_LF__DOT__Poly_LF_Poly_cons x0 (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)) := Imported.Original_LF__DOT__Tactics_LF_Tactics_silly2a.
-Instance Original_LF__DOT__Tactics_LF_Tactics_silly2a_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4)
+Monomorphic Instance Original_LF__DOT__Tactics_LF_Tactics_silly2a_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4)
     (x5 : Original.LF_DOT_Poly.LF.Poly.pair x1 x1 = Original.LF_DOT_Poly.LF.Poly.pair x3 x3)
     (x6 : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Poly_LF_Poly_pair x2 x2) (imported_Original_LF__DOT__Poly_LF_Poly_pair x4 x4)),
   rel_iso (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Poly_LF_Poly_pair_iso hx hx) (Original_LF__DOT__Poly_LF_Poly_pair_iso hx0 hx0)) x5 x6 ->

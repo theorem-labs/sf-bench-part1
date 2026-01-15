@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_logic__not__iso.
 
-Definition imported_Original_LF__DOT__Logic_LF_Logic_double__neg : forall x : SProp, x -> (x -> imported_False) -> imported_False := Imported.Original_LF__DOT__Logic_LF_Logic_double__neg.
-Instance Original_LF__DOT__Logic_LF_Logic_double__neg_iso : forall (x1 : Prop) (x2 : SProp) (hx : Iso x1 x2) (x3 : x1) (x4 : x2),
+Monomorphic Definition imported_Original_LF__DOT__Logic_LF_Logic_double__neg : forall x : SProp, x -> (x -> imported_False) -> imported_False := Imported.Original_LF__DOT__Logic_LF_Logic_double__neg.
+Monomorphic Instance Original_LF__DOT__Logic_LF_Logic_double__neg_iso : forall (x1 : Prop) (x2 : SProp) (hx : Iso x1 x2) (x3 : x1) (x4 : x2),
   rel_iso hx x3 x4 ->
   forall (x5 : x1 -> False) (x6 : x2 -> imported_False),
   (forall (x7 : x1) (x8 : x2), rel_iso hx x7 x8 -> rel_iso False_iso (x5 x7) (x6 x8)) ->

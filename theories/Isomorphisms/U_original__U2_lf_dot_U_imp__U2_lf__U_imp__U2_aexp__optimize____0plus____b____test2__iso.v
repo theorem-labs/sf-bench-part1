@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__U2_anum__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__U2_aplus__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__U2_band__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__U2_ble__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__U2_btrue__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__optimize____0plus____b__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2 : imported_Corelib_Init_Logic_eq
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b
        (imported_Original_LF__DOT__Imp_LF_Imp_AExp_BAnd
           (imported_Original_LF__DOT__Imp_LF_Imp_AExp_BLe
@@ -22,7 +22,7 @@ Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2 
        (imported_Original_LF__DOT__Imp_LF_Imp_AExp_BLe (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))))
           (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))))
        imported_Original_LF__DOT__Imp_LF_Imp_AExp_BTrue) := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2.
-Instance Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b_iso
           (Original_LF__DOT__Imp_LF_Imp_AExp_BAnd_iso

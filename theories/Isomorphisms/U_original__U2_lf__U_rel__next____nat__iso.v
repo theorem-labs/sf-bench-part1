@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
-Definition imported_Original_LF_Rel_next__nat : imported_nat -> imported_nat -> SProp := Imported.Original_LF_Rel_next__nat.
-Instance Original_LF_Rel_next__nat_iso : forall (x1 : nat) (x2 : imported_nat),
+Monomorphic Definition imported_Original_LF_Rel_next__nat : imported_nat -> imported_nat -> SProp := Imported.Original_LF_Rel_next__nat.
+Monomorphic Instance Original_LF_Rel_next__nat_iso : forall (x1 : nat) (x2 : imported_nat),
   rel_iso nat_iso x1 x2 -> forall (x3 : nat) (x4 : imported_nat), rel_iso nat_iso x3 x4 -> Iso (Original.LF.Rel.next_nat x1 x3) (imported_Original_LF_Rel_next__nat x2 x4).
 Admitted.
 Instance: KnownConstant Original.LF.Rel.next_nat := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -1,1 +1,0 @@
-nat S nat_add Original_False TrueProp True_I eq' Corelib_Init_Logic_eq eq'_Prop Corelib_Init_Logic_eq_Prop Original_LF__DOT__IndProp_LF_IndProp_reg__exp Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant

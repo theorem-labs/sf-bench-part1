@@ -15,7 +15,7 @@ Instance _0_iso : rel_iso nat_iso (Datatypes.O) imported_0.
 Proof.
   unfold rel_iso, imported_0.
   simpl.
-  unfold Imported._0.
+  (* nat_to_imported O = Imported.nat_zero = Imported._0 *)
   apply IsomorphismDefinitions.eq_refl.
 Defined.
 Instance: KnownConstant (Datatypes.O) := {}. (* only needed when rel_iso is typeclasses opaque *)

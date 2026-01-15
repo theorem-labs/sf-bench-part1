@@ -61,30 +61,9 @@ Definition Original_LF__DOT__IndProp_LF_IndProp_derives_iso : forall (x1 : Ascii
              (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x8 (x2 x4 x6)))
           (fun (x7 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii) (x8 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
              (hx2 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x7 x8) =>
-           {|
-             to :=
-               iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx2) hx1)
-                 (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx2 (hx x3 x4 hx0 x5 x6 hx1));
-             from :=
-               from
-                 (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx2) hx1)
-                    (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx2 (hx x3 x4 hx0 x5 x6 hx1)));
-             to_from :=
-               fun
-                 x : imported_iff (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x4 x8) x6)
-                       (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x8 (x2 x4 x6)) =>
-               to_from
-                 (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx2) hx1)
-                    (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx2 (hx x3 x4 hx0 x5 x6 hx1)))
-                 x;
-             from_to :=
-               fun x : Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x3 x7) x5 <-> Original.LF_DOT_IndProp.LF.IndProp.exp_match x7 (x1 x3 x5) =>
-               seq_p_of_t
-                 (from_to
-                    (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx2) hx1)
-                       (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx2 (hx x3 x4 hx0 x5 x6 hx1)))
-                    x)
-           |}))).
+           relax_Iso_Ts_Ps
+             (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx2) hx1)
+                (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx2 (hx x3 x4 hx0 x5 x6 hx1)))))).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_derives_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.derives ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_derives_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.derives imported_Original_LF__DOT__IndProp_LF_IndProp_derives ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_derives_iso; constructor : typeclass_instances.

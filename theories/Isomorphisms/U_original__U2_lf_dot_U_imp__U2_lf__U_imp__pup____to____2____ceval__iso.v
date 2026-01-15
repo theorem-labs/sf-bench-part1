@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____update__iso Isomorphisms.__0__iso Isomorphisms.U_ascii__U_ascii__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_x__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_y__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__ceval__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__empty____st__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__pup____to____n__iso Isomorphisms.U_s__iso Isomorphisms.U_string__U_emptyU_string__iso Isomorphisms.U_string__U_string__iso Isomorphisms.false__iso Isomorphisms.true__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_pup__to__2__ceval : imported_Original_LF__DOT__Imp_LF_Imp_ceval imported_Original_LF__DOT__Imp_LF_Imp_pup__to__n
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_pup__to__2__ceval : imported_Original_LF__DOT__Imp_LF_Imp_ceval imported_Original_LF__DOT__Imp_LF_Imp_pup__to__n
     (fun x : imported_String_string =>
      imported_Original_LF__DOT__Maps_LF_Maps_t__update (fun x0 : imported_String_string => imported_Original_LF__DOT__Imp_LF_Imp_empty__st x0) imported_Original_LF__DOT__Imp_LF_Imp_X
        (imported_S (imported_S imported_0)) x)
@@ -32,7 +32,7 @@ Definition imported_Original_LF__DOT__Imp_LF_Imp_pup__to__2__ceval : imported_Or
              imported_Original_LF__DOT__Imp_LF_Imp_X (imported_S imported_0) x1)
           imported_Original_LF__DOT__Imp_LF_Imp_Y (imported_S (imported_S (imported_S imported_0))) x0)
        imported_Original_LF__DOT__Imp_LF_Imp_X imported_0 x) := Imported.Original_LF__DOT__Imp_LF_Imp_pup__to__2__ceval.
-Instance Original_LF__DOT__Imp_LF_Imp_pup__to__2__ceval_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_pup__to__2__ceval_iso : rel_iso
     (Original_LF__DOT__Imp_LF_Imp_ceval_iso Original_LF__DOT__Imp_LF_Imp_pup__to__n_iso (Original.LF_DOT_Maps.LF.Maps.t_update Original.LF_DOT_Imp.LF.Imp.empty_st Original.LF_DOT_Imp.LF.Imp.X 2)
        (fun x : imported_String_string =>
         imported_Original_LF__DOT__Maps_LF_Maps_t__update (fun x0 : imported_String_string => imported_Original_LF__DOT__Imp_LF_Imp_empty__st x0) imported_Original_LF__DOT__Imp_LF_Imp_X

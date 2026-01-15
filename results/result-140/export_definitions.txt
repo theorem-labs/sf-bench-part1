@@ -1,1 +1,0 @@
-nat Nat_add Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev

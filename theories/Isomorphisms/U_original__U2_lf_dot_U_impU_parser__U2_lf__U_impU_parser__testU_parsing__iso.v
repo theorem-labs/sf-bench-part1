@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,12 +10,12 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_impU_parser__U2_lf__U_impU_parser__optionU_e__iso Isomorphisms.U_original__U2_lf_dot_U_impU_parser__U2_lf__U_impU_parser__token__iso Isomorphisms.U_string__string__iso Isomorphisms.list__iso Isomorphisms.nat__iso Isomorphisms.prod__iso.
 
-Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_testParsing : forall x : Type,
+Monomorphic Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_testParsing : forall x : Type,
   (imported_nat ->
    imported_list imported_Original_LF__DOT__ImpParser_LF_ImpParser_token ->
    imported_Original_LF__DOT__ImpParser_LF_ImpParser_optionE (imported_prod x (imported_list imported_Original_LF__DOT__ImpParser_LF_ImpParser_token))) ->
   imported_String_string -> imported_Original_LF__DOT__ImpParser_LF_ImpParser_optionE (imported_prod x (imported_list imported_Original_LF__DOT__ImpParser_LF_ImpParser_token)) := (@Imported.Original_LF__DOT__ImpParser_LF_ImpParser_testParsing).
-Instance Original_LF__DOT__ImpParser_LF_ImpParser_testParsing_iso : forall (x1 x2 : Type) (hx : Iso x1 x2)
+Monomorphic Instance Original_LF__DOT__ImpParser_LF_ImpParser_testParsing_iso : forall (x1 x2 : Type) (hx : Iso x1 x2)
     (x3 : nat -> list Original.LF_DOT_ImpParser.LF.ImpParser.token -> Original.LF_DOT_ImpParser.LF.ImpParser.optionE (x1 * list Original.LF_DOT_ImpParser.LF.ImpParser.token))
     (x4 : imported_nat ->
           imported_list imported_Original_LF__DOT__ImpParser_LF_ImpParser_token ->

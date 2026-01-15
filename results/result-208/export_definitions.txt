@@ -1,1 +1,0 @@
-Original_LF_Rel_relation Original_LF_Rel_reflexive Original_LF_Rel_symmetric Original_LF_Rel_transitive Original_LF_Rel_equivalence

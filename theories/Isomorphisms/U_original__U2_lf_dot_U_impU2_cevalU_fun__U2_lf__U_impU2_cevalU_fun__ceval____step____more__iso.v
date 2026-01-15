@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,13 +10,13 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_some__iso Isomorphisms.U_ascii__U_ascii__iso Isomorphisms.U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__ceval____step__iso Isomorphisms.U_string__U_emptyU_string__iso Isomorphisms.U_string__U_string__iso Isomorphisms.false__iso Isomorphisms.le__iso Isomorphisms.true__iso.
 
-Definition imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step__more : forall (x x0 : imported_nat) (x1 x2 : imported_String_string -> imported_nat) (x3 : imported_Original_LF__DOT__Imp_LF_Imp_com),
+Monomorphic Definition imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step__more : forall (x x0 : imported_nat) (x1 x2 : imported_String_string -> imported_nat) (x3 : imported_Original_LF__DOT__Imp_LF_Imp_com),
   imported_le x x0 ->
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step (fun x4 : imported_String_string => x1 x4) x3 x)
     (imported_Some (fun x16 : imported_String_string => x2 x16)) ->
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step (fun x4 : imported_String_string => x1 x4) x3 x0)
     (imported_Some (fun x16 : imported_String_string => x2 x16)) := Imported.Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step__more.
-Instance Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step__more_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4) (x5 : Original.LF_DOT_Imp.LF.Imp.state)
+Monomorphic Instance Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step__more_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4) (x5 : Original.LF_DOT_Imp.LF.Imp.state)
     (x6 : imported_String_string -> imported_nat) (hx1 : forall (x7 : String.string) (x8 : imported_String_string), rel_iso String_string_iso x7 x8 -> rel_iso nat_iso (x5 x7) (x6 x8))
     (x7 : Original.LF_DOT_Imp.LF.Imp.state) (x8 : imported_String_string -> imported_nat)
     (hx2 : forall (x9 : String.string) (x10 : imported_String_string), rel_iso String_string_iso x9 x10 -> rel_iso nat_iso (x7 x9) (x8 x10)) (x9 : Original.LF_DOT_Imp.LF.Imp.com)

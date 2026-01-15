@@ -1,1 +1,0 @@
-False ex Logic_not

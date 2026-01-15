@@ -27,32 +27,11 @@ Parameter imported_Original_LF__DOT__IndProp_LF_IndProp_char__nomatch__char : fo
 Parameter Original_LF__DOT__IndProp_LF_IndProp_char__nomatch__char_iso : forall (x1 : Ascii.ascii) (x2 : imported_Ascii_ascii) (hx : rel_iso Ascii_ascii_iso x1 x2) (x3 : Ascii.ascii) (x4 : imported_Ascii_ascii) (hx0 : rel_iso Ascii_ascii_iso x3 x4)
     (x5 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii) (x6 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
     (hx1 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x5 x6) (x7 : x3 <> x1) (x8 : imported_Corelib_Init_Logic_eq x4 x2 -> imported_False),
-  (forall (x9 : x3 = x1) (x10 : imported_Corelib_Init_Logic_eq x4 x2),
-   rel_iso
-     {|
-       to := Corelib_Init_Logic_eq_iso hx0 hx;
-       from := from (Corelib_Init_Logic_eq_iso hx0 hx);
-       to_from := fun x : imported_Corelib_Init_Logic_eq x4 x2 => to_from (Corelib_Init_Logic_eq_iso hx0 hx) x;
-       from_to := fun x : x3 = x1 => seq_p_of_t (from_to (Corelib_Init_Logic_eq_iso hx0 hx) x)
-     |} x9 x10 ->
-   rel_iso {| to := False_iso; from := from False_iso; to_from := fun x : imported_False => to_from False_iso x; from_to := fun x : False => seq_p_of_t (from_to False_iso x) |} (x7 x9) (x8 x10)) ->
+  (forall (x9 : x3 = x1) (x10 : imported_Corelib_Init_Logic_eq x4 x2), rel_iso (relax_Iso_Ts_Ps (Corelib_Init_Logic_eq_iso hx0 hx)) x9 x10 -> rel_iso (relax_Iso_Ts_Ps False_iso) (x7 x9) (x8 x10)) ->
   rel_iso
-    {|
-      to := iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_Char_iso hx)) Original_False_iso;
-      from :=
-        from (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_Char_iso hx)) Original_False_iso);
-      to_from :=
-        fun
-          x : imported_iff (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x4 x6) (imported_Original_LF__DOT__IndProp_LF_IndProp_Char x2))
-                imported_Original_False =>
-        to_from (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_Char_iso hx)) Original_False_iso)
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x3 x5) (Original.LF_DOT_IndProp.LF.IndProp.Char x1) <-> Original.False =>
-        seq_p_of_t
-          (from_to
-             (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_Char_iso hx)) Original_False_iso) x)
-    |} (Original.LF_DOT_IndProp.LF.IndProp.char_nomatch_char x1 x3 x5 x7) (imported_Original_LF__DOT__IndProp_LF_IndProp_char__nomatch__char x6 x8).
+    (relax_Iso_Ts_Ps
+       (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx0 hx1) (Original_LF__DOT__IndProp_LF_IndProp_Char_iso hx)) Original_False_iso))
+    (Original.LF_DOT_IndProp.LF.IndProp.char_nomatch_char x1 x3 x5 x7) (imported_Original_LF__DOT__IndProp_LF_IndProp_char__nomatch__char x6 x8).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_char__nomatch__char_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.char_nomatch_char ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_char__nomatch__char_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.char_nomatch_char imported_Original_LF__DOT__IndProp_LF_IndProp_char__nomatch__char ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_char__nomatch__char_iso; constructor : typeclass_instances.

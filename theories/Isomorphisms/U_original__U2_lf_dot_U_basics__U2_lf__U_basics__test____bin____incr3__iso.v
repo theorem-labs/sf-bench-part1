@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,10 +10,10 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_b0__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_b1__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__U_z__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__incr__iso.
 
-Definition imported_Original_LF__DOT__Basics_LF_Basics_test__bin__incr3 : imported_Corelib_Init_Logic_eq
+Monomorphic Definition imported_Original_LF__DOT__Basics_LF_Basics_test__bin__incr3 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Basics_LF_Basics_incr (imported_Original_LF__DOT__Basics_LF_Basics_B1 (imported_Original_LF__DOT__Basics_LF_Basics_B1 imported_Original_LF__DOT__Basics_LF_Basics_Z)))
     (imported_Original_LF__DOT__Basics_LF_Basics_B0 (imported_Original_LF__DOT__Basics_LF_Basics_B0 (imported_Original_LF__DOT__Basics_LF_Basics_B1 imported_Original_LF__DOT__Basics_LF_Basics_Z))) := Imported.Original_LF__DOT__Basics_LF_Basics_test__bin__incr3.
-Instance Original_LF__DOT__Basics_LF_Basics_test__bin__incr3_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Basics_LF_Basics_test__bin__incr3_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Basics_LF_Basics_incr_iso (Original_LF__DOT__Basics_LF_Basics_B1_iso (Original_LF__DOT__Basics_LF_Basics_B1_iso Original_LF__DOT__Basics_LF_Basics_Z_iso)))
        (Original_LF__DOT__Basics_LF_Basics_B0_iso (Original_LF__DOT__Basics_LF_Basics_B0_iso (Original_LF__DOT__Basics_LF_Basics_B1_iso Original_LF__DOT__Basics_LF_Basics_Z_iso))))

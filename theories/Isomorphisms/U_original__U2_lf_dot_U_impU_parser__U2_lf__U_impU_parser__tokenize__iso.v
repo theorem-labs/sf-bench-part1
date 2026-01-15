@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_string__string__iso Isomorphisms.list__iso.
 
-Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_tokenize : imported_String_string -> imported_list imported_String_string := Imported.Original_LF__DOT__ImpParser_LF_ImpParser_tokenize.
-Instance Original_LF__DOT__ImpParser_LF_ImpParser_tokenize_iso : forall (x1 : String.string) (x2 : imported_String_string),
+Monomorphic Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_tokenize : imported_String_string -> imported_list imported_String_string := Imported.Original_LF__DOT__ImpParser_LF_ImpParser_tokenize.
+Monomorphic Instance Original_LF__DOT__ImpParser_LF_ImpParser_tokenize_iso : forall (x1 : String.string) (x2 : imported_String_string),
   rel_iso String_string_iso x1 x2 -> rel_iso (list_iso String_string_iso) (Original.LF_DOT_ImpParser.LF.ImpParser.tokenize x1) (imported_Original_LF__DOT__ImpParser_LF_ImpParser_tokenize x2).
 Admitted.
 Instance: KnownConstant Original.LF_DOT_ImpParser.LF.ImpParser.tokenize := {}. (* only needed when rel_iso is typeclasses opaque *)

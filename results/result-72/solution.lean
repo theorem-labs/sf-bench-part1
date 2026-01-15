@@ -1,71 +1,65 @@
--- Definitions for list, prod, pair, nil, cons, combine, split, and combine_split
+-- Lean translation for mult_2 and all dependencies
+-- Using prelude to avoid name conflicts
+-- NOT universe polymorphic - use fixed universes
+prelude
 
--- Custom equality type (to avoid SProp issues)
-inductive Corelib_Init_Logic_eq {A : Type} : A → A → Type where
-  | refl : (a : A) → Corelib_Init_Logic_eq a a
+-- Basic infrastructure needed in prelude mode
+inductive Unit : Type where
+  | unit : Unit
 
--- True type - use Lean's built-in Unit as it maps to Rocq's True
--- Unit has one constructor: Unit.unit
+-- Equality in Prop (will become SProp after import)
+-- NOT universe polymorphic - use Type 1 (the type of cnat)
+inductive Corelib_Init_Logic_eq {X : Type 1} : X → X → Prop where
+  | refl (x : X) : Corelib_Init_Logic_eq x x
 
--- List type (matching Original.LF_DOT_Poly.LF.Poly.list)
-inductive Original_LF__DOT__Poly_LF_Poly_list (X : Type) : Type where
-  | nil : Original_LF__DOT__Poly_LF_Poly_list X
-  | cons : X → Original_LF__DOT__Poly_LF_Poly_list X → Original_LF__DOT__Poly_LF_Poly_list X
+-- True in Prop (will become SProp after import)
+inductive True : Prop where
+  | intro : True
 
--- The nil constructor
-def Original_LF__DOT__Poly_LF_Poly_nil (X : Type) : Original_LF__DOT__Poly_LF_Poly_list X :=
-  Original_LF__DOT__Poly_LF_Poly_list.nil
+-- SProp-sorted equality (for proving eq on SProp values)
+inductive Corelib_Init_Logic_eq_Prop {X : Prop} : X → X → Prop where
+  | refl (x : X) : Corelib_Init_Logic_eq_Prop x x
 
--- The cons constructor  
-def Original_LF__DOT__Poly_LF_Poly_cons (X : Type) (x : X) (l : Original_LF__DOT__Poly_LF_Poly_list X) : Original_LF__DOT__Poly_LF_Poly_list X :=
-  Original_LF__DOT__Poly_LF_Poly_list.cons x l
+-- cnat type: forall X : Type, (X -> X) -> X -> X  
+-- Fixed at Type 0 for X
+def Original_LF__DOT__Poly_LF_Poly_Exercises_cnat : Type 1 := 
+  (X : Type 0) → (X → X) → X → X
 
--- Prod type (matching Original.LF_DOT_Poly.LF.Poly.prod)
-inductive Original_LF__DOT__Poly_LF_Poly_prod (X Y : Type) : Type where
-  | pair : X → Y → Original_LF__DOT__Poly_LF_Poly_prod X Y
+-- doit3times: applies f three times
+def Original_LF__DOT__Poly_LF_Poly_doit3times (X : Type 0) (f : X → X) (n : X) : X :=
+  f (f (f n))
 
--- The pair constructor
-def Original_LF__DOT__Poly_LF_Poly_pair (X Y : Type) (x : X) (y : Y) : Original_LF__DOT__Poly_LF_Poly_prod X Y :=
-  Original_LF__DOT__Poly_LF_Poly_prod.pair x y
+-- three: cnat := @doit3times
+def Original_LF__DOT__Poly_LF_Poly_Exercises_three : (X : Type 0) → (X → X) → X → X :=
+  Original_LF__DOT__Poly_LF_Poly_doit3times
 
--- combine function
-def Original_LF__DOT__Poly_LF_Poly_combine (X Y : Type) : 
-  Original_LF__DOT__Poly_LF_Poly_list X → 
-  Original_LF__DOT__Poly_LF_Poly_list Y → 
-  Original_LF__DOT__Poly_LF_Poly_list (Original_LF__DOT__Poly_LF_Poly_prod X Y) :=
-  fun lx ly =>
-    match lx with
-    | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_LF__DOT__Poly_LF_Poly_list.nil
-    | Original_LF__DOT__Poly_LF_Poly_list.cons x tx =>
-      match ly with
-      | Original_LF__DOT__Poly_LF_Poly_list.nil => Original_LF__DOT__Poly_LF_Poly_list.nil
-      | Original_LF__DOT__Poly_LF_Poly_list.cons y ty =>
-        Original_LF__DOT__Poly_LF_Poly_list.cons 
-          (Original_LF__DOT__Poly_LF_Poly_prod.pair x y) 
-          (Original_LF__DOT__Poly_LF_Poly_combine X Y tx ty)
+-- zero: cnat - identity on x, ignores f
+def Original_LF__DOT__Poly_LF_Poly_Exercises_zero : (X : Type 0) → (X → X) → X → X :=
+  fun (X : Type 0) (_f : X → X) (x : X) => x
 
--- split function
-def Original_LF__DOT__Tactics_LF_Tactics_split (X Y : Type) :
-  Original_LF__DOT__Poly_LF_Poly_list (Original_LF__DOT__Poly_LF_Poly_prod X Y) → 
-  Original_LF__DOT__Poly_LF_Poly_prod (Original_LF__DOT__Poly_LF_Poly_list X) (Original_LF__DOT__Poly_LF_Poly_list Y) :=
-  fun l =>
-    match l with
-    | Original_LF__DOT__Poly_LF_Poly_list.nil => 
-        Original_LF__DOT__Poly_LF_Poly_prod.pair 
-          Original_LF__DOT__Poly_LF_Poly_list.nil 
-          Original_LF__DOT__Poly_LF_Poly_list.nil
-    | Original_LF__DOT__Poly_LF_Poly_list.cons (Original_LF__DOT__Poly_LF_Poly_prod.pair x y) t =>
-        match Original_LF__DOT__Tactics_LF_Tactics_split X Y t with
-        | Original_LF__DOT__Poly_LF_Poly_prod.pair lx ly =>
-            Original_LF__DOT__Poly_LF_Poly_prod.pair
-              (Original_LF__DOT__Poly_LF_Poly_list.cons x lx)
-              (Original_LF__DOT__Poly_LF_Poly_list.cons y ly)
+-- plus is Admitted in Original.v, so we use an axiom
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_plus : 
+  ((X : Type 0) → (X → X) → X → X) → 
+  ((X : Type 0) → (X → X) → X → X) → 
+  (X : Type 0) → (X → X) → X → X
 
--- combine_split axiom (Admitted in original Rocq)
-axiom Original_LF__DOT__Tactics_LF_Tactics_combine__split : 
-  (X Y : Type) → 
-  (l : Original_LF__DOT__Poly_LF_Poly_list (Original_LF__DOT__Poly_LF_Poly_prod X Y)) →
-  (l1 : Original_LF__DOT__Poly_LF_Poly_list X) →
-  (l2 : Original_LF__DOT__Poly_LF_Poly_list Y) →
-  Corelib_Init_Logic_eq (Original_LF__DOT__Tactics_LF_Tactics_split X Y l) (Original_LF__DOT__Poly_LF_Poly_pair (Original_LF__DOT__Poly_LF_Poly_list X) (Original_LF__DOT__Poly_LF_Poly_list Y) l1 l2) →
-  Corelib_Init_Logic_eq (Original_LF__DOT__Poly_LF_Poly_combine X Y l1 l2) l
+-- mult is Admitted in Original.v, so we use an axiom
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_mult : 
+  ((X : Type 0) → (X → X) → X → X) → 
+  ((X : Type 0) → (X → X) → X → X) → 
+  (X : Type 0) → (X → X) → X → X
+
+-- mult_2 is Admitted in Original.v: mult zero (plus three three) = zero
+axiom Original_LF__DOT__Poly_LF_Poly_Exercises_mult__2 : 
+  @Corelib_Init_Logic_eq
+    ((X : Type 0) → (X → X) → X → X)
+    (fun (x2 : Type 0) (x4 : x2 → x2) (x6 : x2) =>
+      Original_LF__DOT__Poly_LF_Poly_Exercises_mult
+        (fun (x : Type 0) (x0 : x → x) (x1 : x) => Original_LF__DOT__Poly_LF_Poly_Exercises_zero x (fun x3 => x0 x3) x1)
+        (fun (x : Type 0) (x0 : x → x) (x3 : x) =>
+          Original_LF__DOT__Poly_LF_Poly_Exercises_plus
+            (fun (x1 : Type 0) (x5 : x1 → x1) (x7 : x1) => Original_LF__DOT__Poly_LF_Poly_Exercises_three x1 (fun x8 => x5 x8) x7)
+            (fun (x1 : Type 0) (x5 : x1 → x1) (x7 : x1) => Original_LF__DOT__Poly_LF_Poly_Exercises_three x1 (fun x8 => x5 x8) x7)
+            x (fun x1 => x0 x1) x3)
+        x2 (fun x => x4 x) x6)
+    (fun (x2 : Type 0) (x4 : x2 → x2) (x6 : x2) => Original_LF__DOT__Poly_LF_Poly_Exercises_zero x2 (fun x => x4 x) x6)

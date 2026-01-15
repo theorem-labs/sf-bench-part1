@@ -35,96 +35,27 @@ Parameter Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval__deterministic_iso : foral
     (x13 : Original.LF_DOT_Imp.LF.Imp.BreakImp.ceval x1 x3 x9 x5)
     (x14 : imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval x2 (fun H : imported_String_string => x4 H) x10 (fun H : imported_String_string => x6 H)),
   rel_iso
-    {|
-      to :=
-        Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
+    (relax_Iso_Ts_Ps
+       (Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
           (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx0 x15 x16 hx5) hx3 x5 (fun H : imported_String_string => x6 H)
-          (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx1 x15 x16 hx5);
-      from :=
-        from
-          (Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-             (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx0 x15 x16 hx5) hx3 x5 (fun H : imported_String_string => x6 H)
-             (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx1 x15 x16 hx5));
-      to_from :=
-        fun x : imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval x2 (fun H : imported_String_string => x4 H) x10 (fun H : imported_String_string => x6 H) =>
-        to_from
-          (Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-             (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx0 x15 x16 hx5) hx3 x5 (fun H : imported_String_string => x6 H)
-             (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx1 x15 x16 hx5))
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_Imp.LF.Imp.BreakImp.ceval x1 x3 x9 x5 =>
-        seq_p_of_t
-          (from_to
-             (Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-                (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx0 x15 x16 hx5) hx3 x5 (fun H : imported_String_string => x6 H)
-                (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx1 x15 x16 hx5))
-             x)
-    |} x13 x14 ->
+          (fun (x15 : String.string) (x16 : imported_String_string) (hx5 : rel_iso String_string_iso x15 x16) => hx1 x15 x16 hx5)))
+    x13 x14 ->
   forall (x15 : Original.LF_DOT_Imp.LF.Imp.BreakImp.ceval x1 x3 x11 x7)
     (x16 : imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval x2 (fun H : imported_String_string => x4 H) x12 (fun H : imported_String_string => x8 H)),
   rel_iso
-    {|
-      to :=
-        Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
+    (relax_Iso_Ts_Ps
+       (Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
           (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx0 x17 x18 hx6) hx4 x7 (fun H : imported_String_string => x8 H)
-          (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx6);
-      from :=
-        from
-          (Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-             (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx0 x17 x18 hx6) hx4 x7 (fun H : imported_String_string => x8 H)
-             (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx6));
-      to_from :=
-        fun x : imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval x2 (fun H : imported_String_string => x4 H) x12 (fun H : imported_String_string => x8 H) =>
-        to_from
-          (Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-             (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx0 x17 x18 hx6) hx4 x7 (fun H : imported_String_string => x8 H)
-             (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx6))
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_Imp.LF.Imp.BreakImp.ceval x1 x3 x11 x7 =>
-        seq_p_of_t
-          (from_to
-             (Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-                (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx0 x17 x18 hx6) hx4 x7 (fun H : imported_String_string => x8 H)
-                (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx6))
-             x)
-    |} x15 x16 ->
+          (fun (x17 : String.string) (x18 : imported_String_string) (hx6 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx6)))
+    x15 x16 ->
   rel_iso
-    {|
-      to :=
-        and_iso
+    (relax_Iso_Ts_Ps
+       (and_iso
           (Corelib_Init_Logic_eq_iso
              (IsoFunND x5 (fun x18 : imported_String_string => x6 x18) (fun (x17 : String.string) (x18 : imported_String_string) (hx7 : rel_iso String_string_iso x17 x18) => hx1 x17 x18 hx7))
              (IsoFunND x7 (fun x18 : imported_String_string => x8 x18) (fun (x17 : String.string) (x18 : imported_String_string) (hx7 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx7)))
-          (Corelib_Init_Logic_eq_iso hx3 hx4);
-      from :=
-        from
-          (and_iso
-             (Corelib_Init_Logic_eq_iso
-                (IsoFunND x5 (fun x18 : imported_String_string => x6 x18) (fun (x17 : String.string) (x18 : imported_String_string) (hx7 : rel_iso String_string_iso x17 x18) => hx1 x17 x18 hx7))
-                (IsoFunND x7 (fun x18 : imported_String_string => x8 x18) (fun (x17 : String.string) (x18 : imported_String_string) (hx7 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx7)))
-             (Corelib_Init_Logic_eq_iso hx3 hx4));
-      to_from :=
-        fun x : imported_and (imported_Corelib_Init_Logic_eq (fun x18 : imported_String_string => x6 x18) (fun x18 : imported_String_string => x8 x18)) (imported_Corelib_Init_Logic_eq x10 x12) =>
-        to_from
-          (and_iso
-             (Corelib_Init_Logic_eq_iso
-                (IsoFunND x5 (fun x18 : imported_String_string => x6 x18) (fun (x17 : String.string) (x18 : imported_String_string) (hx7 : rel_iso String_string_iso x17 x18) => hx1 x17 x18 hx7))
-                (IsoFunND x7 (fun x18 : imported_String_string => x8 x18) (fun (x17 : String.string) (x18 : imported_String_string) (hx7 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx7)))
-             (Corelib_Init_Logic_eq_iso hx3 hx4))
-          x;
-      from_to :=
-        fun x : x5 = x7 /\ x9 = x11 =>
-        seq_p_of_t
-          (from_to
-             (and_iso
-                (Corelib_Init_Logic_eq_iso
-                   (IsoFunND x5 (fun x18 : imported_String_string => x6 x18) (fun (x17 : String.string) (x18 : imported_String_string) (hx7 : rel_iso String_string_iso x17 x18) => hx1 x17 x18 hx7))
-                   (IsoFunND x7 (fun x18 : imported_String_string => x8 x18) (fun (x17 : String.string) (x18 : imported_String_string) (hx7 : rel_iso String_string_iso x17 x18) => hx2 x17 x18 hx7)))
-                (Corelib_Init_Logic_eq_iso hx3 hx4))
-             x)
-    |} (Original.LF_DOT_Imp.LF.Imp.BreakImp.ceval_deterministic x1 x3 x5 x7 x9 x11 x13 x15) (imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval__deterministic x4 x6 x8 x14 x16).
+          (Corelib_Init_Logic_eq_iso hx3 hx4)))
+    (Original.LF_DOT_Imp.LF.Imp.BreakImp.ceval_deterministic x1 x3 x5 x7 x9 x11 x13 x15) (imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval__deterministic x4 x6 x8 x14 x16).
 Existing Instance Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval__deterministic_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_Imp.LF.Imp.BreakImp.ceval_deterministic ?x) => unify x Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval__deterministic_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_Imp.LF.Imp.BreakImp.ceval_deterministic imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval__deterministic ?x) => unify x Original_LF__DOT__Imp_LF_Imp_BreakImp_ceval__deterministic_iso; constructor : typeclass_instances.

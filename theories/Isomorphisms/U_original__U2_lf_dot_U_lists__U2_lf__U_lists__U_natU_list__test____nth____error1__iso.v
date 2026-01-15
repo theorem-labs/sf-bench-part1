@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__U_some__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__cons__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__nil__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__nth____error__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error1 : imported_Corelib_Init_Logic_eq
+Monomorphic Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error1 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Lists_LF_Lists_NatList_nth__error
        (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
           (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))
@@ -18,7 +18,7 @@ Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error1 :
                 (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 4 imported_0)))) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil))))
        imported_0)
     (imported_Original_LF__DOT__Lists_LF_Lists_NatList_Some (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))) := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error1.
-Instance Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error1_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error1_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Lists_LF_Lists_NatList_nth__error_iso
           (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 0 imported_0 _0_iso))))

@@ -29,13 +29,7 @@ Definition Original_LF__DOT__ProofObjects_LF_ProofObjects_propositional__extensi
     (fun (x1 : Prop) (x2 : SProp) (hx : rel_iso iso_Prop_SProp x1 x2) =>
      IsoForall (fun a : Prop => x1 <-> a -> x1 = a) (fun x4 : SProp => imported_iff x2 x4 -> imported_Corelib_Init_Logic_eq x2 x4)
        (fun (x3 : Prop) (x4 : SProp) (hx0 : rel_iso iso_Prop_SProp x3 x4) =>
-        IsoArrow (iff_iso (iso_of_rel_iso_iso_sort_PropSProp_T hx) (iso_of_rel_iso_iso_sort_PropSProp_T hx0))
-          {|
-            to := Corelib_Init_Logic_eq_iso hx hx0;
-            from := from (Corelib_Init_Logic_eq_iso hx hx0);
-            to_from := fun x : imported_Corelib_Init_Logic_eq x2 x4 => to_from (Corelib_Init_Logic_eq_iso hx hx0) x;
-            from_to := fun x : x1 = x3 => seq_p_of_t (from_to (Corelib_Init_Logic_eq_iso hx hx0) x)
-          |})).
+        IsoArrow (iff_iso (iso_of_rel_iso_iso_sort_PropSProp_T hx) (iso_of_rel_iso_iso_sort_PropSProp_T hx0)) (relax_Iso_Ts_Ps (Corelib_Init_Logic_eq_iso hx hx0)))).
 Existing Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_propositional__extensionality_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_ProofObjects.LF.ProofObjects.propositional_extensionality ?x) => unify x Original_LF__DOT__ProofObjects_LF_ProofObjects_propositional__extensionality_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_ProofObjects.LF.ProofObjects.propositional_extensionality imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_propositional__extensionality ?x) => unify x Original_LF__DOT__ProofObjects_LF_ProofObjects_propositional__extensionality_iso; constructor : typeclass_instances.

@@ -1,1 +1,0 @@
-nat S PTrue Corelib_Init_Logic_eq Corelib_Init_Logic_eq_Prop and or ex Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev

@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_ascii__ascii__iso Isomorphisms.U_string__string__iso Isomorphisms.list__iso.
 
-Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list : imported_list imported_Ascii_ascii -> imported_String_string := Imported.Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list.
-Instance Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list_iso : forall (x1 : list Ascii.ascii) (x2 : imported_list imported_Ascii_ascii),
+Monomorphic Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list : imported_list imported_Ascii_ascii -> imported_String_string := Imported.Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list.
+Monomorphic Instance Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list_iso : forall (x1 : list Ascii.ascii) (x2 : imported_list imported_Ascii_ascii),
   rel_iso (list_iso Ascii_ascii_iso) x1 x2 ->
   rel_iso String_string_iso (Original.LF_DOT_ImpParser.LF.ImpParser.string_of_list x1) (imported_Original_LF__DOT__ImpParser_LF_ImpParser_string__of__list x2).
 Admitted.

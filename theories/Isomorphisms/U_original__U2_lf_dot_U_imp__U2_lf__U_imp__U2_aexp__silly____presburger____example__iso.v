@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,11 +10,11 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.__0__iso Isomorphisms.U_peanoU_nat__U_nat__add__iso Isomorphisms.U_s__iso Isomorphisms.and__iso Isomorphisms.le__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_silly__presburger__example : forall x x0 x1 x2 : imported_nat,
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_silly__presburger__example : forall x x0 x1 x2 : imported_nat,
   imported_and (imported_le (imported_PeanoNat_Nat_add x x0) (imported_PeanoNat_Nat_add x0 x1))
     (imported_Corelib_Init_Logic_eq (imported_PeanoNat_Nat_add x1 (imported_S (imported_S (imported_S imported_0)))) (imported_PeanoNat_Nat_add x2 (imported_S (imported_S (imported_S imported_0))))) ->
   imported_le x x2 := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_silly__presburger__example.
-Instance Original_LF__DOT__Imp_LF_Imp_AExp_silly__presburger__example_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4) (x5 : nat) (x6 : imported_nat) (hx1 : rel_iso nat_iso x5 x6)
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_AExp_silly__presburger__example_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : nat) (x4 : imported_nat) (hx0 : rel_iso nat_iso x3 x4) (x5 : nat) (x6 : imported_nat) (hx1 : rel_iso nat_iso x5 x6)
     (x7 : nat) (x8 : imported_nat) (hx2 : rel_iso nat_iso x7 x8) (x9 : x1 + x3 <= x3 + x5 /\ x5 + 3 = x7 + 3)
     (x10 : imported_and (imported_le (imported_PeanoNat_Nat_add x2 x4) (imported_PeanoNat_Nat_add x4 x6))
              (imported_Corelib_Init_Logic_eq (imported_PeanoNat_Nat_add x6 (imported_S (imported_S (imported_S imported_0))))

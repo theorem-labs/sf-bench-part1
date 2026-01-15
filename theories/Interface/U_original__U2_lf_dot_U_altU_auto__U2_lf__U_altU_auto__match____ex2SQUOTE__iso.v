@@ -21,13 +21,7 @@ Module Type Args := Interface.U_true__iso.Interface <+ Interface.and__iso.Interf
 Module Type Interface (Import args : Args).
 
 Parameter imported_Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2' : imported_and imported_True imported_True.
-Parameter Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'_iso : rel_iso
-    {|
-      to := and_iso True_iso True_iso;
-      from := from (and_iso True_iso True_iso);
-      to_from := fun x : imported_and imported_True imported_True => to_from (and_iso True_iso True_iso) x;
-      from_to := fun x : True /\ True => seq_p_of_t (from_to (and_iso True_iso True_iso) x)
-    |} Original.LF_DOT_AltAuto.LF.AltAuto.match_ex2' imported_Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'.
+Parameter Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'_iso : rel_iso (relax_Iso_Ts_Ps (and_iso True_iso True_iso)) Original.LF_DOT_AltAuto.LF.AltAuto.match_ex2' imported_Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'.
 Existing Instance Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_AltAuto.LF.AltAuto.match_ex2' ?x) => unify x Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_AltAuto.LF.AltAuto.match_ex2' imported_Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2' ?x) => unify x Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'_iso; constructor : typeclass_instances.

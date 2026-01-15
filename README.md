@@ -2,7 +2,7 @@
 
 This repository contains verified translations of statements from the **Logical Foundations** volume of [Software Foundations](https://softwarefoundations.cis.upenn.edu/) from Rocq to Lean 4.
 
-The repository includes 871 translation results, each with a formally verified proof that the Lean translation is semantically equivalent to the original Rocq definition.
+The repository includes 136 translation results, each with a formally verified proof that the Lean translation is semantically equivalent to the original Rocq definition.
 
 ## Repository Structure
 
@@ -13,19 +13,31 @@ sf-bench-part1/
 │   ├── Imported.v               # Imports Lean definitions into Rocq
 │   ├── IsomorphismDefinitions.v # Core isomorphism type definitions
 │   ├── EqualityLemmas.v         # Helper lemmas for isomorphism proofs
-│   └── Isomorphisms/            # 1276 base isomorphism proof files
-├── results/                     # 871 individual translation results
+│   ├── Checker.v                # Main checker module
+│   ├── Ltac2Utils.v             # Ltac2 automation utilities
+│   ├── Interface.v              # Interface definitions for all isomorphisms
+│   ├── Interface/               # Individual interface files
+│   ├── Isomorphisms.v           # Base isomorphism proof file
+│   └── Isomorphisms/            # Individual isomorphism proof files
+├── results/                     # 136 individual translation results
 │   └── result-N/
 │       ├── solution.lean        # Lean translation of a theorem/definition
-│       ├── lean.out             # lean4export output
+│       ├── lean.out             # lean4export output for Rocq import
 │       ├── scores.json          # Evaluation scores for the translation
+│       ├── export_definitions.txt  # List of exported Lean definitions
+│       ├── names.json           # Mapping of definition names
 │       └── theories/
 │           ├── Checker/         # Verification checker (compile to verify)
 │           └── Isomorphisms/    # Result-specific isomorphism proofs
 ├── Dockerfile                   # Docker environment for verification
 ├── scripts/
-│   └── verify.sh                # Verification script
-└── problem-deps.json            # Dependencies between problems
+│   ├── verify.sh                # Verification script
+│   └── test-build.sh            # Build test script
+├── problem-deps.json            # Dependencies between isomorphism problems
+├── problem-results.json         # Mapping of isomorphisms to result folders
+├── dependencies.dot             # Dependency graph (DOT format)
+├── dependencies.svg             # Dependency graph (SVG)
+└── dependencies.png             # Dependency graph (PNG)
 ```
 
 ## How Verification Works
@@ -40,7 +52,7 @@ Each translation is verified through a type isomorphism proof that demonstrates 
 
 4. **Isomorphism Proof**: Files in `theories/Isomorphisms/` prove that the original Rocq definition is type-isomorphic to the imported Lean definition
 
-5. **Verification**: If the Checker compiles successfully, the translation is verified correct
+5. **Verification**: If the Checker compiles successfully, the translation is verified as correct
 
 ## Verifying Results
 
@@ -58,7 +70,7 @@ docker build -t sf-bench-part1 .
 This builds an image with:
 - Rocq/Coq 9.1.0 (custom fork with recursive-assumptions support)
 - rocq-lean-import (for importing Lean definitions into Rocq)
-- Lean 4.20.0-rc5 (via elan)
+- Lean 4 (version from lean4export's lean-toolchain, via elan)
 - lean4export tool
 - Pre-compiled base theories
 
@@ -90,26 +102,31 @@ Step 1: Checking Lean compilation...
 
 Step 2: Checking Rocq Checker compilation...
   Copied lean.out as Imported.out
-  Copied result-specific Isomorphisms files (stripped Typeclasses Opaque rel_iso)
-  Copied Checker folder
+  Copied 26 Isomorphisms files
+  Copied 26 Checker files
   Regenerating Makefile.coq...
   Compiling Imported.v...
-  Compiling result-specific Isomorphisms...
+  Compiling Isomorphisms...
   Compiling Checker...
   ✓ Rocq Checker compiles successfully
 
 === result-1 verified successfully ===
 ```
 
-### Step 3: Verify Multiple Results
+### Step 3: Verify All Results
 
-To verify multiple results:
+To verify all results at once:
 
 ```bash
-# Verify results 1 through 10
-for i in $(seq 1 10); do
-  docker run --rm -v $(pwd):/host sf-bench-part1 verify result-$i
-done
+docker run --rm -v $(pwd):/host sf-bench-part1 verify --all
+```
+
+This will verify each result and print a summary at the end:
+
+```
+==========================================
+SUMMARY: 136 passed, 0 failed (out of 136)
+==========================================
 ```
 
 ### Interactive Mode
@@ -135,40 +152,43 @@ diff /host/results/result-1/lean.out /tmp/new.out
 
 ### solution.lean
 
-Each `solution.lean` file contains a Lean 4 translation. For example:
+Each `solution.lean` file contains a Lean 4 translation. For example (from `result-15`):
 
 ```lean
-/-
-  Lean translation of consequentia_mirabilis from LF.Logic
+-- Lean 4 translation of Rocq nat and ev
 
-  Original Rocq definition:
-    Definition consequentia_mirabilis := forall P:Prop, (~P -> P) -> P.
--/
-def Original_LF__DOT__Logic_LF_Logic_consequentia__mirabilis : Prop :=
-  forall (P : Prop), (not P -> P) -> P
+-- Define nat as an inductive type to match Rocq's nat
+inductive nat : Type where
+  | O : nat
+  | S : nat -> nat
+
+-- Define ev: the evenness predicate on nat
+-- Corresponds to:
+-- Inductive ev : nat -> Prop :=
+--   | ev_0                       : ev 0
+--   | ev_SS (n : nat) (H : ev n) : ev (S (S n)).
+inductive Original_LF__DOT__IndProp_LF_IndProp_ev : nat -> Prop where
+  | ev_0 : Original_LF__DOT__IndProp_LF_IndProp_ev nat.O
+  | ev_SS : (n : nat) -> Original_LF__DOT__IndProp_LF_IndProp_ev n
+            -> Original_LF__DOT__IndProp_LF_IndProp_ev (nat.S (nat.S n))
 ```
 
 ### scores.json
 
-Contains evaluation scores for the isomorphism proofs:
+Contains evaluation scores for the isomorphism proofs. For example (from `result-15`):
 
 ```json
 {
-  "U_original__U2_lf_dot_U_logic__U2_lf__U_logic__consequentia____mirabilis__iso": 1.0
+  "nat__iso": 1.0,
+  "U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__ev__iso": 1.0
 }
 ```
 
-A score of 1.0 indicates a complete, verified isomorphism.
+A score of 1.0 indicates a complete, verified isomorphism. A score of 0.0 indicates the isomorphism could not be automatically verified (the translation may still be correct but requires manual proof).
 
 ### Isomorphism Files
 
 The `.v` files in `theories/Isomorphisms/` contain Rocq proofs that establish a bijection between the original and translated definitions, proving semantic equivalence.
-
-## Known Issues
-
-### Typeclasses Opaque rel_iso
-
-Some result-specific Isomorphisms files contain `Typeclasses Opaque rel_iso`, which fails because `rel_iso` is defined as a Record in `IsomorphismDefinitions.v`, not a Definition. The verify script automatically strips this line when copying files.
 
 ## Tool Versions
 
@@ -177,7 +197,7 @@ The Docker image uses these specific versions:
 | Tool | Version | Notes |
 |------|---------|-------|
 | Rocq/Coq | 9.1.0 | From [JasonGross/coq#v9.1+recursive-assumptions](https://github.com/JasonGross/coq.git) |
-| Lean | 4.20.0-rc5 | Installed via elan |
+| Lean | (from lean4export) | Version determined by lean4export's lean-toolchain |
 | lean4export | c9f8373 | [leanprover/lean4export](https://github.com/leanprover/lean4export) |
 | rocq-lean-import | latest | [rocq-community/rocq-lean-import](https://github.com/rocq-community/rocq-lean-import) |
 

@@ -1,1 +1,0 @@
-PTrue True Corelib_Init_Logic_eq nat S PeanoNat_Nat_add le and

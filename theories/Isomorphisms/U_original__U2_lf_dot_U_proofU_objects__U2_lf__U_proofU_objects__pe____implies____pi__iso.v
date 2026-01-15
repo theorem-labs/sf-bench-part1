@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__proof____irrelevance__iso Isomorphisms.U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__propositional____extensionality__iso.
 
-Definition imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_pe__implies__pi : (forall x x0 : SProp, imported_iff x x0 -> imported_Corelib_Init_Logic_eq x x0) -> forall (x0 : SProp) (x1 x2 : x0), imported_Corelib_Init_Logic_eq_Prop x1 x2 := Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_pe__implies__pi.
-Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_pe__implies__pi_iso : forall (x1 : Original.LF_DOT_ProofObjects.LF.ProofObjects.propositional_extensionality) (x2 : forall x x0 : SProp, imported_iff x x0 -> @imported_Corelib_Init_Logic_eq SProp x x0),
+Monomorphic Definition imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_pe__implies__pi : (forall x x0 : SProp, imported_iff x x0 -> imported_Corelib_Init_Logic_eq x x0) -> forall (x0 : SProp) (x1 x2 : x0), imported_Corelib_Init_Logic_eq_Prop x1 x2 := Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_pe__implies__pi.
+Monomorphic Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_pe__implies__pi_iso : forall (x1 : Original.LF_DOT_ProofObjects.LF.ProofObjects.propositional_extensionality) (x2 : forall x x0 : SProp, imported_iff x x0 -> @imported_Corelib_Init_Logic_eq SProp x x0),
   (forall (x3 : Prop) (x4 : SProp) (hx : Iso x3 x4) (x5 : Prop) (x6 : SProp) (hx0 : Iso x5 x6) (x7 : x3 <-> x5) (x8 : imported_iff x4 x6),
    @rel_iso (x3 <-> x5) (imported_iff x4 x6) (@relax_Iso_Ts_Ps (x3 <-> x5) (imported_iff x4 x6) (@iff_iso x3 x4 hx x5 x6 hx0)) x7 x8 ->
    @rel_iso (x3 = x5) (@imported_Corelib_Init_Logic_eq SProp x4 x6)

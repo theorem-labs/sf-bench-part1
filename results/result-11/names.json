@@ -1,0 +1,15 @@
+{
+  "bool": "mybool",
+  "true": "true",
+  "false": "false",
+  "Ascii_Ascii": "Ascii_Ascii",
+  "Ascii_ascii": "Ascii_ascii",
+  "True": "TrueType",
+  "False": "FalseType",
+  "_0": "nat_O",
+  "S": "nat_S",
+  "Nat_add": "nat_add",
+  "Nat_mul": "nat_mul",
+  "Nat_pred": "nat_pred",
+  "Nat_sub": "nat_sub"
+}

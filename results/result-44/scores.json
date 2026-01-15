@@ -1,4 +1,26 @@
 {
+  "U_corelib__U_init__U_logic__eq__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__andb__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bw__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__false__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__orb__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso": 1.0,
+  "U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__eq__iso": 1.0,
+  "U_true__iso": 1.0,
+  "and__iso": 1.0,
   "iff__iso": 1.0,
-  "U_original__U2_lf_dot_U_logic__U2_lf__U_logic__apply____iff____example1__iso": 1.0
+  "or__iso": 1.0,
+  "U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__andb3____exchangeSQUOTE__iso": 1.0,
+  "U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__andb____eq____orb__iso": 1.0,
+  "U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__match____ex2SQUOTESQUOTE__iso": 1.0,
+  "U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__match____ex2__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__andb____commutative__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__invert__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__test____orb2__iso": 1.0,
+  "U_original__U2_lf_dot_U_logic__U2_lf__U_logic__and____assoc__iso": 1.0,
+  "U_original__U2_lf_dot_U_logic__U2_lf__U_logic__iff____sym__iso": 1.0,
+  "U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__U_props__conj____fact__iso": 1.0,
+  "U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__equality________leibniz____equality____term__iso": 1.0,
+  "U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__or____distributes____over____and__iso": 1.0
 }

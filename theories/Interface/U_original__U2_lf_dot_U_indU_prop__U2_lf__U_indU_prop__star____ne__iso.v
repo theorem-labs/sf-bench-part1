@@ -34,9 +34,8 @@ Parameter Original_LF__DOT__IndProp_LF_IndProp_star__ne_iso : forall (x1 : Ascii
     (x5 : Original.LF_DOT_IndProp.LF.IndProp.reg_exp Ascii.ascii) (x6 : imported_Original_LF__DOT__IndProp_LF_IndProp_reg__exp imported_Ascii_ascii)
     (hx1 : rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso Ascii_ascii_iso) x5 x6),
   rel_iso
-    {|
-      to :=
-        iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1))
+    (relax_Iso_Ts_Ps
+       (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1))
           (ex_iso
              (fun s0 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii =>
               exists s1 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii,
@@ -64,119 +63,8 @@ Parameter Original_LF__DOT__IndProp_LF_IndProp_star__ne_iso : forall (x1 : Ascii
                    (hx3 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x9 x10) =>
                  and_iso (Corelib_Init_Logic_eq_iso hx0 (Original_LF__DOT__Poly_LF_Poly_app_iso hx2 hx3))
                    (and_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx2) hx1)
-                      (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx3 (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1))))));
-      from :=
-        from
-          (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1))
-             (ex_iso
-                (fun s0 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii =>
-                 exists s1 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii,
-                   x3 = Original.LF_DOT_Poly.LF.Poly.app s0 s1 /\
-                   Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x1 s0) x5 /\
-                   Original.LF_DOT_IndProp.LF.IndProp.exp_match s1 (Original.LF_DOT_IndProp.LF.IndProp.Star x5))
-                (fun H : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                 imported_ex
-                   (fun H0 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                    imported_and (imported_Corelib_Init_Logic_eq x4 (imported_Original_LF__DOT__Poly_LF_Poly_app H H0))
-                      (imported_and (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 H) x6)
-                         (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match H0 (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x6)))))
-                (fun (x7 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii) (x8 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
-                   (hx2 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x7 x8) =>
-                 ex_iso
-                   (fun s1 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii =>
-                    x3 = Original.LF_DOT_Poly.LF.Poly.app x7 s1 /\
-                    Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x1 x7) x5 /\
-                    Original.LF_DOT_IndProp.LF.IndProp.exp_match s1 (Original.LF_DOT_IndProp.LF.IndProp.Star x5))
-                   (fun H : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                    imported_and (imported_Corelib_Init_Logic_eq x4 (imported_Original_LF__DOT__Poly_LF_Poly_app x8 H))
-                      (imported_and (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 x8) x6)
-                         (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match H (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x6))))
-                   (fun (x9 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii) (x10 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
-                      (hx3 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x9 x10) =>
-                    and_iso (Corelib_Init_Logic_eq_iso hx0 (Original_LF__DOT__Poly_LF_Poly_app_iso hx2 hx3))
-                      (and_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx2) hx1)
-                         (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx3 (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1)))))));
-      to_from :=
-        fun
-          x : imported_iff (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 x4) (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x6))
-                (imported_ex
-                   (fun H : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                    imported_ex
-                      (fun H0 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                       imported_and (imported_Corelib_Init_Logic_eq x4 (imported_Original_LF__DOT__Poly_LF_Poly_app H H0))
-                         (imported_and (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 H) x6)
-                            (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match H0 (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x6)))))) =>
-        to_from
-          (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1))
-             (ex_iso
-                (fun s0 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii =>
-                 exists s1 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii,
-                   x3 = Original.LF_DOT_Poly.LF.Poly.app s0 s1 /\
-                   Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x1 s0) x5 /\
-                   Original.LF_DOT_IndProp.LF.IndProp.exp_match s1 (Original.LF_DOT_IndProp.LF.IndProp.Star x5))
-                (fun H : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                 imported_ex
-                   (fun H0 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                    imported_and (imported_Corelib_Init_Logic_eq x4 (imported_Original_LF__DOT__Poly_LF_Poly_app H H0))
-                      (imported_and (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 H) x6)
-                         (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match H0 (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x6)))))
-                (fun (x7 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii) (x8 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
-                   (hx2 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x7 x8) =>
-                 ex_iso
-                   (fun s1 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii =>
-                    x3 = Original.LF_DOT_Poly.LF.Poly.app x7 s1 /\
-                    Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x1 x7) x5 /\
-                    Original.LF_DOT_IndProp.LF.IndProp.exp_match s1 (Original.LF_DOT_IndProp.LF.IndProp.Star x5))
-                   (fun H : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                    imported_and (imported_Corelib_Init_Logic_eq x4 (imported_Original_LF__DOT__Poly_LF_Poly_app x8 H))
-                      (imported_and (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 x8) x6)
-                         (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match H (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x6))))
-                   (fun (x9 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii) (x10 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
-                      (hx3 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x9 x10) =>
-                    and_iso (Corelib_Init_Logic_eq_iso hx0 (Original_LF__DOT__Poly_LF_Poly_app_iso hx2 hx3))
-                      (and_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx2) hx1)
-                         (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx3 (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1)))))))
-          x;
-      from_to :=
-        fun
-          x : Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x1 x3) (Original.LF_DOT_IndProp.LF.IndProp.Star x5) <->
-              (exists s0 s1 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii,
-                 x3 = Original.LF_DOT_Poly.LF.Poly.app s0 s1 /\
-                 Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x1 s0) x5 /\
-                 Original.LF_DOT_IndProp.LF.IndProp.exp_match s1 (Original.LF_DOT_IndProp.LF.IndProp.Star x5)) =>
-        seq_p_of_t
-          (from_to
-             (iff_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx0) (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1))
-                (ex_iso
-                   (fun s0 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii =>
-                    exists s1 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii,
-                      x3 = Original.LF_DOT_Poly.LF.Poly.app s0 s1 /\
-                      Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x1 s0) x5 /\
-                      Original.LF_DOT_IndProp.LF.IndProp.exp_match s1 (Original.LF_DOT_IndProp.LF.IndProp.Star x5))
-                   (fun H : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                    imported_ex
-                      (fun H0 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                       imported_and (imported_Corelib_Init_Logic_eq x4 (imported_Original_LF__DOT__Poly_LF_Poly_app H H0))
-                         (imported_and (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 H) x6)
-                            (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match H0 (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x6)))))
-                   (fun (x7 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii) (x8 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
-                      (hx2 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x7 x8) =>
-                    ex_iso
-                      (fun s1 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii =>
-                       x3 = Original.LF_DOT_Poly.LF.Poly.app x7 s1 /\
-                       Original.LF_DOT_IndProp.LF.IndProp.exp_match (Original.LF_DOT_Poly.LF.Poly.cons x1 x7) x5 /\
-                       Original.LF_DOT_IndProp.LF.IndProp.exp_match s1 (Original.LF_DOT_IndProp.LF.IndProp.Star x5))
-                      (fun H : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii =>
-                       imported_and (imported_Corelib_Init_Logic_eq x4 (imported_Original_LF__DOT__Poly_LF_Poly_app x8 H))
-                         (imported_and (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match (imported_Original_LF__DOT__Poly_LF_Poly_cons x2 x8) x6)
-                            (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match H (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x6))))
-                      (fun (x9 : Original.LF_DOT_Poly.LF.Poly.list Ascii.ascii) (x10 : imported_Original_LF__DOT__Poly_LF_Poly_list imported_Ascii_ascii)
-                         (hx3 : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso Ascii_ascii_iso) x9 x10) =>
-                       and_iso (Corelib_Init_Logic_eq_iso hx0 (Original_LF__DOT__Poly_LF_Poly_app_iso hx2 hx3))
-                         (and_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso hx hx2) hx1)
-                            (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx3 (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1)))))))
-             x)
-    |} (Original.LF_DOT_IndProp.LF.IndProp.star_ne x1 x3 x5) (imported_Original_LF__DOT__IndProp_LF_IndProp_star__ne x2 x4 x6).
+                      (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx3 (Original_LF__DOT__IndProp_LF_IndProp_Star_iso hx1))))))))
+    (Original.LF_DOT_IndProp.LF.IndProp.star_ne x1 x3 x5) (imported_Original_LF__DOT__IndProp_LF_IndProp_star__ne x2 x4 x6).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_star__ne_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.star_ne ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_star__ne_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.star_ne imported_Original_LF__DOT__IndProp_LF_IndProp_star__ne ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_star__ne_iso; constructor : typeclass_instances.

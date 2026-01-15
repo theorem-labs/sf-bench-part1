@@ -22,15 +22,8 @@ Module Type Interface (Import args : Args).
 
 Parameter imported_Original_LF__DOT__AltAuto_LF_AltAuto_nor__not : forall x : SProp, imported_iff (imported_Original_LF__DOT__AltAuto_LF_AltAuto_nor x x) (x -> imported_False).
 Parameter Original_LF__DOT__AltAuto_LF_AltAuto_nor__not_iso : forall (x1 : Prop) (x2 : SProp) (hx : Iso x1 x2),
-  rel_iso
-    {|
-      to := iff_iso (Original_LF__DOT__AltAuto_LF_AltAuto_nor_iso hx hx) (IsoArrow hx False_iso);
-      from := from (iff_iso (Original_LF__DOT__AltAuto_LF_AltAuto_nor_iso hx hx) (IsoArrow hx False_iso));
-      to_from :=
-        fun x : imported_iff (imported_Original_LF__DOT__AltAuto_LF_AltAuto_nor x2 x2) (x2 -> imported_False) =>
-        to_from (iff_iso (Original_LF__DOT__AltAuto_LF_AltAuto_nor_iso hx hx) (IsoArrow hx False_iso)) x;
-      from_to := fun x : Original.LF_DOT_AltAuto.LF.AltAuto.nor x1 x1 <-> ~ x1 => seq_p_of_t (from_to (iff_iso (Original_LF__DOT__AltAuto_LF_AltAuto_nor_iso hx hx) (IsoArrow hx False_iso)) x)
-    |} (Original.LF_DOT_AltAuto.LF.AltAuto.nor_not x1) (imported_Original_LF__DOT__AltAuto_LF_AltAuto_nor__not x2).
+  rel_iso (relax_Iso_Ts_Ps (iff_iso (Original_LF__DOT__AltAuto_LF_AltAuto_nor_iso hx hx) (IsoArrow hx False_iso))) (Original.LF_DOT_AltAuto.LF.AltAuto.nor_not x1)
+    (imported_Original_LF__DOT__AltAuto_LF_AltAuto_nor__not x2).
 Existing Instance Original_LF__DOT__AltAuto_LF_AltAuto_nor__not_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_AltAuto.LF.AltAuto.nor_not ?x) => unify x Original_LF__DOT__AltAuto_LF_AltAuto_nor__not_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_AltAuto.LF.AltAuto.nor_not imported_Original_LF__DOT__AltAuto_LF_AltAuto_nor__not ?x) => unify x Original_LF__DOT__AltAuto_LF_AltAuto_nor__not_iso; constructor : typeclass_instances.

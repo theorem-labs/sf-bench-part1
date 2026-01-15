@@ -36,9 +36,8 @@ Parameter Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step____ceval_iso 
              imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step (fun H0 : imported_String_string => x4 H0) x2 H)
                (imported_Some (fun x12 : imported_String_string => x6 x12)))),
   rel_iso
-    {|
-      to :=
-        ex_iso (fun i : nat => Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step x3 x1 i = Some x5)
+    (relax_Iso_Ts_Ps
+       (ex_iso (fun i : nat => Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step x3 x1 i = Some x5)
           (fun H : imported_nat =>
            imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step (fun H0 : imported_String_string => x4 H0) x2 H)
              (imported_Some (fun x12 : imported_String_string => x6 x12)))
@@ -47,80 +46,14 @@ Parameter Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step____ceval_iso 
              (Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step_iso x3 (fun H : imported_String_string => x4 H)
                 (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx0 x11 x12 hx3) hx hx2)
              (Some_iso
-                (IsoFunND x5 (fun x12 : imported_String_string => x6 x12) (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx1 x11 x12 hx3))));
-      from :=
-        from
-          (ex_iso (fun i : nat => Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step x3 x1 i = Some x5)
-             (fun H : imported_nat =>
-              imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step (fun H0 : imported_String_string => x4 H0) x2 H)
-                (imported_Some (fun x12 : imported_String_string => x6 x12)))
-             (fun (x9 : nat) (x10 : imported_nat) (hx2 : rel_iso nat_iso x9 x10) =>
-              Corelib_Init_Logic_eq_iso
-                (Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step_iso x3 (fun H : imported_String_string => x4 H)
-                   (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx0 x11 x12 hx3) hx hx2)
-                (Some_iso
-                   (IsoFunND x5 (fun x12 : imported_String_string => x6 x12) (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx1 x11 x12 hx3)))));
-      to_from :=
-        fun
-          x : imported_ex
-                (fun H : imported_nat =>
-                 imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step (fun H0 : imported_String_string => x4 H0) x2 H)
-                   (imported_Some (fun x12 : imported_String_string => x6 x12))) =>
-        to_from
-          (ex_iso (fun i : nat => Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step x3 x1 i = Some x5)
-             (fun H : imported_nat =>
-              imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step (fun H0 : imported_String_string => x4 H0) x2 H)
-                (imported_Some (fun x12 : imported_String_string => x6 x12)))
-             (fun (x9 : nat) (x10 : imported_nat) (hx2 : rel_iso nat_iso x9 x10) =>
-              Corelib_Init_Logic_eq_iso
-                (Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step_iso x3 (fun H : imported_String_string => x4 H)
-                   (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx0 x11 x12 hx3) hx hx2)
-                (Some_iso
-                   (IsoFunND x5 (fun x12 : imported_String_string => x6 x12) (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx1 x11 x12 hx3)))))
-          x;
-      from_to :=
-        fun x : exists y : nat, Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step x3 x1 y = Some x5 =>
-        seq_p_of_t
-          (from_to
-             (ex_iso (fun i : nat => Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step x3 x1 i = Some x5)
-                (fun H : imported_nat =>
-                 imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step (fun H0 : imported_String_string => x4 H0) x2 H)
-                   (imported_Some (fun x12 : imported_String_string => x6 x12)))
-                (fun (x9 : nat) (x10 : imported_nat) (hx2 : rel_iso nat_iso x9 x10) =>
-                 Corelib_Init_Logic_eq_iso
-                   (Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step_iso x3 (fun H : imported_String_string => x4 H)
-                      (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx0 x11 x12 hx3) hx hx2)
-                   (Some_iso
-                      (IsoFunND x5 (fun x12 : imported_String_string => x6 x12) (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx1 x11 x12 hx3)))))
-             x)
-    |} x7 x8 ->
+                (IsoFunND x5 (fun x12 : imported_String_string => x6 x12) (fun (x11 : String.string) (x12 : imported_String_string) (hx3 : rel_iso String_string_iso x11 x12) => hx1 x11 x12 hx3))))))
+    x7 x8 ->
   rel_iso
-    {|
-      to :=
-        Original_LF__DOT__Imp_LF_Imp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
+    (relax_Iso_Ts_Ps
+       (Original_LF__DOT__Imp_LF_Imp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
           (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx0 x9 x10 hx3) x5 (fun H : imported_String_string => x6 H)
-          (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx1 x9 x10 hx3);
-      from :=
-        from
-          (Original_LF__DOT__Imp_LF_Imp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-             (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx0 x9 x10 hx3) x5 (fun H : imported_String_string => x6 H)
-             (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx1 x9 x10 hx3));
-      to_from :=
-        fun x : imported_Original_LF__DOT__Imp_LF_Imp_ceval x2 (fun H : imported_String_string => x4 H) (fun H : imported_String_string => x6 H) =>
-        to_from
-          (Original_LF__DOT__Imp_LF_Imp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-             (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx0 x9 x10 hx3) x5 (fun H : imported_String_string => x6 H)
-             (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx1 x9 x10 hx3))
-          x;
-      from_to :=
-        fun x : Original.LF_DOT_Imp.LF.Imp.ceval x1 x3 x5 =>
-        seq_p_of_t
-          (from_to
-             (Original_LF__DOT__Imp_LF_Imp_ceval_iso hx x3 (fun H : imported_String_string => x4 H)
-                (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx0 x9 x10 hx3) x5 (fun H : imported_String_string => x6 H)
-                (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx1 x9 x10 hx3))
-             x)
-    |} (Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step__ceval x1 x3 x5 x7) (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step____ceval x4 x6 x8).
+          (fun (x9 : String.string) (x10 : imported_String_string) (hx3 : rel_iso String_string_iso x9 x10) => hx1 x9 x10 hx3)))
+    (Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step__ceval x1 x3 x5 x7) (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step____ceval x4 x6 x8).
 Existing Instance Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step____ceval_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step__ceval ?x) => unify x Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step____ceval_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_ImpCEvalFun.LF.ImpCEvalFun.ceval_step__ceval imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step____ceval ?x) => unify x Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step____ceval_iso; constructor : typeclass_instances.

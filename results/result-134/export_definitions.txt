@@ -1,1 +1,0 @@
-MyFalse Original_False MyAnd iff Logic_not

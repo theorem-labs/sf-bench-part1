@@ -1,0 +1,32 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__iff____reflect__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__iff____reflect__iso.
+From IsomorphismChecker Require Checker.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso Checker.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso Checker.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__reflect__iso Checker.U_true__iso Checker.U_corelib__U_init__U_logic__eq__iso Checker.iff__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__iff____reflect__iso.Args := Checker.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso.Checker <+ Checker.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso.Checker <+ Checker.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__reflect__iso.Checker <+ Checker.U_true__iso.Checker <+ Checker.U_corelib__U_init__U_logic__eq__iso.Checker <+ Checker.iff__iso.Checker.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__iff____reflect__iso.imported_Original_LF__DOT__IndProp_LF_IndProp_iff__reflect Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__iff____reflect__iso.Original_LF__DOT__IndProp_LF_IndProp_iff__reflect_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__iff____reflect__iso.Interface args
+  with Definition imported_Original_LF__DOT__IndProp_LF_IndProp_iff__reflect := Imported.Original_LF__DOT__IndProp_LF_IndProp_iff__reflect.
+
+Definition imported_Original_LF__DOT__IndProp_LF_IndProp_iff__reflect := Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__iff____reflect__iso.imported_Original_LF__DOT__IndProp_LF_IndProp_iff__reflect.
+Definition Original_LF__DOT__IndProp_LF_IndProp_iff__reflect_iso := Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__iff____reflect__iso.Original_LF__DOT__IndProp_LF_IndProp_iff__reflect_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__IndProp_LF_IndProp_iff__reflect_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

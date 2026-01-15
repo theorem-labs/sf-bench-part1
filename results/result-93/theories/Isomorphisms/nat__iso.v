@@ -9,14 +9,6 @@ Typeclasses Opaque rel_iso. (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
-
-(* Conversion function from nat to imported_nat *)
-Fixpoint nat_to_imported (n : nat) : imported_nat :=
-  match n with
-  | O => Imported.nat_O
-  | S m => Imported.nat_S (nat_to_imported m)
-  end.
-
 Instance nat_iso : Iso nat imported_nat.
 Proof.
   exists (fix f (n : nat) : imported_nat :=

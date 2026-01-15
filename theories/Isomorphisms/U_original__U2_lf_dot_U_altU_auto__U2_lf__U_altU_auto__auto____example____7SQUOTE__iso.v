@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,10 +10,10 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__is____fortytwo__iso Isomorphisms.U_s__iso Isomorphisms.and__iso Isomorphisms.le__iso.
 
-Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7' : forall x : imported_nat,
+Monomorphic Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7' : forall x : imported_nat,
   imported_and (imported_le x (imported_S (imported_S (imported_S (iterate1 imported_S 39 imported_0))))) (imported_le (imported_S (imported_S (imported_S (iterate1 imported_S 39 imported_0)))) x) ->
   imported_Original_LF__DOT__AltAuto_LF_AltAuto_is__fortytwo x := Imported.Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'.
-Instance Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : x1 <= 42 <= x1)
+Monomorphic Instance Original_LF__DOT__AltAuto_LF_AltAuto_auto__example__7'_iso : forall (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) (x3 : x1 <= 42 <= x1)
     (x4 : imported_and (imported_le x2 (imported_S (imported_S (imported_S (iterate1 imported_S 39 imported_0)))))
             (imported_le (imported_S (imported_S (imported_S (iterate1 imported_S 39 imported_0)))) x2)),
   rel_iso

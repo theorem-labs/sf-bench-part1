@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____update__iso Isomorphisms.cons__iso Isomorphisms.nil__iso Isomorphisms.__0__iso Isomorphisms.U_ascii__U_ascii__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_sload__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_smult__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_splus__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_spush__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_x__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__empty____st__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__s____execute__iso Isomorphisms.U_s__iso Isomorphisms.U_string__U_emptyU_string__iso Isomorphisms.U_string__U_string__iso Isomorphisms.false__iso Isomorphisms.true__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_s__execute2 : imported_Corelib_Init_Logic_eq
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_s__execute2 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Imp_LF_Imp_s__execute
        (fun x : imported_String_string =>
         imported_Original_LF__DOT__Maps_LF_Maps_t__update (fun x0 : imported_String_string => imported_Original_LF__DOT__Imp_LF_Imp_empty__st x0) imported_Original_LF__DOT__Imp_LF_Imp_X
@@ -21,7 +21,7 @@ Definition imported_Original_LF__DOT__Imp_LF_Imp_s__execute2 : imported_Corelib_
              (imported_cons imported_Original_LF__DOT__Imp_LF_Imp_SMult (imported_cons imported_Original_LF__DOT__Imp_LF_Imp_SPlus (imported_nil imported_Original_LF__DOT__Imp_LF_Imp_sinstr))))))
     (imported_cons (imported_S (imported_S (imported_S (iterate1 imported_S 12 imported_0))))
        (imported_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) (imported_nil imported_nat))) := Imported.Original_LF__DOT__Imp_LF_Imp_s__execute2.
-Instance Original_LF__DOT__Imp_LF_Imp_s__execute2_iso : rel_iso
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_s__execute2_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Imp_LF_Imp_s__execute_iso (Original.LF_DOT_Maps.LF.Maps.t_update Original.LF_DOT_Imp.LF.Imp.empty_st Original.LF_DOT_Imp.LF.Imp.X 3)
           (fun x : imported_String_string =>

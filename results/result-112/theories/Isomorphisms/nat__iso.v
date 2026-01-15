@@ -7,44 +7,37 @@ From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 Typeclasses Opaque rel_iso. (* for speed *)
 
-
 Definition imported_nat : Type := Imported.nat.
 
-(* Build iso between Coq nat and Imported.nat *)
-Fixpoint nat_to_imported (n : nat) : Imported.nat :=
+Fixpoint nat_to_imported (n : nat) : imported_nat :=
   match n with
-  | O => Imported.nat_zero
-  | S n' => Imported.nat_succ (nat_to_imported n')
+  | O => Imported.nat_O
+  | S n' => Imported.nat_S (nat_to_imported n')
   end.
 
-Fixpoint imported_to_nat (n : Imported.nat) : nat :=
+Fixpoint imported_to_nat (n : imported_nat) : nat :=
   match n with
-  | Imported.nat_zero => O
-  | Imported.nat_succ n' => S (imported_to_nat n')
+  | Imported.nat_O => O
+  | Imported.nat_S n' => S (imported_to_nat n')
   end.
 
-(* Proof using Imported.nat_rect - using explicit Corelib.Init.Logic.eq (Prop) *)
-Definition nat_to_from : forall n, @Corelib.Init.Logic.eq _ (nat_to_imported (imported_to_nat n)) n :=
-  Imported.nat_rect 
-    (fun n => @Corelib.Init.Logic.eq _ (nat_to_imported (imported_to_nat n)) n)
-    (@Corelib.Init.Logic.eq_refl _ _)
-    (fun n' (IHn : @Corelib.Init.Logic.eq _ (nat_to_imported (imported_to_nat n')) n') =>
-       @Corelib.Init.Logic.eq_ind_r _ n' (fun x => @Corelib.Init.Logic.eq _ (Imported.nat_succ x) (Imported.nat_succ n')) 
-         (@Corelib.Init.Logic.eq_refl _ _) _ IHn).
+Lemma nat_roundtrip1 : forall n, imported_to_nat (nat_to_imported n) = n.
+Proof. induction n; simpl; [reflexivity | f_equal; exact IHn]. Qed.
 
-Definition nat_from_to : forall n, @Corelib.Init.Logic.eq _ (imported_to_nat (nat_to_imported n)) n :=
-  nat_rect 
-    (fun n => @Corelib.Init.Logic.eq _ (imported_to_nat (nat_to_imported n)) n)
-    (@Corelib.Init.Logic.eq_refl _ _)
-    (fun n' (IHn : @Corelib.Init.Logic.eq _ (imported_to_nat (nat_to_imported n')) n') =>
-       @Corelib.Init.Logic.eq_ind_r _ n' (fun x => @Corelib.Init.Logic.eq _ (S x) (S n')) 
-         (@Corelib.Init.Logic.eq_refl _ _) _ IHn).
+Lemma nat_roundtrip2 : forall n, nat_to_imported (imported_to_nat n) = n.
+Proof. induction n; simpl; [reflexivity | f_equal; exact IHn]. Qed.
 
 Instance nat_iso : Iso nat imported_nat.
 Proof.
-  refine (Build_Iso nat_to_imported imported_to_nat _ _).
-  - intro n. apply seq_of_eq. apply nat_to_from.
-  - intro n. apply seq_of_eq. apply nat_from_to.
+  refine {| to := nat_to_imported; from := imported_to_nat |}.
+  - (* to_from: to (from x) = x for x : imported_nat *)
+    intro x. 
+    pose proof (nat_roundtrip2 x) as H.
+    rewrite H. exact IsomorphismDefinitions.eq_refl.
+  - (* from_to: from (to x) = x for x : nat *)
+    intro x.
+    pose proof (nat_roundtrip1 x) as H.
+    rewrite H. exact IsomorphismDefinitions.eq_refl.
 Defined.
 
 Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)

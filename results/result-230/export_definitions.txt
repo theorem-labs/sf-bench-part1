@@ -1,1 +1,0 @@
-nat S nat_le le lt

@@ -6,6 +6,8 @@ From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_altU_auto__
 
 Module Type Args <: Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__no____hyp____name__iso.Args. End Args.
 
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__no____hyp____name__iso.imported_Original_LF__DOT__AltAuto_LF_AltAuto_no__hyp__name Isomorphisms.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__no____hyp____name__iso.Original_LF__DOT__AltAuto_LF_AltAuto_no__hyp__name_iso ].
+
 Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__no____hyp____name__iso.Interface args
   with Definition imported_Original_LF__DOT__AltAuto_LF_AltAuto_no__hyp__name := Imported.Original_LF__DOT__AltAuto_LF_AltAuto_no__hyp__name.
 

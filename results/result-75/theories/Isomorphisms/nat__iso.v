@@ -5,47 +5,55 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *) (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
 
-(* Build iso between Coq nat and Imported.nat *)
+(* Define the conversion functions *)
 Fixpoint nat_to_imported (n : nat) : Imported.nat :=
   match n with
-  | O => Imported.nat_zero
-  | S n' => Imported.nat_succ (nat_to_imported n')
+  | O => Imported.nat_O
+  | S n' => Imported.nat_S (nat_to_imported n')
   end.
 
 Fixpoint imported_to_nat (n : Imported.nat) : nat :=
   match n with
-  | Imported.nat_zero => O
-  | Imported.nat_succ n' => S (imported_to_nat n')
+  | Imported.nat_O => O
+  | Imported.nat_S n' => S (imported_to_nat n')
   end.
 
-(* Proof using Imported.nat_rect - using explicit Corelib.Init.Logic.eq (Prop) *)
-Definition nat_to_from : forall n, @Corelib.Init.Logic.eq _ (nat_to_imported (imported_to_nat n)) n :=
-  Imported.nat_rect 
-    (fun n => @Corelib.Init.Logic.eq _ (nat_to_imported (imported_to_nat n)) n)
-    (@Corelib.Init.Logic.eq_refl _ _)
-    (fun n' (IHn : @Corelib.Init.Logic.eq _ (nat_to_imported (imported_to_nat n')) n') =>
-       @Corelib.Init.Logic.eq_ind_r _ n' (fun x => @Corelib.Init.Logic.eq _ (Imported.nat_succ x) (Imported.nat_succ n')) 
-         (@Corelib.Init.Logic.eq_refl _ _) _ IHn).
+(* Prove round-trip properties with standard equality *)
+Fixpoint nat_round_trip (n : nat) : imported_to_nat (nat_to_imported n) = n :=
+  match n with
+  | O => Coq.Init.Logic.eq_refl
+  | S n' => match nat_round_trip n' in (_ = m) return (S (imported_to_nat (nat_to_imported n')) = S m) with
+            | Coq.Init.Logic.eq_refl => Coq.Init.Logic.eq_refl
+            end
+  end.
 
-Definition nat_from_to : forall n, @Corelib.Init.Logic.eq _ (imported_to_nat (nat_to_imported n)) n :=
-  nat_rect 
-    (fun n => @Corelib.Init.Logic.eq _ (imported_to_nat (nat_to_imported n)) n)
-    (@Corelib.Init.Logic.eq_refl _ _)
-    (fun n' (IHn : @Corelib.Init.Logic.eq _ (imported_to_nat (nat_to_imported n')) n') =>
-       @Corelib.Init.Logic.eq_ind_r _ n' (fun x => @Corelib.Init.Logic.eq _ (S x) (S n')) 
-         (@Corelib.Init.Logic.eq_refl _ _) _ IHn).
+Fixpoint imported_round_trip (n : Imported.nat) : nat_to_imported (imported_to_nat n) = n :=
+  match n with
+  | Imported.nat_O => Coq.Init.Logic.eq_refl
+  | Imported.nat_S n' => match imported_round_trip n' in (_ = m) return (Imported.nat_S (nat_to_imported (imported_to_nat n')) = Imported.nat_S m) with
+                         | Coq.Init.Logic.eq_refl => Coq.Init.Logic.eq_refl
+                         end
+  end.
 
-Instance nat_iso : Iso nat imported_nat.
-Proof.
-  refine (Build_Iso nat_to_imported imported_to_nat _ _).
-  - intro n. apply seq_of_eq. apply nat_to_from.
-  - intro n. apply seq_of_eq. apply nat_from_to.
-Defined.
+(* Coercions for round-trip to SProp equality *)
+Definition nat_to_from (n : Imported.nat) : IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n :=
+  seq_of_eq (imported_round_trip n).
+
+Definition nat_from_to (n : nat) : IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported n)) n :=
+  seq_of_eq (nat_round_trip n).
+
+(* Build the isomorphism *)
+Instance nat_iso : Iso nat imported_nat := {|
+  to := nat_to_imported;
+  from := imported_to_nat;
+  to_from := nat_to_from;
+  from_to := nat_from_to
+|}.
 
 Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)

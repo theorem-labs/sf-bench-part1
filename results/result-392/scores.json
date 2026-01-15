@@ -1,9 +1,0 @@
-{
-  "U_corelib__U_init__U_logic__eq__iso": 1.0,
-  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso": 1.0,
-  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__false__iso": 1.0,
-  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__negb__iso": 1.0,
-  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso": 1.0,
-  "U_true__iso": 1.0,
-  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__negb____involutive__iso": 1.0
-}

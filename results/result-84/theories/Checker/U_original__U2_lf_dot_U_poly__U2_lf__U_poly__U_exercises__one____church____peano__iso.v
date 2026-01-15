@@ -1,0 +1,32 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one____church____peano__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one____church____peano__iso.
+From IsomorphismChecker Require Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__cnat__iso Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one__iso Checker.U_true__iso Checker.U_corelib__U_init__U_logic__eq__iso Checker.nat__iso Checker.U_s__iso Checker.__0__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one____church____peano__iso.Args := Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__cnat__iso.Checker <+ Checker.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one__iso.Checker <+ Checker.U_true__iso.Checker <+ Checker.U_corelib__U_init__U_logic__eq__iso.Checker <+ Checker.nat__iso.Checker <+ Checker.U_s__iso.Checker <+ Checker.__0__iso.Checker.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one____church____peano__iso.imported_Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one____church____peano__iso.Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one____church____peano__iso.Interface args
+  with Definition imported_Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano := Imported.Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano.
+
+Definition imported_Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano := Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one____church____peano__iso.imported_Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano.
+Definition Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano_iso := Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__U_exercises__one____church____peano__iso.Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__Poly_LF_Poly_Exercises_one__church__peano_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

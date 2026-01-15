@@ -6,6 +6,8 @@ From IsomorphismChecker Require Isomorphisms.and__iso.
 
 Module Type Args <: Interface.and__iso.Args. End Args.
 
+#[global] Strategy -1 [ Isomorphisms.and__iso.imported_and Isomorphisms.and__iso.and_iso ].
+
 Module Checker (Import args : Args) <: Interface.and__iso.Interface args
   with Definition imported_and := Imported.and.
 

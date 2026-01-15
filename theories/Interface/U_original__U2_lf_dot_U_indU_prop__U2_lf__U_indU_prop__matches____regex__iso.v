@@ -56,16 +56,7 @@ Definition Original_LF__DOT__IndProp_LF_IndProp_matches__regex_iso : forall (x1 
         imported_Original_LF__DOT__IndProp_LF_IndProp_reflect (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x4 x6) (x2 x4 x6))
        (fun (x5 : Original.LF_DOT_IndProp.LF.IndProp.reg_exp Ascii.ascii) (x6 : imported_Original_LF__DOT__IndProp_LF_IndProp_reg__exp imported_Ascii_ascii)
           (hx1 : rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso Ascii_ascii_iso) x5 x6) =>
-        {|
-          to := Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (hx x3 x4 hx0 x5 x6 hx1);
-          from := from (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (hx x3 x4 hx0 x5 x6 hx1));
-          to_from :=
-            fun x : imported_Original_LF__DOT__IndProp_LF_IndProp_reflect (imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x4 x6) (x2 x4 x6) =>
-            to_from (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (hx x3 x4 hx0 x5 x6 hx1)) x;
-          from_to :=
-            fun x : Original.LF_DOT_IndProp.LF.IndProp.reflect (Original.LF_DOT_IndProp.LF.IndProp.exp_match x3 x5) (x1 x3 x5) =>
-            seq_p_of_t (from_to (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (hx x3 x4 hx0 x5 x6 hx1)) x)
-        |})).
+        relax_Iso_Ts_Ps (Original_LF__DOT__IndProp_LF_IndProp_reflect_iso (Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso hx0 hx1) (hx x3 x4 hx0 x5 x6 hx1)))).
 Existing Instance Original_LF__DOT__IndProp_LF_IndProp_matches__regex_iso.
 #[export] Hint Extern 0 (IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.matches_regex ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_matches__regex_iso; constructor : typeclass_instances.
 #[export] Hint Extern 0 (IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.matches_regex imported_Original_LF__DOT__IndProp_LF_IndProp_matches__regex ?x) => unify x Original_LF__DOT__IndProp_LF_IndProp_matches__regex_iso; constructor : typeclass_instances.

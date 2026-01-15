@@ -1,0 +1,32 @@
+From IsomorphismChecker Require PermittedAxiomPrinting.
+From IsomorphismChecker Require Imported.
+
+From IsomorphismChecker Require Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__incr__iso.
+From IsomorphismChecker Require Isomorphisms.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__incr__iso.
+From IsomorphismChecker Require Checker.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin__iso.
+
+Module Type Args <: Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__incr__iso.Args := Checker.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin__iso.Args <+ Checker.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__bin__iso.Checker.
+
+#[global] Strategy -1 [ Isomorphisms.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__incr__iso.imported_Original_LF__DOT__Induction_LF_Induction_incr Isomorphisms.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__incr__iso.Original_LF__DOT__Induction_LF_Induction_incr_iso ].
+
+Module Checker (Import args : Args) <: Interface.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__incr__iso.Interface args
+  with Definition imported_Original_LF__DOT__Induction_LF_Induction_incr := Imported.Original_LF__DOT__Induction_LF_Induction_incr.
+
+Definition imported_Original_LF__DOT__Induction_LF_Induction_incr := Isomorphisms.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__incr__iso.imported_Original_LF__DOT__Induction_LF_Induction_incr.
+Definition Original_LF__DOT__Induction_LF_Induction_incr_iso := Isomorphisms.U_original__U2_lf_dot_U_induction__U2_lf__U_induction__incr__iso.Original_LF__DOT__Induction_LF_Induction_incr_iso.
+
+Section __.
+#[local] Set Warnings "-masking-absolute-name".
+Import PermittedAxiomPrinting.
+Set Printing All.
+Set Printing Fully Qualified.
+Set Printing Depth 10000000000.
+Set Printing Width 2000.
+Goal True. idtac "<PrintAssumptions>".
+Print Assumptions Original_LF__DOT__Induction_LF_Induction_incr_iso.
+idtac "</PrintAssumptions>".
+Abort.
+End __.
+
+
+End Checker.

@@ -1,1 +1,0 @@
-Original_LF__DOT__Induction_LF_Induction_bin Corelib_Init_Logic_eq imported_True

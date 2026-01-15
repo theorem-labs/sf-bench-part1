@@ -1,4 +1,27 @@
 {
+  "U_corelib__U_init__U_logic__eq__iso": 1.0,
+  "U_nat__add__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool____rec__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__eqb__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__even__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__false__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__negb__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__odd__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso": 1.0,
+  "U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_collatz____holds____for__iso": 0.0,
+  "U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__div2__iso": 1.0,
+  "U_original__U2_lf_dot_U_induction__U2_lf__U_induction__double__iso": 1.0,
+  "U_s__iso": 1.0,
+  "U_true__iso": 1.0,
+  "__0__iso": 1.0,
+  "ex__iso": 1.0,
   "nat__iso": 1.0,
-  "U_original__U2_lf_dot_U_proofU_objects__U2_lf__U_proofU_objects__add1__iso": 1.0
+  "U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__negb____involutiveSQUOTE__iso": 1.0,
+  "U_original__U2_lf_dot_U_altU_auto__U2_lf__U_altU_auto__plus____1____neq____0SQUOTE__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__plus____1____neq____0__iso": 1.0,
+  "U_original__U2_lf_dot_U_basics__U2_lf__U_basics__test____odd1__iso": 1.0,
+  "U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_collatz____holds____for____12__iso": 0.0,
+  "U_original__U2_lf_dot_U_logic__U2_lf__U_logic__even____double____conv__iso": 1.0,
+  "U_original__U2_lf_dot_U_tactics__U2_lf__U_tactics__silly____ex__iso": 1.0
 }

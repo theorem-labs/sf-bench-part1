@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,12 +10,12 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__includedin__iso Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__update__iso.
 
-Definition imported_Original_LF__DOT__Maps_LF_Maps_includedin__update : forall (x : Type) (x0 x1 : imported_String_string -> imported_option x) (x2 : imported_String_string) (x3 : x),
+Monomorphic Definition imported_Original_LF__DOT__Maps_LF_Maps_includedin__update : forall (x : Type) (x0 x1 : imported_String_string -> imported_option x) (x2 : imported_String_string) (x3 : x),
   (forall (x4 : imported_String_string) (x5 : x), imported_Corelib_Init_Logic_eq (x0 x4) (imported_Some x5) -> imported_Corelib_Init_Logic_eq (x1 x4) (imported_Some x5)) ->
   forall (x5 : imported_String_string) (x6 : x),
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Maps_LF_Maps_update (fun x4 : imported_String_string => x0 x4) x2 x3 x5) (imported_Some x6) ->
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Maps_LF_Maps_update (fun x4 : imported_String_string => x1 x4) x2 x3 x5) (imported_Some x6) := Imported.Original_LF__DOT__Maps_LF_Maps_includedin__update.
-Instance Original_LF__DOT__Maps_LF_Maps_includedin__update_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : Original.LF_DOT_Maps.LF.Maps.partial_map x1) (x4 : imported_String_string -> imported_option x2)
+Monomorphic Instance Original_LF__DOT__Maps_LF_Maps_includedin__update_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : Original.LF_DOT_Maps.LF.Maps.partial_map x1) (x4 : imported_String_string -> imported_option x2)
     (hx0 : forall (x5 : String.string) (x6 : imported_String_string), rel_iso String_string_iso x5 x6 -> rel_iso (option_iso hx) (x3 x5) (x4 x6)) (x5 : Original.LF_DOT_Maps.LF.Maps.partial_map x1)
     (x6 : imported_String_string -> imported_option x2) (hx1 : forall (x7 : String.string) (x8 : imported_String_string), rel_iso String_string_iso x7 x8 -> rel_iso (option_iso hx) (x5 x7) (x6 x8))
     (x7 : String.string) (x8 : imported_String_string) (hx2 : rel_iso String_string_iso x7 x8) (x9 : x1) (x10 : x2) (hx3 : rel_iso hx x9 x10) (x11 : Original.LF_DOT_Maps.LF.Maps.includedin x3 x5)

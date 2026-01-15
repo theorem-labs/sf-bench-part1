@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natoption__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__id__iso Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__partial____map__iso.
 
-Definition imported_Original_LF__DOT__Lists_LF_Lists_find : imported_Original_LF__DOT__Lists_LF_Lists_id -> imported_Original_LF__DOT__Lists_LF_Lists_partial__map -> imported_Original_LF__DOT__Lists_LF_Lists_NatList_natoption := Imported.Original_LF__DOT__Lists_LF_Lists_find.
-Instance Original_LF__DOT__Lists_LF_Lists_find_iso : forall (x1 : Original.LF_DOT_Lists.LF.Lists.id) (x2 : imported_Original_LF__DOT__Lists_LF_Lists_id),
+Monomorphic Definition imported_Original_LF__DOT__Lists_LF_Lists_find : imported_Original_LF__DOT__Lists_LF_Lists_id -> imported_Original_LF__DOT__Lists_LF_Lists_partial__map -> imported_Original_LF__DOT__Lists_LF_Lists_NatList_natoption := Imported.Original_LF__DOT__Lists_LF_Lists_find.
+Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_find_iso : forall (x1 : Original.LF_DOT_Lists.LF.Lists.id) (x2 : imported_Original_LF__DOT__Lists_LF_Lists_id),
   rel_iso Original_LF__DOT__Lists_LF_Lists_id_iso x1 x2 ->
   forall (x3 : Original.LF_DOT_Lists.LF.Lists.partial_map) (x4 : imported_Original_LF__DOT__Lists_LF_Lists_partial__map),
   rel_iso Original_LF__DOT__Lists_LF_Lists_partial__map_iso x3 x4 ->

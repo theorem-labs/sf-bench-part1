@@ -1,0 +1,7 @@
+{
+  "True": "RocqTrue",
+  "False": "RocqFalse",
+  "bool": "RocqBool",
+  "true": "RocqBool_true",
+  "false": "RocqBool_false"
+}

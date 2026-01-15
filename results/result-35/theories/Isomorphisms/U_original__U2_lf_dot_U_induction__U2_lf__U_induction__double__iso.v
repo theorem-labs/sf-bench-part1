@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
@@ -27,7 +27,11 @@ Proof.
   intro n. destruct n as [|n'].
   { apply IsomorphismDefinitions.eq_refl. }
   { unfold imported_Original_LF__DOT__Induction_LF_Induction_double.
-    simpl.
+    simpl Original.LF_DOT_Induction.LF.Induction.double.
+    simpl nat_to_imported.
+    (* LHS: nat_S (nat_S (nat_to_imported (double n')))
+       RHS: Imported.Original... (nat_S (nat_to_imported n')) *)
+    (* By IH: nat_to_imported (double n') = Imported.Original... (nat_to_imported n') *)
     pose proof (IH n') as H.
     unfold imported_Original_LF__DOT__Induction_LF_Induction_double in H.
     apply nat_S_cong. apply nat_S_cong. exact H. }
@@ -36,14 +40,14 @@ Qed.
 Instance Original_LF__DOT__Induction_LF_Induction_double_iso : forall (x1 : nat) (x2 : imported_nat), rel_iso nat_iso x1 x2 -> rel_iso nat_iso (Original.LF_DOT_Induction.LF.Induction.double x1) (imported_Original_LF__DOT__Induction_LF_Induction_double x2).
 Proof.
   intros x1 x2 H.
-  constructor. simpl.
-  destruct H as [H]. simpl in H.
+  destruct H as [H].
+  constructor.
   (* H : IsomorphismDefinitions.eq (nat_to_imported x1) x2 *)
   pose proof (double_commutes x1) as Hdc.
   unfold imported_Original_LF__DOT__Induction_LF_Induction_double in *.
-  destruct H.
-  (* Goal : IsomorphismDefinitions.eq (nat_to_imported (double x1)) (Imported... (nat_to_imported x1)) *)
-  exact Hdc.
+  eapply eq_trans.
+  - exact Hdc.
+  - apply f_equal. exact H.
 Defined.
 Instance: KnownConstant Original.LF_DOT_Induction.LF.Induction.double := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Induction_LF_Induction_double := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -1,7 +1,8 @@
 {
+  "_0": "nat_O",
   "True": "MyTrue",
-  "False": "MyFalse",
-  "_0": "_0",
-  "lt": "lt",
-  "iff": "iff"
+  "PeanoNat_Nat_add": "PeanoNat_Nat_add",
+  "bool": "Stdlib_bool",
+  "Ascii_Ascii": "Ascii_ascii_Ascii",
+  "False": "MyFalse"
 }

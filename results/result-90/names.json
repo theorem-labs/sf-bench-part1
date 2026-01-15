@@ -1,3 +1,9 @@
 {
-  "bool": "mybool"
+  "bool": "mybool",
+  "true": "_true",
+  "false": "_false",
+  "True": "TrueType",
+  "False": "FalseType",
+  "None": "option_None",
+  "Some": "option_Some"
 }

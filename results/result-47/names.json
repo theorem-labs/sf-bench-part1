@@ -1,3 +1,10 @@
 {
-  "True": "MyTrue"
+  "bool": "Stdlib_bool",
+  "True": "MyTrue",
+  "False": "MyFalse",
+  "_0": "nat_O",
+  "false": "Stdlib_bool_false",
+  "true": "Stdlib_bool_true",
+  "Original_LF__DOT__IndProp_LF_IndProp_Perm3Reminder_Perm3": "Original_LF__DOT__IndProp_LF_IndProp_Perm3_reminder_Perm3",
+  "and": "MyAnd"
 }

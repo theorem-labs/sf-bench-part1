@@ -1,3 +1,18 @@
 {
-  "True": "MyTrue"
+  "bool": "mybool",
+  "true": "mytrue",
+  "false": "myfalse",
+  "_0": "_0",
+  "S": "S_alias",
+  "Ascii_Ascii": "Ascii_ascii_Ascii",
+  "Ascii_ascii": "Ascii_ascii",
+  "list": "mylist",
+  "nil": "mynil",
+  "cons": "mycons",
+  "Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev": "Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev",
+  "Original_LF__DOT__Poly_LF_Poly_repeat''": "Original_LF__DOT__Poly_LF_Poly_repeatSQUOTESQUOTE",
+  "List_In": "mylist_In",
+  "option": "myoption",
+  "None": "myNone",
+  "Some": "mySome"
 }

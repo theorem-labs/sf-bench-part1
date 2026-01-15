@@ -5,12 +5,11 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *) (* for speed *)
+(* (* (* Typeclasses Opaque rel_iso. *) *) *) (* for speed *)
 
 
 Definition imported_False : SProp := Imported.MyFalse.
 
-(* Build an Iso between False (Prop) and imported_False (SProp) *)
 Definition False_to_imported : Logic.False -> imported_False := fun f => match f return imported_False with end.
 Definition imported_to_False : imported_False -> Logic.False := fun f => Imported.MyFalse_recl (fun _ => Logic.False) f.
 

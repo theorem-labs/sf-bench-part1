@@ -1,7 +1,5 @@
 {
-  "bool": "Stdlib_bool",
-  "true": "Stdlib_bool_true",
-  "false": "Stdlib_bool_false",
-  "True": "myTrue",
-  "False": "myFalse"
+  "True": "Exported_True",
+  "False": "Exported_False",
+  "Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus4''": "Original_LF__DOT__ProofObjects_LF_ProofObjects_ev__plus4SQUOTESQUOTE"
 }

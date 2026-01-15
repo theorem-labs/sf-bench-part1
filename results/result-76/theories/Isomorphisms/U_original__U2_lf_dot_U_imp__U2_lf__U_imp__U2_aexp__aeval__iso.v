@@ -5,25 +5,25 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+Typeclasses Opaque rel_iso. (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__aexp__iso Isomorphisms.nat__iso.
 
 Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_aeval : imported_Original_LF__DOT__Imp_LF_Imp_AExp_aexp -> imported_nat := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_aeval.
 
-(* We need to prove that Imported.Nat_add is the same as addition on imported_nat *)
+(* We need to prove that Imported.nat_add is the same as addition on imported_nat *)
 Lemma Nat_add_correct : forall n m,
-  IsomorphismDefinitions.eq (Imported.Nat_add (nat_to_imported n) (nat_to_imported m)) (nat_to_imported (n + m)).
+  IsomorphismDefinitions.eq (Imported.nat_add (nat_to_imported n) (nat_to_imported m)) (nat_to_imported (n + m)).
 Proof.
   induction n as [|n IH]; intro m.
   - simpl. apply IsomorphismDefinitions.eq_refl.
-  - simpl.
+  - simpl. unfold Imported.S.
     apply (IsoEq.f_equal Imported.nat_S (IH m)).
 Defined.
 
 Lemma Nat_sub_correct : forall n m,
-  IsomorphismDefinitions.eq (Imported.Nat_sub (nat_to_imported n) (nat_to_imported m)) (nat_to_imported (n - m)).
+  IsomorphismDefinitions.eq (Imported.nat_sub (nat_to_imported n) (nat_to_imported m)) (nat_to_imported (n - m)).
 Proof.
   induction n as [|n IH]; intro m.
   - simpl. destruct m; simpl; apply IsomorphismDefinitions.eq_refl.
@@ -33,12 +33,12 @@ Proof.
 Defined.
 
 Lemma Nat_mul_correct : forall n m,
-  IsomorphismDefinitions.eq (Imported.Nat_mul (nat_to_imported n) (nat_to_imported m)) (nat_to_imported (n * m)).
+  IsomorphismDefinitions.eq (Imported.nat_mul (nat_to_imported n) (nat_to_imported m)) (nat_to_imported (n * m)).
 Proof.
   induction n as [|n IH]; intro m.
   - simpl. apply IsomorphismDefinitions.eq_refl.
   - simpl.
-    apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.Nat_add IsomorphismDefinitions.eq_refl (IH m))).
+    apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.nat_add IsomorphismDefinitions.eq_refl (IH m))).
     apply Nat_add_correct.
 Defined.
 
@@ -47,11 +47,12 @@ Lemma aeval_correct : forall a,
 Proof.
   induction a as [n | a1 IH1 a2 IH2 | a1 IH1 a2 IH2 | a1 IH1 a2 IH2]; simpl.
   - apply IsomorphismDefinitions.eq_refl.
-  - apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.Nat_add IH1 IH2)).
+  - unfold Imported.Original_LF__DOT__Imp_LF_Imp_AExp_APlus.
+    apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.nat_add IH1 IH2)).
     apply Nat_add_correct.
-  - apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.Nat_sub IH1 IH2)).
+  - apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.nat_sub IH1 IH2)).
     apply Nat_sub_correct.
-  - apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.Nat_mul IH1 IH2)).
+  - apply (IsoEq.eq_trans (IsoEq.f_equal2 Imported.nat_mul IH1 IH2)).
     apply Nat_mul_correct.
 Defined.
 
@@ -59,7 +60,7 @@ Instance Original_LF__DOT__Imp_LF_Imp_AExp_aeval_iso : forall (x1 : Original.LF_
   rel_iso Original_LF__DOT__Imp_LF_Imp_AExp_aexp_iso x1 x2 -> rel_iso nat_iso (Original.LF_DOT_Imp.LF.Imp.AExp.aeval x1) (imported_Original_LF__DOT__Imp_LF_Imp_AExp_aeval x2).
 Proof.
   intros x1 x2 H.
-  destruct H as [H]. simpl in H. constructor. simpl.
+  unfold rel_iso in *.
   simpl in *.
   unfold imported_Original_LF__DOT__Imp_LF_Imp_AExp_aeval.
   (* Goal: nat_to_imported(aeval x1) = aeval(x2) *)

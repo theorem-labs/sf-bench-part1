@@ -1,8 +1,8 @@
 {
-  "_0": "nat_O",
   "True": "MyTrue",
   "bool": "Stdlib_bool",
-  "Ascii_Ascii": "Ascii_ascii_Ascii",
+  "true": "Stdlib_bool_true",
+  "false": "Stdlib_bool_false",
   "False": "MyFalse",
-  "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__assoc'": "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__assocSQUOTE"
+  "_0": "zero_nat"
 }

@@ -4,63 +4,75 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
+(* Print Imported. *)
+Typeclasses Opaque rel_iso. (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
 
-(* Conversion functions between nat and Imported.nat *)
-Fixpoint nat_to_imported (n : nat) : Imported.nat :=
+(* Convert from standard nat to imported nat *)
+Fixpoint nat_to_imported (n : Datatypes.nat) : Imported.nat :=
   match n with
-  | O => Imported.nat_O
-  | S m => Imported.nat_S (nat_to_imported m)
+  | Datatypes.O => Imported.nat_O
+  | Datatypes.S m => Imported.nat_S (nat_to_imported m)
   end.
 
-Fixpoint imported_to_nat (n : Imported.nat) : nat :=
+(* Convert from imported nat to standard nat *)
+Fixpoint imported_to_nat (n : Imported.nat) : Datatypes.nat :=
   match n with
-  | Imported.nat_O => O
-  | Imported.nat_S m => S (imported_to_nat m)
+  | Imported.nat_O => Datatypes.O
+  | Imported.nat_S m => Datatypes.S (imported_to_nat m)
   end.
 
-(* Prove round-trip properties using SProp eq *)
-Lemma to_from_nat : forall n : Imported.nat, IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n.
+Lemma nat_roundtrip1 : forall n, imported_to_nat (nat_to_imported n) = n.
 Proof.
-  fix IH 1.
-  intros n.
-  destruct n as [|m].
-  - apply IsomorphismDefinitions.eq_refl.
-  - simpl. apply f_equal. apply IH.
-Defined.
-
-Lemma from_to_nat : forall n : nat, IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  fix IH 1.
-  intros n.
-  destruct n as [|m].
-  - apply IsomorphismDefinitions.eq_refl.
-  - simpl. apply f_equal. apply IH.
-Defined.
-
-Instance nat_iso : Iso nat imported_nat :=
-  Build_Iso nat_to_imported imported_to_nat to_from_nat from_to_nat.
-
-(* Additional Logic.eq roundtrip lemmas for use in other files *)
-Lemma nat_roundtrip : forall n : nat, Logic.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  fix IH 1.
-  intros n. destruct n as [|m].
+  intro n. induction n as [|n IHn].
   - reflexivity.
-  - simpl. apply Logic.f_equal. apply IH.
+  - simpl. f_equal. exact IHn.
 Qed.
 
-Lemma imported_nat_roundtrip : forall n : Imported.nat, Logic.eq (nat_to_imported (imported_to_nat n)) n.
+Lemma nat_roundtrip2 : forall n, nat_to_imported (imported_to_nat n) = n.
 Proof.
-  fix IH 1.
-  intros n. destruct n as [|m].
+  intro n. induction n as [|n IHn].
   - reflexivity.
-  - simpl. apply Logic.f_equal. apply IH.
+  - simpl. f_equal. exact IHn.
 Qed.
 
-Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
+(* Congruence lemmas for IsomorphismDefinitions.eq *)
+Lemma natS_cong : forall x y : Imported.nat, 
+  IsomorphismDefinitions.eq x y -> 
+  IsomorphismDefinitions.eq (Imported.nat_S x) (Imported.nat_S y).
+Proof.
+  intros x y H. destruct H. apply IsomorphismDefinitions.eq_refl.
+Qed.
+
+Lemma S_cong : forall x y : Datatypes.nat, 
+  IsomorphismDefinitions.eq x y -> 
+  IsomorphismDefinitions.eq (Datatypes.S x) (Datatypes.S y).
+Proof.
+  intros x y H. destruct H. apply IsomorphismDefinitions.eq_refl.
+Qed.
+
+Lemma nat_to_from : forall x : Imported.nat, 
+  IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat x)) x.
+Proof.
+  intro x. induction x.
+  - simpl. apply IsomorphismDefinitions.eq_refl.
+  - simpl. apply natS_cong. exact IHx.
+Qed.
+
+Lemma nat_from_to : forall x : Datatypes.nat, 
+  IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported x)) x.
+Proof.
+  intro x. induction x.
+  - simpl. apply IsomorphismDefinitions.eq_refl.
+  - simpl. apply S_cong. exact IHx.
+Qed.
+
+Instance nat_iso : Iso Datatypes.nat imported_nat :=
+  @Build_Iso Datatypes.nat Imported.nat nat_to_imported imported_to_nat nat_to_from nat_from_to.
+
+Instance: KnownConstant Datatypes.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor nat nat_iso := {}.
-Instance: IsoStatementProofBetween nat Imported.nat nat_iso := {}.
+Instance: IsoStatementProofFor Datatypes.nat nat_iso := {}.
+Instance: IsoStatementProofBetween Datatypes.nat Imported.nat nat_iso := {}.

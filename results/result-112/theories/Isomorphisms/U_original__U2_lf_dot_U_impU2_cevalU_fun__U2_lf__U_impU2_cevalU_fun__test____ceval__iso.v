@@ -15,16 +15,16 @@ Definition imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_test__ceval : (
 
 (* Helper lemmas *)
 Lemma nat500_iso : rel_iso nat_iso 500%nat Imported.nat500.
-Proof. constructor. simpl. apply IsomorphismDefinitions.eq_refl. Qed.
+Proof. constructor. simpl. apply IsomorphismDefinitions.eq_refl. Defined.
 
 Lemma X_iso : rel_iso String_string_iso Original.LF_DOT_Imp.LF.Imp.X Imported.Original_LF__DOT__Imp_LF_Imp_X.
-Proof. constructor. simpl. apply IsomorphismDefinitions.eq_refl. Qed.
+Proof. constructor. simpl. apply IsomorphismDefinitions.eq_refl. Defined.
 
 Lemma Y_iso : rel_iso String_string_iso Original.LF_DOT_Imp.LF.Imp.Y Imported.Original_LF__DOT__Imp_LF_Imp_Y.
-Proof. constructor. simpl. apply IsomorphismDefinitions.eq_refl. Qed.
+Proof. constructor. simpl. apply IsomorphismDefinitions.eq_refl. Defined.
 
 Lemma Z_iso : rel_iso String_string_iso Original.LF_DOT_Imp.LF.Imp.Z Imported.Original_LF__DOT__Imp_LF_Imp_Z.
-Proof. constructor. simpl. apply IsomorphismDefinitions.eq_refl. Qed.
+Proof. constructor. simpl. apply IsomorphismDefinitions.eq_refl. Defined.
 
 Instance Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_test__ceval_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.state) (x2 : imported_String_string -> imported_nat),
   (forall (x3 : String.string) (x4 : imported_String_string), rel_iso String_string_iso x3 x4 -> rel_iso nat_iso (x1 x3) (x2 x4)) ->

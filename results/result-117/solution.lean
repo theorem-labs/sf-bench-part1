@@ -534,6 +534,32 @@ inductive Original_LF__DOT__Auto_LF_Auto_Repeat_ceval :
       Original_LF__DOT__Auto_LF_Auto_Repeat_ceval (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CRepeat c b) st' st'' →
       Original_LF__DOT__Auto_LF_Auto_Repeat_ceval (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CRepeat c b) st st''
 
+-- aexp1 (Admitted in Original.v): aeval (X !-> 5) <{ 3 + (X * 2) }> = 13
+-- Expanded: aeval (t_update empty_st X 5) (APlus (ANum 3) (AMult (AId X) (ANum 2))) = 13
+axiom Original_LF__DOT__Imp_LF_Imp_aexp1 : @Corelib_Init_Logic_eq nat
+  (Original_LF__DOT__Imp_LF_Imp_aeval
+    (Original_LF__DOT__Maps_LF_Maps_t__update Original_LF__DOT__Imp_LF_Imp_empty__st Original_LF__DOT__Imp_LF_Imp_X (nat.S (nat.S (nat.S (nat.S (nat.S nat.O))))))
+    (Original_LF__DOT__Imp_LF_Imp_aexp.APlus
+      (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S (nat.S nat.O))))
+      (Original_LF__DOT__Imp_LF_Imp_aexp.AMult
+        (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
+        (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S nat.O))))))
+  (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S nat.O)))))))))))))
+
+-- aexp2 (Admitted in Original.v): aeval (X !-> 5 ; Y !-> 4) <{ Z + (X * Y) }> = 20
+-- Expanded: aeval (t_update (t_update empty_st X 5) Y 4) (APlus (AId Z) (AMult (AId X) (AId Y))) = 20
+axiom Original_LF__DOT__Imp_LF_Imp_aexp2 : @Corelib_Init_Logic_eq nat
+  (Original_LF__DOT__Imp_LF_Imp_aeval
+    (Original_LF__DOT__Maps_LF_Maps_t__update
+      (Original_LF__DOT__Maps_LF_Maps_t__update Original_LF__DOT__Imp_LF_Imp_empty__st Original_LF__DOT__Imp_LF_Imp_X (nat.S (nat.S (nat.S (nat.S (nat.S nat.O))))))
+      Original_LF__DOT__Imp_LF_Imp_Y (nat.S (nat.S (nat.S (nat.S nat.O)))))
+    (Original_LF__DOT__Imp_LF_Imp_aexp.APlus
+      (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Z)
+      (Original_LF__DOT__Imp_LF_Imp_aexp.AMult
+        (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
+        (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Y))))
+  (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S nat.O))))))))))))))))))))
+
 -- ceval'_example1 (Admitted in Original.v)
 axiom Original_LF__DOT__Auto_LF_Auto_ceval'__example1 :
   Original_LF__DOT__Auto_LF_Auto_Repeat_ceval
@@ -599,63 +625,3 @@ inductive Original_LF__DOT__Imp_LF_Imp_AExp_aevalR__first__try_aevalR :
       Original_LF__DOT__Imp_LF_Imp_AExp_aevalR__first__try_aevalR e1 n1 →
       Original_LF__DOT__Imp_LF_Imp_AExp_aevalR__first__try_aevalR e2 n2 →
       Original_LF__DOT__Imp_LF_Imp_AExp_aevalR__first__try_aevalR (Original_LF__DOT__Imp_LF_Imp_AExp_aexp.AMult e1 e2) (Nat_mul n1 n2)
-
--- =====================================================
--- Main target definitions (Admitted in Original.v)
--- =====================================================
-
--- ceval_example1: empty_st =[ X := 2; if (X <= 1) then Y := 3 else Z := 4 end ]=> (Z !-> 4 ; X !-> 2)
--- Uses the Repeat.ceval instead of the basic Imp.ceval 
-axiom Original_LF__DOT__Auto_LF_Auto_ceval__example1 :
-  Original_LF__DOT__Auto_LF_Auto_Repeat_ceval
-    (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CSeq
-       (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CAsgn Original_LF__DOT__Imp_LF_Imp_X (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S nat.O))))
-       (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CIf
-          (Original_LF__DOT__Imp_LF_Imp_bexp.BLe
-             (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
-             (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S nat.O)))
-          (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Y 
-            (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S (nat.S nat.O)))))
-          (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Z 
-            (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S (nat.S (nat.S nat.O))))))))
-    Original_LF__DOT__Imp_LF_Imp_empty__st
-    (Original_LF__DOT__Maps_LF_Maps_t__update
-       (Original_LF__DOT__Maps_LF_Maps_t__update Original_LF__DOT__Imp_LF_Imp_empty__st Original_LF__DOT__Imp_LF_Imp_X
-          (nat.S (nat.S nat.O)))
-       Original_LF__DOT__Imp_LF_Imp_Z (nat.S (nat.S (nat.S (nat.S nat.O)))))
-
--- eauto_example: exists s', (Y !-> 1 ; X !-> 2) =[ if (X <= Y) then Z := Y - X else Y := X + Z end ]=> s'
-axiom Original_LF__DOT__Auto_LF_Auto_eauto__example :
-  ex (fun (s' : Original_LF__DOT__Imp_LF_Imp_state) =>
-    Original_LF__DOT__Auto_LF_Auto_Repeat_ceval
-      (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CIf
-         (Original_LF__DOT__Imp_LF_Imp_bexp.BLe
-            (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
-            (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Y))
-         (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Z
-            (Original_LF__DOT__Imp_LF_Imp_aexp.AMinus
-               (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Y)
-               (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)))
-         (Original_LF__DOT__Auto_LF_Auto_Repeat_com.CAsgn Original_LF__DOT__Imp_LF_Imp_Y
-            (Original_LF__DOT__Imp_LF_Imp_aexp.APlus
-               (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
-               (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_Z))))
-      (Original_LF__DOT__Maps_LF_Maps_t__update
-         (Original_LF__DOT__Maps_LF_Maps_t__update Original_LF__DOT__Imp_LF_Imp_empty__st
-            Original_LF__DOT__Imp_LF_Imp_X (nat.S (nat.S nat.O)))
-         Original_LF__DOT__Imp_LF_Imp_Y (nat.S nat.O))
-      s')
-
--- bexp1: beval (X !-> 5) <{ true && ~(X <= 4) }> = true
-axiom Original_LF__DOT__Imp_LF_Imp_bexp1 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Imp_LF_Imp_beval
-       (Original_LF__DOT__Maps_LF_Maps_t__update Original_LF__DOT__Imp_LF_Imp_empty__st
-          Original_LF__DOT__Imp_LF_Imp_X (nat.S (nat.S (nat.S (nat.S (nat.S nat.O))))))
-       (Original_LF__DOT__Imp_LF_Imp_bexp.BAnd
-          Original_LF__DOT__Imp_LF_Imp_bexp.BTrue
-          (Original_LF__DOT__Imp_LF_Imp_bexp.BNot
-             (Original_LF__DOT__Imp_LF_Imp_bexp.BLe
-                (Original_LF__DOT__Imp_LF_Imp_aexp.AId Original_LF__DOT__Imp_LF_Imp_X)
-                (Original_LF__DOT__Imp_LF_Imp_aexp.ANum (nat.S (nat.S (nat.S (nat.S nat.O)))))))))
-    mybool.mytrue

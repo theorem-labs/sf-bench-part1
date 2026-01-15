@@ -5,18 +5,18 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-#[local] Set Printing Coercions.
+Typeclasses Opaque rel_iso. (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aexp__aexp__iso Isomorphisms.nat__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum : imported_nat -> imported_Original_LF__DOT__Imp_LF_Imp_AExp_aexp := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_ANum.
-Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso : forall (x1 : nat) (x2 : imported_nat),
+Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum : imported_nat -> imported_Original_LF__DOT__Imp_LF_Imp_AExp_aexp := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_ANum.
+Instance Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso : forall (x1 : nat) (x2 : imported_nat),
   rel_iso nat_iso x1 x2 -> rel_iso Original_LF__DOT__Imp_LF_Imp_AExp_aexp_iso (Original.LF_DOT_Imp.LF.Imp.AExp.ANum x1) (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum x2).
 Proof.
   intros x1 x2 H.
-  constructor. simpl.
-  destruct H as [H]. simpl in H.
+  unfold rel_iso in *.
+  simpl.
   unfold imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum, Imported.Original_LF__DOT__Imp_LF_Imp_AExp_ANum.
   apply (IsoEq.f_equal Imported.Original_LF__DOT__Imp_LF_Imp_AExp_aexp_ANum H).
 Defined.

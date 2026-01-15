@@ -140,3 +140,14 @@ Instance: KnownConstant (@Corelib.Init.Logic.eq) := {}.
 Instance: KnownConstant (@Imported.Corelib_Init_Logic_eq_Prop) := {}.
 Instance: IsoStatementProofFor (@Corelib.Init.Logic.eq) Corelib_Init_Logic_eq_iso_Prop := {}.
 Instance: IsoStatementProofBetween (@Corelib.Init.Logic.eq) (@Imported.Corelib_Init_Logic_eq_Prop) Corelib_Init_Logic_eq_iso_Prop := {}.
+
+(* Isomorphism for Corelib_Init_Logic_eq_Type1 - for Type 1 types like cnat *)
+Monomorphic Definition imported_Corelib_Init_Logic_eq_Type1 : forall (A : Type), A -> A -> SProp := @Imported.Corelib_Init_Logic_eq_Type1.
+
+#[export] Monomorphic Instance Corelib_Init_Logic_eq_iso_Type1 {x1 x2 : Type} (hx : Iso x1 x2) 
+  {x3 : x1} {x4 : x2} (H34 : rel_iso hx x3 x4)
+  {x5 : x1} {x6 : x2} (H56 : rel_iso hx x5 x6)
+  : Iso (x3 = x5) (@imported_Corelib_Init_Logic_eq_Type1 x2 x4 x6).
+Admitted.
+
+Instance: KnownConstant (@Imported.Corelib_Init_Logic_eq_Type1) := {}.

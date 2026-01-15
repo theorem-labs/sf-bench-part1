@@ -6,7 +6,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__reg____exp__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__list__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__app__iso.
@@ -130,26 +130,26 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso : (forall (x1 x2 : 
    Iso (@Original.LF_DOT_IndProp.LF.IndProp.exp_match x1 x3 x5) (@imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x2 x4 x6)).
 Proof.
   intros x1 x2 hx x3 x4 Hx34 x5 x6 Hx56.
-  unfold rel_iso in Hx34, Hx56. simpl in Hx34, Hx56.
+  destruct Hx34 as [Hx34']. destruct Hx56 as [Hx56']. simpl in Hx34', Hx56'.
   unshelve eapply Build_Iso.
   - (* to: Original.exp_match x3 x5 -> imported exp_match x4 x6 *)
     intro Hmatch.
     pose proof (@exp_match_to_canonical x1 x2 hx x3 x5 Hmatch) as Hcanon.
     exact (eq_srect_nodep (fun l => Imported.Original_LF__DOT__IndProp_LF_IndProp_exp__match x2 l _) 
              (eq_srect_nodep (fun r => Imported.Original_LF__DOT__IndProp_LF_IndProp_exp__match x2 _ r) 
-                Hcanon Hx56) Hx34).
+                Hcanon Hx56') Hx34').
   - (* from: imported exp_match x4 x6 -> Original.exp_match x3 x5 *)
     intro Hmatch.
     pose proof (@exp_match_from_canonical_SInhabited x1 x2 hx x4 x6 Hmatch) as Hcanon.
     apply sinhabitant.
     (* We have: Hcanon : SInhabited (exp_match (from list_iso x4) (from reg_iso x6))
        We need: SInhabited (exp_match x3 x5)
-       Using Hx34 : eq (to list_iso x3) x4  and  Hx56 : eq (to reg_iso x5) x6 *)
+       Using Hx34' : eq (to list_iso x3) x4  and  Hx56' : eq (to reg_iso x5) x6 *)
     pose proof (eq_srect_nodep (fun l => SInhabited (Original.LF_DOT_IndProp.LF.IndProp.exp_match l _)) 
-                 Hcanon (eq_trans (f_equal (from (Original_LF__DOT__Poly_LF_Poly_list_iso hx)) (eq_sym Hx34)) 
+                 Hcanon (eq_trans (f_equal (from (Original_LF__DOT__Poly_LF_Poly_list_iso hx)) (eq_sym Hx34')) 
                                    (from_to (Original_LF__DOT__Poly_LF_Poly_list_iso hx) x3))) as H1.
     pose proof (eq_srect_nodep (fun r => SInhabited (Original.LF_DOT_IndProp.LF.IndProp.exp_match _ r)) 
-                 H1 (eq_trans (f_equal (from (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx)) (eq_sym Hx56))
+                 H1 (eq_trans (f_equal (from (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx)) (eq_sym Hx56'))
                               (from_to (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) x5))) as H2.
     exact H2.
   - (* to_from: SProp, trivially irrelevant *)

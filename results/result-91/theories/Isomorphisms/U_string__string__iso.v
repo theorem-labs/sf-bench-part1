@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 Definition imported_String_string : Type := Imported.String_string.
@@ -13,8 +13,8 @@ Definition imported_String_string : Type := Imported.String_string.
 (* Bool isomorphism *)
 Definition mybool_to (b : bool) : Imported.mybool :=
   match b with
-  | true => Imported.bool_true
-  | false => Imported.bool_false
+  | true => Imported.mybool_mytrue
+  | false => Imported.mybool_myfalse
   end.
 
 Definition mybool_from (b : Imported.mybool) : bool :=
@@ -24,16 +24,16 @@ Definition mybool_from (b : Imported.mybool) : bool :=
   end.
 
 (* Ascii isomorphism *)
-Definition ascii_to (a : Ascii.ascii) : Imported.Ascii :=
+Definition ascii_to (a : Ascii.ascii) : Imported.Ascii_ascii :=
   match a with
   | Ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
-    Imported.Ascii_Ascii (mybool_to b0) (mybool_to b1) (mybool_to b2) (mybool_to b3)
+    Imported.Ascii_ascii_Ascii (mybool_to b0) (mybool_to b1) (mybool_to b2) (mybool_to b3)
                                (mybool_to b4) (mybool_to b5) (mybool_to b6) (mybool_to b7)
   end.
 
-Definition ascii_from (a : Imported.Ascii) : Ascii.ascii :=
+Definition ascii_from (a : Imported.Ascii_ascii) : Ascii.ascii :=
   match a with
-  | Imported.Ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
+  | Imported.Ascii_ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
     Ascii.Ascii (mybool_from b0) (mybool_from b1) (mybool_from b2) (mybool_from b3)
                 (mybool_from b4) (mybool_from b5) (mybool_from b6) (mybool_from b7)
   end.

@@ -1,10 +1,8 @@
 {
-  "False": "MyFalse",
-  "True": "MyTrue",
-  "bool": "mybool",
-  "true": "mybool_mytrue",
-  "false": "mybool_myfalse",
   "_0": "nat_O",
-  "S": "nat_S",
-  "Original_LF__DOT__AltAuto_LF_AltAuto_match__ex3'": "Original_LF__DOT__AltAuto_LF_AltAuto_match__ex3SQUOTE"
+  "True": "MyTrue",
+  "PeanoNat_Nat_add": "PeanoNat_Nat_add",
+  "bool": "Stdlib_bool",
+  "Ascii_Ascii": "Ascii_ascii_Ascii",
+  "False": "MyFalse"
 }

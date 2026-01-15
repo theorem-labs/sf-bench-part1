@@ -11,16 +11,16 @@ Typeclasses Opaque rel_iso. (* for speed *)
 Definition imported_String_string : Type := Imported.String_string.
 
 (* Bool isomorphism *)
-Definition mybool_to (b : bool) : Imported.mybool :=
+Definition mybool_to (b : bool) : Imported.bool :=
   match b with
-  | true => Imported.mybool_mytrue
-  | false => Imported.mybool_myfalse
+  | true => Imported.bool_true
+  | false => Imported.bool_false
   end.
 
-Definition mybool_from (b : Imported.mybool) : bool :=
+Definition mybool_from (b : Imported.bool) : bool :=
   match b with
-  | Imported.mybool_mytrue => true
-  | Imported.mybool_myfalse => false
+  | Imported.bool_true => true
+  | Imported.bool_false => false
   end.
 
 (* Ascii isomorphism *)

@@ -12,11 +12,11 @@ From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_maps
 
 Definition imported_Original_LF__DOT__Maps_LF_Maps_t__update : forall x : Type, (imported_String_string -> x) -> imported_String_string -> x -> imported_String_string -> x := (@Imported.Original_LF__DOT__Maps_LF_Maps_t__update).
 
-(* Helper: convert between Coq bool and Imported.mybool *)
-Definition bool_to_mybool (b : bool) : Imported.mybool :=
+(* Helper: convert between Coq bool and Imported.bool *)
+Definition bool_to_mybool (b : bool) : Imported.bool :=
   match b with
-  | true => Imported.mybool_mytrue
-  | false => Imported.mybool_myfalse
+  | true => Imported.bool_true
+  | false => Imported.bool_false
   end.
 
 Lemma string_eqb_compat_core : forall (s1 s2 : String.string),
@@ -70,11 +70,11 @@ Proof.
   pose proof (@string_eqb_compat k1 x1' k2 x2' Hk Hx) as Heqb.
   destruct (String.eqb k1 x1') eqn:E1.
   - (* k1 = x1' in Coq, so String_eqb k2 x2' should be mybool_mytrue *)
-    assert (Imported.String_eqb k2 x2' = Imported.mybool_mytrue) as E2.
+    assert (Imported.String_eqb k2 x2' = Imported.bool_true) as E2.
     { apply eq_of_seq. apply (eq_trans (eq_sym Heqb)). simpl. exact IsomorphismDefinitions.eq_refl. }
     rewrite E2. simpl. exact Hv.
   - (* k1 <> x1' in Coq, so String_eqb k2 x2' should be mybool_myfalse *)
-    assert (Imported.String_eqb k2 x2' = Imported.mybool_myfalse) as E2.
+    assert (Imported.String_eqb k2 x2' = Imported.bool_false) as E2.
     { apply eq_of_seq. apply (eq_trans (eq_sym Heqb)). simpl. exact IsomorphismDefinitions.eq_refl. }
     rewrite E2. simpl.
     apply Hm. exact Hx.

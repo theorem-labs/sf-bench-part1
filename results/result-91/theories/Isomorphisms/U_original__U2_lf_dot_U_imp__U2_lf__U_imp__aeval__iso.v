@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 From Stdlib Require Import Arith.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso.
@@ -144,11 +144,11 @@ Instance Original_LF__DOT__Imp_LF_Imp_aeval_iso : forall (x1 : Original.LF_DOT_I
   rel_iso Original_LF__DOT__Imp_LF_Imp_aexp_iso x3 x4 -> rel_iso nat_iso (Original.LF_DOT_Imp.LF.Imp.aeval x1 x3) (imported_Original_LF__DOT__Imp_LF_Imp_aeval x2 x4).
 Proof.
   intros st st' Hst a a' Ha.
-  unfold rel_iso in Ha; simpl in Ha.
-  unfold rel_iso; simpl.
+  pose proof (proj_rel_iso Ha) as Ha'. simpl in Ha'.
+  constructor; simpl.
   apply (eq_trans (aeval_iso_core st st' Hst a)).
   apply (eq_trans (aeval_aux_eq st' (aexp_to_imported a))).
-  apply (f_equal (imported_Original_LF__DOT__Imp_LF_Imp_aeval st') Ha).
+  apply (f_equal (imported_Original_LF__DOT__Imp_LF_Imp_aeval st') Ha').
 Qed.
 
 Instance: KnownConstant Original.LF_DOT_Imp.LF.Imp.aeval := {}. (* only needed when rel_iso is typeclasses opaque *)

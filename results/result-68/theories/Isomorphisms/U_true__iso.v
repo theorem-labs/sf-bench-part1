@@ -4,19 +4,30 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Typeclasses Opaque rel_iso. (* for speed *) *)
+(* Print Imported. *)
+Typeclasses Opaque rel_iso. (* for speed *)
 
-Definition imported_True : SProp := Imported.MyTrue.
+(* Imported.True : SProp, Logic.True : Prop *)
+Definition imported_True : SProp := Imported.True.
 
-Instance True_iso : Iso True imported_True.
+(* We need Iso Logic.True Imported.True *)
+(* Build_Iso needs: to from to_from from_to *)
+(* to : Logic.True -> imported_True *)
+(* from : imported_True -> Logic.True *)
+(* to_from : forall x, to (from x) = x  (in SProp) *)
+(* from_to : forall x, from (to x) = x  (in SProp) *)
+Instance True_iso : (Iso Logic.True imported_True).
 Proof.
-  unshelve eapply Build_Iso.
-  - intro H; exact Imported.MyTrue_intro.
-  - intro H; exact Logic.I.
-  - intro x; apply IsomorphismDefinitions.eq_refl.
-  - intro x; destruct x; apply IsomorphismDefinitions.eq_refl.
+  refine {|
+    to := fun _ => Imported.True_intro;
+    from := fun _ => Logic.I;
+    to_from := _;
+    from_to := _
+  |}.
+  - intro x. exact (IsomorphismDefinitions.eq_refl _).
+  - intro x. destruct x. exact (IsomorphismDefinitions.eq_refl _).
 Defined.
-Instance: KnownConstant True := {}.
-Instance: KnownConstant Imported.MyTrue := {}.
-Instance: IsoStatementProofFor True True_iso := {}.
-Instance: IsoStatementProofBetween True Imported.MyTrue True_iso := {}.
+Instance: KnownConstant Logic.True := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.True := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Logic.True True_iso := {}.
+Instance: IsoStatementProofBetween Logic.True Imported.True True_iso := {}.

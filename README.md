@@ -2,7 +2,7 @@
 
 This repository contains verified translations of statements from the **Logical Foundations** volume of [Software Foundations](https://softwarefoundations.cis.upenn.edu/) from Rocq to Lean 4.
 
-The repository includes 136 translation results, each with a formally verified proof that the Lean translation is semantically equivalent to the original Rocq definition.
+The repository includes 100 translation results, each with a formally verified proof that the Lean translation is semantically equivalent to the original Rocq definition.
 
 ## Repository Structure
 
@@ -116,23 +116,7 @@ Step 2: Checking Rocq Checker compilation...
 
 ### Step 3: Verify All Results
 
-To verify all results at once:
-
-```bash
-docker run --rm -v $(pwd):/host sf-bench-part1 verify --all
-```
-
-This will verify each result and print a summary at the end:
-
-```
-==========================================
-SUMMARY: 136 passed, 0 failed (out of 136)
-==========================================
-```
-
-### Parallel Verification (Faster)
-
-For faster verification, use the parallel script which runs multiple Docker containers concurrently:
+To verify all results at once, use the parallel script which runs multiple Docker containers concurrently:
 
 ```bash
 ./scripts/verify-parallel.sh
@@ -158,8 +142,6 @@ result-2 success
 SUMMARY: 136 passed, 0 failed (out of 136)
 ==========================================
 ```
-
-This is approximately 8x faster than sequential verification (~17 minutes vs 2+ hours).
 
 ### Interactive Mode
 

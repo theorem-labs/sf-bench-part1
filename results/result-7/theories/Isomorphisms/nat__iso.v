@@ -10,47 +10,41 @@ From IsomorphismChecker Require Original Imported.
 
 Definition imported_nat : Type := Imported.nat.
 
-(* Forward and backward conversions between nat and Imported.nat *)
-Fixpoint nat_to_imported (n : nat) : Imported.nat :=
+Fixpoint nat_to_imported (n : nat) : imported_nat :=
   match n with
   | O => Imported.nat_O
-  | S n' => Imported.nat_S (nat_to_imported n')
+  | S m => Imported.nat_S (nat_to_imported m)
   end.
 
-Fixpoint imported_to_nat (n : Imported.nat) : nat :=
+Fixpoint imported_to_nat (n : imported_nat) : nat :=
   match n with
   | Imported.nat_O => O
-  | Imported.nat_S n' => S (imported_to_nat n')
+  | Imported.nat_S m => S (imported_to_nat m)
   end.
 
-Lemma nat_roundtrip : forall n : nat, Logic.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  fix IH 1.
-  intros n. destruct n as [| n']; simpl.
-  - reflexivity.
-  - apply Logic.f_equal. apply IH.
-Qed.
+Fixpoint nat_round_trip (n : nat) : imported_to_nat (nat_to_imported n) = n :=
+  match n with
+  | O => Corelib.Init.Logic.eq_refl
+  | S m => Corelib.Init.Logic.f_equal S (nat_round_trip m)
+  end.
 
-Lemma imported_nat_roundtrip : forall n : Imported.nat, Logic.eq (nat_to_imported (imported_to_nat n)) n.
-Proof.
-  fix IH 1.
-  intros n. destruct n as [| n']; simpl.
-  - reflexivity.
-  - apply Logic.f_equal. apply IH.
-Qed.
+Fixpoint imported_round_trip (n : imported_nat) : nat_to_imported (imported_to_nat n) = n :=
+  match n with
+  | Imported.nat_O => Corelib.Init.Logic.eq_refl
+  | Imported.nat_S m => Corelib.Init.Logic.f_equal Imported.nat_S (imported_round_trip m)
+  end.
 
 Instance nat_iso : Iso nat imported_nat.
 Proof.
-  refine {|
-    to := nat_to_imported;
-    from := imported_to_nat;
-    to_from := _;
-    from_to := _
-  |}.
-  - intros n. apply seq_of_eq. apply imported_nat_roundtrip.
-  - intros n. apply seq_of_eq. apply nat_roundtrip.
+  exists nat_to_imported imported_to_nat.
+  - fix IH 1. intros n.
+    destruct n as [|m].
+    + apply IsomorphismDefinitions.eq_refl.
+    + simpl. apply (IsoEq.f_equal Imported.nat_S). apply IH.
+  - fix IH 1. intros [|m].
+    + apply IsomorphismDefinitions.eq_refl.
+    + simpl. apply (IsoEq.f_equal S). apply IH.
 Defined.
-
 Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor nat nat_iso := {}.

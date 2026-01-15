@@ -10,40 +10,55 @@ From IsomorphismChecker Require Original Imported.
 
 Definition imported_nat : Type := Imported.nat.
 
-(* Helper conversion functions *)
-Fixpoint nat_to_imported (n : nat) : imported_nat :=
+(* Convert from Rocq nat to Imported.nat *)
+Fixpoint nat_to_imported (n : Datatypes.nat) : imported_nat :=
   match n with
   | O => Imported.nat_O
-  | S m => Imported.nat_S (nat_to_imported m)
+  | Datatypes.S n' => Imported.nat_S (nat_to_imported n')
   end.
 
-Fixpoint nat_from_imported (n : imported_nat) : nat :=
-  match n with
-  | Imported.nat_O => O
-  | Imported.nat_S m => S (nat_from_imported m)
-  end.
+(* Convert from Imported.nat to Rocq nat *)
+Definition imported_to_nat : imported_nat -> Datatypes.nat :=
+  Imported.nat_recl (fun _ => Datatypes.nat) O (fun _ r => Datatypes.S r).
 
-Instance nat_iso : Iso nat imported_nat.
+(* Proof that to_from holds *)
+Lemma nat_to_from : forall x : imported_nat, 
+  IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat x)) x.
 Proof.
-  exists (fix f (n : nat) : imported_nat :=
-            match n with
-            | O => Imported.nat_O
-            | S m => Imported.nat_S (f m)
-            end)
-         (fix g (n : imported_nat) : nat :=
-            match n with
-            | Imported.nat_O => O
-            | Imported.nat_S m => S (g m)
-            end).
-  - fix IH 1. intros n.
-    destruct n as [|m].
-    + apply IsomorphismDefinitions.eq_refl.
-    + simpl. apply (IsoEq.f_equal Imported.nat_S). apply IH.
-  - fix IH 1. intros [|m].
-    + apply IsomorphismDefinitions.eq_refl.
-    + simpl. apply (IsoEq.f_equal S). apply IH.
-Defined.
-Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
+  apply (Imported.nat_indl (fun x => IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat x)) x)).
+  - apply IsomorphismDefinitions.eq_refl.
+  - intros n IH. simpl.
+    apply (f_equal Imported.nat_S IH).
+Qed.
+
+(* Proof that from_to holds *)
+Lemma nat_from_to : forall x : Datatypes.nat,
+  IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported x)) x.
+Proof.
+  fix IH 1. intros x. destruct x.
+  - apply IsomorphismDefinitions.eq_refl.
+  - simpl. apply (f_equal Datatypes.S (IH x)).
+Qed.
+
+Instance nat_iso : Iso Datatypes.nat imported_nat := {|
+  to := nat_to_imported;
+  from := imported_to_nat;
+  to_from := nat_to_from;
+  from_to := nat_from_to
+|}.
+
+Instance: KnownConstant Datatypes.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor nat nat_iso := {}.
-Instance: IsoStatementProofBetween nat Imported.nat nat_iso := {}.
+Instance: IsoStatementProofFor Datatypes.nat nat_iso := {}.
+Instance: IsoStatementProofBetween Datatypes.nat Imported.nat nat_iso := {}.
+
+(* Aliases for compatibility *)
+Definition nat_roundtrip : forall n : Datatypes.nat, imported_to_nat (nat_to_imported n) = n.
+Proof.
+  intro n. apply eq_of_seq. apply nat_from_to.
+Defined.
+
+Definition imported_round_trip : forall n : imported_nat, nat_to_imported (imported_to_nat n) = n.
+Proof.
+  intro n. apply eq_of_seq. apply nat_to_from.
+Defined.

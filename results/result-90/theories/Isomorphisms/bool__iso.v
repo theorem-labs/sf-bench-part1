@@ -8,7 +8,7 @@ From IsomorphismChecker Require Original Imported.
 Typeclasses Opaque rel_iso. (* for speed *)
 
 
-Definition imported_bool : Type := Imported.mybool.
+Definition imported_bool : Type := Imported._bool.
 Instance bool_iso : Iso bool imported_bool.
 Proof.
   exists (fun b : bool => match b with true => Imported.mybool_mytrue | false => Imported.mybool_myfalse end)
@@ -17,6 +17,6 @@ Proof.
   - intros [|]; apply IsomorphismDefinitions.eq_refl.
 Defined.
 Instance: KnownConstant bool := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.mybool := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported._bool := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor bool bool_iso := {}.
-Instance: IsoStatementProofBetween bool Imported.mybool bool_iso := {}.
+Instance: IsoStatementProofBetween bool Imported._bool bool_iso := {}.

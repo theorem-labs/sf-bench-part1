@@ -1,15 +1,21 @@
 #!/bin/bash
 # Verification script for sf-bench-part1 translations
-# Usage: verify result-N    - Verify a single result
-#        verify --all       - Verify all results
+# Usage: ./scripts/verify.sh result-N    - Verify a single result
+#        ./scripts/verify.sh --all       - Verify all results
 #
 # Verifies translations by:
 # 1. Checking Lean compilation
 # 2. Compiling the Rocq Checker (proves isomorphism)
 #
-# IMPORTANT: Mount host directory at /host, NOT /workdir:
-#   docker run --rm -v $(pwd):/host sf-bench-part1 verify result-1
-#   docker run --rm -v $(pwd):/host sf-bench-part1 verify --all
+# Automatically runs inside Docker when invoked from the host.
+
+# Detect if we're running inside Docker
+if [ ! -f "/.dockerenv" ] && [ ! -d "/workdir/theories" ]; then
+    # Running on host - re-invoke via Docker
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+    exec docker run --rm -v "$PROJECT_DIR:/host" sf-bench-part1 verify "$@"
+fi
 
 # Container's pre-compiled theories (never shadow this with a mount!)
 THEORIES_DIR="/workdir/theories"
@@ -30,8 +36,8 @@ usage() {
     echo "Verifies translation results."
     echo ""
     echo "Examples:"
-    echo "  docker run --rm -v \$(pwd):/host sf-bench-part1 verify result-1"
-    echo "  docker run --rm -v \$(pwd):/host sf-bench-part1 verify --all"
+    echo "  ./scripts/verify.sh result-1"
+    echo "  ./scripts/verify.sh --all"
     exit 1
 }
 

@@ -1,11 +1,11 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-#[local] Set Printing Coercions.
+
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
@@ -35,7 +35,7 @@ Proof.
     pose proof (IH n') as H.
     unfold imported_Original_LF__DOT__Induction_LF_Induction_double in H.
     apply nat_S_cong. apply nat_S_cong. exact H. }
-Defined.
+Qed.
 
 Instance Original_LF__DOT__Induction_LF_Induction_double_iso : forall (x1 : nat) (x2 : imported_nat), rel_iso nat_iso x1 x2 -> rel_iso nat_iso (Original.LF_DOT_Induction.LF.Induction.double x1) (imported_Original_LF__DOT__Induction_LF_Induction_double x2).
 Proof.

@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-#[local] Set Printing Coercions.
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso Isomorphisms.nat__iso.
@@ -20,7 +20,7 @@ Proof.
   destruct l as [| h t]; simpl.
   - reflexivity.
   - reflexivity.
-Qed.
+Defined.
 
 Instance Original_LF__DOT__Lists_LF_Lists_NatList_hd_iso : forall (x1 : nat) (x2 : imported_nat),
   rel_iso nat_iso x1 x2 ->
@@ -37,6 +37,7 @@ Proof.
   (* Now we need: hd (nat_to_imported x1) (natlist_to_imported x3) = hd x2 x4 *)
   apply (IsoEq.f_equal2 Imported.Original_LF__DOT__Lists_LF_Lists_NatList_hd (proj_rel_iso Hnat) (proj_rel_iso Hlist)).
 Defined.
+
 Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.hd := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_hd := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_Lists.LF.Lists.NatList.hd Original_LF__DOT__Lists_LF_Lists_NatList_hd_iso := {}.

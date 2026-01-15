@@ -7,7 +7,5 @@
   "True": "TrueType",
   "False": "FalseType",
   "_0": "nat_O",
-  "S": "nat_S",
-  "Original_LF__DOT__Logic_LF_Logic_and__example2''": "Original_LF__DOT__Logic_LF_Logic_and__example2SQUOTESQUOTE",
-  "Original_LF__DOT__ProofObjects_LF_ProofObjects_four'": "Original_LF__DOT__ProofObjects_LF_ProofObjects_fourSQUOTE"
+  "S": "nat_S"
 }

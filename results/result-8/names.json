@@ -1,12 +1,13 @@
 {
   "True": "MyTrue",
   "False": "MyFalse",
-  "bool": "Stdlib_bool",
-  "_0": "nat_O",
-  "Original_LF__DOT__IndProp_LF_IndProp_EmptyStr": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_EmptyStr",
-  "Original_LF__DOT__IndProp_LF_IndProp_EmptySet": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_EmptySet",
-  "Original_LF__DOT__IndProp_LF_IndProp_Char": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Char",
-  "Original_LF__DOT__IndProp_LF_IndProp_App": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_App",
-  "Original_LF__DOT__IndProp_LF_IndProp_Union": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Union",
-  "Original_LF__DOT__IndProp_LF_IndProp_Star": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Star"
+  "_0": "_0",
+  "lt": "lt",
+  "iff": "iff",
+  "Original_LF__DOT__Poly_LF_Poly_Exercises_two'": "Original_LF__DOT__Poly_LF_Poly_Exercises_twoPrime",
+  "Original_LF__DOT__AltAuto_LF_AltAuto_simple__semi''": "Original_LF__DOT__AltAuto_LF_AltAuto_simple__semiPrimePrime",
+  "Original_LF__DOT__Poly_LF_Poly_list123'": "Original_LF__DOT__Poly_LF_Poly_list123Prime",
+  "bool": "StdBool",
+  "list": "StdList",
+  "Ascii_Ascii": "Ascii_ascii_Ascii"
 }

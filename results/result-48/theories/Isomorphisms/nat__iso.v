@@ -5,63 +5,57 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *) (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
-Instance nat_iso : Iso nat imported_nat.
-Proof.
-  exists (fix f (n : nat) : imported_nat :=
-            match n with
-            | O => Imported.nat_O
-            | S m => Imported.nat_S (f m)
-            end)
-         (fix g (n : imported_nat) : nat :=
-            match n with
-            | Imported.nat_O => O
-            | Imported.nat_S m => S (g m)
-            end).
-  - fix IH 1. intros n.
-    destruct n as [|m].
-    + apply IsomorphismDefinitions.eq_refl.
-    + simpl. apply (IsoEq.f_equal Imported.nat_S). apply IH.
-  - fix IH 1. intros [|m].
-    + apply IsomorphismDefinitions.eq_refl.
-    + simpl. apply (IsoEq.f_equal S). apply IH.
-Defined.
+
+(* Define the conversion functions *)
+Fixpoint nat_to_imported (n : nat) : Imported.nat :=
+  match n with
+  | O => Imported.nat_O
+  | S n' => Imported.nat_S (nat_to_imported n')
+  end.
+
+Fixpoint imported_to_nat (n : Imported.nat) : nat :=
+  match n with
+  | Imported.nat_O => O
+  | Imported.nat_S n' => S (imported_to_nat n')
+  end.
+
+(* Prove round-trip properties with standard equality *)
+Fixpoint nat_round_trip (n : nat) : imported_to_nat (nat_to_imported n) = n :=
+  match n with
+  | O => Coq.Init.Logic.eq_refl
+  | S n' => match nat_round_trip n' in (_ = m) return (S (imported_to_nat (nat_to_imported n')) = S m) with
+            | Coq.Init.Logic.eq_refl => Coq.Init.Logic.eq_refl
+            end
+  end.
+
+Fixpoint imported_round_trip (n : Imported.nat) : nat_to_imported (imported_to_nat n) = n :=
+  match n with
+  | Imported.nat_O => Coq.Init.Logic.eq_refl
+  | Imported.nat_S n' => match imported_round_trip n' in (_ = m) return (Imported.nat_S (nat_to_imported (imported_to_nat n')) = Imported.nat_S m) with
+                         | Coq.Init.Logic.eq_refl => Coq.Init.Logic.eq_refl
+                         end
+  end.
+
+(* Coercions for round-trip to SProp equality *)
+Definition nat_to_from (n : Imported.nat) : IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n :=
+  seq_of_eq (imported_round_trip n).
+
+Definition nat_from_to (n : nat) : IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported n)) n :=
+  seq_of_eq (nat_round_trip n).
+
+(* Build the isomorphism *)
+Instance nat_iso : Iso nat imported_nat := {|
+  to := nat_to_imported;
+  from := imported_to_nat;
+  to_from := nat_to_from;
+  from_to := nat_from_to
+|}.
+
 Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor nat nat_iso := {}.
 Instance: IsoStatementProofBetween nat Imported.nat nat_iso := {}.
-Definition nat_to_imported : nat -> imported_nat := to nat_iso.
-Definition imported_to_nat : imported_nat -> nat := from nat_iso.
-
-(* Helper lemmas for roundtripping *)
-Lemma nat_roundtrip : forall n : nat, Logic.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  unfold imported_to_nat, nat_to_imported. simpl.
-  fix IH 1.
-  intros n. destruct n as [|m].
-  - reflexivity.
-  - simpl. apply Logic.f_equal. apply IH.
-Qed.
-
-Lemma imported_nat_roundtrip : forall n : imported_nat, Logic.eq (nat_to_imported (imported_to_nat n)) n.
-Proof.
-  unfold imported_to_nat, nat_to_imported. simpl.
-  fix IH 1.
-  intros n. destruct n as [|m].
-  - reflexivity.
-  - simpl. apply Logic.f_equal. apply IH.
-Qed.
-
-(* ISO versions of roundtrip lemmas *)
-Lemma nat_from_to : forall n : nat, IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  intros. apply seq_of_eq. apply nat_roundtrip.
-Qed.
-
-Lemma nat_to_from : forall n : imported_nat, IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n.
-Proof.
-  intros. apply seq_of_eq. apply imported_nat_roundtrip.
-Qed.

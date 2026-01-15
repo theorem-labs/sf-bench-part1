@@ -1,17 +1,16 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
-From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
-From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
-
+From IsomorphismChecker Require Original.
+From IsomorphismChecker Require Imported.
+Typeclasses Opaque rel_iso.
 
 From IsomorphismChecker Require Export Isomorphisms.U_true__iso.
 
 (* The Imported.Corelib_Init_Logic_eq is now in SProp (since we defined it as Prop in Lean) *)
 Definition imported_Corelib_Init_Logic_eq : forall x : Type, x -> x -> SProp := @Imported.Corelib_Init_Logic_eq.
+Arguments imported_Corelib_Init_Logic_eq x%_type_scope _ _.
 
 (* Helper: transport along IsomorphismDefinitions.eq to construct Imported.Corelib_Init_Logic_eq *)
 Definition imported_eq_transport {A : Type} {x y z : A} 
@@ -73,10 +72,10 @@ Proof.
     apply IsomorphismDefinitions.eq_refl.
 Defined.
 
-Instance: KnownConstant (@Corelib.Init.Logic.eq) := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant (@Imported.Corelib_Init_Logic_eq) := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant (@Corelib.Init.Logic.eq) := {}.
+Instance: KnownConstant (@Imported.Corelib_Init_Logic_eq) := {}.
 Instance: IsoStatementProofFor (@Corelib.Init.Logic.eq) Corelib_Init_Logic_eq_iso := {}.
 Instance: IsoStatementProofBetween (@Corelib.Init.Logic.eq) (@Imported.Corelib_Init_Logic_eq) Corelib_Init_Logic_eq_iso := {}.
 
-(* Re-export the Prop version for the checker *)
+(* The Prop version is in a separate file, but we need it loaded for checker *)
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.

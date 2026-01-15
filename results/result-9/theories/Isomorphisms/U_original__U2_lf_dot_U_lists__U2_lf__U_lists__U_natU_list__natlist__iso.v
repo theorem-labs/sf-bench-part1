@@ -4,9 +4,10 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
+From IsomorphismChecker Require Export Isomorphisms.nat__iso.
+(* Print Imported. *)
 (* Typeclasses Opaque rel_iso. *)
 
-From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
 Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist : Type := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natlist.
 
@@ -64,7 +65,7 @@ Proof.
   - intros l. apply seq_of_eq. apply natlist_roundtrip.
 Defined.
 
-Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.natlist := {}.
-Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natlist := {}.
+Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.natlist := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natlist := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_Lists.LF.Lists.NatList.natlist Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso := {}.
 Instance: IsoStatementProofBetween Original.LF_DOT_Lists.LF.Lists.NatList.natlist Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natlist Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso := {}.

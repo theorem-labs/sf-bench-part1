@@ -1,15 +1,9 @@
 {
-  "bool": "mybool",
-  "true": "true",
-  "false": "false",
-  "Ascii_Ascii": "Ascii_Ascii",
-  "Ascii_ascii": "Ascii_ascii",
-  "True": "TrueType",
-  "False": "FalseType",
+  "bool": "Stdlib_bool",
+  "true": "Stdlib_bool_true",
+  "false": "Stdlib_bool_false",
+  "False": "MyFalse",
+  "True": "MyTrue",
   "_0": "nat_O",
-  "S": "nat_S",
-  "Nat_add": "nat_add",
-  "Nat_mul": "nat_mul",
-  "Nat_pred": "nat_pred",
-  "Nat_sub": "nat_sub"
+  "S": "nat_S"
 }

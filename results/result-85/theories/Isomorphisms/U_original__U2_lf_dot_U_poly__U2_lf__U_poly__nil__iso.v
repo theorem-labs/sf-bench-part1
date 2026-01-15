@@ -16,7 +16,6 @@ Proof.
   intros x1 x2 hx.
   constructor. simpl.
   unfold imported_Original_LF__DOT__Poly_LF_Poly_nil.
-  simpl.
   apply IsomorphismDefinitions.eq_refl.
 Defined.
 Instance: KnownConstant (@Original.LF_DOT_Poly.LF.Poly.nil) := {}. (* only needed when rel_iso is typeclasses opaque *)

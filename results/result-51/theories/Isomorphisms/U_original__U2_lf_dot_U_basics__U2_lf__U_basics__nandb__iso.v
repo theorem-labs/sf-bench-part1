@@ -16,7 +16,7 @@ Monomorphic Instance Original_LF__DOT__Basics_LF_Basics_nandb_iso : forall (x1 :
   forall (x3 : Original.LF_DOT_Basics.LF.Basics.bool) (x4 : imported_Original_LF__DOT__Basics_LF_Basics_bool),
   rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso x3 x4 ->
   rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso (Original.LF_DOT_Basics.LF.Basics.nandb x1 x3) (imported_Original_LF__DOT__Basics_LF_Basics_nandb x2 x4).
-Admitted.
+Admitted. (* Original.nandb is Admitted in Original.v *)
 Instance: KnownConstant Original.LF_DOT_Basics.LF.Basics.nandb := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Basics_LF_Basics_nandb := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_Basics.LF.Basics.nandb Original_LF__DOT__Basics_LF_Basics_nandb_iso := {}.

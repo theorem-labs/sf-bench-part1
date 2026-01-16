@@ -39,7 +39,8 @@ sf-bench-part1/
 ├── scripts/
 │   ├── verify.sh                # Verification script (single or --all)
 │   ├── verify-all.sh            # Parallel verification script (faster)
-│   └── test-build.sh            # Build test script
+│   ├── test-build.sh            # Build test script
+│   └── count-lines.sh           # Count lines in solution.lean and Isomorphisms files
 ├── problem-deps.json            # Dependencies between isomorphism problems
 ├── problem-results.json         # Mapping of isomorphisms to result folders
 ├── dependencies.dot             # Dependency graph (DOT format)
@@ -159,7 +160,7 @@ result-2 success
 ...
 
 ==========================================
-SUMMARY: 119 passed, 0 failed (out of 119)
+SUMMARY: 100 passed, 0 failed (out of 100)
 ==========================================
 ```
 
@@ -231,6 +232,63 @@ A score of 1.0 indicates a complete, verified isomorphism. A score of 0.0 indica
 
 The `.v` files in `theories/Isomorphisms/` contain Rocq proofs that establish a bijection between the original and translated definitions, proving semantic equivalence.
 
+## Naming Conventions
+
+The isomorphism file names use an encoding scheme to represent Rocq module paths:
+
+| Pattern | Meaning |
+|---------|---------|
+| `U_` | Prefix indicating a module/namespace component |
+| `__` | Double underscore separates path components |
+| `U2_lf_dot_` | Represents `/` (directory separator) in module paths |
+| `U2_lf__` | Module boundary separator |
+| `SQUOTE` | Single quote character `'` in identifiers |
+| `____` | Four underscores represent a single underscore `_` in the original name |
+| `__iso.v` | Suffix indicating an isomorphism proof file |
+
+**Example decoding:**
+
+`U_original__U2_lf_dot_U_basics__U2_lf__U_basics__plus__iso.v`
+
+Decodes to: `Original.LF.Basics.plus` isomorphism - the `plus` function from the Software Foundations Basics chapter.
+
+## Problem Dependencies
+
+The `problem-deps.json` file contains metadata for all 1,276 isomorphism problems:
+
+```json
+{
+  "U_nat__add__iso": {
+    "short_name": "Nat.add",
+    "logical_path": "Init.Nat",
+    "anchor": "add",
+    "difficulty": "easy",
+    "dep_count": 1,
+    "all_deps": ["nat__iso"],
+    "direct_deps": ["nat__iso"],
+    "reduced_deps": ["nat__iso"]
+  }
+}
+```
+
+**Fields:**
+- `short_name`: Human-readable name of the definition
+- `logical_path`: Module path in the Rocq/Lean standard library
+- `difficulty`: Classification of proof complexity
+- `all_deps`: All transitive dependencies
+- `direct_deps`: Immediate dependencies only
+- `reduced_deps`: Minimal dependency set after transitive reduction
+
+**Difficulty distribution across 1,276 problems:**
+| Difficulty | Count |
+|------------|-------|
+| Easy | 1,075 |
+| Medium | 170 |
+| Hard | 25 |
+| Extreme | 6 |
+
+The `problem-results.json` file maps each isomorphism to the result folders that verify it.
+
 ## Tool Versions
 
 The Docker image uses these specific versions:
@@ -241,6 +299,42 @@ The Docker image uses these specific versions:
 | Lean | (from lean4export) | Version determined by lean4export's lean-toolchain |
 | lean4export | c9f8373 | [leanprover/lean4export](https://github.com/leanprover/lean4export) |
 | rocq-lean-import | latest | [rocq-community/rocq-lean-import](https://github.com/rocq-community/rocq-lean-import) |
+
+## Statistics
+
+**Repository Overview:**
+
+| Metric | Value |
+|--------|-------|
+| Translation results | 100 |
+| Total isomorphism problems | 1,276 |
+| Interface files | 1,276 |
+| Isomorphism proof files | 1,276 |
+
+**Theory File Sizes:**
+
+| File | Lines | Description |
+|------|-------|-------------|
+| `Original.v` | 6,879 | Original Software Foundations definitions |
+| `Interface.v` | 19,225 | Aggregated interface specifications |
+| `Ltac2Utils.v` | 2,248 | Ltac2 automation utilities |
+| `EqualityLemmas.v` | 1,859 | Helper lemmas for equality proofs |
+| `Isomorphisms.v` | 1,292 | Aggregated isomorphism proofs |
+| `IsomorphismDefinitions.v` | 143 | Core `Iso` record type |
+
+**Generated Code Statistics:**
+
+Run `./scripts/count-lines.sh` to count lines in the generated files:
+
+| File Type | Files | Lines (wc -l) | Spec | Proof | Comments |
+|-----------|-------|---------------|------|-------|----------|
+| `solution.lean` | 100 | 59,868 | — | — | — |
+| `theories/Isomorphisms/*.v` | 18,850 | 727,111 | 102,750 | 505,596 | 86,826 |
+
+The Rocq line breakdown uses `coqwc`, which categorizes lines as specification (definitions, lemma statements), proof (tactics inside `Proof...Qed`), or comments. Note: `coqwc` counts logical lines rather than physical lines—it excludes blank lines but may count mixed-content lines in multiple categories.
+
+**Software Foundations Chapters Covered:**
+- Basics, Induction, Lists, Poly, Tactics, Logic, IndProp, Maps, Imp, ImpCevalFun, ImpParser
 
 ## License
 

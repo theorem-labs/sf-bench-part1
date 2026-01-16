@@ -4,9 +4,7 @@ Import IsoEq.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original.
 From IsomorphismChecker Require Imported.
-
-(* Import the Prop variant *)
-From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.
+(* Typeclasses Opaque rel_iso. *)
 
 (* We don't import U_true__iso because it's not actually used *)
 (* The dependency is only in the Interface file structure *)
@@ -30,7 +28,7 @@ Instance Corelib_Init_Logic_eq_iso : (forall (x1 x2 : Type) (hx : Iso x1 x2) (x3
    Iso (@Corelib.Init.Logic.eq x1 x3 x5) (@imported_Corelib_Init_Logic_eq x2 x4 x6)).
 Proof.
   intros x1 x2 hx x3 x4 H34 x5 x6 H56.
-  destruct H34 as [H34]. destruct H56 as [H56].
+  simpl.
   unshelve eapply Build_Iso.
   - (* to: eq in Prop -> imported eq in SProp *)
     intro Heq.
@@ -72,3 +70,6 @@ Instance: KnownConstant (@Corelib.Init.Logic.eq) := {}.
 Instance: KnownConstant (@Imported.Corelib_Init_Logic_eq) := {}.
 Instance: IsoStatementProofFor (@Corelib.Init.Logic.eq) Corelib_Init_Logic_eq_iso := {}.
 Instance: IsoStatementProofBetween (@Corelib.Init.Logic.eq) (@Imported.Corelib_Init_Logic_eq) Corelib_Init_Logic_eq_iso := {}.
+
+(* Re-export the Prop version so the Checker can find it *)
+From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.

@@ -14,7 +14,7 @@ Monomorphic Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__a
     (imported_Original_LF__DOT__Lists_LF_Lists_NatList_count (imported_S imported_0)
        (imported_Original_LF__DOT__Lists_LF_Lists_NatList_add (imported_S imported_0)
           (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S imported_0)
-             (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0))))
+             (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
                 (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S imported_0) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil)))))
     (imported_S (imported_S (imported_S imported_0))) := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_test__add1.
 Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_NatList_test__add1_iso : rel_iso
@@ -22,7 +22,7 @@ Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_NatList_test__add1_iso : r
        (Original_LF__DOT__Lists_LF_Lists_NatList_count_iso (S_iso _0_iso)
           (Original_LF__DOT__Lists_LF_Lists_NatList_add_iso (S_iso _0_iso)
              (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso _0_iso)
-                (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso))))
+                (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso))))
                    (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso _0_iso) Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso)))))
        (S_iso (S_iso (S_iso _0_iso))))
     Original.LF_DOT_Lists.LF.Lists.NatList.test_add1 imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__add1.

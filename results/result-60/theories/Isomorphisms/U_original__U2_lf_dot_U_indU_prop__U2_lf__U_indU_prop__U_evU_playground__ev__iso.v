@@ -5,56 +5,25 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
 
+From Stdlib Require Import Logic.ProofIrrelevance.
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
-Definition imported_Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev : imported_nat -> SProp := Imported.Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev.
-
-(* Define the conversion functions *)
-Definition nat_to_imported : nat -> imported_nat :=
-  fix to_nat (n : nat) : imported_nat :=
-    match n with
-    | O => Imported.nat_O
-    | Datatypes.S n' => Imported.nat_S (to_nat n')
-    end.
-
-Definition imported_to_nat : imported_nat -> nat :=
-  fix from_nat (n : imported_nat) : nat :=
-    match n with
-    | Imported.nat_O => O
-    | Imported.nat_S n' => Datatypes.S (from_nat n')
-    end.
-
-(* Round-trip lemmas *)
-Definition nat_round_trip : forall n : nat, imported_to_nat (nat_to_imported n) = n.
-Proof.
-  fix IH 1.
-  intros [|n'].
-  - reflexivity.
-  - simpl. f_equal. apply IH.
-Defined.
-
-Definition imported_round_trip : forall n : imported_nat, nat_to_imported (imported_to_nat n) = n.
-Proof.
-  fix IH 1.
-  intros [|n'].
-  - reflexivity.
-  - simpl. f_equal. apply IH.
-Defined.
+Definition imported_Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev : imported_nat -> SProp := Imported.Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev.
 
 (* Short names for convenience *)
 Definition ev_orig := Original.LF_DOT_IndProp.LF.IndProp.EvPlayground.ev.
-Definition ev_imp := Imported.Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev.
+Definition ev_imp := Imported.Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev.
 
 (* Helper: construct ev_imp from nat, using same structure as ev *)
 Definition ev_to_imported_aux : forall n : Datatypes.nat, ev_orig n -> ev_imp (nat_to_imported n).
 Proof.
   refine (fix F n H {struct H} := _).
   destruct H as [|n' H'].
-  - exact Imported.Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev_ev_0.
-  - exact (Imported.Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev_ev_SS 
+  - exact Imported.Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_ev_0.
+  - exact (Imported.Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_ev_SS 
              (nat_to_imported n') (F n' H')).
 Defined.
 
@@ -95,7 +64,7 @@ Definition ev_imp_implies_even_sprop : forall n : Imported.nat,
   ev_imp n -> @IsomorphismDefinitions.eq bool (is_even_imported n) true.
 Proof.
   intros n H.
-  refine (Imported.Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev_sind
+  refine (Imported.Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_indl
             (fun m _ => @IsomorphismDefinitions.eq bool (is_even_imported m) true)
             _ _ n H).
   - exact IsomorphismDefinitions.eq_refl.
@@ -109,7 +78,7 @@ Definition ev_imp_implies_even (n : Imported.nat) (H : ev_imp n) : is_even_impor
 (* Transport is_even along the round-trip *)
 Definition ev_from_imported (n : Imported.nat) (H : ev_imp n) : ev_orig (imported_to_nat n) :=
   ev_of_is_even (imported_to_nat n) 
-    (match imported_round_trip n as Heq in (@Logic.eq _ _ m) 
+    (match imported_nat_roundtrip n as Heq in (@Logic.eq _ _ m) 
            return is_even_imported m = true -> 
                   is_even_imported (nat_to_imported (imported_to_nat n)) = true
      with
@@ -131,11 +100,9 @@ Definition ev_iso_from (x1 : nat) (x2 : imported_nat)
             | IsomorphismDefinitions.eq_refl => fun h => h
             end H in
   let H'' := @ev_from_imported (nat_to_imported x1) H' in
-  match nat_round_trip x1 in (_ = m) return ev_orig m with
+  match nat_roundtrip x1 in (_ = m) return ev_orig m with
   | Logic.eq_refl => H''
   end.
-
-Require Import Stdlib.Logic.ProofIrrelevance.
 
 (* Convert proof irrelevance to SProp equality for Prop types *)
 Definition prop_proof_irrel_to_seq : forall (P : Prop) (p1 p2 : P), IsomorphismDefinitions.eq p1 p2 :=
@@ -147,8 +114,8 @@ Definition prop_proof_irrel_to_seq : forall (P : Prop) (p1 p2 : P), IsomorphismD
 Instance Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_iso : (forall (x1 : nat) (x2 : imported_nat) (_ : @rel_iso nat imported_nat nat_iso x1 x2),
    Iso (Original.LF_DOT_IndProp.LF.IndProp.EvPlayground.ev x1) (imported_Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev x2)).
 Proof.
-  intros x1 x2 Hx.
-  destruct Hx as [Hx]. simpl in Hx.
+  intros x1 x2 [Hx].
+  simpl in Hx.
   unfold imported_Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev.
   refine {|
     to := @ev_iso_to x1 x2 Hx;
@@ -161,6 +128,6 @@ Proof.
 Defined.
 
 Instance: KnownConstant Original.LF_DOT_IndProp.LF.IndProp.EvPlayground.ev := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.EvPlayground.ev Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_iso := {}.
-Instance: IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.EvPlayground.ev Imported.Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_iso := {}.
+Instance: IsoStatementProofBetween Original.LF_DOT_IndProp.LF.IndProp.EvPlayground.ev Imported.Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_iso := {}.

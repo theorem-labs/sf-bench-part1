@@ -1,25 +1,18 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-#[local] Set Printing Coercions.
-
 
 From IsomorphismChecker Require Export Isomorphisms.bool__iso Isomorphisms.nat__iso.
 
-Definition imported_PeanoNat_Nat_leb : imported_nat -> imported_nat -> imported_bool := Imported.nat_leb.
-
-(* Helper functions for conversion *)
-Definition bool_to_mybool (b : bool) : imported_bool :=
-  match b with true => Imported.mybool_mytrue | false => Imported.mybool_myfalse end.
+Definition imported_PeanoNat_Nat_leb : imported_nat -> imported_nat -> imported_bool := Imported.PeanoNat_Nat_leb.
 
 (* Helper lemma: leb is preserved under the isomorphism *)
 Lemma leb_iso_helper : forall n m,
   IsomorphismDefinitions.eq 
-    (bool_to_mybool (PeanoNat.Nat.leb n m))
+    (bool_to_imported (PeanoNat.Nat.leb n m))
     (Imported.nat_leb (nat_to_imported n) (nat_to_imported m)).
 Proof.
   fix IH 1.
@@ -39,11 +32,11 @@ Proof.
   set (H34' := proj_rel_iso H34).
   constructor.
   simpl in *.
-  unfold imported_PeanoNat_Nat_leb.
+  unfold imported_PeanoNat_Nat_leb, Imported.PeanoNat_Nat_leb.
   destruct H12'. destruct H34'.
   apply leb_iso_helper.
 Defined.
-Instance: KnownConstant PeanoNat.Nat.leb := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.nat_leb := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant PeanoNat.Nat.leb := {}. 
+Instance: KnownConstant Imported.PeanoNat_Nat_leb := {}.
 Instance: IsoStatementProofFor PeanoNat.Nat.leb PeanoNat_Nat_leb_iso := {}.
-Instance: IsoStatementProofBetween PeanoNat.Nat.leb Imported.nat_leb PeanoNat_Nat_leb_iso := {}.
+Instance: IsoStatementProofBetween PeanoNat.Nat.leb Imported.PeanoNat_Nat_leb PeanoNat_Nat_leb_iso := {}.

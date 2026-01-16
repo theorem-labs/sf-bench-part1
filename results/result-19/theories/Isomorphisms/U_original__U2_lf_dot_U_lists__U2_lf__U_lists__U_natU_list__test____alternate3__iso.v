@@ -15,9 +15,9 @@ Monomorphic Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__a
        (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S imported_0)
           (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S imported_0))
              (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S imported_0))) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil)))
-       (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil))
+       (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil))
     (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S imported_0)
-       (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0))))
+       (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
           (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S imported_0))
              (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S imported_0))) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil)))) := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_test__alternate3.
 Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_NatList_test__alternate3_iso : rel_iso
@@ -26,9 +26,9 @@ Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_NatList_test__alternate3_i
           (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso _0_iso)
              (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso _0_iso))
                 (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso _0_iso))) Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso)))
-          (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))) Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso))
+          (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))) Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso))
        (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso _0_iso)
-          (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso))))
+          (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso))))
              (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso _0_iso))
                 (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso _0_iso))) Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso)))))
     Original.LF_DOT_Lists.LF.Lists.NatList.test_alternate3 imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__alternate3.

@@ -17,7 +17,7 @@ Definition imported_eq_subst : forall (X : Type) (a b c : X),
 Proof.
   intros X a b c Hab Hac.
   destruct Hab. destruct Hac.
-  exact (Imported.Original_LF__DOT__ProofObjects_LF_ProofObjects_eq_eq_refl X a).
+  exact (Imported.Corelib_Init_Logic_eq_refl X a).
 Defined.
 
 (* Helper: transport original eq along equality *)

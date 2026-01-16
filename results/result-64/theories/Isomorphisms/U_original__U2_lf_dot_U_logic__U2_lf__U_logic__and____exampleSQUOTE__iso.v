@@ -2,7 +2,7 @@ From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatemen
 Import IsoEq.
 From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
-#[local] Unset Implicit Arguments.
+#[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 #[local] Set Printing Coercions.
@@ -18,9 +18,9 @@ Monomorphic Definition imported_Original_LF__DOT__Logic_LF_Logic_and__example' :
 Monomorphic Instance Original_LF__DOT__Logic_LF_Logic_and__example'_iso : rel_iso
     (relax_Iso_Ts_Ps
        (and_iso
-          (Corelib_Init_Logic_eq_iso (Nat_add_iso (S_iso (S_iso (S_iso _0_iso))) (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 0 imported_0 _0_iso)))))
-             (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 4 0 imported_0 _0_iso)))))
-          (Corelib_Init_Logic_eq_iso (Nat_mul_iso (S_iso (S_iso _0_iso)) (S_iso (S_iso _0_iso))) (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 0 imported_0 _0_iso)))))))
+          (Corelib_Init_Logic_eq_iso (Nat_add_iso (S_iso (S_iso (S_iso _0_iso))) (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 Datatypes.O imported_0 _0_iso)))))
+             (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 4 Datatypes.O imported_0 _0_iso)))))
+          (Corelib_Init_Logic_eq_iso (Nat_mul_iso (S_iso (S_iso _0_iso)) (S_iso (S_iso _0_iso))) (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 Datatypes.O imported_0 _0_iso)))))))
     Original.LF_DOT_Logic.LF.Logic.and_example' imported_Original_LF__DOT__Logic_LF_Logic_and__example'.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Logic.LF.Logic.and_example' := {}. (* only needed when rel_iso is typeclasses opaque *)

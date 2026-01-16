@@ -15,9 +15,9 @@ Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_fold__example2 : 
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
              (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S imported_0)))
-                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))
+                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))
        (imported_S imported_0))
-    (imported_S (imported_S (imported_S (iterate1 imported_S 21%nat imported_0)))) := Imported.Original_LF__DOT__Poly_LF_Poly_fold__example2.
+    (imported_S (imported_S (imported_S (iterate1 imported_S 21 imported_0)))) := Imported.Original_LF__DOT__Poly_LF_Poly_fold__example2.
 Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_fold__example2_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (unwrap_sprop
@@ -27,9 +27,9 @@ Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_fold__example2_iso : rel_iso
              (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)
                 (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
                    (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso _0_iso)))
-                      (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
+                      (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
              1 (imported_S imported_0) {| unwrap_sprop := S_iso _0_iso |}))
-       (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 21%nat 0%nat imported_0 _0_iso)))))
+       (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 21 0 imported_0 _0_iso)))))
     Original.LF_DOT_Poly.LF.Poly.fold_example2 imported_Original_LF__DOT__Poly_LF_Poly_fold__example2.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Poly.LF.Poly.fold_example2 := {}. (* only needed when rel_iso is typeclasses opaque *)

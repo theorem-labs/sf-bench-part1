@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__cons__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__map__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__even__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__false__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__odd__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso Isomorphisms.U_s__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_test__map3 : imported_Corelib_Init_Logic_eq
+Definition imported_Original_LF__DOT__Poly_LF_Poly_test__map3 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Poly_LF_Poly_map
        (fun x : imported_nat =>
         imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_Original_LF__DOT__Basics_LF_Basics_even x)
@@ -19,7 +19,7 @@ Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_test__map3 : impo
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
              (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
-                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S (2)%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))))
+                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))))
     (imported_Original_LF__DOT__Poly_LF_Poly_cons
        (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_Original_LF__DOT__Basics_LF_Basics_true
           (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_Original_LF__DOT__Basics_LF_Basics_false
@@ -37,7 +37,7 @@ Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_test__map3 : impo
                    (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_Original_LF__DOT__Basics_LF_Basics_true
                       (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_Original_LF__DOT__Basics_LF_Basics_bool)))
                 (imported_Original_LF__DOT__Poly_LF_Poly_nil (imported_Original_LF__DOT__Poly_LF_Poly_list imported_Original_LF__DOT__Basics_LF_Basics_bool)))))) := Imported.Original_LF__DOT__Poly_LF_Poly_test__map3.
-Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_test__map3_iso : rel_iso
+Instance Original_LF__DOT__Poly_LF_Poly_test__map3_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Poly_LF_Poly_map_iso
           (fun n : nat =>
@@ -52,7 +52,7 @@ Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_test__map3_iso : rel_iso
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
              (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)
                 (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
-                   (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (2)%nat (0)%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
+                   (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2 0 imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
        (Original_LF__DOT__Poly_LF_Poly_cons_iso
           (Original_LF__DOT__Poly_LF_Poly_cons_iso Original_LF__DOT__Basics_LF_Basics_true_iso
              (Original_LF__DOT__Poly_LF_Poly_cons_iso Original_LF__DOT__Basics_LF_Basics_false_iso (Original_LF__DOT__Poly_LF_Poly_nil_iso Original_LF__DOT__Basics_LF_Basics_bool_iso)))

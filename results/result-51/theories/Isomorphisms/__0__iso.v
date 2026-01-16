@@ -10,13 +10,15 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
-Definition imported_0 : imported_nat := Imported.myZero.
-Instance _0_iso : rel_iso nat_iso (Datatypes.O) imported_0.
+Definition imported_0 : imported_nat := Imported.nat_O.
+Instance _0_iso : rel_iso nat_iso O imported_0.
 Proof.
   unfold imported_0.
-  constructor. simpl. unfold Imported.myZero. apply IsomorphismDefinitions.eq_refl.
+  constructor.
+  simpl.
+  apply IsomorphismDefinitions.eq_refl.
 Defined.
-Instance: KnownConstant (Datatypes.O) := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.myZero := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor (Datatypes.O) _0_iso := {}.
-Instance: IsoStatementProofBetween (Datatypes.O) Imported.myZero _0_iso := {}.
+Instance: KnownConstant O := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.nat_O := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor O _0_iso := {}.
+Instance: IsoStatementProofBetween O Imported.nat_O _0_iso := {}.

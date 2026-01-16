@@ -37,6 +37,11 @@ def Nat_sub : nat → nat → nat
   | nat.O, nat.S _ => nat.O
   | nat.S n, nat.S m => Nat_sub n m
 
+-- Predecessor on nat
+def Nat_pred : nat → nat
+  | nat.O => nat.O
+  | nat.S n => n
+
 -- Multiplication on nat
 def Nat_mul : nat → nat → nat
   | nat.O, _ => nat.O
@@ -54,10 +59,13 @@ def Nat_leb : nat → nat → Stdlib_bool
   | nat.S _, nat.O => Stdlib_bool.false
   | nat.S n, nat.S m => Nat_leb n m
 
--- Nat predecessor
-def Nat_pred : nat → nat
-  | nat.O => nat.O
-  | nat.S n => n
+-- Stdlib option
+inductive option (A : Type) : Type where
+  | None : option A
+  | Some : A → option A
+
+def None {A : Type} : option A := option.None
+def Some {A : Type} (a : A) : option A := option.Some a
 
 -- Bool operations
 def negb : Stdlib_bool → Stdlib_bool
@@ -158,14 +166,6 @@ inductive prod (A B : Type) : Type where
   | pair : A → B → prod A B
 
 def prod_pair := @prod.pair
-
--- option
-inductive option (A : Type) : Type where
-  | None : option A
-  | Some : A → option A
-
-def None := @option.None
-def Some := @option.Some
 
 -- list (stdlib version)
 inductive list (A : Type) : Type where
@@ -428,79 +428,25 @@ def Original_LF__DOT__Lists_LF_Lists_NatList_cons : nat → Original_LF__DOT__Li
 -- bag is alias for natlist
 def Original_LF__DOT__Lists_LF_Lists_NatList_bag : Type := Original_LF__DOT__Lists_LF_Lists_NatList_natlist
 
--- nil for natlist
-def Original_LF__DOT__Lists_LF_Lists_NatList_nil : Original_LF__DOT__Lists_LF_Lists_NatList_natlist :=
+-- NatList nil
+def Original_LF__DOT__Lists_LF_Lists_NatList_nil : Original_LF__DOT__Lists_LF_Lists_NatList_natlist := 
   Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil
 
--- add: adds an element to a bag (which is just cons)
-def Original_LF__DOT__Lists_LF_Lists_NatList_add (v : nat) (s : Original_LF__DOT__Lists_LF_Lists_NatList_bag) : Original_LF__DOT__Lists_LF_Lists_NatList_bag :=
-  Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons v s
-
--- nonzeros: filters out zeros from a natlist
-def Original_LF__DOT__Lists_LF_Lists_NatList_nonzeros : Original_LF__DOT__Lists_LF_Lists_NatList_natlist → Original_LF__DOT__Lists_LF_Lists_NatList_natlist
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil => Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n l =>
-    match n with
-    | nat.O => Original_LF__DOT__Lists_LF_Lists_NatList_nonzeros l
-    | nat.S _ => Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n (Original_LF__DOT__Lists_LF_Lists_NatList_nonzeros l)
-
--- count: count occurrences of a value in a bag
-def Original_LF__DOT__Lists_LF_Lists_NatList_count_def (v : nat) : Original_LF__DOT__Lists_LF_Lists_NatList_bag → nat
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil => nat.O
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h t =>
-    match Nat_eqb v h with
-    | Stdlib_bool.true => nat.S (Original_LF__DOT__Lists_LF_Lists_NatList_count_def v t)
-    | Stdlib_bool.false => Original_LF__DOT__Lists_LF_Lists_NatList_count_def v t
-
--- oddmembers: filter odd members from a list
-def Original_LF__DOT__Lists_LF_Lists_NatList_odd (n : nat) : Stdlib_bool :=
-  negb (Nat_eqb (Nat_sub n (Nat_mul (S (S nat.O)) (Nat_sub n (Nat_sub n (S nat.O))))) nat.O)
-
-def Original_LF__DOT__Lists_LF_Lists_NatList_oddb : nat → Stdlib_bool
-  | nat.O => Stdlib_bool.false
-  | nat.S nat.O => Stdlib_bool.true
-  | nat.S (nat.S n) => Original_LF__DOT__Lists_LF_Lists_NatList_oddb n
-
-def Original_LF__DOT__Lists_LF_Lists_NatList_oddmembers : Original_LF__DOT__Lists_LF_Lists_NatList_natlist → Original_LF__DOT__Lists_LF_Lists_NatList_natlist
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil => Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n l =>
-    match Original_LF__DOT__Lists_LF_Lists_NatList_oddb n with
-    | Stdlib_bool.true => Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n (Original_LF__DOT__Lists_LF_Lists_NatList_oddmembers l)
-    | Stdlib_bool.false => Original_LF__DOT__Lists_LF_Lists_NatList_oddmembers l
-
--- countoddmembers: count odd members
-def Original_LF__DOT__Lists_LF_Lists_NatList_length : Original_LF__DOT__Lists_LF_Lists_NatList_natlist → nat
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil => nat.O
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons _ t => nat.S (Original_LF__DOT__Lists_LF_Lists_NatList_length t)
-
-def Original_LF__DOT__Lists_LF_Lists_NatList_countoddmembers (l : Original_LF__DOT__Lists_LF_Lists_NatList_natlist) : nat :=
-  Original_LF__DOT__Lists_LF_Lists_NatList_length (Original_LF__DOT__Lists_LF_Lists_NatList_oddmembers l)
-
--- Helper: convert Stdlib_bool to Basics bool  
-def Stdlib_to_Basics_bool : Stdlib_bool → Original_LF__DOT__Basics_LF_Basics_bool
-  | Stdlib_bool.true => Original_LF__DOT__Basics_LF_Basics_bool.true
-  | Stdlib_bool.false => Original_LF__DOT__Basics_LF_Basics_bool.false
-
-def Original_LF__DOT__Basics_LF_Basics_andb_helper (b1 b2 : Original_LF__DOT__Basics_LF_Basics_bool) : Original_LF__DOT__Basics_LF_Basics_bool :=
-  match b1 with
-  | Original_LF__DOT__Basics_LF_Basics_bool.true => b2
-  | Original_LF__DOT__Basics_LF_Basics_bool.false => Original_LF__DOT__Basics_LF_Basics_bool.false
-
--- included: checks if first bag is included in second bag (returns Basics.bool)
-def Original_LF__DOT__Lists_LF_Lists_NatList_included : Original_LF__DOT__Lists_LF_Lists_NatList_bag → Original_LF__DOT__Lists_LF_Lists_NatList_bag → Original_LF__DOT__Basics_LF_Basics_bool
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil, _ => Original_LF__DOT__Basics_LF_Basics_bool.true
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h t, s =>
-    Original_LF__DOT__Basics_LF_Basics_andb_helper 
-      (Stdlib_to_Basics_bool (Nat_leb (S nat.O) (Original_LF__DOT__Lists_LF_Lists_NatList_count_def h s)))
-      (Original_LF__DOT__Lists_LF_Lists_NatList_included t s)
-
--- count definition (used to be Admitted in Original.v)
-def Original_LF__DOT__Lists_LF_Lists_NatList_count (v : nat) : Original_LF__DOT__Lists_LF_Lists_NatList_bag → nat
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil => nat.O
-  | Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h t =>
+-- NatList count (admitted in Original.v, so we define it here)
+def Original_LF__DOT__Lists_LF_Lists_NatList_count : nat → Original_LF__DOT__Lists_LF_Lists_NatList_natlist → nat
+  | _, Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil => nat.O
+  | v, Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h t =>
     match Nat_eqb v h with
     | Stdlib_bool.true => nat.S (Original_LF__DOT__Lists_LF_Lists_NatList_count v t)
     | Stdlib_bool.false => Original_LF__DOT__Lists_LF_Lists_NatList_count v t
+
+-- NatList member (admitted in Original.v, so we define it here)
+def Original_LF__DOT__Lists_LF_Lists_NatList_member : nat → Original_LF__DOT__Lists_LF_Lists_NatList_natlist → Original_LF__DOT__Basics_LF_Basics_bool
+  | _, Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil => Original_LF__DOT__Basics_LF_Basics_bool.false
+  | v, Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons h t =>
+    match Original_LF__DOT__Basics_LF_Basics_eqb v h with
+    | Original_LF__DOT__Basics_LF_Basics_bool.true => Original_LF__DOT__Basics_LF_Basics_bool.true
+    | Original_LF__DOT__Basics_LF_Basics_bool.false => Original_LF__DOT__Lists_LF_Lists_NatList_member v t
 
 -- count_member_nonzero is Admitted in Original.v
 axiom Original_LF__DOT__Lists_LF_Lists_NatList_count__member__nonzero :
@@ -509,60 +455,6 @@ axiom Original_LF__DOT__Lists_LF_Lists_NatList_count__member__nonzero :
       (Original_LF__DOT__Basics_LF_Basics_leb (S _0)
          (Original_LF__DOT__Lists_LF_Lists_NatList_count (S _0) (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0) x)))
       Original_LF__DOT__Basics_LF_Basics_true
-
--- Helper definitions for numbers
-def n1 : nat := S _0
-def n2 : nat := S n1
-def n3 : nat := S n2
-def n4 : nat := S n3
-def n5 : nat := S n4
-
--- test_add2: count 5 (add 1 [1;4;1]) = 0
-def Original_LF__DOT__Lists_LF_Lists_NatList_test__add2 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Lists_LF_Lists_NatList_count n5 
-      (Original_LF__DOT__Lists_LF_Lists_NatList_add n1
-        (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n1
-          (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n4
-            (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n1 Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil)))))
-    _0 :=
-  Corelib_Init_Logic_eq.refl _0
-
--- test_nonzeros: nonzeros [0;1;0;2;3;0;0] = [1;2;3]
-def Original_LF__DOT__Lists_LF_Lists_NatList_test__nonzeros :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Lists_LF_Lists_NatList_nonzeros
-      (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons _0
-        (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n1
-          (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons _0
-            (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n2
-              (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n3
-                (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons _0
-                  (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons _0 Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil))))))))
-    (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n1
-      (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n2
-        (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n3 Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil))) :=
-  Corelib_Init_Logic_eq.refl _
-
--- test_countoddmembers3: countoddmembers nil = 0
-def Original_LF__DOT__Lists_LF_Lists_NatList_test__countoddmembers3 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Lists_LF_Lists_NatList_countoddmembers Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil)
-    _0 :=
-  Corelib_Init_Logic_eq.refl _0
-
--- test_included1: included [1;2] [2;1;4;1] = true
-def Original_LF__DOT__Lists_LF_Lists_NatList_test__included1 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Lists_LF_Lists_NatList_included
-      (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n1
-        (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n2 Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil))
-      (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n2
-        (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n1
-          (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n4
-            (Original_LF__DOT__Lists_LF_Lists_NatList_natlist.cons n1 Original_LF__DOT__Lists_LF_Lists_NatList_natlist.nil)))))
-    Original_LF__DOT__Basics_LF_Basics_bool.true :=
-  Corelib_Init_Logic_eq.refl _
 
 -- ============================================================
 -- Original.LF_DOT_Induction definitions (bin type)
@@ -690,9 +582,66 @@ def Original_LF__DOT__AltAuto_LF_AltAuto_manual__grade__for__pumping__redux :
   Original_LF__DOT__Poly_LF_Poly_option (Original_LF__DOT__Poly_LF_Poly_prod nat (Original_LF__DOT__Poly_LF_Poly_list Ascii_ascii)) :=
   Original_LF__DOT__Poly_LF_Poly_option.None
 
--- ============================================================
--- Additional definitions
--- ============================================================
+-- test_leb3: leb 4 2 = false (Admitted in Original.v)
+def Original_LF__DOT__Basics_LF_Basics_test__leb3 : 
+  Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_leb (S (S (S (S _0)))) (S (S _0))) Original_LF__DOT__Basics_LF_Basics_false := 
+  Corelib_Init_Logic_eq.refl Original_LF__DOT__Basics_LF_Basics_false
+
+-- mylist3 := [1;2;3]
+def Original_LF__DOT__Lists_LF_Lists_NatList_mylist3 : Original_LF__DOT__Lists_LF_Lists_NatList_natlist :=
+  Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0)
+    (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S _0))
+      (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S _0)))
+        Original_LF__DOT__Lists_LF_Lists_NatList_nil))
+
+-- test_count2: count 6 [1;2;3;1;4;1] = 0 (Admitted in Original.v)
+def Original_LF__DOT__Lists_LF_Lists_NatList_test__count2 :
+  Corelib_Init_Logic_eq 
+    (Original_LF__DOT__Lists_LF_Lists_NatList_count 
+      (S (S (S (S (S (S _0))))))
+      (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0)
+        (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S _0))
+          (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S _0)))
+            (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0)
+              (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S (S _0))))
+                (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0)
+                  Original_LF__DOT__Lists_LF_Lists_NatList_nil)))))))
+    _0 :=
+  Corelib_Init_Logic_eq.refl _0
+
+-- test_member2: member 2 [1;4;1] = false (Admitted in Original.v)
+def Original_LF__DOT__Lists_LF_Lists_NatList_test__member2 :
+  Corelib_Init_Logic_eq
+    (Original_LF__DOT__Lists_LF_Lists_NatList_member
+      (S (S _0))
+      (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0)
+        (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S (S (S (S _0))))
+          (Original_LF__DOT__Lists_LF_Lists_NatList_cons (S _0)
+            Original_LF__DOT__Lists_LF_Lists_NatList_nil))))
+    Original_LF__DOT__Basics_LF_Basics_false :=
+  Corelib_Init_Logic_eq.refl Original_LF__DOT__Basics_LF_Basics_false
+
+-- leb_refl: forall n, leb n n = true (Admitted in Original.v)
+def Original_LF__DOT__Induction_LF_Induction_leb__refl (n : nat) :
+  Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_leb n n) Original_LF__DOT__Basics_LF_Basics_true :=
+  match n with
+  | nat.O => Corelib_Init_Logic_eq.refl Original_LF__DOT__Basics_LF_Basics_true
+  | nat.S n' => Original_LF__DOT__Induction_LF_Induction_leb__refl n'
+
+-- manual_grade_for_double_neg_informal := None
+def Original_LF__DOT__Logic_LF_Logic_manual__grade__for__double__neg__informal :
+  Original_LF__DOT__Poly_LF_Poly_option (Original_LF__DOT__Poly_LF_Poly_prod nat String_string) :=
+  Original_LF__DOT__Poly_LF_Poly_option.None
+
+-- manual_grade_for_beval_rules := None (uses stdlib option and prod)
+def Original_LF__DOT__Imp_LF_Imp_AExp_manual__grade__for__beval__rules :
+  option (prod nat String_string) :=
+  option.None
+
+-- manual_grade_for_fold_map := None
+def Original_LF__DOT__Poly_LF_Poly_Exercises_manual__grade__for__fold__map :
+  Original_LF__DOT__Poly_LF_Poly_option (Original_LF__DOT__Poly_LF_Poly_prod nat String_string) :=
+  Original_LF__DOT__Poly_LF_Poly_option.None
 
 -- and (conjunction)
 inductive and (A B : Prop) : Prop where
@@ -721,75 +670,4 @@ inductive le : nat → nat → Prop where
 
 axiom Original_LF__DOT__IndProp_LF_IndProp_Sn__le__Sm____n__le__m :
   ∀ (n m : nat), le (S n) (S m) → le n m
-
--- ============================================================
--- Additional definitions for main tasks
--- ============================================================
-
--- match_ex3: forall P : Prop, P -> P
-def Original_LF__DOT__AltAuto_LF_AltAuto_match__ex3 : ∀ (P : Prop), P → P :=
-  fun _ p => p
-
--- auto_example_5': forall P Q R S T U W : Prop, (U -> T) -> (W -> U) -> (R -> S) -> (S -> T) -> (P -> R) -> (U -> T) -> P -> T
-def Original_LF__DOT__Auto_LF_Auto_auto__example__5' :
-  ∀ (P Q R S T U W : Prop),
-    (U → T) → (W → U) → (R → S) → (S → T) → (P → R) → (U → T) → P → T :=
-  fun _ _ _ _ _ _ _ _ _ rs st pr _ p => st (rs (pr p))
-
--- IndPrinciples.natlist is the same as Lists.NatList.natlist
-def Original_LF__DOT__IndPrinciples_LF_IndPrinciples_natlist : Type :=
-  Original_LF__DOT__Lists_LF_Lists_NatList_natlist
-
--- c character (ascii code 99 = 'c')
-def Original_LF__DOT__IndProp_LF_IndProp_c : Ascii_ascii :=
-  Ascii_ascii.Ascii Stdlib_bool.true Stdlib_bool.true Stdlib_bool.false Stdlib_bool.false 
-                    Stdlib_bool.false Stdlib_bool.true Stdlib_bool.true Stdlib_bool.false
-
--- match_eps: check if a regex matches the empty string
-def Original_LF__DOT__IndProp_LF_IndProp_match__eps : Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii → Original_LF__DOT__Basics_LF_Basics_bool
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet => Original_LF__DOT__Basics_LF_Basics_bool.false
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptyStr => Original_LF__DOT__Basics_LF_Basics_bool.true
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Char _ => Original_LF__DOT__Basics_LF_Basics_bool.false
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.App re1 re2 =>
-      Original_LF__DOT__Basics_LF_Basics_andb_helper 
-        (Original_LF__DOT__IndProp_LF_IndProp_match__eps re1)
-        (Original_LF__DOT__IndProp_LF_IndProp_match__eps re2)
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union re1 re2 =>
-      match Original_LF__DOT__IndProp_LF_IndProp_match__eps re1 with
-      | Original_LF__DOT__Basics_LF_Basics_bool.true => Original_LF__DOT__Basics_LF_Basics_bool.true
-      | Original_LF__DOT__Basics_LF_Basics_bool.false => Original_LF__DOT__IndProp_LF_IndProp_match__eps re2
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star _ => Original_LF__DOT__Basics_LF_Basics_bool.true
-
--- derive: derivative of a regex with respect to a character
-def Original_LF__DOT__IndProp_LF_IndProp_derive (a : Ascii_ascii) : Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii → Original_LF__DOT__IndProp_LF_IndProp_reg__exp Ascii_ascii
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet => Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptyStr => Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Char c =>
-      match Ascii_eqb a c with
-      | Stdlib_bool.true => Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptyStr
-      | Stdlib_bool.false => Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.App re1 re2 =>
-      Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union
-        (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.App (Original_LF__DOT__IndProp_LF_IndProp_derive a re1) re2)
-        (match Original_LF__DOT__IndProp_LF_IndProp_match__eps re1 with
-         | Original_LF__DOT__Basics_LF_Basics_bool.true => Original_LF__DOT__IndProp_LF_IndProp_derive a re2
-         | Original_LF__DOT__Basics_LF_Basics_bool.false => Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet)
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union re1 re2 =>
-      Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Union
-        (Original_LF__DOT__IndProp_LF_IndProp_derive a re1)
-        (Original_LF__DOT__IndProp_LF_IndProp_derive a re2)
-  | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star re =>
-      Original_LF__DOT__IndProp_LF_IndProp_reg__exp.App
-        (Original_LF__DOT__IndProp_LF_IndProp_derive a re)
-        (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Star re)
-
--- test_der1: match_eps (derive c (Char c)) = true
-def Original_LF__DOT__IndProp_LF_IndProp_test__der1 :
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__IndProp_LF_IndProp_match__eps
-      (Original_LF__DOT__IndProp_LF_IndProp_derive 
-        Original_LF__DOT__IndProp_LF_IndProp_c
-        (Original_LF__DOT__IndProp_LF_IndProp_reg__exp.Char Original_LF__DOT__IndProp_LF_IndProp_c)))
-    Original_LF__DOT__Basics_LF_Basics_bool.true :=
-  Corelib_Init_Logic_eq.refl _
 

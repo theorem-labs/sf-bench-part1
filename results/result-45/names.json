@@ -1,3 +1,5 @@
 {
-  "True": "MyTrue"
+  "True": "MyTrue",
+  "False": "MyFalse",
+  "Type": "MyType"
 }

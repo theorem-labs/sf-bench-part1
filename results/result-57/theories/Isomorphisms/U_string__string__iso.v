@@ -1,106 +1,78 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-From IsomorphismChecker Require Export Isomorphisms.bool__iso.
 (* Print Imported. *)
 (* Typeclasses Opaque rel_iso. *) (* for speed *)
 
-(* Imported.String_string = Imported.Coqstring *)
+
 Definition imported_String_string : Type := Imported.String_string.
 
-(* We need to convert between String.string and Imported.Coqstring *)
-(* First we need to convert Ascii.ascii <-> Imported.Coqascii *)
+(* Bool isomorphism *)
+Definition mybool_to (b : bool) : Imported.mybool :=
+  match b with
+  | true => Imported.mybool_mytrue
+  | false => Imported.mybool_myfalse
+  end.
 
-Definition ascii_to_coqascii (a : Ascii.ascii) : Imported.Coqascii :=
+Definition mybool_from (b : Imported.mybool) : bool :=
+  match b with
+  | Imported.mybool_mytrue => true
+  | Imported.mybool_myfalse => false
+  end.
+
+(* Ascii isomorphism *)
+Definition ascii_to (a : Ascii.ascii) : Imported.Ascii_ascii :=
   match a with
   | Ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
-    Imported.Coqascii_Ascii
-      (bool_to_coqbool b0) (bool_to_coqbool b1) (bool_to_coqbool b2) (bool_to_coqbool b3)
-      (bool_to_coqbool b4) (bool_to_coqbool b5) (bool_to_coqbool b6) (bool_to_coqbool b7)
+    Imported.Ascii_ascii_Ascii (mybool_to b0) (mybool_to b1) (mybool_to b2) (mybool_to b3)
+                               (mybool_to b4) (mybool_to b5) (mybool_to b6) (mybool_to b7)
   end.
 
-Definition coqascii_to_ascii (a : Imported.Coqascii) : Ascii.ascii :=
+Definition ascii_from (a : Imported.Ascii_ascii) : Ascii.ascii :=
   match a with
-  | Imported.Coqascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
-    Ascii.Ascii
-      (coqbool_to_bool b0) (coqbool_to_bool b1) (coqbool_to_bool b2) (coqbool_to_bool b3)
-      (coqbool_to_bool b4) (coqbool_to_bool b5) (coqbool_to_bool b6) (coqbool_to_bool b7)
+  | Imported.Ascii_ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
+    Ascii.Ascii (mybool_from b0) (mybool_from b1) (mybool_from b2) (mybool_from b3)
+                (mybool_from b4) (mybool_from b5) (mybool_from b6) (mybool_from b7)
   end.
 
-Fixpoint string_to_coqstring (s : String.string) : Imported.Coqstring :=
-  match s with
-  | String.EmptyString => Imported.Coqstring_EmptyString
-  | String.String c rest => Imported.Coqstring_String (ascii_to_coqascii c) (string_to_coqstring rest)
-  end.
-
-Fixpoint coqstring_to_string (s : Imported.Coqstring) : String.string :=
-  match s with
-  | Imported.Coqstring_EmptyString => String.EmptyString
-  | Imported.Coqstring_String c rest => String.String (coqascii_to_ascii c) (coqstring_to_string rest)
-  end.
-
-(* Prove roundtrip lemmas in SProp using IsomorphismDefinitions.eq *)
-Lemma ascii_roundtrip1 : forall a, coqascii_to_ascii (ascii_to_coqascii a) = a.
+Instance String_string_iso : Iso String.string imported_String_string.
 Proof.
-  destruct a as [b0 b1 b2 b3 b4 b5 b6 b7].
-  simpl.
-  destruct b0, b1, b2, b3, b4, b5, b6, b7; reflexivity.
-Qed.
-
-Lemma ascii_roundtrip2 : forall a, ascii_to_coqascii (coqascii_to_ascii a) = a.
-Proof.
-  destruct a as [b0 b1 b2 b3 b4 b5 b6 b7].
-  simpl.
-  destruct b0, b1, b2, b3, b4, b5, b6, b7; reflexivity.
-Qed.
-
-Lemma string_roundtrip1 : forall s : String.string, coqstring_to_string (string_to_coqstring s) = s.
-Proof.
-  intro s. induction s as [| c rest IH].
-  - reflexivity.
-  - simpl. 
-    change (String.String (coqascii_to_ascii (ascii_to_coqascii c)) (coqstring_to_string (string_to_coqstring rest)) = String.String c rest).
-    f_equal.
-    + apply ascii_roundtrip1.
-    + apply IH.
+  exists (fix f (s : String.string) : imported_String_string :=
+            match s with
+            | String.EmptyString => Imported.String_string_EmptyString
+            | String.String c rest => Imported.String_string_String (ascii_to c) (f rest)
+            end)
+         (fix g (s : imported_String_string) : String.string :=
+            match s with
+            | Imported.String_string_EmptyString => String.EmptyString
+            | Imported.String_string_String c rest => String.String (ascii_from c) (g rest)
+            end).
+  - fix IH 1. intros s.
+    destruct s as [|c rest].
+    + apply IsomorphismDefinitions.eq_refl.
+    + simpl.
+      apply (IsoEq.f_equal2 Imported.String_string_String).
+      * destruct c as [b0 b1 b2 b3 b4 b5 b6 b7].
+        simpl. unfold ascii_to, ascii_from.
+        destruct b0; destruct b1; destruct b2; destruct b3;
+        destruct b4; destruct b5; destruct b6; destruct b7;
+        apply IsomorphismDefinitions.eq_refl.
+      * apply IH.
+  - fix IH 1. intros s.
+    destruct s as [|c rest].
+    + apply IsomorphismDefinitions.eq_refl.
+    + simpl.
+      apply (IsoEq.f_equal2 String.String).
+      * destruct c as [b0 b1 b2 b3 b4 b5 b6 b7].
+        simpl. unfold ascii_to, ascii_from.
+        destruct b0; destruct b1; destruct b2; destruct b3;
+        destruct b4; destruct b5; destruct b6; destruct b7;
+        apply IsomorphismDefinitions.eq_refl.
+      * apply IH.
 Defined.
-
-Lemma string_roundtrip2 : forall s : Imported.Coqstring, string_to_coqstring (coqstring_to_string s) = s.
-Proof.
-  intro s. induction s as [| c rest IH].
-  - reflexivity.
-  - simpl.
-    change (Imported.Coqstring_String (ascii_to_coqascii (coqascii_to_ascii c)) (string_to_coqstring (coqstring_to_string rest)) = Imported.Coqstring_String c rest).
-    f_equal.
-    + apply ascii_roundtrip2.
-    + apply IH.
-Defined.
-
-(* Now prove the SProp version *)
-Lemma string_roundtrip1_sprop : forall s, IsomorphismDefinitions.eq (coqstring_to_string (string_to_coqstring s)) s.
-Proof.
-  intro s.
-  rewrite string_roundtrip1.
-  apply IsomorphismDefinitions.eq_refl.
-Qed.
-
-Lemma string_roundtrip2_sprop : forall s, IsomorphismDefinitions.eq (string_to_coqstring (coqstring_to_string s)) s.
-Proof.
-  intro s.
-  rewrite string_roundtrip2.
-  apply IsomorphismDefinitions.eq_refl.
-Qed.
-
-Instance String_string_iso : Iso String.string imported_String_string :=
-  {| to := string_to_coqstring;
-     from := coqstring_to_string;
-     to_from := string_roundtrip2_sprop;
-     from_to := string_roundtrip1_sprop
-  |}.
-
 Instance: KnownConstant String.string := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.String_string := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor String.string String_string_iso := {}.

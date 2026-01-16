@@ -1,93 +1,79 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Typeclasses Opaque rel_iso. (* removed *) *)
-
-Local Open Scope nat_scope.
-From Stdlib Require Import Arith.
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
-Definition imported_le : imported_nat -> imported_nat -> SProp := Imported.le.
+Monomorphic Definition imported_le : imported_nat -> imported_nat -> SProp := Imported.le.
 
-(* le_to_imported: convert Rocq le to Imported.le *)
-Fixpoint le_to_imported (n m : nat) (H : Peano.le n m) {struct H} : 
-  Imported.le (nat_to_imported n) (nat_to_imported m).
+(* We need to connect Peano.le (Original le) with the imported le which is defined as
+   nat_leb n m = true *)
+
+(* Helper: nat_leb is true implies Peano.le *)
+Monomorphic Lemma nat_leb_true_le : forall n m : Datatypes.nat,
+  Logic.eq (Imported.nat_leb (nat_to_imported n) (nat_to_imported m)) Imported.RocqBool_true ->
+  Peano.le n m.
 Proof.
-  destruct H.
-  - apply Imported.le_le_n.
-  - apply Imported.le_le_S. apply le_to_imported. exact H.
-Defined.
+  induction n as [| n' IHn]; intros m H.
+  - apply Peano.le_0_n.
+  - destruct m as [| m'].
+    + simpl in H. discriminate H.
+    + simpl in H. apply Peano.le_n_S. apply IHn. apply H.
+Qed.
 
-(* To convert from Imported.le (SProp) to Peano.le (Prop), we need to go through SInhabited.
-   
-   Step 1: Build SInhabited (Peano.le (imported_to_nat n') (imported_to_nat m'))
-           from Imported.le n' m'.
-   Since both Imported.le and SInhabited are in SProp, we can eliminate Imported.le to SProp.
-*)
-
-(* Helper: convert between imported nat indices and nat *)
-(* Imported.le n' m' means le n' m' where the first argument is implicit (the n) *)
-(* le n m is really @le n m where the first n is the starting point *)
-
-Fixpoint imported_le_to_peano_le_sinhabited (n' : Imported.nat) (m' : Imported.nat)
-  (H : @Imported.le n' m') {struct H} : SInhabited (Peano.le (imported_to_nat n') (imported_to_nat m')).
+(* Helper: Peano.le implies nat_leb is true *)
+Monomorphic Lemma le_nat_leb_true : forall n m : Datatypes.nat,
+  Peano.le n m ->
+  Logic.eq (Imported.nat_leb (nat_to_imported n) (nat_to_imported m)) Imported.RocqBool_true.
 Proof.
-  destruct H as [ | m0 H'].
-  - (* le_le_n : n' <= n' *)
-    exact (sinhabits (le_n (imported_to_nat n'))).
-  - (* le_le_S : n' <= m0 -> n' <= S m0 *)
-    apply sinhabits.
-    apply le_S.
-    exact (sinhabitant (imported_le_to_peano_le_sinhabited n' m0 H')).
-Defined.
+  induction n as [| n' IHn]; intros m H.
+  - simpl. reflexivity.
+  - destruct m as [| m'].
+    + inversion H.
+    + simpl. apply IHn. apply Peano.le_S_n. exact H.
+Qed.
 
-(* Now we can define from_imported_le using sinhabitant *)
-Definition from_imported_le (n m : Datatypes.nat) 
-  (H : @Imported.le (nat_to_imported n) (nat_to_imported m)) : Peano.le n m.
+(* Helper: Logic.eq to Imported.Corelib_Init_Logic_eq *)
+Monomorphic Lemma logic_eq_to_imported_eq : forall (A : Type) (a b : A),
+  Logic.eq a b -> Imported.Corelib_Init_Logic_eq A a b.
 Proof.
-  (* Get SInhabited (imported_to_nat (nat_to_imported n) <= imported_to_nat (nat_to_imported m)) *)
-  pose (H' := @imported_le_to_peano_le_sinhabited (nat_to_imported n) (nat_to_imported m) H).
-  (* imported_to_nat (nat_to_imported n) = n *)
-  rewrite !nat_roundtrip in H'.
-  exact (sinhabitant H').
-Defined.
+  intros A a b H. destruct H. apply Imported.Corelib_Init_Logic_eq_refl.
+Qed.
 
-(* Helper *)
-Lemma nat_from_to_prop : forall x : Datatypes.nat, imported_to_nat (nat_to_imported x) = x.
-Proof.
-  intro x. induction x as [|n IHn]; simpl; [reflexivity | f_equal; exact IHn].
-Defined.
+(* Helper: Imported.Corelib_Init_Logic_eq to Logic.eq *)
+Monomorphic Definition imported_eq_to_logic_eq : forall (A : Type) (a b : A),
+  Imported.Corelib_Init_Logic_eq A a b -> Logic.eq a b :=
+  fun A a b H => sinhabitant (Imported.Corelib_Init_Logic_eq_indl A a 
+    (fun b' _ => SInhabited (Logic.eq a b')) (sinhabits Logic.eq_refl) b H).
 
-(* The isomorphism *)
-Instance le_iso : forall (x1 : Datatypes.nat) (x2 : imported_nat) 
-  (_ : @rel_iso Datatypes.nat imported_nat nat_iso x1 x2) 
-  (x3 : Datatypes.nat) (x4 : imported_nat) 
-  (_ : @rel_iso Datatypes.nat imported_nat nat_iso x3 x4), 
-  Iso (le x1 x3) (imported_le x2 x4).
+Monomorphic Instance le_iso : (forall (x1 : Datatypes.nat) (x2 : imported_nat) (_ : @rel_iso Datatypes.nat imported_nat nat_iso x1 x2) (x3 : Datatypes.nat) (x4 : imported_nat) (_ : @rel_iso Datatypes.nat imported_nat nat_iso x3 x4), Iso (Peano.le x1 x3) (imported_le x2 x4)).
 Proof.
-  intros x1 x2 H12 x3 x4 H34.
-  destruct H12 as [Hproj12].
-  destruct H34 as [Hproj34].
-  unfold imported_le.
-  
-  apply IsoEq.eq_of_seq in Hproj12.
-  apply IsoEq.eq_of_seq in Hproj34.
-  subst x2 x4.
-  
+  intros n1 n2 hn m1 m2 hm.
+  destruct hn as [hn]. destruct hm as [hm]. simpl in hn, hm.
+  apply eq_of_seq in hn. apply eq_of_seq in hm.
+  subst n2 m2.
+  unfold imported_le, Imported.le.
+  apply relax_Iso_Ps_Ts.
   unshelve refine {|
-    to := @le_to_imported x1 x3;
-    from := @from_imported_le x1 x3
+    to := _;
+    from := _
   |}.
-  - intro. apply IsomorphismDefinitions.eq_refl.
-  - intro x. apply IsoEq.seq_of_eq.
-    apply Stdlib.Logic.ProofIrrelevance.proof_irrelevance.
+  - (* Peano.le -> Imported.Corelib_Init_Logic_eq (nat_leb ...) true *)
+    intro H.
+    apply logic_eq_to_imported_eq.
+    apply le_nat_leb_true. exact H.
+  - (* Imported.Corelib_Init_Logic_eq (nat_leb ...) true -> Peano.le *)
+    intro H.
+    apply imported_eq_to_logic_eq in H.
+    apply nat_leb_true_le. exact H.
+  - intro s. apply IsomorphismDefinitions.eq_refl.
+  - intro p. apply seq_of_peq. apply Stdlib.Logic.ProofIrrelevance.proof_irrelevance.
 Defined.
 
-Instance: KnownConstant le := {}.
-Instance: KnownConstant Imported.le := {}.
-Instance: IsoStatementProofFor le le_iso := {}.
-Instance: IsoStatementProofBetween le Imported.le le_iso := {}.
+Instance: KnownConstant Peano.le := {}. 
+Instance: KnownConstant Imported.le := {}. 
+Instance: IsoStatementProofFor Peano.le le_iso := {}.
+Instance: IsoStatementProofBetween Peano.le Imported.le le_iso := {}.

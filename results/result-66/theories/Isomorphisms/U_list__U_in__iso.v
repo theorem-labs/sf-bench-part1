@@ -8,7 +8,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.list__iso.
 
-Definition imported_List_In : forall x : Type, x -> imported_list x -> SProp := Imported.List_In.
+Definition imported_List_In : forall x : Type, x -> imported_list x -> SProp.
+Admitted.
 
 Instance List_In_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1) (x4 : x2),
   rel_iso hx x3 x4 -> forall (x5 : list x1) (x6 : imported_list x2), rel_iso (list_iso hx) x5 x6 -> Iso (List.In x3 x5) (imported_List_In x4 x6).

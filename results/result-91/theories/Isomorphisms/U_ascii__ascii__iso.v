@@ -6,7 +6,7 @@ From LeanImport Require Import Lean.
 From IsomorphismChecker Require Original Imported.
 From IsomorphismChecker Require Export Isomorphisms.bool__iso.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* Typeclasses Opaque rel_iso *). *) (* for speed *)
 
 
 Definition imported_Ascii_ascii : Type := Imported.Ascii_ascii.

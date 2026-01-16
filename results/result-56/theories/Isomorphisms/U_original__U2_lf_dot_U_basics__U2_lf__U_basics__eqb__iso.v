@@ -1,11 +1,11 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *)
+(* (* (* Typeclasses Opaque rel_iso. *) *) *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso Isomorphisms.nat__iso.
@@ -18,16 +18,14 @@ Lemma eqb_iso_helper : forall n m,
     (bool_to_imported (Original.LF_DOT_Basics.LF.Basics.eqb n m))
     (Imported.Original_LF__DOT__Basics_LF_Basics_eqb (nat_to_imported n) (nat_to_imported m)).
 Proof.
-  induction n as [|n' IHn]; intros m; destruct m as [|m'].
-  - native_compute. apply IsomorphismDefinitions.eq_refl.
-  - native_compute. apply IsomorphismDefinitions.eq_refl.
-  - native_compute. apply IsomorphismDefinitions.eq_refl.
-  - simpl Original.LF_DOT_Basics.LF.Basics.eqb.
-    simpl bool_to_imported.
-    change (nat_to_imported (S n')) with (Imported.nat_S (nat_to_imported n')).
-    change (nat_to_imported (S m')) with (Imported.nat_S (nat_to_imported m')).
-    apply IHn.
-Qed.
+  fix IH 1.
+  intros n m.
+  destruct n as [|n']; destruct m as [|m']; simpl.
+  - apply IsomorphismDefinitions.eq_refl.
+  - apply IsomorphismDefinitions.eq_refl.
+  - apply IsomorphismDefinitions.eq_refl.
+  - apply IH.
+Defined.
 
 Instance Original_LF__DOT__Basics_LF_Basics_eqb_iso : forall (x1 : nat) (x2 : imported_nat),
   rel_iso nat_iso x1 x2 ->
@@ -35,12 +33,12 @@ Instance Original_LF__DOT__Basics_LF_Basics_eqb_iso : forall (x1 : nat) (x2 : im
   rel_iso nat_iso x3 x4 -> rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso (Original.LF_DOT_Basics.LF.Basics.eqb x1 x3) (imported_Original_LF__DOT__Basics_LF_Basics_eqb x2 x4).
 Proof.
   intros x1 x2 H12 x3 x4 H34.
-  constructor. simpl.
   destruct H12 as [H12]. destruct H34 as [H34].
-  simpl in *.
-  destruct H12. destruct H34.
-  apply eqb_iso_helper.
-Qed.
+  constructor. simpl in *.
+  eapply eq_trans.
+  - apply eqb_iso_helper.
+  - apply f_equal2; assumption.
+Defined.
 
 Instance: KnownConstant Original.LF_DOT_Basics.LF.Basics.eqb := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Basics_LF_Basics_eqb := {}. (* only needed when rel_iso is typeclasses opaque *)

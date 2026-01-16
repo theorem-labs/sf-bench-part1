@@ -16,12 +16,12 @@ Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_aexp2 : imported_Co
         imported_Original_LF__DOT__Maps_LF_Maps_t__update
           (fun x0 : imported_String_string =>
            imported_Original_LF__DOT__Maps_LF_Maps_t__update (fun x1 : imported_String_string => imported_Original_LF__DOT__Imp_LF_Imp_empty__st x1) imported_Original_LF__DOT__Imp_LF_Imp_Y
-             (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) x0)
-          imported_Original_LF__DOT__Imp_LF_Imp_X (imported_S (imported_S (imported_S (iterate1 imported_S 2%nat imported_0)))) x)
+             (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) x0)
+          imported_Original_LF__DOT__Imp_LF_Imp_X (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0)))) x)
        (imported_Original_LF__DOT__Imp_LF_Imp_APlus (imported_Original_LF__DOT__Imp_LF_Imp_AId imported_Original_LF__DOT__Imp_LF_Imp_Z)
           (imported_Original_LF__DOT__Imp_LF_Imp_AMult (imported_Original_LF__DOT__Imp_LF_Imp_AId imported_Original_LF__DOT__Imp_LF_Imp_X)
              (imported_Original_LF__DOT__Imp_LF_Imp_AId imported_Original_LF__DOT__Imp_LF_Imp_Y))))
-    (imported_S (imported_S (imported_S (iterate1 imported_S 17%nat imported_0)))) := Imported.Original_LF__DOT__Imp_LF_Imp_aexp2.
+    (imported_S (imported_S (imported_S (iterate1 imported_S 17 imported_0)))) := Imported.Original_LF__DOT__Imp_LF_Imp_aexp2.
 Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_aexp2_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Imp_LF_Imp_aeval_iso
@@ -30,29 +30,29 @@ Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_aexp2_iso : rel_iso
            imported_Original_LF__DOT__Maps_LF_Maps_t__update
              (fun x0 : imported_String_string =>
               imported_Original_LF__DOT__Maps_LF_Maps_t__update (fun x1 : imported_String_string => imported_Original_LF__DOT__Imp_LF_Imp_empty__st x1) imported_Original_LF__DOT__Imp_LF_Imp_Y
-                (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) x0)
-             imported_Original_LF__DOT__Imp_LF_Imp_X (imported_S (imported_S (imported_S (iterate1 imported_S 2%nat imported_0)))) x)
+                (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) x0)
+             imported_Original_LF__DOT__Imp_LF_Imp_X (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0)))) x)
           (fun (x1 : String.string) (x2 : imported_String_string) (hx : rel_iso String_string_iso x1 x2) =>
            unwrap_sprop
              (Original_LF__DOT__Maps_LF_Maps_t__update_iso nat_iso (Original.LF_DOT_Maps.LF.Maps.t_update Original.LF_DOT_Imp.LF.Imp.empty_st Original.LF_DOT_Imp.LF.Imp.Y 4)
                 (fun x : imported_String_string =>
                  imported_Original_LF__DOT__Maps_LF_Maps_t__update (fun x0 : imported_String_string => imported_Original_LF__DOT__Imp_LF_Imp_empty__st x0) imported_Original_LF__DOT__Imp_LF_Imp_Y
-                   (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) x)
+                   (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) x)
                 (fun (x3 : String.string) (x4 : imported_String_string) (hx0 : rel_iso String_string_iso x3 x4) =>
                  {|
                    unwrap_sprop :=
                      unwrap_sprop
                        (Original_LF__DOT__Maps_LF_Maps_t__update_iso nat_iso Original.LF_DOT_Imp.LF.Imp.empty_st (fun x : imported_String_string => imported_Original_LF__DOT__Imp_LF_Imp_empty__st x)
                           (fun (x5 : String.string) (x6 : imported_String_string) (hx1 : rel_iso String_string_iso x5 x6) => {| unwrap_sprop := Original_LF__DOT__Imp_LF_Imp_empty__st_iso hx1 |})
-                          Original_LF__DOT__Imp_LF_Imp_Y_iso 4 (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0))))
-                          {| unwrap_sprop := S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso))) |} hx0)
+                          Original_LF__DOT__Imp_LF_Imp_Y_iso 4 (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
+                          {| unwrap_sprop := S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso))) |} hx0)
                  |})
-                Original_LF__DOT__Imp_LF_Imp_X_iso 5 (imported_S (imported_S (imported_S (iterate1 imported_S 2%nat imported_0))))
-                {| unwrap_sprop := S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2%nat 0%nat imported_0 _0_iso))) |} hx))
+                Original_LF__DOT__Imp_LF_Imp_X_iso 5 (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))
+                {| unwrap_sprop := S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S O)) O imported_0 _0_iso))) |} hx))
           (Original_LF__DOT__Imp_LF_Imp_APlus_iso (Original_LF__DOT__Imp_LF_Imp_AId_iso Original_LF__DOT__Imp_LF_Imp_Z_iso)
              (Original_LF__DOT__Imp_LF_Imp_AMult_iso (Original_LF__DOT__Imp_LF_Imp_AId_iso Original_LF__DOT__Imp_LF_Imp_X_iso)
                 (Original_LF__DOT__Imp_LF_Imp_AId_iso Original_LF__DOT__Imp_LF_Imp_Y_iso))))
-       (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 17%nat 0%nat imported_0 _0_iso)))))
+       (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 17 0 imported_0 _0_iso)))))
     Original.LF_DOT_Imp.LF.Imp.aexp2 imported_Original_LF__DOT__Imp_LF_Imp_aexp2.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Imp.LF.Imp.aexp2 := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -27,7 +27,7 @@ Definition imported_to_stdlib_bool (b : Imported.Stdlib_bool) : bool :=
 Definition ascii_to : Ascii.ascii -> imported_Ascii_ascii :=
   fun a => match a with
            | Ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
-             Imported.Ascii_Ascii
+             Imported.Ascii_ascii_Ascii
                (stdlib_bool_to_imported b0)
                (stdlib_bool_to_imported b1)
                (stdlib_bool_to_imported b2)
@@ -39,18 +39,20 @@ Definition ascii_to : Ascii.ascii -> imported_Ascii_ascii :=
            end.
 
 Definition ascii_from : imported_Ascii_ascii -> Ascii.ascii :=
-  fun a => 
-    Ascii.Ascii
-      (imported_to_stdlib_bool (Imported.b0 a))
-      (imported_to_stdlib_bool (Imported.b1 a))
-      (imported_to_stdlib_bool (Imported.b2 a))
-      (imported_to_stdlib_bool (Imported.b3 a))
-      (imported_to_stdlib_bool (Imported.b4 a))
-      (imported_to_stdlib_bool (Imported.b5 a))
-      (imported_to_stdlib_bool (Imported.b6 a))
-      (imported_to_stdlib_bool (Imported.b7 a)).
+  fun a => match a with
+           | Imported.Ascii_ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
+             Ascii.Ascii
+               (imported_to_stdlib_bool b0)
+               (imported_to_stdlib_bool b1)
+               (imported_to_stdlib_bool b2)
+               (imported_to_stdlib_bool b3)
+               (imported_to_stdlib_bool b4)
+               (imported_to_stdlib_bool b5)
+               (imported_to_stdlib_bool b6)
+               (imported_to_stdlib_bool b7)
+           end.
 
-(* from_to: for x : ascii, ascii_from (ascii_to x) = x *)
+(* from_to: for x : Ascii.ascii, ascii_from (ascii_to x) = x *)
 Lemma ascii_from_to_aux : forall b0 b1 b2 b3 b4 b5 b6 b7,
   IsomorphismDefinitions.eq 
     (ascii_from (ascii_to (Ascii.Ascii b0 b1 b2 b3 b4 b5 b6 b7))) 
@@ -66,12 +68,19 @@ Definition ascii_from_to : forall x, IsomorphismDefinitions.eq (ascii_from (asci
            end.
 
 (* to_from: for x : imported_Ascii_ascii, ascii_to (ascii_from x) = x *)
-Lemma ascii_to_from : forall x, IsomorphismDefinitions.eq (ascii_to (ascii_from x)) x.
+Lemma ascii_to_from_aux : forall b0 b1 b2 b3 b4 b5 b6 b7,
+  IsomorphismDefinitions.eq 
+    (ascii_to (ascii_from (Imported.Ascii_ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7)))
+    (Imported.Ascii_ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7).
 Proof.
-  intro x.
-  destruct x as [b0 b1 b2 b3 b4 b5 b6 b7].
+  intros b0 b1 b2 b3 b4 b5 b6 b7.
   destruct b0, b1, b2, b3, b4, b5, b6, b7; exact IsomorphismDefinitions.eq_refl.
 Defined.
+
+Definition ascii_to_from : forall x, IsomorphismDefinitions.eq (ascii_to (ascii_from x)) x :=
+  fun x => match x with
+           | Imported.Ascii_ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7 => ascii_to_from_aux b0 b1 b2 b3 b4 b5 b6 b7
+           end.
 
 Instance Ascii_ascii_iso : Iso Ascii.ascii imported_Ascii_ascii :=
   @Build_Iso Ascii.ascii imported_Ascii_ascii ascii_to ascii_from ascii_to_from ascii_from_to.

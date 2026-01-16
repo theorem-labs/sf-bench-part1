@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* Typeclasses Opaque rel_iso *). *) (* for speed *)
 
 
 Definition imported_String_string : Type := Imported.String_string.
@@ -13,14 +13,14 @@ Definition imported_String_string : Type := Imported.String_string.
 (* Bool isomorphism *)
 Definition mybool_to (b : bool) : Imported.mybool :=
   match b with
-  | true => Imported.mybool_mytrue
-  | false => Imported.mybool_myfalse
+  | true => Imported.Original_LF__DOT__Basics_LF_Basics_bool_true
+  | false => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
   end.
 
 Definition mybool_from (b : Imported.mybool) : bool :=
   match b with
-  | Imported.mybool_mytrue => true
-  | Imported.mybool_myfalse => false
+  | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => true
+  | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => false
   end.
 
 (* Ascii isomorphism *)

@@ -7,6 +7,7 @@ From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 
 
+
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso.
 
 Definition imported_Original_LF__DOT__Basics_LF_Basics_true : imported_Original_LF__DOT__Basics_LF_Basics_bool := Imported.Original_LF__DOT__Basics_LF_Basics_true.

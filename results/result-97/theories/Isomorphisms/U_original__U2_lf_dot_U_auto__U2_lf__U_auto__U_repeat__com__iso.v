@@ -4,7 +4,7 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(*Typeclasses Opaque rel_iso.*) (* for speed *)
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso.
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__bexp__iso.
@@ -43,7 +43,7 @@ Proof.
    apply f_equal3; [apply bexp_to_from | apply IH | apply IH] |
    apply f_equal2; [apply bexp_to_from | apply IH] |
    apply f_equal2; [apply IH | apply bexp_to_from]].
-Qed.
+Defined.
 
 Lemma com_from_to : forall x, IsomorphismDefinitions.eq (com_from_imported (com_to_imported x)) x.
 Proof.
@@ -55,7 +55,7 @@ Proof.
    apply f_equal3; [apply bexp_from_to | apply IH | apply IH] |
    apply f_equal2; [apply bexp_from_to | apply IH] |
    apply f_equal2; [apply IH | apply bexp_from_to]].
-Qed.
+Defined.
 
 Instance Original_LF__DOT__Auto_LF_Auto_Repeat_com_iso : Iso Original.LF_DOT_Auto.LF.Auto.Repeat.com imported_Original_LF__DOT__Auto_LF_Auto_Repeat_com :=
   Build_Iso com_to_imported com_from_imported com_to_from com_from_to.

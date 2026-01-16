@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.
@@ -38,18 +38,18 @@ Instance Original_LF__DOT__Lists_LF_Lists_NatList_app_iso : forall (x1 : Origina
   rel_iso Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso x3 x4 ->
   rel_iso Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso (Original.LF_DOT_Lists.LF.Lists.NatList.app x1 x3) (imported_Original_LF__DOT__Lists_LF_Lists_NatList_app x2 x4).
 Proof.
-  intros x1 x2 H12 x3 x4 H34.
-  unfold imported_Original_LF__DOT__Lists_LF_Lists_NatList_app in *.
-  destruct H12 as [H12]. destruct H34 as [H34].
+  intros x1 x2 [H12] x3 x4 [H34].
+  constructor. unfold imported_Original_LF__DOT__Lists_LF_Lists_NatList_app in *.
   simpl in *.
-  apply Build_rel_iso. simpl.
   (* H12 : natlist_to_imported x1 = x2 (in SProp) *)
   (* H34 : natlist_to_imported x3 = x4 (in SProp) *)
   (* Goal : natlist_to_imported (app x1 x3) = app x2 x4 (in SProp) *)
   pose proof (app_compat x1 x3) as Hcompat.
-  eapply eq_trans.
-  - apply seq_of_eq. apply Logic.eq_sym. exact Hcompat.
-  - apply f_equal2; assumption.
+  apply seq_of_eq.
+  rewrite <- (eq_of_seq H12).
+  rewrite <- (eq_of_seq H34).
+  apply Logic.eq_sym.
+  exact Hcompat.
 Defined.
 
 Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.app := {}. (* only needed when rel_iso is typeclasses opaque *)

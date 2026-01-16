@@ -82,7 +82,7 @@ Proof.
     apply IsomorphismDefinitions.eq_refl.
   - (* Some a1 *)
     apply Hf.
-Qed. *)
+Defined. *)
 
 (* Lemma mybool_match_eq : forall (b : Imported.mybool)
     (t1 t2 f1 f2 : imported_option imported_Original_LF__DOT__Imp_LF_Imp_state),
@@ -96,7 +96,7 @@ Proof.
   destruct b.
   - exact Ht.
   - exact Hf.
-Qed. *)
+Defined. *)
 
 Lemma ceval_step_aux_eq : forall i st c,
   IsomorphismDefinitions.eq (ceval_step_aux st c i) (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st c i).

@@ -14,21 +14,15 @@ From IsomorphismChecker Require Export Isomorphisms.bool__iso.
 
 Definition imported_Original_LF__DOT__Auto_LF_Auto_Repeat_ceval : imported_Original_LF__DOT__Auto_LF_Auto_Repeat_com -> (imported_String_string -> imported_nat) -> (imported_String_string -> imported_nat) -> SProp := Imported.Original_LF__DOT__Auto_LF_Auto_Repeat_ceval.
 
-Definition bool_to_imported (b : bool) : imported_bool :=
-  match b with
-  | true => Imported.mybool_mytrue
-  | false => Imported.mybool_myfalse
-  end.
-
 Lemma rel_iso_to_eq : forall (A B : Type) (i : Iso A B) (x : A) (y : B),
   rel_iso i x y -> to i x = y.
-Proof. intros. destruct H as [H]. destruct H. reflexivity. Qed.
+Proof. intros. destruct H as [H]. destruct H. reflexivity. Defined.
 
 Lemma seq_to_eq : forall (A : Type) (x y : A), IsomorphismDefinitions.eq x y -> x = y.
-Proof. intros A x y H. destruct H. reflexivity. Qed.
+Proof. intros A x y H. destruct H. reflexivity. Defined.
 
-Lemma Imported_Eq_to_eq : forall (A : Type) (a b : A), Imported.RocqEq A a b -> a = b.
-Proof. intros A a b H. destruct H. reflexivity. Qed.
+Lemma Imported_Eq_to_eq : forall (A : Type) (a b : A), Imported.Eq A a b -> a = b.
+Proof. intros A a b H. destruct H. reflexivity. Defined.
 
 Definition state_to_imported (st : Original.LF_DOT_Imp.LF.Imp.state) : imported_String_string -> imported_nat :=
   fun s => to nat_iso (st (from String_string_iso s)).
@@ -42,7 +36,7 @@ Proof.
   apply (eq_trans (IsoEq.f_equal (fun y => nat_iso (st y)) (eq_sym Hft))).
   do 3 apply IsoEq.f_equal.
   exact Hxx'.
-Qed.
+Defined.
 
 Lemma state_to_imported_inj :
   forall s1 s2,
@@ -60,7 +54,7 @@ Proof.
   apply (Logic.f_equal (from nat_iso)) in Heq_x.
   rewrite !from_to in Heq_x.
   exact Heq_x.
-Qed.
+Defined.
 
 (* aeval isomorphism gives us the translation we need *)
 Lemma aeval_compat :
@@ -73,13 +67,7 @@ Proof.
   destruct Haeval as [Haeval].
   apply eq_of_seq in Haeval.
   exact Haeval.
-Qed.
-
-Lemma bool_true_eq : to bool_iso true = Imported.mybool_mytrue.
-Proof. reflexivity. Qed.
-
-Lemma bool_false_eq : to bool_iso false = Imported.mybool_myfalse.
-Proof. reflexivity. Qed.
+Defined.
 
 Lemma beval_translate_true : forall (st : Original.LF_DOT_Imp.LF.Imp.state)
   (b : Original.LF_DOT_Imp.LF.Imp.bexp),
@@ -93,7 +81,7 @@ Proof.
                b (bexp_to_imported b) IsomorphismDefinitions.eq_refl) as H.
   destruct H as [H]. simpl in H. rewrite Hb in H.
   apply eq_sym. exact H.
-Qed.
+Defined.
 
 Lemma beval_translate_false : forall (st : Original.LF_DOT_Imp.LF.Imp.state)
   (b : Original.LF_DOT_Imp.LF.Imp.bexp),
@@ -107,7 +95,7 @@ Proof.
                b (bexp_to_imported b) IsomorphismDefinitions.eq_refl) as H.
   destruct H as [H]. simpl in H. rewrite Hb in H.
   apply eq_sym. exact H.
-Qed.
+Defined.
 
 Lemma beval_compat : forall st b,
   bool_to_mybool (Original.LF_DOT_Imp.LF.Imp.beval st b) = 
@@ -202,12 +190,12 @@ Proof.
     replace (bool_to_imported (Original.LF_DOT_Imp.LF.Imp.beval st b1)) with (Imported.Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b1)).
     replace (bool_to_imported (Original.LF_DOT_Imp.LF.Imp.beval st b2)) with (Imported.Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b2)).
     reflexivity.
-Qed.
+Defined.
 
 Lemma t_update_translate : forall (st : Original.LF_DOT_Imp.LF.Imp.state)
   (x : String.string) (n : nat),
   state_to_imported (Original.LF_DOT_Maps.LF.Maps.t_update st x n) =
-  Imported.Original_LF__DOT__Maps_LF_Maps_t__update imported_nat (state_to_imported st)
+  Imported.Original_LF__DOT__Maps_LF_Maps_t__update Imported.nat (state_to_imported st)
     (to String_string_iso x) (to nat_iso n).
 Proof.
   intros st x n.
@@ -249,7 +237,7 @@ Proof.
       rewrite Hneq in Hcompat.
       symmetry.
       exact Hcompat.
-Qed.
+Defined.
 
 (* Forward direction: Original ceval -> Imported ceval *)
 Lemma ceval_to_imported : forall (cmd : Original.LF_DOT_Auto.LF.Auto.Repeat.com)
@@ -329,7 +317,7 @@ Proof.
       rewrite Hb'.
       reflexivity.
     + apply (IH (Original.LF_DOT_Auto.LF.Auto.Repeat.CRepeat c b) st' st'' H2).
-Qed.
+Defined.
 
 (* Backward direction: Imported ceval -> SInhabited (Original ceval) *)
 Lemma ceval_from_imported :
@@ -341,8 +329,6 @@ Lemma ceval_from_imported :
       st'' = state_to_imported st_fin ->
       SInhabited (Original.LF_DOT_Auto.LF.Auto.Repeat.ceval c st st_fin).
 Proof.
-Admitted.
-(*
   fix IH 4.
   intros c st' st'' H.
   destruct H; intros c_orig st_orig st_fin_orig Heq_c Heq_st1 Heq_st2.
@@ -366,7 +352,7 @@ Admitted.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_x Heq_a.
     apply sinhabits.
-    match goal with H : Imported.RocqEq _ _ _ |- _ => rename H into e end.
+    match goal with H : Imported.Eq _ _ _ |- _ => rename H into e end.
     apply Imported_Eq_to_eq in e.
     rewrite Heq_a in e.
     pose proof (t_update_translate st_orig x0 (Original.LF_DOT_Imp.LF.Imp.aeval st_orig a0)) as Ht_update.
@@ -392,8 +378,8 @@ Admitted.
                 end) x0) with (String_string_iso x0) in H.
       change ((fix f (n : nat) : imported_nat :=
                 match n with
-                | 0%nat => imported_natO
-                | S m => imported_natS (f m)
+                | 0%nat => Imported.natO
+                | S m => Imported.natS (f m)
                 end) (Original.LF_DOT_Imp.LF.Imp.aeval st_orig a0)) with (nat_iso (Original.LF_DOT_Imp.LF.Imp.aeval st_orig a0)) in H. *)
       exact (Logic.eq_sym H). }
     clear Hpt. rename Hpt_curried into Hpt.
@@ -432,7 +418,7 @@ Admitted.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_b Heq_c1 Heq_c2.
     apply sinhabits.
-    match goal with H : Imported.RocqEq _ _ _ |- _ => rename H into Hcond end.
+    match goal with H : Imported.Eq _ _ _ |- _ => rename H into Hcond end.
     rename H into Heval.
     apply Imported_Eq_to_eq in Hcond.
     rewrite Heq_st1 in Hcond.
@@ -453,7 +439,7 @@ Admitted.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_b Heq_c1 Heq_c2.
     apply sinhabits.
-    match goal with H : Imported.RocqEq _ _ _ |- _ => rename H into Hcond end.
+    match goal with H : Imported.Eq _ _ _ |- _ => rename H into Hcond end.
     rename H into Heval.
     apply Imported_Eq_to_eq in Hcond.
     rewrite Heq_st1 in Hcond.
@@ -470,7 +456,7 @@ Admitted.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_b Heq_c.
     apply sinhabits.
-    match goal with H : Imported.RocqEq _ _ _ |- _ => rename H into Hcond end.
+    match goal with H : Imported.Eq _ _ _ |- _ => rename H into Hcond end.
     apply Imported_Eq_to_eq in Hcond.
     rewrite Heq_st1 in Hcond.
     rewrite Heq_b in Hcond.
@@ -495,7 +481,7 @@ Admitted.
       - apply to_from.
       - apply f_equal. apply to_from. }
     symmetry in Heq_st_mid.
-    match goal with H : Imported.RocqEq _ _ _ |- _ => rename H into Hcond end.
+    match goal with H : Imported.Eq _ _ _ |- _ => rename H into Hcond end.
     rename H into Heval.
     apply Imported_Eq_to_eq in Hcond.
     rewrite Heq_st1 in Hcond.
@@ -521,7 +507,7 @@ Admitted.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_c Heq_b.
     apply sinhabits.
-    match goal with H : Imported.RocqEq _ _ _ |- _ => rename H into Hcond end.
+    match goal with H : Imported.Eq _ _ _ |- _ => rename H into Hcond end.
     pose (st_mid := fun x => from nat_iso (st' (to String_string_iso x))).
     assert (Heq_st_mid: state_to_imported st_mid = st').
     { apply eq_of_seq. apply functional_extensionality. intro x'.
@@ -548,7 +534,7 @@ Admitted.
     destruct c_orig; try discriminate.
     injection Heq_c as Heq_c Heq_b.
     apply sinhabits.
-    match goal with H : Imported.RocqEq _ _ _ |- _ => rename H into Hcond end.
+    match goal with H : Imported.Eq _ _ _ |- _ => rename H into Hcond end.
     pose (st_mid := fun x => from nat_iso (st' (to String_string_iso x))).
     assert (Heq_st_mid: state_to_imported st_mid = st').
     { apply eq_of_seq. apply functional_extensionality. intro x'.
@@ -577,7 +563,7 @@ Admitted.
       * simpl. reflexivity.
       * reflexivity.
       * reflexivity.
-*)
+Defined.
 
 (* State relation lemma *)
 Lemma state_rel_to_eq : forall (st1 : Original.LF_DOT_Imp.LF.Imp.state) 
@@ -596,7 +582,7 @@ Proof.
   specialize (H Hrel_s).
   destruct H as [H].
   apply eq_sym. exact H.
-Qed.
+Defined.
 
 Instance Original_LF__DOT__Auto_LF_Auto_Repeat_ceval_iso : (forall (x1 : Original.LF_DOT_Auto.LF.Auto.Repeat.com) (x2 : imported_Original_LF__DOT__Auto_LF_Auto_Repeat_com)
      (_ : @rel_iso Original.LF_DOT_Auto.LF.Auto.Repeat.com imported_Original_LF__DOT__Auto_LF_Auto_Repeat_com Original_LF__DOT__Auto_LF_Auto_Repeat_com_iso x1 x2)

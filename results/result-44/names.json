@@ -1,13 +1,12 @@
 {
-  "bool": "mybool",
-  "true": "mybool_mytrue",
-  "false": "mybool_myfalse",
-  "Ascii_Ascii": "Ascii_ascii_Ascii",
-  "Ascii_ascii": "Ascii_ascii",
-  "True": "TrueType",
-  "False": "FalseType",
+  "True": "MyTrue",
+  "False": "MyFalse",
+  "bool": "Stdlib_bool",
   "_0": "nat_O",
-  "S": "nat_S",
-  "Original_LF__DOT__Logic_LF_Logic_and__example2''": "Original_LF__DOT__Logic_LF_Logic_and__example2SQUOTESQUOTE",
-  "Original_LF__DOT__ProofObjects_LF_ProofObjects_four'": "Original_LF__DOT__ProofObjects_LF_ProofObjects_fourSQUOTE"
+  "Original_LF__DOT__IndProp_LF_IndProp_EmptyStr": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_EmptyStr",
+  "Original_LF__DOT__IndProp_LF_IndProp_EmptySet": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_EmptySet",
+  "Original_LF__DOT__IndProp_LF_IndProp_Char": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Char",
+  "Original_LF__DOT__IndProp_LF_IndProp_App": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_App",
+  "Original_LF__DOT__IndProp_LF_IndProp_Union": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Union",
+  "Original_LF__DOT__IndProp_LF_IndProp_Star": "Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Star"
 }

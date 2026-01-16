@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+
 From Stdlib Require Import Arith.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso.
@@ -60,7 +60,7 @@ Proof.
 Qed.
 
 Lemma nat_add_i_eq : forall n m : imported_nat,
-  IsomorphismDefinitions.eq (nat_add_i n m) (Imported.nat_add n m).
+  IsomorphismDefinitions.eq (nat_add_i n m) (Imported.Nat_add n m).
 Proof.
   fix IH 1. intros n m. destruct n; simpl.
   - apply IsomorphismDefinitions.eq_refl.
@@ -68,7 +68,7 @@ Proof.
 Qed.
 
 Lemma nat_sub_i_eq : forall n m : imported_nat,
-  IsomorphismDefinitions.eq (nat_sub_i n m) (Imported.nat_sub n m).
+  IsomorphismDefinitions.eq (nat_sub_i n m) (Imported.Nat_sub n m).
 Proof.
   fix IH 1. intros n m. destruct n, m; simpl.
   - apply IsomorphismDefinitions.eq_refl.
@@ -78,12 +78,12 @@ Proof.
 Qed.
 
 Lemma nat_mul_i_eq : forall n m : imported_nat,
-  IsomorphismDefinitions.eq (nat_mul_i n m) (Imported.nat_mul n m).
+  IsomorphismDefinitions.eq (nat_mul_i n m) (Imported.Nat_mul n m).
 Proof.
   fix IH 1. intros n m. destruct n; simpl.
   - apply IsomorphismDefinitions.eq_refl.
   - apply (eq_trans (nat_add_i_eq m (nat_mul_i n m))).
-    apply (f_equal2 Imported.nat_add IsomorphismDefinitions.eq_refl (IH n m)).
+    apply (f_equal2 Imported.Nat_add IsomorphismDefinitions.eq_refl (IH n m)).
 Qed.
 
 (* Helper: our simpler aeval definition *)
@@ -107,11 +107,11 @@ Proof.
   - apply IsomorphismDefinitions.eq_refl.
   - apply IsomorphismDefinitions.eq_refl.
   - apply (eq_trans (nat_add_i_eq _ _)).
-    apply (f_equal2 Imported.nat_add IH1 IH2).
+    apply (f_equal2 Imported.Nat_add IH1 IH2).
   - apply (eq_trans (nat_sub_i_eq _ _)).
-    apply (f_equal2 Imported.nat_sub IH1 IH2).
+    apply (f_equal2 Imported.Nat_sub IH1 IH2).
   - apply (eq_trans (nat_mul_i_eq _ _)).
-    apply (f_equal2 Imported.nat_mul IH1 IH2).
+    apply (f_equal2 Imported.Nat_mul IH1 IH2).
 Qed.
 
 Lemma aeval_iso_core : forall (st : Original.LF_DOT_Imp.LF.Imp.state) (st' : imported_String_string -> imported_nat),

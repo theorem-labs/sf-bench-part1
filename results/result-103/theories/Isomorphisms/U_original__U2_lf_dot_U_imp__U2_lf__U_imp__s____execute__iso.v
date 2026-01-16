@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__sinstr__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso Isomorphisms.list__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_s__execute : (imported_String_string -> imported_nat) -> imported_list imported_nat -> imported_list imported_Original_LF__DOT__Imp_LF_Imp_sinstr -> imported_list imported_nat := Imported.Original_LF__DOT__Imp_LF_Imp_s__execute.
-Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_s__execute_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.state) (x2 : imported_String_string -> imported_nat),
+Definition imported_Original_LF__DOT__Imp_LF_Imp_s__execute : (imported_String_string -> imported_nat) -> imported_list imported_nat -> imported_list imported_Original_LF__DOT__Imp_LF_Imp_sinstr -> imported_list imported_nat := Imported.Original_LF__DOT__Imp_LF_Imp_s__execute.
+Instance Original_LF__DOT__Imp_LF_Imp_s__execute_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.state) (x2 : imported_String_string -> imported_nat),
   (forall (x3 : String.string) (x4 : imported_String_string), rel_iso String_string_iso x3 x4 -> rel_iso nat_iso (x1 x3) (x2 x4)) ->
   forall (x3 : list nat) (x4 : imported_list imported_nat),
   rel_iso (list_iso nat_iso) x3 x4 ->

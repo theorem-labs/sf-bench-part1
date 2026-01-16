@@ -4,9 +4,7 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-
-
+(* Typeclasses Opaque rel_iso. *)
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natprod__iso Isomorphisms.nat__iso.
 
@@ -19,17 +17,13 @@ Instance Original_LF__DOT__Lists_LF_Lists_NatList_pair_iso : forall (x1 : nat) (
   rel_iso Original_LF__DOT__Lists_LF_Lists_NatList_natprod_iso (Original.LF_DOT_Lists.LF.Lists.NatList.pair x1 x3) (imported_Original_LF__DOT__Lists_LF_Lists_NatList_pair x2 x4).
 Proof.
   intros x1 x2 H12 x3 x4 H34.
-  apply Build_rel_iso.
-  destruct H12 as [H12]. destruct H34 as [H34]. simpl in *.
+  destruct H12 as [H12]. destruct H34 as [H34].
+  constructor. simpl.
   unfold imported_Original_LF__DOT__Lists_LF_Lists_NatList_pair.
-  unfold Imported.Original_LF__DOT__Lists_LF_Lists_NatList_pair.
-  simpl.
-  unfold natprod_to_imported.
-  destruct H12, H34.
-  apply IsomorphismDefinitions.eq_refl.
+  apply (IsoEq.f_equal2 Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natprod_pair H12 H34).
 Defined.
 
-Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.pair := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_pair := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.pair := {}.
+Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_pair := {}.
 Instance: IsoStatementProofFor Original.LF_DOT_Lists.LF.Lists.NatList.pair Original_LF__DOT__Lists_LF_Lists_NatList_pair_iso := {}.
 Instance: IsoStatementProofBetween Original.LF_DOT_Lists.LF.Lists.NatList.pair Imported.Original_LF__DOT__Lists_LF_Lists_NatList_pair Original_LF__DOT__Lists_LF_Lists_NatList_pair_iso := {}.

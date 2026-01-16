@@ -46,66 +46,50 @@ Proof.
     + subst h1.
       assert (imported_Original_LF__DOT__Logic_LF_Logic_In y 
                 (Imported.Original_LF__DOT__Poly_LF_Poly_list_cons B (to iso_AB x) 
-                   (to (Original_LF__DOT__Poly_LF_Poly_list_iso iso_AB) t1))) as Hsrc.
-      { simpl. apply Lean.Or_inl.
-        pose proof (proj_rel_iso Hxy) as Hxy'. apply seq_to_Imported_Eq. exact Hxy'. }
-      exact (eq_srect_nodep (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) Hsrc Hl').
+                   (to (Original_LF__DOT__Poly_LF_Poly_list_iso iso_AB) t1))) as Hbase.
+      { unfold imported_Original_LF__DOT__Logic_LF_Logic_In. simpl.
+        apply Imported.or_inl. 
+        pose proof (proj_rel_iso Hxy) as Hxy'.
+        apply seq_to_Imported_Eq. exact Hxy'. }
+      apply (@IsoEq.eq_srect_nodep _ _ (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) Hbase l2 Hl').
     + assert (imported_Original_LF__DOT__Logic_LF_Logic_In y 
                 (Imported.Original_LF__DOT__Poly_LF_Poly_list_cons B (to iso_AB h1) 
-                   (to (Original_LF__DOT__Poly_LF_Poly_list_iso iso_AB) t1))) as Hsrc.
-      { simpl. apply Lean.Or_inr.
-        apply IH. apply Build_rel_iso. apply IsomorphismDefinitions.eq_refl. exact Hin. }
-      exact (eq_srect_nodep (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) Hsrc Hl').
+                   (to (Original_LF__DOT__Poly_LF_Poly_list_iso iso_AB) t1))) as Hbase.
+      { unfold imported_Original_LF__DOT__Logic_LF_Logic_In. simpl.
+        apply Imported.or_inr. 
+        apply IH.
+        - constructor. apply IsomorphismDefinitions.eq_refl.
+        - exact Hin. }
+      apply (@IsoEq.eq_srect_nodep _ _ (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) Hbase l2 Hl').
 Defined.
 
-(* Backward direction helper: Convert Lean.Or to SInhabited of or *)
-Definition Lean_Or_to_SInhabited_or {P Q : Prop} (H : Lean.Or (SInhabited P) (SInhabited Q)) : SInhabited (P \/ Q).
-Proof.
-  destruct H as [Hp | Hq].
-  - apply sinhabits. left. exact (sinhabitant Hp).
-  - apply sinhabits. right. exact (sinhabitant Hq).
-Defined.
-
-(* We need to convert Imported.Corelib_Init_Logic_eq to SInhabited of Prop eq *)
-Definition Imported_Eq_to_SInhabited_eq {A : Type} {x y : A} (H : Imported.Corelib_Init_Logic_eq A x y) : SInhabited (x = y).
-Proof.
-  destruct H. apply sinhabits. reflexivity.
-Defined.
-
-(* Helper to eliminate Imported.Original_False to SInhabited *)
-Definition Imported_Original_False_elim_SInhabited {P : Prop} (H : Imported.Original_False) : SInhabited P :=
-  match H with end.
-
-(* Backward direction: Imported.In -> Original.In 
-   We build SInhabited (Original.In x l1) first, then use sinhabitant *)
+(* Backward direction: Imported.In -> SInhabited (Original.In) *)
 Fixpoint In_from_SInhabited {A B : Type} (iso_AB : Iso A B) (x : A) (y : B) (Hxy : rel_iso iso_AB x y)
          (l1 : Original.LF_DOT_Poly.LF.Poly.list A) 
          (l2 : imported_Original_LF__DOT__Poly_LF_Poly_list B)
-         (Hl : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso iso_AB) l1 l2)
-         {struct l1}
+         (Hl : rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso iso_AB) l1 l2) {struct l1}
   : imported_Original_LF__DOT__Logic_LF_Logic_In y l2 -> SInhabited (Original.LF_DOT_Logic.LF.Logic.In x l1).
 Proof.
-  destruct l1 as [|h1 t1].
-  - (* nil case *)
-    simpl. intro H.
-    pose proof (proj_rel_iso Hl) as Hl'. simpl in Hl'.
-    pose proof (eq_srect_nodep (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) H (eq_sym Hl)) as H'.
-    simpl in H'.
-    exact (Imported_Original_False_elim_SInhabited H').
-  - (* cons case *)
-    simpl. intro H.
-    pose proof (proj_rel_iso Hl) as Hl'. simpl in Hl'.
-    pose proof (eq_srect_nodep (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) H (eq_sym Hl)) as H'.
-    simpl in H'.
-    (* H' : Lean.Or (Imported.Corelib_Init_Logic_eq (to iso_AB h1) y) (imported_In y (to list_iso t1)) *)
-    destruct H' as [Heq | Hin].
-    + (* Corelib_Init_Logic_eq (to iso_AB h1) y -> SInhabited (h1 = x \/ In x t1) *)
+  destruct l1 as [|h1 t1]; intros Hin.
+  - pose proof (proj_rel_iso Hl) as Hl'. simpl in Hl'.
+    assert (imported_Original_LF__DOT__Logic_LF_Logic_In y 
+              (Imported.Original_LF__DOT__Poly_LF_Poly_list_nil B)) as Hbase.
+    { apply (@IsoEq.eq_srect_nodep _ l2 (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) Hin _ (eq_sym Hl')). }
+    unfold imported_Original_LF__DOT__Logic_LF_Logic_In in Hbase. simpl in Hbase.
+    destruct Hbase.
+  - pose proof (proj_rel_iso Hl) as Hl'. simpl in Hl'.
+    assert (imported_Original_LF__DOT__Logic_LF_Logic_In y 
+              (Imported.Original_LF__DOT__Poly_LF_Poly_list_cons B (to iso_AB h1) 
+                 (to (Original_LF__DOT__Poly_LF_Poly_list_iso iso_AB) t1))) as Hbase.
+    { apply (@IsoEq.eq_srect_nodep _ l2 (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) Hin _ (eq_sym Hl')). }
+    unfold imported_Original_LF__DOT__Logic_LF_Logic_In in Hbase. simpl in Hbase.
+    destruct Hbase as [Heq | Htail].
+    + (* h1 = x *)
       apply sinhabits. left.
       pose proof (proj_rel_iso Hxy) as Hxy'.
       destruct Heq.
-      (* Hxy : eq (to iso_AB x) (to iso_AB h1) *)
       assert (from iso_AB (to iso_AB x) = from iso_AB (to iso_AB h1)) as Hfrom.
-      { apply eq_of_seq. apply f_equal. exact Hxy. }
+      { apply eq_of_seq. apply f_equal. exact Hxy'. }
       rewrite (eq_of_seq (from_to iso_AB x)) in Hfrom.
       rewrite (eq_of_seq (from_to iso_AB h1)) in Hfrom.
       symmetry. exact Hfrom.
@@ -113,7 +97,7 @@ Proof.
       apply sinhabits. right.
       apply sinhabitant.
       apply (In_from_SInhabited A B iso_AB x y Hxy t1 _ (IsomorphismDefinitions.eq_refl)).
-      exact Hin.
+      exact Htail.
 Defined.
 
 Definition In_from {A B : Type} (iso_AB : Iso A B) (x : A) (y : B) (Hxy : rel_iso iso_AB x y)

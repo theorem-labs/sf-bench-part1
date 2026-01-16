@@ -1,8 +1,13 @@
 {
-  "_0": "nat_O",
-  "True": "MyTrue",
-  "bool": "Stdlib_bool",
+  "bool": "mybool",
+  "true": "mybool_mytrue",
+  "false": "mybool_myfalse",
   "Ascii_Ascii": "Ascii_ascii_Ascii",
-  "False": "MyFalse",
-  "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__assoc'": "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_add__assocSQUOTE"
+  "Ascii_ascii": "Ascii_ascii",
+  "True": "TrueType",
+  "False": "FalseType",
+  "_0": "nat_O",
+  "S": "nat_S",
+  "Original_LF__DOT__Logic_LF_Logic_and__example2''": "Original_LF__DOT__Logic_LF_Logic_and__example2SQUOTESQUOTE",
+  "Original_LF__DOT__ProofObjects_LF_ProofObjects_four'": "Original_LF__DOT__ProofObjects_LF_ProofObjects_fourSQUOTE"
 }

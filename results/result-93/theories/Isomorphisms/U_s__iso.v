@@ -5,20 +5,29 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
 Definition imported_S : imported_nat -> imported_nat := Imported.S.
+
+(* We need to show that S commutes with the isomorphism *)
+Lemma S_commutes : forall n : nat, 
+  Logic.eq (nat_to_imported (S n)) (Imported.nat_S (nat_to_imported n)).
+Proof.
+  intros n. reflexivity.
+Qed.
+
 Instance S_iso : forall (x1 : nat) (x2 : imported_nat), rel_iso nat_iso x1 x2 -> rel_iso nat_iso (S x1) (imported_S x2).
 Proof.
-  intros x1 x2 Hrel.
-  unfold rel_iso in *.
-  unfold imported_S.
+  intros x1 x2 H.
+  unfold imported_S, Imported.S.
+  constructor.
   simpl.
-  apply (IsoEq.f_equal Imported.nat_S).
-  exact Hrel.
+  destruct H as [H].
+  simpl in H.
+  apply (IsoEq.f_equal Imported.nat_S H).
 Defined.
 Instance: KnownConstant S := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.S := {}. (* only needed when rel_iso is typeclasses opaque *)

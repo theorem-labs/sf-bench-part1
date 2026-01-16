@@ -4,14 +4,13 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *) (* for speed *)
+From IsomorphismChecker Require Export Isomorphisms.bool__iso Isomorphisms.U_ascii__ascii__iso.
 
+Monomorphic Definition imported_Ascii_Ascii : imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_Ascii_ascii :=
+  Imported.Ascii_ascii_Ascii.
 
-From IsomorphismChecker Require Export Isomorphisms.U_ascii__ascii__iso Isomorphisms.bool__iso.
-
-Definition imported_Ascii_Ascii : imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_bool -> imported_Ascii_ascii := Imported.Ascii_ascii_Ascii.
-Instance Ascii_Ascii_iso : forall (x1 : bool) (x2 : imported_bool),
+Monomorphic Instance Ascii_Ascii_iso : 
+  forall (x1 : bool) (x2 : imported_bool),
   rel_iso bool_iso x1 x2 ->
   forall (x3 : bool) (x4 : imported_bool),
   rel_iso bool_iso x3 x4 ->
@@ -25,9 +24,30 @@ Instance Ascii_Ascii_iso : forall (x1 : bool) (x2 : imported_bool),
   rel_iso bool_iso x11 x12 ->
   forall (x13 : bool) (x14 : imported_bool),
   rel_iso bool_iso x13 x14 ->
-  forall (x15 : bool) (x16 : imported_bool), rel_iso bool_iso x15 x16 -> rel_iso Ascii_ascii_iso (Ascii.Ascii x1 x3 x5 x7 x9 x11 x13 x15) (imported_Ascii_Ascii x2 x4 x6 x8 x10 x12 x14 x16).
-Admitted.
-Instance: KnownConstant Ascii.Ascii := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.Ascii_ascii_Ascii := {}. (* only needed when rel_iso is typeclasses opaque *)
+  forall (x15 : bool) (x16 : imported_bool), 
+  rel_iso bool_iso x15 x16 -> 
+  rel_iso Ascii_ascii_iso (Ascii.Ascii x1 x3 x5 x7 x9 x11 x13 x15) (imported_Ascii_Ascii x2 x4 x6 x8 x10 x12 x14 x16).
+Proof.
+  intros x1 x2 H1 x3 x4 H3 x5 x6 H5 x7 x8 H7 x9 x10 H9 x11 x12 H11 x13 x14 H13 x15 x16 H15.
+  unfold imported_Ascii_Ascii.
+  destruct H1 as [H1]. destruct H3 as [H3]. destruct H5 as [H5]. destruct H7 as [H7].
+  destruct H9 as [H9]. destruct H11 as [H11]. destruct H13 as [H13]. destruct H15 as [H15].
+  simpl in *.
+  constructor.
+  simpl.
+  unfold ascii_to_imported.
+  destruct x1; destruct H1;
+  destruct x3; destruct H3;
+  destruct x5; destruct H5;
+  destruct x7; destruct H7;
+  destruct x9; destruct H9;
+  destruct x11; destruct H11;
+  destruct x13; destruct H13;
+  destruct x15; destruct H15;
+  reflexivity.
+Defined.
+
+Instance: KnownConstant Ascii.Ascii := {}.
+Instance: KnownConstant Imported.Ascii_ascii_Ascii := {}.
 Instance: IsoStatementProofFor Ascii.Ascii Ascii_Ascii_iso := {}.
 Instance: IsoStatementProofBetween Ascii.Ascii Imported.Ascii_ascii_Ascii Ascii_Ascii_iso := {}.

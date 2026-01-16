@@ -1,10 +1,3 @@
 {
-  "False": "MyFalse",
-  "True": "MyTrue",
-  "bool": "mybool",
-  "true": "mybool_mytrue",
-  "false": "mybool_myfalse",
-  "_0": "nat_O",
-  "S": "nat_S",
-  "Original_LF__DOT__AltAuto_LF_AltAuto_match__ex3'": "Original_LF__DOT__AltAuto_LF_AltAuto_match__ex3SQUOTE"
+  "True": "True_"
 }

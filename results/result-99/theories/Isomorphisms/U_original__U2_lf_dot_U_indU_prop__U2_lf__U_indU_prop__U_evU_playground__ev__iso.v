@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* (* (* Typeclasses Opaque rel_iso. *) *) *) (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
@@ -148,7 +148,7 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev_iso : (forall (x1 
    Iso (Original.LF_DOT_IndProp.LF.IndProp.EvPlayground.ev x1) (imported_Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev x2)).
 Proof.
   intros x1 x2 Hx.
-  simpl in Hx.
+  destruct Hx as [Hx]. simpl in Hx.
   unfold imported_Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev.
   refine {|
     to := @ev_iso_to x1 x2 Hx;

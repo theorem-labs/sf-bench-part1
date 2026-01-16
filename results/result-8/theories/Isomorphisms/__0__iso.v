@@ -11,7 +11,6 @@ Definition imported_0 : imported_nat := Imported._0.
 Instance _0_iso : rel_iso nat_iso (Datatypes.O) imported_0.
 Proof.
   constructor. simpl.
-  unfold imported_0.
   apply IsomorphismDefinitions.eq_refl.
 Defined.
 Instance: KnownConstant (Datatypes.O) := {}.

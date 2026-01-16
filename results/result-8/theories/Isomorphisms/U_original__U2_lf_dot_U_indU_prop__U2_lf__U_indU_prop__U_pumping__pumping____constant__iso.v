@@ -69,8 +69,7 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant_iso : fo
   rel_iso nat_iso (Original.LF_DOT_IndProp.LF.IndProp.Pumping.pumping_constant x3) (imported_Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant x4).
 Proof.
   intros x1 x2 hx x3 x4 Hrel.
-  destruct Hrel as [Hrel]. simpl in *.
-  constructor. simpl.
+  unfold rel_iso in *.
   unfold imported_Original_LF__DOT__IndProp_LF_IndProp_Pumping_pumping__constant.
   apply (eq_trans (@pumping_commutes x1 x2 hx x3)).
   apply f_equal.

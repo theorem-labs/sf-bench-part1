@@ -14,8 +14,8 @@ Monomorphic Definition imported_Original_LF__DOT__Tactics_LF_Tactics_test__foral
     (imported_Original_LF__DOT__Tactics_LF_Tactics_forallb (fun x : imported_nat => imported_Original_LF__DOT__Basics_LF_Basics_even x)
        (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_0
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
-             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0))))
-                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))))
+             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
+                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))))
     imported_Original_LF__DOT__Basics_LF_Basics_false := Imported.Original_LF__DOT__Tactics_LF_Tactics_test__forallb__3.
 Monomorphic Instance Original_LF__DOT__Tactics_LF_Tactics_test__forallb__3_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
@@ -23,8 +23,8 @@ Monomorphic Instance Original_LF__DOT__Tactics_LF_Tactics_test__forallb__3_iso :
           (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) => Original_LF__DOT__Basics_LF_Basics_even_iso hx)
           (Original_LF__DOT__Poly_LF_Poly_cons_iso _0_iso
              (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
-                (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso))))
-                   (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2%nat 0%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
+                (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso))))
+                   (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S O)) O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
        Original_LF__DOT__Basics_LF_Basics_false_iso)
     Original.LF_DOT_Tactics.LF.Tactics.test_forallb_3 imported_Original_LF__DOT__Tactics_LF_Tactics_test__forallb__3.
 Admitted.

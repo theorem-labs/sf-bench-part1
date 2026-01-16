@@ -54,8 +54,7 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_Pumping_napp_iso : forall (x1 x2 :
   rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso hx) (Original.LF_DOT_IndProp.LF.IndProp.Pumping.napp x3 x5) (imported_Original_LF__DOT__IndProp_LF_IndProp_Pumping_napp x4 x6).
 Proof.
   intros x1 x2 hx x3 x4 H34 x5 x6 H56.
-  destruct H34 as [H34]. destruct H56 as [H56]. simpl in *.
-  constructor. simpl.
+  unfold rel_iso in *. simpl in *.
   unfold imported_Original_LF__DOT__IndProp_LF_IndProp_Pumping_napp.
   eapply eq_trans.
   - apply list_to_napp_compat.

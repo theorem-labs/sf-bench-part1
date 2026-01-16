@@ -3,7 +3,7 @@ From Stdlib Require Import Logic.ProofIrrelevance.
 Import IsoEq.
 From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
-#[local] Unset Implicit Arguments.
+#[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 (* Typeclasses Opaque rel_iso. *)

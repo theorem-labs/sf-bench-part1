@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -9,7 +9,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__bexp__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_com : Type := Imported.Original_LF__DOT__Imp_LF_Imp_BreakImp_com.
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_com : Type := Imported.Original_LF__DOT__Imp_LF_Imp_BreakImp_com.
 
 Fixpoint com_to_imported (c : Original.LF_DOT_Imp.LF.Imp.BreakImp.com) : imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_com :=
   match c with
@@ -31,7 +31,7 @@ Fixpoint imported_to_com (c : imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_com
   | Imported.Original_LF__DOT__Imp_LF_Imp_BreakImp_com_CWhile b c => Original.LF_DOT_Imp.LF.Imp.BreakImp.CWhile (imported_to_bexp b) (imported_to_com c)
   end.
 
-Lemma com_roundtrip1 : forall c, imported_to_com (com_to_imported c) = c.
+Monomorphic Lemma com_roundtrip1 : forall c, imported_to_com (com_to_imported c) = c.
 Proof.
   induction c; simpl.
   - reflexivity.
@@ -42,7 +42,7 @@ Proof.
   - f_equal. apply bexp_roundtrip1. exact IHc.
 Qed.
 
-Lemma com_roundtrip2 : forall c, com_to_imported (imported_to_com c) = c.
+Monomorphic Lemma com_roundtrip2 : forall c, com_to_imported (imported_to_com c) = c.
 Proof.
   induction c; simpl.
   - reflexivity.
@@ -53,7 +53,7 @@ Proof.
   - f_equal. apply bexp_roundtrip2. exact IHc.
 Qed.
 
-Instance Original_LF__DOT__Imp_LF_Imp_BreakImp_com_iso : Iso Original.LF_DOT_Imp.LF.Imp.BreakImp.com imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_com.
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_BreakImp_com_iso : Iso Original.LF_DOT_Imp.LF.Imp.BreakImp.com imported_Original_LF__DOT__Imp_LF_Imp_BreakImp_com.
 Proof.
   refine {| to := com_to_imported; from := imported_to_com |}.
   - intro x. pose proof (com_roundtrip2 x) as H. rewrite H. exact IsomorphismDefinitions.eq_refl.

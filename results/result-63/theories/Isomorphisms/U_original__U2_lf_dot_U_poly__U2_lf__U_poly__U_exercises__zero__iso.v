@@ -16,12 +16,12 @@ Instance Original_LF__DOT__Poly_LF_Poly_Exercises_zero_iso : forall (x1 x2 : Typ
   forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> rel_iso hx (Original.LF_DOT_Poly.LF.Poly.Exercises.zero x1 x3 x5) (imported_Original_LF__DOT__Poly_LF_Poly_Exercises_zero x4 x6).
 Proof.
   intros x1 x2 hx x3 x4 Hf x5 x6 Hx.
-  (* Original.zero x1 x3 x5 = x5 and imported_zero x4 x6 = x6 *)
+  (* zero X f x = x, so we need rel_iso hx x5 x6 which is exactly Hx *)
   unfold Original.LF_DOT_Poly.LF.Poly.Exercises.zero.
   unfold imported_Original_LF__DOT__Poly_LF_Poly_Exercises_zero.
   unfold Imported.Original_LF__DOT__Poly_LF_Poly_Exercises_zero.
   exact Hx.
-Qed.
+Defined.
 Instance: KnownConstant Original.LF_DOT_Poly.LF.Poly.Exercises.zero := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Poly_LF_Poly_Exercises_zero := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_Poly.LF.Poly.Exercises.zero Original_LF__DOT__Poly_LF_Poly_Exercises_zero_iso := {}.

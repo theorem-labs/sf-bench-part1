@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* Typeclasses Opaque rel_iso *). *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__partial____map__iso.
@@ -55,7 +55,7 @@ Proof.
     simpl.
     (* Need: eq (option_Some x2 (to hx x7)) (option_Some x2 x8) *)
     (* H78 : rel_iso hx x7 x8, i.e., eq (to hx x7) x8 *)
-    pose proof (eq_of_seq (proj_rel_iso Hx1)) as E1. pose proof (eq_of_seq (proj_rel_iso Hx3)) as E3. subst x2 x4.
+    unfold rel_iso in H78. simpl in H78.
     exact (IsoEq.f_equal (Imported.option_Some x2) H78).
     exact Heqb.
   - (* x5 =? x9 = false *)
@@ -69,7 +69,7 @@ Proof.
     (* Need: eq (option_to_imported (to hx) (x3 x9)) (x4 x10) *)
     (* This follows from Hmap x9 x10 H910 *)
     pose proof (Hmap x9 x10 H910) as Hmap910.
-    pose proof (eq_of_seq (proj_rel_iso Hx1)) as E1. pose proof (eq_of_seq (proj_rel_iso Hx3)) as E3. subst x2 x4.
+    unfold rel_iso in Hmap910. simpl in Hmap910.
     exact Hmap910.
     exact Heqb.
 Qed.

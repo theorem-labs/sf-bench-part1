@@ -1,17 +1,17 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 (* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
-Definition imported_ex : forall x : Type, (x -> SProp) -> SProp := Imported.ex.
+Monomorphic Definition imported_ex : forall x : Type, (x -> SProp) -> SProp := Imported.ex.
 
 (* Helper: Convert Imported.ex to SInhabited of a Prop existential - this is valid in SProp *)
-Definition imported_ex_to_sinhabited {x1 x2 : Type} (hx : Iso x1 x2) (P : x1 -> Prop) (Q : x2 -> SProp)
+Monomorphic Definition imported_ex_to_sinhabited {x1 x2 : Type} (hx : Iso x1 x2) (P : x1 -> Prop) (Q : x2 -> SProp)
   (H_pred_iso : forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> Iso (P x5) (Q x6))
   (Hex : Imported.ex x2 Q) : SInhabited (exists y : x1, P y).
 Proof.
@@ -24,7 +24,7 @@ Proof.
 Defined.
 
 (* Helper functions for the isomorphism *)
-Definition ex_to_imported_ex {x1 x2 : Type} (hx : Iso x1 x2) (P : x1 -> Prop) (Q : x2 -> SProp)
+Monomorphic Definition ex_to_imported_ex {x1 x2 : Type} (hx : Iso x1 x2) (P : x1 -> Prop) (Q : x2 -> SProp)
   (H_pred_iso : forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> Iso (P x5) (Q x6))
   (Hex : exists y, P y) : Imported.ex x2 Q :=
   match Hex with
@@ -34,13 +34,13 @@ Definition ex_to_imported_ex {x1 x2 : Type} (hx : Iso x1 x2) (P : x1 -> Prop) (Q
       Imported.ex_intro _ _ (to hx w) (to Hiso_pred Hw)
   end.
 
-Definition imported_ex_to_ex {x1 x2 : Type} (hx : Iso x1 x2) (P : x1 -> Prop) (Q : x2 -> SProp)
+Monomorphic Definition imported_ex_to_ex {x1 x2 : Type} (hx : Iso x1 x2) (P : x1 -> Prop) (Q : x2 -> SProp)
   (H_pred_iso : forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> Iso (P x5) (Q x6))
   (Hex : Imported.ex x2 Q) : exists y, P y :=
   sinhabitant (@imported_ex_to_sinhabited x1 x2 hx P Q H_pred_iso Hex).
 
 (* Build the isomorphism - use relax_Iso_Ps_Ts to fix universe issues *)
-Instance ex_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1 -> Prop) (x4 : x2 -> SProp), (forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> Iso (x3 x5) (x4 x6)) -> Iso (exists y, x3 y) (imported_ex x4).
+Monomorphic Instance ex_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1 -> Prop) (x4 : x2 -> SProp), (forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> Iso (x3 x5) (x4 x6)) -> Iso (exists y, x3 y) (imported_ex x4).
 Proof.
   intros x1 x2 hx P Q H_pred_iso.
   unfold imported_ex.

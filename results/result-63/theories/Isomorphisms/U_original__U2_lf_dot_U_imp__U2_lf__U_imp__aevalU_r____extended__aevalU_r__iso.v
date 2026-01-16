@@ -10,11 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aevalU_r____extended__aexp__iso Isomorphisms.nat__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR : imported_Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp -> imported_nat -> SProp := Imported.Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR.
-
-(* This isomorphism is complex (Prop <-> SProp for an inductive type).
-   We leave it admitted for now. *)
-Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.aevalR_extended.aexp) (x2 : imported_Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp),
+Definition imported_Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR : imported_Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp -> imported_nat -> SProp := Imported.Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR.
+Instance Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.aevalR_extended.aexp) (x2 : imported_Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp),
   rel_iso Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aexp_iso x1 x2 ->
   forall (x3 : nat) (x4 : imported_nat), rel_iso nat_iso x3 x4 -> Iso (Original.LF_DOT_Imp.LF.Imp.aevalR_extended.aevalR x1 x3) (imported_Original_LF__DOT__Imp_LF_Imp_aevalR__extended_aevalR x2 x4).
 Admitted.

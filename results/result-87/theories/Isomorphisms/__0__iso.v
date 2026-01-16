@@ -1,24 +1,19 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* (* (* Typeclasses Opaque rel_iso. *) *) *) (* for speed *)
+#[local] Set Printing Coercions.
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
-Definition imported_0 : imported_nat := Imported._0.
-Instance _0_iso : rel_iso nat_iso (Datatypes.O) imported_0.
-Proof.
-  constructor.
-  unfold imported_0.
-  simpl.
-  apply IsomorphismDefinitions.eq_refl.
-Defined.
-Instance: KnownConstant (Datatypes.O) := {}. (* only needed when rel_iso is typeclasses opaque *)
+Monomorphic Definition imported_0 : imported_nat := Imported._0.
+Monomorphic Instance _0_iso : rel_iso nat_iso 0 imported_0.
+Admitted.
+Instance: KnownConstant 0 := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported._0 := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor (Datatypes.O) _0_iso := {}.
-Instance: IsoStatementProofBetween (Datatypes.O) Imported._0 _0_iso := {}.
+Instance: IsoStatementProofFor 0 _0_iso := {}.
+Instance: IsoStatementProofBetween 0 Imported._0 _0_iso := {}.

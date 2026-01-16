@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(*Typeclasses Opaque rel_iso.*) (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__reg____exp__iso.
@@ -21,7 +21,7 @@ Proof.
   unfold Imported.Original_LF__DOT__IndProp_LF_IndProp_Star.
   simpl.
   apply f_equal.
-  Admitted.
+  exact H.
 Defined.
 Instance: KnownConstant (@Original.LF_DOT_IndProp.LF.IndProp.Star) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant (@Imported.Original_LF__DOT__IndProp_LF_IndProp_Star) := {}. (* only needed when rel_iso is typeclasses opaque *)

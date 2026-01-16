@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
@@ -152,7 +152,7 @@ Instance Original_LF__DOT__ProofObjects_LF_ProofObjects_ev_iso : (forall (x1 : n
 Proof.
   intros x1 x2 Hrel.
   unfold imported_Original_LF__DOT__ProofObjects_LF_ProofObjects_ev.
-  unfold rel_iso in Hrel.
+  destruct Hrel as [Hrel].
   simpl in Hrel.
   destruct Hrel.
   refine (@Build_Iso 

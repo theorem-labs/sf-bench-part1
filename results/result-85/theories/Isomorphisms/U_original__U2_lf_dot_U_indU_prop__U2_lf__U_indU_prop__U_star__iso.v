@@ -15,14 +15,11 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_Star_iso : forall (x1 x2 : Type) (
   rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) x3 x4 ->
   rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) (Original.LF_DOT_IndProp.LF.IndProp.Star x3) (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x4).
 Proof.
-  intros x1 x2 hx x3 x4 H.
-  idtac.
+  intros x1 x2 hx x3 x4 H34.
+  destruct H34 as [H34]. simpl in *. constructor. simpl.
   unfold imported_Original_LF__DOT__IndProp_LF_IndProp_Star.
-  unfold Imported.Original_LF__DOT__IndProp_LF_IndProp_Star.
-  simpl.
-  apply f_equal.
-  exact H.
-Defined.
+  exact (IsoEq.f_equal (Imported.Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Star x2) H34).
+Qed.
 Instance: KnownConstant (@Original.LF_DOT_IndProp.LF.IndProp.Star) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant (@Imported.Original_LF__DOT__IndProp_LF_IndProp_Star) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor (@Original.LF_DOT_IndProp.LF.IndProp.Star) Original_LF__DOT__IndProp_LF_IndProp_Star_iso := {}.

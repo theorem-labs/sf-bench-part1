@@ -1,17 +1,21 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-#[local] Set Printing Coercions.
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__Logic_LF_Logic_injective : forall x x0 : Type, (x -> x0) -> SProp := fun (x x0 : Type) (x1 : x -> x0) => forall a' a'0 : x, imported_Corelib_Init_Logic_eq (x1 a') (x1 a'0) -> imported_Corelib_Init_Logic_eq a' a'0.
-Monomorphic Instance Original_LF__DOT__Logic_LF_Logic_injective_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 x4 : Type) (hx0 : Iso x3 x4) (x5 : x1 -> x3) (x6 : x2 -> x4),
+(* This definition must match Imported.Original_LF__DOT__Logic_LF_Logic_injective *)
+Definition imported_Original_LF__DOT__Logic_LF_Logic_injective : forall x x0 : Type, (x -> x0) -> SProp := 
+  @Imported.Original_LF__DOT__Logic_LF_Logic_injective.
+
+(* The isomorphism proof is provided by the Interface - we just need to instantiate it *)
+Instance Original_LF__DOT__Logic_LF_Logic_injective_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 x4 : Type) (hx0 : Iso x3 x4) (x5 : x1 -> x3) (x6 : x2 -> x4),
   (forall (x7 : x1) (x8 : x2), rel_iso hx x7 x8 -> rel_iso hx0 (x5 x7) (x6 x8)) -> Iso (Original.LF_DOT_Logic.LF.Logic.injective x5) (imported_Original_LF__DOT__Logic_LF_Logic_injective x6)
   := fun (x1 x2 : Type) (hx : Iso x1 x2) (x3 x4 : Type) (hx0 : Iso x3 x4) (x5 : x1 -> x3) (x6 : x2 -> x4) (hx1 : forall (x7 : x1) (x8 : x2), rel_iso hx x7 x8 -> rel_iso hx0 (x5 x7) (x6 x8)) =>
   IsoForall (fun a : x1 => forall y : x1, x5 a = x5 y -> a = y) (fun x8 : x2 => forall a' : x2, imported_Corelib_Init_Logic_eq (x6 x8) (x6 a') -> imported_Corelib_Init_Logic_eq x8 a')

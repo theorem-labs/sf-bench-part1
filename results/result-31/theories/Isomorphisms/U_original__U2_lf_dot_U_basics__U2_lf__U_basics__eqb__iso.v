@@ -1,19 +1,19 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* (* Typeclasses Opaque rel_iso. *) *) *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso Isomorphisms.nat__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__Basics_LF_Basics_eqb : imported_nat -> imported_nat -> imported_Original_LF__DOT__Basics_LF_Basics_bool := Imported.Original_LF__DOT__Basics_LF_Basics_eqb.
+Definition imported_Original_LF__DOT__Basics_LF_Basics_eqb : imported_nat -> imported_nat -> imported_Original_LF__DOT__Basics_LF_Basics_bool := Imported.Original_LF__DOT__Basics_LF_Basics_eqb.
 
 (* Helper lemma: eqb is preserved under the isomorphism *)
-Monomorphic Lemma eqb_iso_helper : forall n m,
+Lemma eqb_iso_helper : forall n m,
   IsomorphismDefinitions.eq 
     (bool_to_imported (Original.LF_DOT_Basics.LF.Basics.eqb n m))
     (Imported.Original_LF__DOT__Basics_LF_Basics_eqb (nat_to_imported n) (nat_to_imported m)).
@@ -27,18 +27,17 @@ Proof.
   - apply IH.
 Defined.
 
-Monomorphic Instance Original_LF__DOT__Basics_LF_Basics_eqb_iso : forall (x1 : nat) (x2 : imported_nat),
+Instance Original_LF__DOT__Basics_LF_Basics_eqb_iso : forall (x1 : nat) (x2 : imported_nat),
   rel_iso nat_iso x1 x2 ->
   forall (x3 : nat) (x4 : imported_nat),
   rel_iso nat_iso x3 x4 -> rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso (Original.LF_DOT_Basics.LF.Basics.eqb x1 x3) (imported_Original_LF__DOT__Basics_LF_Basics_eqb x2 x4).
 Proof.
   intros x1 x2 H12 x3 x4 H34.
-  destruct H as [H]. simpl in *. constructor. simpl.
-  (* H12 : nat_to_imported x1 = x2 *)
-  (* H34 : nat_to_imported x3 = x4 *)
-  (* Goal: bool_to_imported (eqb x1 x3) = imported_eqb x2 x4 *)
-  destruct H12. destruct H34.
-  apply eqb_iso_helper.
+  destruct H12 as [H12]. destruct H34 as [H34].
+  constructor. simpl in *.
+  eapply eq_trans.
+  - apply eqb_iso_helper.
+  - apply f_equal2; assumption.
 Defined.
 
 Instance: KnownConstant Original.LF_DOT_Basics.LF.Basics.eqb := {}. (* only needed when rel_iso is typeclasses opaque *)

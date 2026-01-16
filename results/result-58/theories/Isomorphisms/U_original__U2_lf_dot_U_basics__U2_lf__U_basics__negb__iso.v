@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso.
@@ -16,12 +16,15 @@ Instance Original_LF__DOT__Basics_LF_Basics_negb_iso : forall (x1 : Original.LF_
   rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso (Original.LF_DOT_Basics.LF.Basics.negb x1) (imported_Original_LF__DOT__Basics_LF_Basics_negb x2).
 Proof.
   intros x1 x2 H.
-  destruct H as [Heq].
+  constructor. simpl.
+  pose proof (proj_rel_iso H) as Heq.
   unfold imported_Original_LF__DOT__Basics_LF_Basics_negb.
-  destruct x1; simpl in *; constructor; simpl.
-  - pose proof (IsoEq.f_equal Imported.Original_LF__DOT__Basics_LF_Basics_negb Heq) as H'.
+  destruct x1; simpl in Heq.
+  - (* x1 = true *)
+    pose proof (IsoEq.f_equal Imported.Original_LF__DOT__Basics_LF_Basics_negb Heq) as H'.
     simpl in H'. exact H'.
-  - pose proof (IsoEq.f_equal Imported.Original_LF__DOT__Basics_LF_Basics_negb Heq) as H'.
+  - (* x1 = false *)
+    pose proof (IsoEq.f_equal Imported.Original_LF__DOT__Basics_LF_Basics_negb Heq) as H'.
     simpl in H'. exact H'.
 Defined.
 Instance: KnownConstant Original.LF_DOT_Basics.LF.Basics.negb := {}. (* only needed when rel_iso is typeclasses opaque *)

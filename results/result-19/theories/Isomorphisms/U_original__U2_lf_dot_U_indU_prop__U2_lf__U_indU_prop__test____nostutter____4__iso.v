@@ -14,7 +14,7 @@ Monomorphic Definition imported_Original_LF__DOT__IndProp_LF_IndProp_test__nostu
     (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S imported_0)))
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
-             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))) ->
+             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))) ->
   imported_Original_False := Imported.Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__4.
 Monomorphic Instance Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__4_iso : forall
     (x1 : Original.LF_DOT_IndProp.LF.IndProp.nostutter
@@ -23,13 +23,13 @@ Monomorphic Instance Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__4_iso
             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S imported_0)))
                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
                   (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
-                     (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))),
+                     (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))),
   rel_iso
     (Original_LF__DOT__IndProp_LF_IndProp_nostutter_iso
        (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso _0_iso)))
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)
              (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)
-                (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
+                (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
     x1 x2 ->
   rel_iso Original_False_iso (Original.LF_DOT_IndProp.LF.IndProp.test_nostutter_4 x1) (imported_Original_LF__DOT__IndProp_LF_IndProp_test__nostutter__4 x2).
 Admitted.

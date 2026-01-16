@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* Typeclasses Opaque rel_iso. - disabled *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_ascii__ascii__iso Isomorphisms.bool__iso.
@@ -29,7 +29,6 @@ Instance Ascii_Ascii_iso : forall (x1 : bool) (x2 : imported_bool),
 Proof.
   intros x1 x2 H1 x3 x4 H3 x5 x6 H5 x7 x8 H7 x9 x10 H9 x11 x12 H11 x13 x14 H13 x15 x16 H15.
   unfold imported_Ascii_Ascii.
-  constructor. simpl.
   pose proof (eq_of_seq (proj_rel_iso H1)) as E1.
   pose proof (eq_of_seq (proj_rel_iso H3)) as E3.
   pose proof (eq_of_seq (proj_rel_iso H5)) as E5.
@@ -39,6 +38,7 @@ Proof.
   pose proof (eq_of_seq (proj_rel_iso H13)) as E13.
   pose proof (eq_of_seq (proj_rel_iso H15)) as E15.
   subst.
+  apply Build_rel_iso.
   apply IsomorphismDefinitions.eq_refl.
 Defined.
 Instance: KnownConstant Ascii.Ascii := {}. (* only needed when rel_iso is typeclasses opaque *)

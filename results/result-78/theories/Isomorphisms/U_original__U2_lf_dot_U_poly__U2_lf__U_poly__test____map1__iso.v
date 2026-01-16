@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -18,7 +18,6 @@ Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_test__map1 : impo
     (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S imported_0)))
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))) := Imported.Original_LF__DOT__Poly_LF_Poly_test__map1.
-(* This proof is Admitted because test_map1 is Admitted in Original.v *)
 Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_test__map1_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Poly_LF_Poly_map_iso (fun x : nat => Original.LF_DOT_Basics.LF.Basics.plus 3 x)
@@ -26,9 +25,9 @@ Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_test__map1_iso : rel_iso
           (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) => Original_LF__DOT__Basics_LF_Basics_plus_iso (S_iso (S_iso (S_iso _0_iso))) hx)
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
              (Original_LF__DOT__Poly_LF_Poly_cons_iso _0_iso (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso)) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
-       (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (S_iso (S_iso _0_iso)))))
+       (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2 0 imported_0 _0_iso))))
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso _0_iso)))
-             (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (S_iso (S_iso _0_iso))))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
+             (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2 0 imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
     Original.LF_DOT_Poly.LF.Poly.test_map1 imported_Original_LF__DOT__Poly_LF_Poly_test__map1.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Poly.LF.Poly.test_map1 := {}. (* only needed when rel_iso is typeclasses opaque *)

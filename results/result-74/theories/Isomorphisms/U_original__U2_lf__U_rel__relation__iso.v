@@ -8,8 +8,8 @@ From IsomorphismChecker Require Original Imported.
 #[local] Set Printing Coercions.
 
 
-Definition imported_Original_LF_Rel_relation : Type -> Type := Imported.Original_LF_Rel_relation.
-Instance Original_LF_Rel_relation_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (Original.LF.Rel.relation x1) (imported_Original_LF_Rel_relation x2)
+Monomorphic Definition imported_Original_LF_Rel_relation : Type -> Type := fun x : Type => x -> x -> SProp.
+Monomorphic Instance Original_LF_Rel_relation_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (Original.LF.Rel.relation x1) (imported_Original_LF_Rel_relation x2)
   := fun (x1 x2 : Type) (hx : Iso x1 x2) => IsoArrow hx (IsoArrow hx iso_Prop_SProp).
 
 Instance: KnownConstant Original.LF.Rel.relation := {}. (* only needed when rel_iso is typeclasses opaque *)

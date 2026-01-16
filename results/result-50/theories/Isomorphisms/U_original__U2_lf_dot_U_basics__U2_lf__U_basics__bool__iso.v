@@ -13,12 +13,12 @@ Instance Original_LF__DOT__Basics_LF_Basics_bool_iso : Iso Original.LF_DOT_Basic
 Proof.
   apply Build_Iso with
     (to := fun x => match x with
-                   | Original.LF_DOT_Basics.LF.Basics.true => Imported.Original_LF__DOT__Basics_LF_Basics_bool_true
-                   | Original.LF_DOT_Basics.LF.Basics.false => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
+                   | Original.LF_DOT_Basics.LF.Basics.true => Imported.Original_LF__DOT__Basics_LF_Basics_bool_Original_LF__DOT__Basics_LF_Basics_bool_true
+                   | Original.LF_DOT_Basics.LF.Basics.false => Imported.Original_LF__DOT__Basics_LF_Basics_bool_Original_LF__DOT__Basics_LF_Basics_bool_false
                    end)
     (from := fun y => match y with
-                     | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => Original.LF_DOT_Basics.LF.Basics.true
-                     | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => Original.LF_DOT_Basics.LF.Basics.false
+                     | Imported.Original_LF__DOT__Basics_LF_Basics_bool_Original_LF__DOT__Basics_LF_Basics_bool_true => Original.LF_DOT_Basics.LF.Basics.true
+                     | Imported.Original_LF__DOT__Basics_LF_Basics_bool_Original_LF__DOT__Basics_LF_Basics_bool_false => Original.LF_DOT_Basics.LF.Basics.false
                      end).
   - (* to_from *)
     intros x.

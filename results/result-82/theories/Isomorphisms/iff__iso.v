@@ -22,7 +22,7 @@ Proof.
   unshelve econstructor.
   - (* to : (x1 <-> x3) -> imported_iff x2 x4 *)
     intros [H1 H2].
-    exact (Imported.iff_intro x2 x4 (fun a => hx0.(to) (H1 (hx.(from) a))) (fun b => hx.(to) (H2 (hx0.(from) b)))).
+    exact (Imported.iff_mk x2 x4 (fun a => hx0.(to) (H1 (hx.(from) a))) (fun b => hx.(to) (H2 (hx0.(from) b)))).
   - (* from : imported_iff x2 x4 -> (x1 <-> x3) *)
     intros H.
     split.

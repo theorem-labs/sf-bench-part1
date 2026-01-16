@@ -5,6 +5,7 @@ Import IsoEq.
 From IsomorphismChecker Require Original.
 From IsomorphismChecker Require Imported.
 
+
 (* Import the Prop variant *)
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso__U_prop.
 
@@ -29,7 +30,8 @@ Defined.
 Instance Corelib_Init_Logic_eq_iso : (forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : x1) (x4 : x2) (_ : @rel_iso x1 x2 hx x3 x4) (x5 : x1) (x6 : x2) (_ : @rel_iso x1 x2 hx x5 x6),
    Iso (@Corelib.Init.Logic.eq x1 x3 x5) (@imported_Corelib_Init_Logic_eq x2 x4 x6)).
 Proof.
-  intros x1 x2 hx x3 x4 [H34] x5 x6 [H56].
+  intros x1 x2 hx x3 x4 H34 x5 x6 H56.
+  simpl in *.
   unshelve eapply Build_Iso.
   - (* to: eq in Prop -> imported eq in SProp *)
     intro Heq.

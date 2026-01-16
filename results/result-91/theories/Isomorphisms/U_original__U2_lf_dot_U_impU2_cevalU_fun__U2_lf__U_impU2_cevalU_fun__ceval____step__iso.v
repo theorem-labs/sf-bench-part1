@@ -4,7 +4,7 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Typeclasses Opaque rel_iso. *)
+(* (* Typeclasses Opaque rel_iso *). *)
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__com__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso Isomorphisms.option__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aeval__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__beval__iso Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__t____update__iso.
 
@@ -39,17 +39,17 @@ Fixpoint ceval_step_aux (st : imported_String_string -> imported_nat)
         end
     | Imported.Original_LF__DOT__Imp_LF_Imp_com_CIf b c1 c2 =>
         match imported_Original_LF__DOT__Imp_LF_Imp_beval st b with
-        | Imported.mybool_mytrue => ceval_step_aux st c1 i'
-        | Imported.mybool_myfalse => ceval_step_aux st c2 i'
+        | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => ceval_step_aux st c1 i'
+        | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => ceval_step_aux st c2 i'
         end
     | Imported.Original_LF__DOT__Imp_LF_Imp_com_CWhile b c1 =>
         match imported_Original_LF__DOT__Imp_LF_Imp_beval st b with
-        | Imported.mybool_mytrue =>
+        | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true =>
             match ceval_step_aux st c1 i' with
             | Imported.option_Some _ st' => ceval_step_aux st' c i'
             | Imported.option_None _ => Imported.option_None _
             end
-        | Imported.mybool_myfalse => Imported.option_Some _ st
+        | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => Imported.option_Some _ st
         end
     end
   end.
@@ -89,8 +89,8 @@ Qed. *)
   IsomorphismDefinitions.eq t1 t2 ->
   IsomorphismDefinitions.eq f1 f2 ->
   IsomorphismDefinitions.eq
-    (match b with Imported.mybool_mytrue => t1 | Imported.mybool_myfalse => f1 end)
-    (match b with Imported.mybool_mytrue => t2 | Imported.mybool_myfalse => f2 end).
+    (match b with Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => t1 | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => f1 end)
+    (match b with Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => t2 | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => f2 end).
 Proof.
   intros b t1 t2 f1 f2 Ht Hf.
   destruct b.
@@ -144,8 +144,8 @@ Proof.
       (* Change RHS to unfolded form - they're convertible *)
       change (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st (Imported.Original_LF__DOT__Imp_LF_Imp_com_CIf b c1 c2) (Imported.nat_S i))
         with (match imported_Original_LF__DOT__Imp_LF_Imp_beval st b with
-              | Imported.mybool_mytrue => imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st c1 i
-              | Imported.mybool_myfalse => imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st c2 i
+              | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st c1 i
+              | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st c2 i
               end).
       destruct (imported_Original_LF__DOT__Imp_LF_Imp_beval st b) eqn:Eb.
       * specialize (IHc1 st i).
@@ -161,12 +161,12 @@ Proof.
       (* Change RHS to unfolded form *)
       change (imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st (Imported.Original_LF__DOT__Imp_LF_Imp_com_CWhile b c) (Imported.nat_S i'))
         with (match imported_Original_LF__DOT__Imp_LF_Imp_beval st b with
-              | Imported.mybool_mytrue =>
+              | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true =>
                   match imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st c i' with
                   | Imported.option_Some _ st' => imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_ceval__step st' (Imported.Original_LF__DOT__Imp_LF_Imp_com_CWhile b c) i'
                   | Imported.option_None _ => Imported.option_None _
                   end
-              | Imported.mybool_myfalse => Imported.option_Some _ st
+              | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => Imported.option_Some _ st
               end).
       destruct (imported_Original_LF__DOT__Imp_LF_Imp_beval st b).
       * specialize (IHc st i').
@@ -252,14 +252,14 @@ Proof.
       pose proof (aeval_iso_core st (state_to_imported st) (state_to_imported_rel st) a) as Haeval.
       pose proof (aeval_aux_eq (state_to_imported st) (aexp_to_imported a)) as Haeval_eq.
       destruct (String.eqb x (from String_string_iso y)) eqn:E.
-      * assert (Imported.String_eqb (to String_string_iso x) y = Imported.mybool_mytrue) as E'.
+      * assert (Imported.String_eqb (to String_string_iso x) y = Imported.Original_LF__DOT__Basics_LF_Basics_bool_true) as E'.
         { apply eq_of_seq. apply (eq_trans (eq_sym Hfinal)). simpl. exact IsomorphismDefinitions.eq_refl. }
         unfold Imported.bool_negb_match_1, Imported.mybool_casesOn, Imported.mybool_recl.
         simpl in E'.
         rewrite E'.
         apply (eq_trans Haeval).
         exact Haeval_eq.
-      * assert (Imported.String_eqb (to String_string_iso x) y = Imported.mybool_myfalse) as E'.
+      * assert (Imported.String_eqb (to String_string_iso x) y = Imported.Original_LF__DOT__Basics_LF_Basics_bool_false) as E'.
         { apply eq_of_seq. apply (eq_trans (eq_sym Hfinal)). simpl. exact IsomorphismDefinitions.eq_refl. }
         simpl in E'.
         rewrite E'.
@@ -295,7 +295,7 @@ Proof.
       destruct (Original.LF_DOT_Imp.LF.Imp.beval st b) eqn:Eb.
       * (* true *)
         simpl in Hb.
-        assert (imported_Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b) = Imported.mybool_mytrue) as Eb'.
+        assert (imported_Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b) = Imported.Original_LF__DOT__Basics_LF_Basics_bool_true) as Eb'.
         { rewrite <- Hb'.
           apply eq_of_seq.
           apply eq_sym.
@@ -305,7 +305,7 @@ Proof.
         apply (IH i st (state_to_imported st) (fun x => IsomorphismDefinitions.eq_refl) c1).
       * (* false *)
         simpl in Hb.
-        assert (imported_Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b) = Imported.mybool_myfalse) as Eb'.
+        assert (imported_Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b) = Imported.Original_LF__DOT__Basics_LF_Basics_bool_false) as Eb'.
         { rewrite <- Hb'.
           apply eq_of_seq.
           apply eq_sym.
@@ -324,7 +324,7 @@ Proof.
       destruct (Original.LF_DOT_Imp.LF.Imp.beval st b) eqn:Eb.
       * (* true *)
         simpl in Hb.
-        assert (imported_Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b) = Imported.mybool_mytrue) as Eb'.
+        assert (imported_Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b) = Imported.Original_LF__DOT__Basics_LF_Basics_bool_true) as Eb'.
         { rewrite <- Hb'.
           apply eq_of_seq.
           apply eq_sym.
@@ -350,7 +350,7 @@ Proof.
            reflexivity.
       * (* false *)
         simpl in Hb.
-        assert (imported_Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b) = Imported.mybool_myfalse) as Eb'.
+        assert (imported_Original_LF__DOT__Imp_LF_Imp_beval (state_to_imported st) (bexp_to_imported b) = Imported.Original_LF__DOT__Basics_LF_Basics_bool_false) as Eb'.
         { rewrite <- Hb'.
           apply eq_of_seq.
           apply eq_sym.

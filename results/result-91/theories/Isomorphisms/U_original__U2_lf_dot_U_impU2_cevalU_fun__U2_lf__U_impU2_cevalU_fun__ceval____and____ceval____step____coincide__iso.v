@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* Typeclasses Opaque rel_iso *). *) (* for speed *)
 
 (* Use Logic.eq explicitly to avoid lean_scope eq which is in SProp *)
 Local Notation "x == y" := (@Logic.eq _ x y) (at level 70, no associativity).

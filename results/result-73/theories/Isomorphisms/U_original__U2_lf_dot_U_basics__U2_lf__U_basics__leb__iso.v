@@ -29,7 +29,7 @@ Proof.
       reflexivity.
     + (* m = S m' *)
       apply IHn.
-Defined.
+Qed.
 
 Instance Original_LF__DOT__Basics_LF_Basics_leb_iso : forall (x1 : nat) (x2 : imported_nat),
   rel_iso nat_iso x1 x2 ->

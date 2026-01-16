@@ -1,9 +1,13 @@
 {
-  "bool": "Stdlib_bool",
-  "true": "Stdlib_bool_true",
-  "false": "Stdlib_bool_false",
-  "True": "MyTrue",
-  "False": "MyFalse",
-  "_0": "nat_O",
-  "S": "nat_S"
+  "bool": "mybool_",
+  "True": "myTrue",
+  "true": "mytrue",
+  "false": "myfalse",
+  "False": "myFalse",
+  "nat": "mynat",
+  "option": "option",
+  "prod": "prod",
+  "list": "list",
+  "cons": "cons",
+  "nil": "nil"
 }

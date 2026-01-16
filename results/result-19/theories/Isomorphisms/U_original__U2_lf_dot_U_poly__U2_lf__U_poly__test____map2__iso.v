@@ -15,7 +15,7 @@ Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_test__map2 : impo
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
              (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
-                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))))
+                (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))))
     (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_Original_LF__DOT__Basics_LF_Basics_false
        (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_Original_LF__DOT__Basics_LF_Basics_true
           (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_Original_LF__DOT__Basics_LF_Basics_false
@@ -28,7 +28,7 @@ Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_test__map2_iso : rel_iso
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
              (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)
                 (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
-                   (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2%nat 0%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
+                   (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S O)) O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
        (Original_LF__DOT__Poly_LF_Poly_cons_iso Original_LF__DOT__Basics_LF_Basics_false_iso
           (Original_LF__DOT__Poly_LF_Poly_cons_iso Original_LF__DOT__Basics_LF_Basics_true_iso
              (Original_LF__DOT__Poly_LF_Poly_cons_iso Original_LF__DOT__Basics_LF_Basics_false_iso

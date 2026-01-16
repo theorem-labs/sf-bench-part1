@@ -4,10 +4,14 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *)
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
+
+(* Aliases for consistency *)
+Definition nat_from_imported := imported_to_nat.
+Definition nat_to_from := imported_nat_roundtrip. (* nat_to_imported (imported_to_nat n) = n *)
+Definition nat_from_to := nat_roundtrip. (* imported_to_nat (nat_to_imported n) = n *)
 
 Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_natprod : Type := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natprod.
 
@@ -24,8 +28,8 @@ Definition natprod_to_imported (p : Original.LF_DOT_Lists.LF.Lists.NatList.natpr
 Definition natprod_from_imported (p : Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natprod) 
   : Original.LF_DOT_Lists.LF.Lists.NatList.natprod :=
   Original.LF_DOT_Lists.LF.Lists.NatList.pair 
-    (nat_from_imported (Imported.a____at___Solution__hyg2249 p))
-    (nat_from_imported (Imported.a____at___Solution__hyg2251 p)).
+    (nat_from_imported (Imported.Original_LF__DOT__Lists_LF_Lists_NatList_fst p))
+    (nat_from_imported (Imported.Original_LF__DOT__Lists_LF_Lists_NatList_snd p)).
 
 Lemma natprod_to_from : forall p : Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natprod,
   natprod_to_imported (natprod_from_imported p) = p.
@@ -48,7 +52,7 @@ Proof.
   - intro p. apply seq_of_eq. apply natprod_from_to.
 Defined.
 
-Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.natprod := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natprod := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.natprod := {}.
+Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natprod := {}.
 Instance: IsoStatementProofFor Original.LF_DOT_Lists.LF.Lists.NatList.natprod Original_LF__DOT__Lists_LF_Lists_NatList_natprod_iso := {}.
 Instance: IsoStatementProofBetween Original.LF_DOT_Lists.LF.Lists.NatList.natprod Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natprod Original_LF__DOT__Lists_LF_Lists_NatList_natprod_iso := {}.

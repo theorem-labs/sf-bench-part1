@@ -10,33 +10,31 @@ From IsomorphismChecker Require Original Imported.
 
 Definition imported_nat : Type := Imported.nat.
 
+(* Helper conversion functions *)
 Fixpoint nat_to_imported (n : nat) : imported_nat :=
   match n with
   | O => Imported.nat_O
   | S m => Imported.nat_S (nat_to_imported m)
   end.
 
-Fixpoint imported_to_nat (n : imported_nat) : nat :=
+Fixpoint nat_from_imported (n : imported_nat) : nat :=
   match n with
   | Imported.nat_O => O
-  | Imported.nat_S m => S (imported_to_nat m)
-  end.
-
-Fixpoint nat_round_trip (n : nat) : imported_to_nat (nat_to_imported n) = n :=
-  match n with
-  | O => Corelib.Init.Logic.eq_refl
-  | S m => Corelib.Init.Logic.f_equal S (nat_round_trip m)
-  end.
-
-Fixpoint imported_round_trip (n : imported_nat) : nat_to_imported (imported_to_nat n) = n :=
-  match n with
-  | Imported.nat_O => Corelib.Init.Logic.eq_refl
-  | Imported.nat_S m => Corelib.Init.Logic.f_equal Imported.nat_S (imported_round_trip m)
+  | Imported.nat_S m => S (nat_from_imported m)
   end.
 
 Instance nat_iso : Iso nat imported_nat.
 Proof.
-  exists nat_to_imported imported_to_nat.
+  exists (fix f (n : nat) : imported_nat :=
+            match n with
+            | O => Imported.nat_O
+            | S m => Imported.nat_S (f m)
+            end)
+         (fix g (n : imported_nat) : nat :=
+            match n with
+            | Imported.nat_O => O
+            | Imported.nat_S m => S (g m)
+            end).
   - fix IH 1. intros n.
     destruct n as [|m].
     + apply IsomorphismDefinitions.eq_refl.

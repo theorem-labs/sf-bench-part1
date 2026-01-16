@@ -12,15 +12,15 @@ From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__
 
 Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_Exercises_test__fold__length1 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Poly_LF_Poly_Exercises_fold__length
-       (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0))))
-          (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 4%nat imported_0))))
+       (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
+          (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 4 imported_0))))
              (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_0 (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))
     (imported_S (imported_S (imported_S imported_0))) := Imported.Original_LF__DOT__Poly_LF_Poly_Exercises_test__fold__length1.
 Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_Exercises_test__fold__length1_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Poly_LF_Poly_Exercises_fold__length_iso
-          (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso))))
-             (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 4%nat 0%nat imported_0 _0_iso))))
+          (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso))))
+             (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S (S (S O)))) O imported_0 _0_iso))))
                 (Original_LF__DOT__Poly_LF_Poly_cons_iso _0_iso (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
        (S_iso (S_iso (S_iso _0_iso))))
     Original.LF_DOT_Poly.LF.Poly.Exercises.test_fold_length1 imported_Original_LF__DOT__Poly_LF_Poly_Exercises_test__fold__length1.

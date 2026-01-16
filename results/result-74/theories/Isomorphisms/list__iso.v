@@ -1,16 +1,16 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 (* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
-Definition imported_list : Type -> Type := Imported.list.
+Monomorphic Definition imported_list : Type -> Type := Imported.list.
 
-Instance list_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (list x1) (imported_list x2).
+Monomorphic Instance list_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (list x1) (imported_list x2).
 Proof.
   intros x1 x2 hx.
   exists (fix f (l : list x1) : imported_list x2 :=

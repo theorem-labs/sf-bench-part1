@@ -5,7 +5,6 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* (* (* Typeclasses Opaque rel_iso. *) *) *) (* for speed *)
 From Stdlib Require Import Arith.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__bexp__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso Isomorphisms.bool__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aeval__iso.
@@ -194,8 +193,8 @@ Instance Original_LF__DOT__Imp_LF_Imp_beval_iso : forall (x1 : Original.LF_DOT_I
   rel_iso Original_LF__DOT__Imp_LF_Imp_bexp_iso x3 x4 -> rel_iso bool_iso (Original.LF_DOT_Imp.LF.Imp.beval x1 x3) (imported_Original_LF__DOT__Imp_LF_Imp_beval x2 x4).
 Proof.
   intros st st' Hst b b' Hb.
-  simpl in Hb; simpl in Hb.
-  simpl.
+  unfold rel_iso in Hb; simpl in Hb.
+  unfold rel_iso; simpl.
   apply (eq_trans (beval_iso_core st st' Hst b)).
   apply (eq_trans (beval_aux_eq st' (bexp_to_imported b))).
   apply (f_equal (imported_Original_LF__DOT__Imp_LF_Imp_beval st') Hb).

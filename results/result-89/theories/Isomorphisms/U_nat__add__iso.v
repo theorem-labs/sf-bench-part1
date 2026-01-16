@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(*Typeclasses Opaque rel_iso.*) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
@@ -28,13 +28,12 @@ Proof.
   intros x1 x2 H12 x3 x4 H34.
   destruct H12 as [H12]. destruct H34 as [H34].
   constructor.
-  simpl in *.
   (* H12 : eq (nat_to_imported x1) x2 *)
   (* H34 : eq (nat_to_imported x3) x4 *)
   (* Goal : eq (nat_to_imported (x1 + x3)) (Imported.Nat_add x2 x4) *)
   eapply eq_trans.
   - apply seq_of_eq. apply nat_to_imported_add_compat.
-  - unfold imported_Nat_add. apply f_equal2; assumption.
+  - apply f_equal2; assumption.
 Defined.
 
 Instance: KnownConstant Nat.add := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-#[local] Set Printing Coercions.
+(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.

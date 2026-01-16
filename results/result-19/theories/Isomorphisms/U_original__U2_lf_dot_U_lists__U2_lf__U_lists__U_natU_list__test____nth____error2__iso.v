@@ -12,21 +12,21 @@ From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__
 
 Monomorphic Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error2 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Lists_LF_Lists_NatList_nth__error
-       (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0))))
-          (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2%nat imported_0))))
-             (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 3%nat imported_0))))
-                (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 4%nat imported_0)))) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil))))
+       (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
+          (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))
+             (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 3 imported_0))))
+                (imported_Original_LF__DOT__Lists_LF_Lists_NatList_cons (imported_S (imported_S (imported_S (iterate1 imported_S 4 imported_0)))) imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil))))
        (imported_S (imported_S (imported_S imported_0))))
-    (imported_Original_LF__DOT__Lists_LF_Lists_NatList_Some (imported_S (imported_S (imported_S (iterate1 imported_S 4%nat imported_0))))) := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error2.
+    (imported_Original_LF__DOT__Lists_LF_Lists_NatList_Some (imported_S (imported_S (imported_S (iterate1 imported_S 4 imported_0))))) := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error2.
 Monomorphic Instance Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error2_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Lists_LF_Lists_NatList_nth__error_iso
-          (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso))))
-             (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2%nat 0%nat imported_0 _0_iso))))
-                (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 3%nat 0%nat imported_0 _0_iso))))
-                   (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 4%nat 0%nat imported_0 _0_iso)))) Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso))))
+          (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso))))
+             (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S O)) O imported_0 _0_iso))))
+                (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S (S O))) O imported_0 _0_iso))))
+                   (Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S (S (S O)))) O imported_0 _0_iso)))) Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso))))
           (S_iso (S_iso (S_iso _0_iso))))
-       (Original_LF__DOT__Lists_LF_Lists_NatList_Some_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 4%nat 0%nat imported_0 _0_iso))))))
+       (Original_LF__DOT__Lists_LF_Lists_NatList_Some_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S (S (S O)))) O imported_0 _0_iso))))))
     Original.LF_DOT_Lists.LF.Lists.NatList.test_nth_error2 imported_Original_LF__DOT__Lists_LF_Lists_NatList_test__nth__error2.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.test_nth_error2 := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -2,7 +2,7 @@ From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatemen
 Import IsoEq.
 From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
-#[local] Unset Implicit Arguments.
+#[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 #[local] Set Printing Coercions.
@@ -24,7 +24,7 @@ Monomorphic Instance Original_LF__DOT__Logic_LF_Logic_In__example__2_iso : foral
     (relax_Iso_Ts_Ps
        (Original_LF__DOT__Logic_LF_Logic_In_iso hx
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
-             (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 0 imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
+             (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 Datatypes.O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
     x3 x4 ->
   rel_iso
     (relax_Iso_Ts_Ps

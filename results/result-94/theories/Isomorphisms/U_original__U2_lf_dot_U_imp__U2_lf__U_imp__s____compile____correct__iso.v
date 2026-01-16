@@ -5,16 +5,13 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.cons__iso Isomorphisms.nil__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aeval__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__s____compile__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__s____execute__iso.
 
-(* Since this is an admitted theorem in Original.v, we axiomatize it *)
-Axiom imported_Original_LF__DOT__Imp_LF_Imp_s__compile__correct : forall (x : imported_String_string -> imported_nat) (x0 : imported_Original_LF__DOT__Imp_LF_Imp_aexp),
-  imported_Corelib_Init_Logic_eq
-    (imported_Original_LF__DOT__Imp_LF_Imp_s__execute (fun x1 : imported_String_string => x x1) (imported_nil imported_nat) (imported_Original_LF__DOT__Imp_LF_Imp_s__compile x0))
-    (imported_cons (imported_Original_LF__DOT__Imp_LF_Imp_aeval (fun x1 : imported_String_string => x x1) x0) (imported_nil imported_nat)).
+(* Since this is an admitted theorem in Original.v, we use the Imported axiom *)
+Definition imported_Original_LF__DOT__Imp_LF_Imp_s__compile__correct := Imported.Original_LF__DOT__Imp_LF_Imp_s__compile__correct.
 Instance Original_LF__DOT__Imp_LF_Imp_s__compile__correct_iso : forall (x1 : Original.LF_DOT_Imp.LF.Imp.state) (x2 : imported_String_string -> imported_nat)
     (hx : forall (x3 : String.string) (x4 : imported_String_string), rel_iso String_string_iso x3 x4 -> rel_iso nat_iso (x1 x3) (x2 x4)) (x3 : Original.LF_DOT_Imp.LF.Imp.aexp)
     (x4 : imported_Original_LF__DOT__Imp_LF_Imp_aexp) (hx0 : rel_iso Original_LF__DOT__Imp_LF_Imp_aexp_iso x3 x4),

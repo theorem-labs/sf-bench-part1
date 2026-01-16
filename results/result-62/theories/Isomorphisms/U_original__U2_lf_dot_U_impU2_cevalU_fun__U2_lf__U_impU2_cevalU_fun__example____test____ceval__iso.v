@@ -5,6 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_some__iso Isomorphisms.pair__iso Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aid__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_anum__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_ble__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_casgn__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_cif__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_cseq__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_x__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_y__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U_z__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__empty____st__iso Isomorphisms.U_original__U2_lf_dot_U_impU2_cevalU_fun__U2_lf__U_impU2_cevalU_fun__test____ceval__iso Isomorphisms.U_s__iso.
@@ -12,10 +13,11 @@ From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__
 Definition imported_Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_example__test__ceval :=
   Imported.Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_example__test__ceval.
 
-(* The example_test_ceval is an equality proof.
-   The isomorphism uses Corelib_Init_Logic_eq_iso which creates an Iso between 
-   two equality types (Prop -> SProp). We need rel_iso on this iso. *)
-   
+(* The example_test_ceval is an Admitted theorem in Original.v, meaning we are 
+   translating an axiom. The isomorphism can be Admitted since 
+   Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_example__test__ceval_iso is in the allowed axioms list. *)
+
+(* Use the test_ceval_iso to construct the eq iso *)
 Definition the_eq_iso := 
   Corelib_Init_Logic_eq_iso
     (Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_test__ceval_iso 
@@ -46,9 +48,7 @@ Instance Original_LF__DOT__ImpCEvalFun_LF_ImpCEvalFun_example__test__ceval_iso :
 Proof.
   constructor.
   simpl.
-  (* to the_eq_iso (Original proof) should equal Imported proof *)
-  (* Both are proofs of equalities, and Imported.Corelib_Init_Logic_eq lives in SProp,
-     so any two inhabitants are equal. *)
+  (* Both are proofs of equalities in SProp, so any two inhabitants are equal. *)
   apply IsomorphismDefinitions.eq_refl.
 Qed.
 

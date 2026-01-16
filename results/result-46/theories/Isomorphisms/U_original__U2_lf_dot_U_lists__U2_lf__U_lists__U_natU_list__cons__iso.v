@@ -23,7 +23,7 @@ Proof.
   destruct Hnat as [Hnat']. destruct Hlist as [Hlist'].
   simpl in *.
   apply (IsoEq.f_equal2 Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natlist_cons Hnat' Hlist').
-Qed.
+Defined.
 Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.cons := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Lists_LF_Lists_NatList_cons := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_Lists.LF.Lists.NatList.cons Original_LF__DOT__Lists_LF_Lists_NatList_cons_iso := {}.

@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+
 
 
 Definition imported_Original_LF__DOT__Basics_LF_Basics_letter : Type := Imported.Original_LF__DOT__Basics_LF_Basics_letter.
@@ -31,12 +31,12 @@ Definition letter_from (l : imported_Original_LF__DOT__Basics_LF_Basics_letter) 
 Lemma letter_to_from : forall x, IsomorphismDefinitions.eq (letter_to (letter_from x)) x.
 Proof.
   intro x; destruct x; apply IsomorphismDefinitions.eq_refl.
-Qed.
+Defined.
 
 Lemma letter_from_to : forall x, IsomorphismDefinitions.eq (letter_from (letter_to x)) x.
 Proof.
   intro x; destruct x; apply IsomorphismDefinitions.eq_refl.
-Qed.
+Defined.
 
 Instance Original_LF__DOT__Basics_LF_Basics_letter_iso : Iso Original.LF_DOT_Basics.LF.Basics.letter imported_Original_LF__DOT__Basics_LF_Basics_letter :=
   {| to := letter_to; from := letter_from; to_from := letter_to_from; from_to := letter_from_to |}.

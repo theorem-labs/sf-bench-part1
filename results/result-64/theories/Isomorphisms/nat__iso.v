@@ -40,10 +40,6 @@ Fixpoint imported_round_trip (n : Imported.nat) : nat_to_imported (imported_to_n
                          end
   end.
 
-(* Aliases for compatibility with other isomorphism files *)
-Definition nat_roundtrip := nat_round_trip.
-Definition imported_nat_roundtrip := imported_round_trip.
-
 (* Coercions for round-trip to SProp equality *)
 Definition nat_to_from (n : Imported.nat) : IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n :=
   seq_of_eq (imported_round_trip n).

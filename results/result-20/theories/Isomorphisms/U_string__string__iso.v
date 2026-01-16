@@ -2,7 +2,7 @@ From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatemen
 Import IsoEq.
 From LeanImport Require Import Lean.
 From Stdlib Require Import String Ascii.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 (* Helper to convert standard equality to SProp equality *)
 Lemma prop_to_sprop_eq : forall {A : Type} (a b : A), a = b -> IsomorphismDefinitions.eq a b.
-Proof. intros A a b H. subst b. exact IsomorphismDefinitions.eq_refl. Qed.
+Proof. intros A a b H. subst b. exact IsomorphismDefinitions.eq_refl. Defined.
 
 (* bool <-> Stdlib_bool isomorphism *)
 Definition bool_to_impbool (b : bool) : Imported.Stdlib_bool :=
@@ -26,10 +26,10 @@ Definition impbool_to_bool (m : Imported.Stdlib_bool) : bool :=
   end.
 
 Lemma bool_impbool_roundtrip1 : forall b, impbool_to_bool (bool_to_impbool b) = b.
-Proof. destruct b; reflexivity. Qed.
+Proof. destruct b; reflexivity. Defined.
 
 Lemma bool_impbool_roundtrip2 : forall m, bool_to_impbool (impbool_to_bool m) = m.
-Proof. destruct m; reflexivity. Qed.
+Proof. destruct m; reflexivity. Defined.
 
 (* ascii <-> Ascii_ascii isomorphism *)
 Definition ascii_to_myascii (a : Ascii.ascii) : Imported.Ascii_ascii :=
@@ -58,14 +58,14 @@ Proof.
   destruct a as [b0 b1 b2 b3 b4 b5 b6 b7].
   unfold ascii_to_myascii, myascii_to_ascii. simpl.
   f_equal; apply bool_impbool_roundtrip1.
-Qed.
+Defined.
 
 Lemma ascii_myascii_roundtrip2 : forall m, ascii_to_myascii (myascii_to_ascii m) = m.
 Proof.
   destruct m.
   unfold ascii_to_myascii, myascii_to_ascii. simpl.
   f_equal; apply bool_impbool_roundtrip2.
-Qed.
+Defined.
 
 (* string <-> String_string isomorphism *)
 Definition imported_String_string : Type := Imported.String_string.
@@ -87,14 +87,14 @@ Proof.
   fix IH 1. intros s. destruct s.
   - reflexivity.
   - simpl. f_equal. apply ascii_myascii_roundtrip1. apply IH.
-Qed.
+Defined.
 
 Lemma string_roundtrip2 : forall m, string_to_imported (imported_to_string m) = m.
 Proof.
   fix IH 1. intros m. destruct m.
   - reflexivity.
   - simpl. f_equal. apply ascii_myascii_roundtrip2. apply IH.
-Qed.
+Defined.
 
 Instance String_string_iso : Iso String.string imported_String_string.
 Proof.

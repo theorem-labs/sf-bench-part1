@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 (* Since Imported.v doesn't have Poly definitions, we axiomatize them *)

@@ -5,13 +5,13 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
+#[local] Set Printing Coercions.
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf__U_rel__relation__iso.
 
-Definition imported_Original_LF_Rel_partial__function : forall x : Type, (x -> x -> SProp) -> SProp := Imported.Original_LF_Rel_partial__function.
-Instance Original_LF_Rel_partial__function_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : Original.LF.Rel.relation x1) (x4 : x2 -> x2 -> SProp),
+Monomorphic Definition imported_Original_LF_Rel_partial__function : forall x : Type, (x -> x -> SProp) -> SProp := fun (x : Type) (x0 : x -> x -> SProp) => forall a' a'0 a'1 : x, x0 a' a'0 -> x0 a' a'1 -> imported_Corelib_Init_Logic_eq a'0 a'1.
+Monomorphic Instance Original_LF_Rel_partial__function_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : Original.LF.Rel.relation x1) (x4 : x2 -> x2 -> SProp),
   (forall (x5 : x1) (x6 : x2), rel_iso hx x5 x6 -> forall (x7 : x1) (x8 : x2), rel_iso hx x7 x8 -> Iso (x3 x5 x7) (x4 x6 x8)) ->
   Iso (Original.LF.Rel.partial_function x3) (imported_Original_LF_Rel_partial__function x4)
   := fun (x1 x2 : Type) (hx : Iso x1 x2) (x3 : Original.LF.Rel.relation x1) (x4 : x2 -> x2 -> SProp)

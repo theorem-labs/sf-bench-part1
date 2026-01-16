@@ -4,9 +4,8 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. (* removed *) *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso.
@@ -19,8 +18,10 @@ Instance Original_LF__DOT__Basics_LF_Basics_andb_iso : forall (x1 : Original.LF_
   rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso (Original.LF_DOT_Basics.LF.Basics.andb x1 x3) (imported_Original_LF__DOT__Basics_LF_Basics_andb x2 x4).
 Proof.
   intros x1 x2 H12 x3 x4 H34.
-  destruct H12 as [H12']. destruct H34 as [H34']. simpl in *.
-  constructor. simpl.
+  destruct H12 as [Hproj12].
+  destruct H34 as [Hproj34].
+  constructor.
+  simpl.
   unfold imported_Original_LF__DOT__Basics_LF_Basics_andb.
   apply (eq_trans (y := Imported.Original_LF__DOT__Basics_LF_Basics_andb (to Original_LF__DOT__Basics_LF_Basics_bool_iso x1) (to Original_LF__DOT__Basics_LF_Basics_bool_iso x3))).
   { destruct x1, x3; simpl; apply IsomorphismDefinitions.eq_refl. }

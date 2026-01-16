@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -53,8 +53,7 @@ Instance Original_LF__DOT__Poly_LF_Poly_length_iso : forall (x1 x2 : Type) (hx :
   rel_iso (Original_LF__DOT__Poly_LF_Poly_list_iso hx) x3 x4 -> rel_iso nat_iso (Original.LF_DOT_Poly.LF.Poly.length x3) (imported_Original_LF__DOT__Poly_LF_Poly_length x4).
 Proof.
   intros A B hx l l' Hrel.
-  destruct Hrel as [Hrel]. simpl in *.
-  constructor. simpl.
+  (* unfold rel_iso *) in *.
   (* Hrel : eq (to list_iso l) l' *)
   (* Goal: eq (to nat_iso (length l)) (length l') *)
   pose proof (@length_commutes A B hx l) as Hlen.

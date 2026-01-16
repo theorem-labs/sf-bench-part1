@@ -6,7 +6,7 @@ From LeanImport Require Import Lean.
 From IsomorphismChecker Require Original Imported.
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *)
+(* (* Typeclasses Opaque rel_iso. *) *) (* for speed *)
 
 
 Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist : Type := Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natlist.

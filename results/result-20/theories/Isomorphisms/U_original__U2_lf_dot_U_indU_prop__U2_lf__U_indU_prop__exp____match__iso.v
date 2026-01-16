@@ -2,7 +2,7 @@ From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatemen
 From Stdlib Require Import Logic.ProofIrrelevance.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)

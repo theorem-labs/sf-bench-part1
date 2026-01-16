@@ -7,7 +7,7 @@ Import ListNotations.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* Typeclasses Opaque rel_iso *). *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.list__iso.

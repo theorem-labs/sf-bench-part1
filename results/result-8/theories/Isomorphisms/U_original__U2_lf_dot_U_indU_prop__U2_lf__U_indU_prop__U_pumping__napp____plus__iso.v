@@ -36,7 +36,7 @@ Proof.
   intros.
   (* The goal is to show that applying to to the original proof gives the imported proof *)
   (* Since both proofs are in proof-irrelevant sorts (Prop vs SProp), this is automatic *)
-  destruct H34 as [H34]. destruct H56 as [H56]. simpl in *. constructor. simpl. unfold relax_Iso_Ts_Ps.
+  unfold rel_iso, relax_Iso_Ts_Ps.
   simpl.
   apply IsomorphismDefinitions.eq_refl.
 Defined.

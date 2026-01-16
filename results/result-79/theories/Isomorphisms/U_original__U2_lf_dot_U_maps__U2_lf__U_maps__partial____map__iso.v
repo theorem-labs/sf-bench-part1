@@ -10,8 +10,8 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso Isomorphisms.option__iso.
 
-Definition imported_Original_LF__DOT__Maps_LF_Maps_partial__map : Type -> Type := fun x : Type => imported_Original_LF__DOT__Maps_LF_Maps_total__map (imported_option x).
-Instance Original_LF__DOT__Maps_LF_Maps_partial__map_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (Original.LF_DOT_Maps.LF.Maps.partial_map x1) (imported_Original_LF__DOT__Maps_LF_Maps_partial__map x2)
+Monomorphic Definition imported_Original_LF__DOT__Maps_LF_Maps_partial__map : Type -> Type := fun x : Type => imported_Original_LF__DOT__Maps_LF_Maps_total__map (imported_option x).
+Monomorphic Instance Original_LF__DOT__Maps_LF_Maps_partial__map_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (Original.LF_DOT_Maps.LF.Maps.partial_map x1) (imported_Original_LF__DOT__Maps_LF_Maps_partial__map x2)
   := fun (x1 x2 : Type) (hx : Iso x1 x2) => Original_LF__DOT__Maps_LF_Maps_total__map_iso (option_iso hx).
 
 Instance: KnownConstant Original.LF_DOT_Maps.LF.Maps.partial_map := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -14,14 +14,14 @@ Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_test__countoddmem
     (imported_Original_LF__DOT__Poly_LF_Poly_countoddmembers'
        (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_0
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
-             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))
+             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))))
     imported_0 := Imported.Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'2.
 Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'2_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Poly_LF_Poly_countoddmembers'_iso
           (Original_LF__DOT__Poly_LF_Poly_cons_iso _0_iso
              (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
-                (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
+                (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))))
        _0_iso)
     Original.LF_DOT_Poly.LF.Poly.test_countoddmembers'2 imported_Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'2.
 Admitted.

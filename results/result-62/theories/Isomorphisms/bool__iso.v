@@ -5,9 +5,12 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 Definition imported_bool : Type := Imported.mybool.
+Definition bool_to_imported (b : bool) : imported_bool :=
+  match b with true => Imported.mybool_mytrue | false => Imported.mybool_myfalse end.
 Instance bool_iso : Iso bool imported_bool.
 Proof.
   exists (fun b : bool => match b with true => Imported.mybool_mytrue | false => Imported.mybool_myfalse end)

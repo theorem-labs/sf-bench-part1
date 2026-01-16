@@ -72,8 +72,8 @@ Proof.
   destruct H. apply sinhabits. reflexivity.
 Defined.
 
-(* Helper to eliminate Imported.MyFalse to SInhabited *)
-Definition Imported_MyFalse_elim_SInhabited {P : Prop} (H : Imported.MyFalse) : SInhabited P :=
+(* Helper to eliminate Imported.Original_False to SInhabited *)
+Definition Imported_Original_False_elim_SInhabited {P : Prop} (H : Imported.Original_False) : SInhabited P :=
   match H with end.
 
 (* Backward direction: Imported.In -> Original.In 
@@ -91,7 +91,7 @@ Proof.
     pose proof (proj_rel_iso Hl) as Hl'. simpl in Hl'.
     pose proof (eq_srect_nodep (fun l => imported_Original_LF__DOT__Logic_LF_Logic_In y l) H (eq_sym Hl)) as H'.
     simpl in H'.
-    exact (Imported_MyFalse_elim_SInhabited H').
+    exact (Imported_Original_False_elim_SInhabited H').
   - (* cons case *)
     simpl. intro H.
     pose proof (proj_rel_iso Hl) as Hl'. simpl in Hl'.

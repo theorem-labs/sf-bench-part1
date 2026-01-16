@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natprod__iso Isomorphisms.nat__iso.
@@ -16,15 +16,14 @@ Instance Original_LF__DOT__Lists_LF_Lists_NatList_snd_iso : forall (x1 : Origina
   rel_iso Original_LF__DOT__Lists_LF_Lists_NatList_natprod_iso x1 x2 -> rel_iso nat_iso (Original.LF_DOT_Lists.LF.Lists.NatList.snd x1) (imported_Original_LF__DOT__Lists_LF_Lists_NatList_snd x2).
 Proof.
   intros x1 x2 Hrel.
-  apply Build_rel_iso.
-  destruct Hrel as [Hrel]. simpl in *.
-  unfold imported_Original_LF__DOT__Lists_LF_Lists_NatList_snd.
+  destruct Hrel as [Hrel].
   destruct x1 as [n1 n2].
-  simpl.
-  unfold Imported.Original_LF__DOT__Lists_LF_Lists_NatList_snd.
-  simpl.
-  destruct Hrel.
-  exact IsomorphismDefinitions.eq_refl.
+  constructor. simpl.
+  unfold imported_Original_LF__DOT__Lists_LF_Lists_NatList_snd.
+  unfold Imported.Original_LF__DOT__Lists_LF_Lists_NatList_snd. simpl.
+  pose proof (IsoEq.f_equal Imported.Original_LF__DOT__Lists_LF_Lists_NatList_snd Hrel) as Hsnd.
+  simpl in Hsnd.
+  exact Hsnd.
 Defined.
 
 Instance: KnownConstant Original.LF_DOT_Lists.LF.Lists.NatList.snd := {}. (* only needed when rel_iso is typeclasses opaque *)

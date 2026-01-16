@@ -18,8 +18,8 @@ Proof.
   fix IH 3.
   intros n m H.
   destruct H as [n0 | n0 m0 H0].
-  - apply Imported.le_le_n.
-  - apply Imported.le_le_S. apply IH. exact H0.
+  - apply Imported.Original_LF__DOT__IndProp_LF_IndProp_le_le_n.
+  - apply Imported.Original_LF__DOT__IndProp_LF_IndProp_le_le_S. apply IH. exact H0.
 Defined.
 
 (* For le_from_imported, we cannot directly eliminate the SProp proof.

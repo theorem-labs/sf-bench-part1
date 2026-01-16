@@ -5,47 +5,41 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+#[local] Set Printing Coercions.
 
 
-Definition imported_option : Type -> Type := Imported.option.
+Monomorphic Definition imported_option : Type -> Type := Imported.option.
 
-Definition option_to_imported {A B : Type} (f : A -> B) (o : option A) : Imported.option B :=
+Definition option_to {A B : Type} (iab : Iso A B) (o : option A) : imported_option B :=
   match o with
   | None => Imported.option_None B
-  | Some a => Imported.option_Some B (f a)
+  | Some a => Imported.option_Some B (iab a)
   end.
 
-Definition imported_to_option {A B : Type} (f : A -> B) (o : Imported.option A) : option B :=
+Definition option_from {A B : Type} (iab : Iso A B) (o : imported_option B) : option A :=
   match o with
   | Imported.option_None _ => None
-  | Imported.option_Some _ a => Some (f a)
+  | Imported.option_Some _ b => Some (from iab b)
   end.
 
-Lemma option_to_from {A B : Type} (f : A -> B) (g : B -> A) 
-  (fg : forall x, IsomorphismDefinitions.eq (f (g x)) x) :
-  forall o : Imported.option B, IsomorphismDefinitions.eq (option_to_imported f (imported_to_option g o)) o.
+Lemma option_to_from {A B : Type} (iab : Iso A B) : forall x, IsomorphismDefinitions.eq (option_to iab (option_from iab x)) x.
 Proof.
-  intros o. destruct o as [|a].
-  - (* Imported.option_None *) simpl. exact IsomorphismDefinitions.eq_refl.
-  - (* Imported.option_Some *) simpl. exact (IsoEq.f_equal (Imported.option_Some B) (fg a)).
-Qed.
+  intro x. destruct x as [|b] using Imported.option_indl.
+  - exact IsomorphismDefinitions.eq_refl.
+  - simpl. apply f_equal. apply (to_from iab).
+Defined.
 
-Lemma option_from_to {A B : Type} (f : A -> B) (g : B -> A)
-  (gf : forall x, IsomorphismDefinitions.eq (g (f x)) x) :
-  forall o : Datatypes.option A, IsomorphismDefinitions.eq (imported_to_option g (option_to_imported f o)) o.
+Lemma option_from_to {A B : Type} (iab : Iso A B) : forall x, IsomorphismDefinitions.eq (option_from iab (option_to iab x)) x.
 Proof.
-  intros o. destruct o as [a|].
-  - (* Datatypes.Some *) simpl. exact (IsoEq.f_equal Datatypes.Some (gf a)).
-  - (* Datatypes.None *) simpl. exact IsomorphismDefinitions.eq_refl.
-Qed.
+  intro x. destruct x as [a|].
+  - simpl. apply f_equal. apply (from_to iab).
+  - exact IsomorphismDefinitions.eq_refl.
+Defined.
 
-Instance option_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (option x1) (imported_option x2).
+Monomorphic Instance option_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (option x1) (imported_option x2).
 Proof.
-  intros x1 x2 h.
-  exact (Build_Iso (option_to_imported (to h)) (imported_to_option (from h)) 
-                   (option_to_from (to h) (from h) (to_from h)) 
-                   (option_from_to (to h) (from h) (from_to h))).
+  intros x1 x2 hx.
+  exact {| to := option_to hx; from := option_from hx; to_from := option_to_from hx; from_to := option_from_to hx |}.
 Defined.
 
 Instance: KnownConstant option := {}. (* only needed when rel_iso is typeclasses opaque *)

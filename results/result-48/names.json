@@ -1,12 +1,17 @@
 {
-  "True": "MyTrue",
-  "False": "MyFalse",
-  "_0": "_0",
-  "lt": "lt",
-  "iff": "iff",
-  "Original_LF__DOT__Poly_LF_Poly_Exercises_two'": "Original_LF__DOT__Poly_LF_Poly_Exercises_twoPrime",
-  "Original_LF__DOT__AltAuto_LF_AltAuto_simple__semi''": "Original_LF__DOT__AltAuto_LF_AltAuto_simple__semiPrimePrime",
-  "Original_LF__DOT__Poly_LF_Poly_list123'": "Original_LF__DOT__Poly_LF_Poly_list123Prime",
-  "Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_and__comm'__aux": "Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_and__commSQUOTE__aux",
-  "Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_and__comm'": "Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_and__commSQUOTE"
+  "bool": "mybool",
+  "true": "mybool_mytrue",
+  "false": "mybool_myfalse",
+  "Ascii_Ascii": "Ascii_ascii_Ascii",
+  "Ascii_ascii": "Ascii_ascii",
+  "True": "TrueType",
+  "False": "FalseType",
+  "_0": "nat_O",
+  "S": "nat_S",
+  "Original_LF__DOT__Auto_LF_Auto_Repeat_CAsgn": "Original_LF__DOT__Auto_LF_Auto_Repeat_com_CAsgn",
+  "Original_LF__DOT__Auto_LF_Auto_Repeat_CSeq": "Original_LF__DOT__Auto_LF_Auto_Repeat_com_CSeq",
+  "Original_LF__DOT__Auto_LF_Auto_Repeat_CIf": "Original_LF__DOT__Auto_LF_Auto_Repeat_com_CIf",
+  "Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev": "Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev",
+  "Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__sound'": "Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__soundSQUOTE",
+  "Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__sound''": "Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__soundSQUOTESQUOTE"
 }

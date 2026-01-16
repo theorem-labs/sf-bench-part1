@@ -7,7 +7,7 @@ From IsomorphismChecker Require Original Imported.
 From Stdlib.Strings Require Import String.
 Open Scope string_scope.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* Typeclasses Opaque rel_iso *). *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_string__string__iso Isomorphisms.bool__iso.

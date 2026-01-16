@@ -469,7 +469,7 @@ Monomorphic Instance Original_LF__DOT__ImpParser_LF_ImpParser_eg1_iso : rel_iso
                             (Original_LF__DOT__Imp_LF_Imp_AId_iso
                                (StringOptimizations.imported_string_iso true_iso false_iso Ascii_Ascii_iso String_EmptyString_iso String_String_iso
                                   (String.String (Ascii.Ascii true false false true true true true false) String.EmptyString)))
-                            (Original_LF__DOT__Imp_LF_Imp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 3%nat 0%nat imported_0 _0_iso)))))))
+                            (Original_LF__DOT__Imp_LF_Imp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S (S O))) O imported_0 _0_iso)))))))
                       (Original_LF__DOT__Imp_LF_Imp_ANum_iso (S_iso (S_iso (S_iso _0_iso))))))
                 (Original_LF__DOT__Imp_LF_Imp_CSeq_iso
                    (Original_LF__DOT__Imp_LF_Imp_CAsgn_iso

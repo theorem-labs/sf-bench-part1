@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -17,11 +17,12 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_Union_iso : forall (x1 x2 : Type) 
   rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) x5 x6 ->
   rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) (Original.LF_DOT_IndProp.LF.IndProp.Union x3 x5) (imported_Original_LF__DOT__IndProp_LF_IndProp_Union x4 x6).
 Proof.
-  intros x1 x2 hx x3 x4 H34 x5 x6 H56.
-  destruct H34 as [H34]. simpl in *. constructor. simpl.
+  intros x1 x2 hx x3 x4 h34 x5 x6 h56.
+  idtac.
   unfold imported_Original_LF__DOT__IndProp_LF_IndProp_Union.
-  exact (IsoEq.f_equal2 (Imported.Original_LF__DOT__IndProp_LF_IndProp_reg__exp_Union x2) H34 H56).
-Qed.
+  simpl.
+  apply IsoEq.f_equal2; assumption.
+Defined.
 Instance: KnownConstant (@Original.LF_DOT_IndProp.LF.IndProp.Union) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant (@Imported.Original_LF__DOT__IndProp_LF_IndProp_Union) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor (@Original.LF_DOT_IndProp.LF.IndProp.Union) Original_LF__DOT__IndProp_LF_IndProp_Union_iso := {}.

@@ -32,7 +32,7 @@ Proof.
   - reflexivity.
   - f_equal. apply IH.
   - f_equal. apply IH.
-Defined.
+Qed.
 
 Lemma bin_roundtrip2 : forall b, bin_to_imported (imported_to_bin b) = b.
 Proof.
@@ -41,7 +41,7 @@ Proof.
   - reflexivity.
   - f_equal. apply IH.
   - f_equal. apply IH.
-Defined.
+Qed.
 
 (* Use seq_of_eq to convert from regular = to IsomorphismDefinitions.eq *)
 Instance Original_LF__DOT__Induction_LF_Induction_bin_iso : Iso Original.LF_DOT_Induction.LF.Induction.bin imported_Original_LF__DOT__Induction_LF_Induction_bin :=

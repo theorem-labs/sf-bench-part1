@@ -1,14 +1,14 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-#[local] Set Printing Coercions.
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
-From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__update__iso Isomorphisms.U_ascii__U_ascii__iso Isomorphisms.U_logic__not__iso Isomorphisms.U_string__U_emptyU_string__iso Isomorphisms.U_string__U_string__iso Isomorphisms.false__iso Isomorphisms.true__iso.
+From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__update__iso Isomorphisms.U_logic__not__iso.
 
 Definition imported_Original_LF__DOT__Maps_LF_Maps_update__neq : forall (x : Type) (x0 : imported_String_string -> imported_option x) (x1 x2 : imported_String_string) (x3 : x),
   (imported_Corelib_Init_Logic_eq x2 x1 -> imported_False) ->
@@ -24,7 +24,17 @@ Instance Original_LF__DOT__Maps_LF_Maps_update__neq_iso : forall (x1 x2 : Type) 
           (fun (x13 : String.string) (x14 : imported_String_string) (hx5 : rel_iso String_string_iso x13 x14) => hx0 x13 x14 hx5) hx2 hx3 hx1)
        (hx0 x5 x6 hx1))
     (Original.LF_DOT_Maps.LF.Maps.update_neq x1 x3 x5 x7 x9 x11) (imported_Original_LF__DOT__Maps_LF_Maps_update__neq x4 x10 x12).
-Admitted.
+Proof.
+  intros.
+  (* The goal is to show two equality proofs are isomorphic.
+     The Corelib_Init_Logic_eq_iso is between (eq : Prop) and (imported_eq : SProp).
+     rel_iso for such an isomorphism should follow from the fact that
+     both sides are proofs of equivalent propositions. *)
+  constructor; simpl.
+  (* Goal is IsomorphismDefinitions.eq (to (Corelib_Init_Logic_eq_iso ...) (update_neq ...)) (imported_update_neq ...) *)
+  (* Both sides are in SProp, so all inhabitants are equal *)
+  exact IsomorphismDefinitions.eq_refl.
+Qed.
 Instance: KnownConstant Original.LF_DOT_Maps.LF.Maps.update_neq := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Maps_LF_Maps_update__neq := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_Maps.LF.Maps.update_neq Original_LF__DOT__Maps_LF_Maps_update__neq_iso := {}.

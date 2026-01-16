@@ -478,64 +478,6 @@ def Original_orb : Original_LF__DOT__Basics_LF_Basics_bool → Original_LF__DOT_
   | Original_LF__DOT__Basics_LF_Basics_bool.true, _ => Original_LF__DOT__Basics_LF_Basics_bool.true
   | Original_LF__DOT__Basics_LF_Basics_bool.false, b => b
 
--- Add the proper exported names for andb and orb
-def Original_LF__DOT__Basics_LF_Basics_andb := Original_andb
-def Original_LF__DOT__Basics_LF_Basics_orb := Original_orb
-
--- bw (black/white) type
-inductive Original_LF__DOT__Basics_LF_Basics_bw : Type where
-  | bw_black : Original_LF__DOT__Basics_LF_Basics_bw
-  | bw_white : Original_LF__DOT__Basics_LF_Basics_bw
-
-def Original_LF__DOT__Basics_LF_Basics_bw_bw_black := Original_LF__DOT__Basics_LF_Basics_bw.bw_black
-def Original_LF__DOT__Basics_LF_Basics_bw_bw_white := Original_LF__DOT__Basics_LF_Basics_bw.bw_white
-
--- invert for bw
-def Original_LF__DOT__Basics_LF_Basics_invert : Original_LF__DOT__Basics_LF_Basics_bw → Original_LF__DOT__Basics_LF_Basics_bw
-  | Original_LF__DOT__Basics_LF_Basics_bw.bw_black => Original_LF__DOT__Basics_LF_Basics_bw.bw_white
-  | Original_LF__DOT__Basics_LF_Basics_bw.bw_white => Original_LF__DOT__Basics_LF_Basics_bw.bw_black
-
--- andb_commutative
-theorem Original_LF__DOT__Basics_LF_Basics_andb__commutative : ∀ (b c : Original_LF__DOT__Basics_LF_Basics_bool),
-  Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_andb b c) (Original_LF__DOT__Basics_LF_Basics_andb c b) := fun b c =>
-  match b, c with
-  | .true, .true => Corelib_Init_Logic_eq.refl _
-  | .true, .false => Corelib_Init_Logic_eq.refl _
-  | .false, .true => Corelib_Init_Logic_eq.refl _
-  | .false, .false => Corelib_Init_Logic_eq.refl _
-
--- test_orb2: orb false false = false
-theorem Original_LF__DOT__Basics_LF_Basics_test__orb2 :
-  Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_orb Original_LF__DOT__Basics_LF_Basics_false Original_LF__DOT__Basics_LF_Basics_false) Original_LF__DOT__Basics_LF_Basics_false :=
-  Corelib_Init_Logic_eq.refl _
-
--- andb3_exchange' : andb (andb b c) d = andb (andb b d) c
-theorem Original_LF__DOT__AltAuto_LF_AltAuto_andb3__exchange' : ∀ (b c d : Original_LF__DOT__Basics_LF_Basics_bool),
-  Corelib_Init_Logic_eq
-    (Original_LF__DOT__Basics_LF_Basics_andb (Original_LF__DOT__Basics_LF_Basics_andb b c) d)
-    (Original_LF__DOT__Basics_LF_Basics_andb (Original_LF__DOT__Basics_LF_Basics_andb b d) c) := fun b c d =>
-  match b, c, d with
-  | .true, .true, .true => Corelib_Init_Logic_eq.refl _
-  | .true, .true, .false => Corelib_Init_Logic_eq.refl _
-  | .true, .false, .true => Corelib_Init_Logic_eq.refl _
-  | .true, .false, .false => Corelib_Init_Logic_eq.refl _
-  | .false, .true, .true => Corelib_Init_Logic_eq.refl _
-  | .false, .true, .false => Corelib_Init_Logic_eq.refl _
-  | .false, .false, .true => Corelib_Init_Logic_eq.refl _
-  | .false, .false, .false => Corelib_Init_Logic_eq.refl _
-
--- andb_eq_orb : ∀ b c, andb b c = orb b c -> b = c
-theorem Original_LF__DOT__AltAuto_LF_AltAuto_andb__eq__orb : ∀ (b c : Original_LF__DOT__Basics_LF_Basics_bool),
-  Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_andb b c) (Original_LF__DOT__Basics_LF_Basics_orb b c) →
-  Corelib_Init_Logic_eq b c := fun b c h =>
-  match b, c, h with
-  | .true, .true, _ => Corelib_Init_Logic_eq.refl _
-  | .false, .false, _ => Corelib_Init_Logic_eq.refl _
-
--- match_ex2'' : True /\ True
-theorem Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2'' : and MyTrue MyTrue :=
-  and.intro MyTrue.intro MyTrue.intro
-
 -- re_not_empty from IndProp
 def Original_LF__DOT__IndProp_LF_IndProp_re__not__empty {T : Type} : Original_LF__DOT__IndProp_LF_IndProp_reg__exp T → Original_LF__DOT__Basics_LF_Basics_bool
   | Original_LF__DOT__IndProp_LF_IndProp_reg__exp.EmptySet => Original_LF__DOT__Basics_LF_Basics_false
@@ -562,54 +504,63 @@ axiom Original_LF__DOT__AltAuto_LF_AltAuto_match__ex2 : and MyTrue MyTrue
 -- natlist' from IndPrinciples
 def Original_LF__DOT__IndPrinciples_LF_IndPrinciples_natlist' : Type := Original_LF__DOT__Lists_LF_Lists_NatList_natlist
 
--- Logic definitions
--- and_assoc : P /\ (Q /\ R) -> (P /\ Q) /\ R
-theorem Original_LF__DOT__Logic_LF_Logic_and__assoc : ∀ (P Q R : Prop),
-  and P (and Q R) → and (and P Q) R := by
-  intro P Q R h
-  match h with
-  | and.intro hp hqr =>
-    match hqr with
-    | and.intro hq hr => exact and.intro (and.intro hp hq) hr
+-- ============================================================
+-- Additional Definitions for Required Isomorphisms
+-- ============================================================
 
--- iff_sym : (P <-> Q) -> (Q <-> P)
-theorem Original_LF__DOT__Logic_LF_Logic_iff__sym : ∀ (P Q : Prop),
-  iff P Q → iff Q P := fun P Q h =>
-  match h with
-  | ⟨hpq, hqp⟩ => ⟨hqp, hpq⟩
+-- Factorial (Admitted in Original.v)
+axiom Original_LF__DOT__Basics_LF_Basics_factorial : nat → nat
 
--- ProofObjects definitions
--- conj_fact : P /\ Q -> Q /\ R -> P /\ R
-def Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_conj__fact : ∀ (P Q R : Prop),
-  and P Q → and Q R → and P R := by
-  intro P Q R hpq hqr
-  match hpq, hqr with
-  | and.intro hp _, and.intro _ hr => exact and.intro hp hr
+-- test_factorial1 (Admitted in Original.v)
+axiom Original_LF__DOT__Basics_LF_Basics_test__factorial1 :
+  Corelib_Init_Logic_eq (Original_LF__DOT__Basics_LF_Basics_factorial (nat.S (nat.S (nat.S nat.O)))) (nat.S (nat.S (nat.S (nat.S (nat.S (nat.S nat.O))))))
 
--- or_distributes_over_and : P \/ (Q /\ R) <-> (P \/ Q) /\ (P \/ R)
-theorem Original_LF__DOT__ProofObjects_LF_ProofObjects_or__distributes__over__and : ∀ (P Q R : Prop),
-  iff (or P (and Q R)) (and (or P Q) (or P R)) := by
-  intro P Q R
-  constructor
-  · intro h
-    match h with
-    | or.inl hp => exact and.intro (or.inl hp) (or.inl hp)
-    | or.inr hqr =>
-      match hqr with
-      | and.intro hq hr => exact and.intro (or.inr hq) (or.inr hr)
-  · intro h
-    match h with
-    | and.intro hpq hpr =>
-      match hpq, hpr with
-      | or.inl hp, _ => exact or.inl hp
-      | _, or.inl hp => exact or.inl hp
-      | or.inr hq, or.inr hr => exact or.inr (and.intro hq hr)
+-- False in ProofObjects.Props
+inductive Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_False : Prop where
 
--- equality__leibniz_equality_term : x == y -> forall P, P x -> P y
--- Note: we're using our custom eq here
-def Original_LF__DOT__ProofObjects_LF_ProofObjects_equality____leibniz__equality__term : ∀ (X : Type) (x y : X),
-  Original_LF__DOT__ProofObjects_LF_ProofObjects_eq x y → ∀ (P : X → Prop), P x → P y := by
-  intro X x y heq P px
-  cases heq
-  exact px
+-- ex_falso_quodlibet' (Admitted in Original.v) - P is Type, not Prop!
+axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_ex__falso__quodlibet' :
+  ∀ (P : Type), Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_False → P
+
+-- inj_l' (Admitted in Original.v)
+axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_inj__l' :
+  ∀ (P Q : Prop), P → Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_or P Q
+
+-- And.proj1' (Admitted in Original.v)
+axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_Props_And_proj1' :
+  ∀ (P Q : Prop), and P Q → P
+
+-- four (Admitted in Original.v) - uses ProofObjects.eq
+axiom Original_LF__DOT__ProofObjects_LF_ProofObjects_four :
+  Original_LF__DOT__ProofObjects_LF_ProofObjects_eq
+    (Nat_add (nat.S (nat.S nat.O)) (nat.S (nat.S nat.O)))
+    (Nat_add (nat.S nat.O) (nat.S (nat.S (nat.S nat.O))))
+
+-- better_t_tree_ind_type (Admitted in Original.v)
+axiom Original_LF__DOT__IndPrinciples_LF_IndPrinciples_better__t__tree__ind__type : Prop
+
+-- better_t_tree_ind (Admitted in Original.v)
+axiom Original_LF__DOT__IndPrinciples_LF_IndPrinciples_better__t__tree__ind :
+  Original_LF__DOT__IndPrinciples_LF_IndPrinciples_better__t__tree__ind__type
+
+-- add_assoc (Admitted in Original.v)
+axiom Original_LF__DOT__Induction_LF_Induction_add__assoc :
+  ∀ (n m p : nat), Corelib_Init_Logic_eq (Nat_add n (Nat_add m p)) (Nat_add (Nat_add n m) p)
+
+-- add_shuffle3' (Admitted in Original.v)
+axiom Original_LF__DOT__Induction_LF_Induction_add__shuffle3' :
+  ∀ (n m p : nat), Corelib_Init_Logic_eq (Nat_add n (Nat_add m p)) (Nat_add m (Nat_add n p))
+
+-- double_plus (Admitted in Original.v)
+axiom Original_LF__DOT__Induction_LF_Induction_double__plus :
+  ∀ (n : nat), Corelib_Init_Logic_eq (Original_LF__DOT__Induction_LF_Induction_double n) (Nat_add n n)
+
+-- imp2 (Admitted in Original.v)
+axiom Original_LF__DOT__AltAuto_LF_AltAuto_imp2 :
+  ∀ (P Q : Prop), P → (P → Q) → Q
+
+-- intuition_simplify2 (Admitted in Original.v)
+axiom Original_LF__DOT__AltAuto_LF_AltAuto_intuition__simplify2 :
+  ∀ (x y : nat) (P Q : nat → Prop),
+    and (Corelib_Init_Logic_eq x y) (and (P x → Q x) (P x)) → Q y
 

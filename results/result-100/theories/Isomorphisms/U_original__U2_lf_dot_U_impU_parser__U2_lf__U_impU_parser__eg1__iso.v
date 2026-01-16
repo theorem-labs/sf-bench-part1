@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -10,7 +10,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_impU_parser__U2_lf__U_impU_parser__U_someU_e__iso Isomorphisms.__0__iso Isomorphisms.U_ascii__U_ascii__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aid__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aminus__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_amult__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_anum__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_aplus__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_beq__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_casgn__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_cif__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_cseq__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__U2_cskip__iso Isomorphisms.U_original__U2_lf_dot_U_impU_parser__U2_lf__U_impU_parser__parse__iso Isomorphisms.U_s__iso Isomorphisms.U_string__U_emptyU_string__iso Isomorphisms.U_string__U_string__iso Isomorphisms.false__iso Isomorphisms.true__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_eg1 : @imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpParser_LF_ImpParser_optionE imported_Original_LF__DOT__Imp_LF_Imp_com)
+Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_eg1 : @imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__ImpParser_LF_ImpParser_optionE imported_Original_LF__DOT__Imp_LF_Imp_com)
     (imported_Original_LF__DOT__ImpParser_LF_ImpParser_parse
        (@StringOptimizations.imported_string imported_bool imported_true imported_false imported_Ascii_ascii imported_Ascii_Ascii imported_String_string imported_String_EmptyString
           imported_String_String
@@ -245,7 +245,7 @@ Monomorphic Definition imported_Original_LF__DOT__ImpParser_LF_ImpParser_eg1 : @
                    imported_String_String (String.String (Ascii.Ascii true false false true true true true false) String.EmptyString))
                 (imported_Original_LF__DOT__Imp_LF_Imp_ANum imported_0)))
           imported_Original_LF__DOT__Imp_LF_Imp_CSkip)) := Imported.Original_LF__DOT__ImpParser_LF_ImpParser_eg1.
-Monomorphic Instance Original_LF__DOT__ImpParser_LF_ImpParser_eg1_iso : rel_iso
+Instance Original_LF__DOT__ImpParser_LF_ImpParser_eg1_iso : rel_iso
     (relax_Iso_Ts_Ps
        (Corelib_Init_Logic_eq_iso
           (Original_LF__DOT__ImpParser_LF_ImpParser_parse_iso
@@ -469,7 +469,7 @@ Monomorphic Instance Original_LF__DOT__ImpParser_LF_ImpParser_eg1_iso : rel_iso
                             (Original_LF__DOT__Imp_LF_Imp_AId_iso
                                (StringOptimizations.imported_string_iso true_iso false_iso Ascii_Ascii_iso String_EmptyString_iso String_String_iso
                                   (String.String (Ascii.Ascii true false false true true true true false) String.EmptyString)))
-                            (Original_LF__DOT__Imp_LF_Imp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (3)%nat (0)%nat imported_0 _0_iso)))))))
+                            (Original_LF__DOT__Imp_LF_Imp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 3 0 imported_0 _0_iso)))))))
                       (Original_LF__DOT__Imp_LF_Imp_ANum_iso (S_iso (S_iso (S_iso _0_iso))))))
                 (Original_LF__DOT__Imp_LF_Imp_CSeq_iso
                    (Original_LF__DOT__Imp_LF_Imp_CAsgn_iso

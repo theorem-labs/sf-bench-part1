@@ -1,36 +1,52 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 (* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
-Definition imported_bool : Type := Imported.Stdlib_bool.
+Monomorphic Definition imported_bool : Type := Imported.mybool.
 
-Definition bool_to_imported (b : bool) : imported_bool :=
+(* Convert from Rocq bool to Imported.mybool *)
+Monomorphic Definition bool_to_imported (b : bool) : imported_bool :=
   match b with
-  | true => Imported.Stdlib_bool_true
-  | false => Imported.Stdlib_bool_false
+  | true => Imported.mybool_mytrue
+  | false => Imported.mybool_myfalse
   end.
 
-Definition imported_to_bool (b : imported_bool) : bool :=
+(* Convert from Imported.mybool to Rocq bool *)
+Monomorphic Definition imported_to_bool (b : imported_bool) : bool :=
   match b with
-  | Imported.Stdlib_bool_true => true
-  | Imported.Stdlib_bool_false => false
+  | Imported.mybool_mytrue => true
+  | Imported.mybool_myfalse => false
   end.
 
-Instance bool_iso : Iso bool imported_bool.
+(* Proof that to_from holds *)
+Monomorphic Lemma bool_to_from : forall x : imported_bool, 
+  IsomorphismDefinitions.eq (bool_to_imported (imported_to_bool x)) x.
 Proof.
-  apply Build_Iso with
-    (to := fun b => match b with true => Imported.Stdlib_bool_true | false => Imported.Stdlib_bool_false end)
-    (from := fun b => match b with Imported.Stdlib_bool_true => true | Imported.Stdlib_bool_false => false end).
-  - intros x. destruct x; apply IsomorphismDefinitions.eq_refl.
-  - intros x. destruct x; apply IsomorphismDefinitions.eq_refl.
-Defined.
+  intro x.
+  destruct x; apply IsomorphismDefinitions.eq_refl.
+Qed.
+
+(* Proof that from_to holds *)
+Monomorphic Lemma bool_from_to : forall x : bool,
+  IsomorphismDefinitions.eq (imported_to_bool (bool_to_imported x)) x.
+Proof.
+  intro x. destruct x; apply IsomorphismDefinitions.eq_refl.
+Qed.
+
+Monomorphic Instance bool_iso : Iso bool imported_bool := {|
+  to := bool_to_imported;
+  from := imported_to_bool;
+  to_from := bool_to_from;
+  from_to := bool_from_to
+|}.
+
 Instance: KnownConstant bool := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.Stdlib_bool := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor bool bool_iso := {}.
-Instance: IsoStatementProofBetween bool Imported.Stdlib_bool bool_iso := {}.
+Instance: KnownConstant Imported.mybool := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor Datatypes.bool bool_iso := {}.
+Instance: IsoStatementProofBetween Datatypes.bool Imported.mybool bool_iso := {}.

@@ -16,8 +16,7 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_Star_iso : forall (x1 x2 : Type) (
   rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) (Original.LF_DOT_IndProp.LF.IndProp.Star x3) (imported_Original_LF__DOT__IndProp_LF_IndProp_Star x4).
 Proof.
   intros x1 x2 hx x3 x4 H.
-  destruct H as [H].
-  constructor.
+  (* (* (* unfold rel_iso in *) idtac; *) idtac; *. *)
   unfold imported_Original_LF__DOT__IndProp_LF_IndProp_Star.
   unfold Imported.Original_LF__DOT__IndProp_LF_IndProp_Star.
   simpl.

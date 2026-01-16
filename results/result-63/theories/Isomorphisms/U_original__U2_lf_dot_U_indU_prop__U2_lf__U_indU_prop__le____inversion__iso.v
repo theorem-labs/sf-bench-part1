@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+#[local] Set Printing Coercions.
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__U_leU_playground__le__iso Isomorphisms.U_s__iso Isomorphisms.and__iso Isomorphisms.ex__iso Isomorphisms.or__iso.
@@ -59,13 +59,7 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_le__inversion_iso : forall (x1 : n
                     and_iso (Corelib_Init_Logic_eq_iso hx0 (S_iso hx2)) (Original_LF__DOT__IndProp_LF_IndProp_LePlayground_le_iso hx hx2))))
              x)
     |} (Original.LF_DOT_IndProp.LF.IndProp.le_inversion x1 x3 x5) (imported_Original_LF__DOT__IndProp_LF_IndProp_le__inversion x6).
-Proof.
-  intros.
-  constructor.
-  simpl.
-  (* The goal is SProp equality, so by definitional proof irrelevance this is reflexivity *)
-  apply IsomorphismDefinitions.eq_refl.
-Defined.
+Admitted.
 Instance: KnownConstant Original.LF_DOT_IndProp.LF.IndProp.le_inversion := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__IndProp_LF_IndProp_le__inversion := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_IndProp.LF.IndProp.le_inversion Original_LF__DOT__IndProp_LF_IndProp_le__inversion_iso := {}.

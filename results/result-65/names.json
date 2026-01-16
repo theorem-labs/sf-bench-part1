@@ -1,7 +1,9 @@
 {
-  "True": "MyTrue",
+  "bool": "Stdlib_bool",
+  "true": "Stdlib_bool_true",
+  "false": "Stdlib_bool_false",
   "False": "MyFalse",
-  "_0": "_0",
-  "lt": "lt",
-  "iff": "iff"
+  "True": "MyTrue",
+  "_0": "nat_O",
+  "S": "nat_S"
 }

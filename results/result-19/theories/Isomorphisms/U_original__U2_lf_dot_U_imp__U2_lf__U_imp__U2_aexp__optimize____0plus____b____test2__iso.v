@@ -15,12 +15,12 @@ Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plu
        (imported_Original_LF__DOT__Imp_LF_Imp_AExp_BAnd
           (imported_Original_LF__DOT__Imp_LF_Imp_AExp_BLe
              (imported_Original_LF__DOT__Imp_LF_Imp_AExp_APlus (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum imported_0)
-                (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0))))))
-             (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 2%nat imported_0))))))
+                (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))))
+             (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))))
           imported_Original_LF__DOT__Imp_LF_Imp_AExp_BTrue))
     (imported_Original_LF__DOT__Imp_LF_Imp_AExp_BAnd
-       (imported_Original_LF__DOT__Imp_LF_Imp_AExp_BLe (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))))
-          (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 2%nat imported_0))))))
+       (imported_Original_LF__DOT__Imp_LF_Imp_AExp_BLe (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))))
+          (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))))
        imported_Original_LF__DOT__Imp_LF_Imp_AExp_BTrue) := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2.
 Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
@@ -28,12 +28,12 @@ Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2
           (Original_LF__DOT__Imp_LF_Imp_AExp_BAnd_iso
              (Original_LF__DOT__Imp_LF_Imp_AExp_BLe_iso
                 (Original_LF__DOT__Imp_LF_Imp_AExp_APlus_iso (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso _0_iso)
-                   (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso))))))
-                (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2%nat 0%nat imported_0 _0_iso))))))
+                   (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso))))))
+                (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S O)) O imported_0 _0_iso))))))
              Original_LF__DOT__Imp_LF_Imp_AExp_BTrue_iso))
        (Original_LF__DOT__Imp_LF_Imp_AExp_BAnd_iso
-          (Original_LF__DOT__Imp_LF_Imp_AExp_BLe_iso (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))))
-             (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2%nat 0%nat imported_0 _0_iso))))))
+          (Original_LF__DOT__Imp_LF_Imp_AExp_BLe_iso (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))))
+             (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S O)) O imported_0 _0_iso))))))
           Original_LF__DOT__Imp_LF_Imp_AExp_BTrue_iso))
     Original.LF_DOT_Imp.LF.Imp.AExp.optimize_0plus_b_test2 imported_Original_LF__DOT__Imp_LF_Imp_AExp_optimize__0plus__b__test2.
 Admitted.

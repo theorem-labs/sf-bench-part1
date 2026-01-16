@@ -4,6 +4,9 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
+(* Print Imported. *)
+(* Typeclasses Opaque rel_iso. (* for speed *) *)
+
 
 Definition imported_bool : Type := Imported.Stdlib_bool.
 
@@ -27,7 +30,7 @@ Proof.
   - intros x. destruct x; apply IsomorphismDefinitions.eq_refl.
   - intros x. destruct x; apply IsomorphismDefinitions.eq_refl.
 Defined.
-Instance: KnownConstant bool := {}.
-Instance: KnownConstant Imported.Stdlib_bool := {}.
+Instance: KnownConstant bool := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.Stdlib_bool := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor bool bool_iso := {}.
 Instance: IsoStatementProofBetween bool Imported.Stdlib_bool bool_iso := {}.

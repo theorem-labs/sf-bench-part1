@@ -5,12 +5,11 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
-
-
-Definition imported_iff : SProp -> SProp -> SProp := Imported.iff.
+(*Typeclasses Opaque rel_iso.*) (* for speed *)
 
 From Stdlib Require Import ProofIrrelevance.
+
+Definition imported_iff : SProp -> SProp -> SProp := Imported.iff.
 
 (* Build an Iso between (x1 <-> x3) and (imported_iff x2 x4) *)
 (* where imported_iff is the Lean-exported iff record *)

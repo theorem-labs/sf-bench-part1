@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* (* Typeclasses Opaque rel_iso *). *) (* for speed *)
 From Stdlib Require Import Arith.
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__aexp__iso Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__state__iso.
@@ -149,7 +149,7 @@ Proof.
   apply (eq_trans (aeval_iso_core st st' Hst a)).
   apply (eq_trans (aeval_aux_eq st' (aexp_to_imported a))).
   apply (f_equal (imported_Original_LF__DOT__Imp_LF_Imp_aeval st') Ha').
-Qed.
+Defined.
 
 Instance: KnownConstant Original.LF_DOT_Imp.LF.Imp.aeval := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Imp_LF_Imp_aeval := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -8,7 +8,8 @@
   "False": "FalseType",
   "_0": "nat_O",
   "S": "nat_S",
-  "PeanoNat_Nat_leb": "nat_leb",
-  "Original_LF__DOT__Imp_LF_Imp_AExp_foo'": "Original_LF__DOT__Imp_LF_Imp_AExp_fooSQUOTE",
-  "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_P__m0r'": "Original_LF__DOT__IndPrinciples_LF_IndPrinciples_P__m0rSQUOTE"
+  "Original_LF__DOT__Auto_LF_Auto_Repeat_CAsgn": "Original_LF__DOT__Auto_LF_Auto_Repeat_com_CAsgn",
+  "Original_LF__DOT__Auto_LF_Auto_Repeat_CSeq": "Original_LF__DOT__Auto_LF_Auto_Repeat_com_CSeq",
+  "Original_LF__DOT__Auto_LF_Auto_Repeat_CIf": "Original_LF__DOT__Auto_LF_Auto_Repeat_com_CIf",
+  "Original_LF__DOT__IndProp_LF_IndProp_EvPlayground_ev": "Original_LF__DOT__IndProp_LF_IndProp_ev__playground_ev"
 }

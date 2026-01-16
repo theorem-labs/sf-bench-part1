@@ -1,11 +1,9 @@
 {
-  "bool": "mybool",
-  "true": "mybool_mytrue",
-  "false": "mybool_myfalse",
-  "Ascii_Ascii": "Ascii_ascii_Ascii",
-  "Ascii_ascii": "Ascii_ascii",
-  "True": "TrueType",
-  "False": "FalseType",
+  "bool": "Stdlib_bool",
+  "true": "mybool_true",
+  "false": "mybool_false",
+  "True": "MyTrue",
   "_0": "nat_O",
-  "S": "nat_S"
+  "False": "MyFalse",
+  "Original_LF__DOT__Lists_LF_Lists_NatList_surjective__pairing'": "Original_LF__DOT__Lists_LF_Lists_NatList_surjective__pairingSQUOTE"
 }

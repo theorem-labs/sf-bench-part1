@@ -10,10 +10,10 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.__0__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__leb__iso Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__true__iso Isomorphisms.U_s__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__Basics_LF_Basics_test__leb2 : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_leb (imported_S (imported_S imported_0)) (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))))
+Monomorphic Definition imported_Original_LF__DOT__Basics_LF_Basics_test__leb2 : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_leb (imported_S (imported_S imported_0)) (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))))
     imported_Original_LF__DOT__Basics_LF_Basics_true := Imported.Original_LF__DOT__Basics_LF_Basics_test__leb2.
 Monomorphic Instance Original_LF__DOT__Basics_LF_Basics_test__leb2_iso : rel_iso
-    (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_leb_iso (S_iso (S_iso _0_iso)) (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))))
+    (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_leb_iso (S_iso (S_iso _0_iso)) (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))))
        Original_LF__DOT__Basics_LF_Basics_true_iso)
     Original.LF_DOT_Basics.LF.Basics.test_leb2 imported_Original_LF__DOT__Basics_LF_Basics_test__leb2.
 Admitted.

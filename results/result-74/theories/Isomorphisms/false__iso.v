@@ -10,13 +10,10 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.bool__iso.
 
-Definition imported_false : imported_bool := Imported.Stdlib_bool_false.
-Instance false_iso : rel_iso bool_iso false imported_false.
-Proof.
-  constructor. unfold imported_false. simpl.
-  apply IsomorphismDefinitions.eq_refl.
-Defined.
+Monomorphic Definition imported_false : imported_bool := Imported.false.
+Monomorphic Instance false_iso : rel_iso bool_iso false imported_false.
+Admitted.
 Instance: KnownConstant false := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.Stdlib_bool_false := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.false := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor false false_iso := {}.
-Instance: IsoStatementProofBetween false Imported.Stdlib_bool_false false_iso := {}.
+Instance: IsoStatementProofBetween false Imported.false false_iso := {}.

@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp__U2_lf__U_imp__sinstr__iso.
@@ -13,7 +13,8 @@ From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_imp_
 Definition imported_Original_LF__DOT__Imp_LF_Imp_SPlus : imported_Original_LF__DOT__Imp_LF_Imp_sinstr := Imported.Original_LF__DOT__Imp_LF_Imp_SPlus.
 Instance Original_LF__DOT__Imp_LF_Imp_SPlus_iso : rel_iso Original_LF__DOT__Imp_LF_Imp_sinstr_iso Original.LF_DOT_Imp.LF.Imp.SPlus imported_Original_LF__DOT__Imp_LF_Imp_SPlus.
 Proof.
-  unfold rel_iso, imported_Original_LF__DOT__Imp_LF_Imp_SPlus.
+  unfold imported_Original_LF__DOT__Imp_LF_Imp_SPlus.
+  constructor.
   simpl.
   apply IsomorphismDefinitions.eq_refl.
 Defined.

@@ -1,16 +1,13 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_basics__U2_lf__U_basics__bool__iso.
-
-Definition imported_Original_LF__DOT__IndProp_LF_IndProp_reflect : SProp -> imported_Original_LF__DOT__Basics_LF_Basics_bool -> SProp := Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect.
 
 (* Helper: iso between False and Imported.False *)
 Lemma iso_False_Imported_False : Iso False Imported.False.
@@ -58,7 +55,7 @@ Definition reflect_to (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2)
   : Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect x2 x4.
 Proof.
   destruct H2.
-  destruct r as [p | np]; cbv [Original_LF__DOT__Basics_LF_Basics_bool_iso to].
+  destruct r as [p | np]; cbv [Original_LF__DOT__Basics_LF_Basics_bool_iso to bool_to_imported].
   - apply Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect_ReflectT.
     exact (H1.(to) p).
   - apply Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect_ReflectF.
@@ -76,7 +73,7 @@ Definition reflect_from (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2)
   : Original.LF_DOT_IndProp.LF.IndProp.reflect x1 x3.
 Proof.
   destruct H2.
-  destruct x3; cbv [Original_LF__DOT__Basics_LF_Basics_bool_iso to] in r;
+  destruct x3; cbv [Original_LF__DOT__Basics_LF_Basics_bool_iso to bool_to_imported] in r;
   [ apply Original.LF_DOT_IndProp.LF.IndProp.ReflectT;
     apply H1.(from);
     exact (@reflect_true_to_P x2 r)
@@ -88,7 +85,9 @@ Proof.
   ].
 Defined.
 
-Instance Original_LF__DOT__IndProp_LF_IndProp_reflect_iso 
+Definition imported_Original_LF__DOT__IndProp_LF_IndProp_reflect : SProp -> imported_Original_LF__DOT__Basics_LF_Basics_bool -> SProp := Imported.Original_LF__DOT__IndProp_LF_IndProp_reflect.
+
+Definition Original_LF__DOT__IndProp_LF_IndProp_reflect_iso 
   : forall (x1 : Prop) (x2 : SProp),
     Iso x1 x2 ->
     forall (x3 : Original.LF_DOT_Basics.LF.Basics.bool) (x4 : imported_Original_LF__DOT__Basics_LF_Basics_bool),

@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* Typeclasses Opaque rel_iso. - disabled *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_string__string__iso.
@@ -13,7 +13,7 @@ From IsomorphismChecker Require Export Isomorphisms.U_string__string__iso.
 Definition imported_String_EmptyString : imported_String_string := Imported.String_string_EmptyString.
 Instance String_EmptyString_iso : rel_iso String_string_iso String.EmptyString imported_String_EmptyString.
 Proof.
-  constructor; simpl.
+  apply Build_rel_iso. simpl.
   unfold imported_String_EmptyString.
   apply IsomorphismDefinitions.eq_refl.
 Defined.

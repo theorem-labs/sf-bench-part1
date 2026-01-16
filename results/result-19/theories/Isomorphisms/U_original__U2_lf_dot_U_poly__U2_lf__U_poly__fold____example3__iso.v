@@ -18,13 +18,13 @@ Monomorphic Definition imported_Original_LF__DOT__Poly_LF_Poly_fold__example3 : 
                 (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
                    (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S imported_0))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat)))
                 (imported_Original_LF__DOT__Poly_LF_Poly_cons
-                   (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))
+                   (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))
                    (imported_Original_LF__DOT__Poly_LF_Poly_nil (imported_Original_LF__DOT__Poly_LF_Poly_list imported_nat))))))
        (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))
     (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S imported_0)))
-             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))) := Imported.Original_LF__DOT__Poly_LF_Poly_fold__example3.
+             (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))) := Imported.Original_LF__DOT__Poly_LF_Poly_fold__example3.
 Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_fold__example3_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (unwrap_sprop
@@ -40,13 +40,13 @@ Monomorphic Instance Original_LF__DOT__Poly_LF_Poly_fold__example3_iso : rel_iso
                       (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
                          (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso _0_iso))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso)))
                       (Original_LF__DOT__Poly_LF_Poly_cons_iso
-                         (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))
+                         (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))
                          (Original_LF__DOT__Poly_LF_Poly_nil_iso (Original_LF__DOT__Poly_LF_Poly_list_iso nat_iso))))))
              Original.LF_DOT_Poly.LF.Poly.nil (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat) {| unwrap_sprop := Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso |}))
        (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
              (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso _0_iso)))
-                (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
+                (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
     Original.LF_DOT_Poly.LF.Poly.fold_example3 imported_Original_LF__DOT__Poly_LF_Poly_fold__example3.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Poly.LF.Poly.fold_example3 := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -12,7 +12,8 @@ Definition imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil : imported_Orig
 
 Instance Original_LF__DOT__Lists_LF_Lists_NatList_nil_iso : rel_iso Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso Original.LF_DOT_Lists.LF.Lists.NatList.nil imported_Original_LF__DOT__Lists_LF_Lists_NatList_nil.
 Proof.
-  constructor.
+  constructor. simpl.
+  simpl. unfold Imported.Original_LF__DOT__Lists_LF_Lists_NatList_nil.
   apply IsomorphismDefinitions.eq_refl.
 Defined.
 

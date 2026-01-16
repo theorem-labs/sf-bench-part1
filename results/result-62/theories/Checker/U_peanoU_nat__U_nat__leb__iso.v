@@ -10,7 +10,7 @@ Module Type Args <: Interface.U_peanoU_nat__U_nat__leb__iso.Args := Checker.bool
 #[global] Strategy -1 [ Isomorphisms.U_peanoU_nat__U_nat__leb__iso.imported_PeanoNat_Nat_leb Isomorphisms.U_peanoU_nat__U_nat__leb__iso.PeanoNat_Nat_leb_iso ].
 
 Module Checker (Import args : Args) <: Interface.U_peanoU_nat__U_nat__leb__iso.Interface args
-  with Definition imported_PeanoNat_Nat_leb := Imported.nat_leb.
+  with Definition imported_PeanoNat_Nat_leb := Imported.PeanoNat_Nat_leb.
 
 Definition imported_PeanoNat_Nat_leb := Isomorphisms.U_peanoU_nat__U_nat__leb__iso.imported_PeanoNat_Nat_leb.
 Definition PeanoNat_Nat_leb_iso := Isomorphisms.U_peanoU_nat__U_nat__leb__iso.PeanoNat_Nat_leb_iso.

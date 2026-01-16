@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_lists__U2_lf__U_lists__U_natU_list__natlist__iso.
@@ -22,7 +22,7 @@ Lemma imported_rev_nil :
     Imported.Original_LF__DOT__Lists_LF_Lists_NatList_natlist_nil.
 Proof.
   apply IsomorphismDefinitions.eq_refl.
-Qed.
+Defined.
 
 (* Helper: Imported.rev respects the cons constructor *)
 Lemma imported_rev_cons : forall n t,
@@ -36,7 +36,7 @@ Lemma imported_rev_cons : forall n t,
 Proof.
   intros.
   apply IsomorphismDefinitions.eq_refl.
-Qed.
+Defined.
 
 (* Prove that rev commutes with natlist_to_imported *)
 Lemma rev_commutes : forall (l : Original.LF_DOT_Lists.LF.Lists.NatList.natlist),
@@ -66,21 +66,21 @@ Proof.
     (* Now we need: Imported.app (Imported.rev (natlist_to_imported t)) [n] = Imported.rev (cons n (natlist_to_imported t)) *)
     pose proof (eq_sym (imported_rev_cons (nat_to_imported n) (natlist_to_imported t))) as H2.
     apply (eq_trans H1 H2). }
-Qed.
+Defined.
 
 Instance Original_LF__DOT__Lists_LF_Lists_NatList_rev_iso : forall (x1 : Original.LF_DOT_Lists.LF.Lists.NatList.natlist) (x2 : imported_Original_LF__DOT__Lists_LF_Lists_NatList_natlist),
   rel_iso Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso x1 x2 ->
   rel_iso Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso (Original.LF_DOT_Lists.LF.Lists.NatList.rev x1) (imported_Original_LF__DOT__Lists_LF_Lists_NatList_rev x2).
 Proof.
   intros x1 x2 H1.
-  destruct H1 as [H1']. constructor. simpl.
+  constructor.
   unfold imported_Original_LF__DOT__Lists_LF_Lists_NatList_rev.
   unfold Original_LF__DOT__Lists_LF_Lists_NatList_natlist_iso in *.
   simpl in *.
   (* H1 : eq (natlist_to_imported x1) x2 *)
   (* Goal: eq (natlist_to_imported (rev x1)) (Imported.rev x2) *)
   pose proof (seq_of_eq (rev_commutes x1)) as Hcomm.
-  pose proof (f_equal Imported.Original_LF__DOT__Lists_LF_Lists_NatList_rev H1') as Harg.
+  pose proof (f_equal Imported.Original_LF__DOT__Lists_LF_Lists_NatList_rev H1) as Harg.
   apply (eq_trans Hcomm Harg).
 Defined.
 

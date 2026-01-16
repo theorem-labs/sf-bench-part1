@@ -5,29 +5,28 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *)
 
 
 Definition imported_or : SProp -> SProp -> SProp := Imported.or.
 
 (* Build the 'to' function *)
-(* imported_or x2 x4 = Lean.Or x2 x4 *)
 Definition or_to (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2) 
                  (x3 : Prop) (x4 : SProp) (H2 : Iso x3 x4)
   : Corelib.Init.Logic.or x1 x3 -> imported_or x2 x4 :=
   fun p => match p with
-  | or_introl a => Lean.Or_inl x2 x4 (to H1 a)
-  | or_intror b => Lean.Or_inr x2 x4 (to H2 b)
+  | or_introl a => Imported.or_inl x2 x4 (to H1 a)
+  | or_intror b => Imported.or_inr x2 x4 (to H2 b)
   end.
 
-(* Build the 'from' function using Or_indl to eliminate from SProp to SInhabited (Prop) *)
+(* Build the 'from' function using SInhabited/sinhabitant trick *)
 Definition or_from (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2) 
                    (x3 : Prop) (x4 : SProp) (H2 : Iso x3 x4)
   : imported_or x2 x4 -> Corelib.Init.Logic.or x1 x3 :=
-  fun p => sinhabitant (Imported.Or_indl x2 x4 (fun _ => SInhabited (x1 \/ x3))
-              (fun h => sinhabits (or_introl (from H1 h)))
-              (fun h => sinhabits (or_intror (from H2 h)))
-              p).
+  fun p => sinhabitant (match p with
+    | Imported.or_inl _ _ h => sinhabits (or_introl (from H1 h))
+    | Imported.or_inr _ _ h => sinhabits (or_intror (from H2 h))
+    end).
 
 Instance or_iso : (forall (x1 : Prop) (x2 : SProp) (_ : Iso x1 x2) (x3 : Prop) (x4 : SProp) (_ : Iso x3 x4), Iso (Corelib.Init.Logic.or x1 x3) (imported_or x2 x4)).
 Proof.

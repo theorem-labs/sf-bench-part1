@@ -5,10 +5,25 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
+
+Definition nat_to_imported : nat -> imported_nat :=
+  fix f (n : nat) : imported_nat :=
+    match n with
+    | O => Imported.nat_O
+    | S m => Imported.nat_S (f m)
+    end.
+
+Definition imported_to_nat : imported_nat -> nat :=
+  fix g (n : imported_nat) : nat :=
+    match n with
+    | Imported.nat_O => O
+    | Imported.nat_S m => S (g m)
+    end.
+
 Instance nat_iso : Iso nat imported_nat.
 Proof.
   exists (fix f (n : nat) : imported_nat :=

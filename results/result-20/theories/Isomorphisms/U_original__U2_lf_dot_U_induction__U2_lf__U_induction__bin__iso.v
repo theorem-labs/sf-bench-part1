@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -32,7 +32,7 @@ Proof.
   - reflexivity.
   - f_equal. apply IH.
   - f_equal. apply IH.
-Qed.
+Defined.
 
 Lemma bin_roundtrip2 : forall b, bin_to_imported (imported_to_bin b) = b.
 Proof.
@@ -41,7 +41,7 @@ Proof.
   - reflexivity.
   - f_equal. apply IH.
   - f_equal. apply IH.
-Qed.
+Defined.
 
 (* Use seq_of_eq to convert from regular = to IsomorphismDefinitions.eq *)
 Instance Original_LF__DOT__Induction_LF_Induction_bin_iso : Iso Original.LF_DOT_Induction.LF.Induction.bin imported_Original_LF__DOT__Induction_LF_Induction_bin :=

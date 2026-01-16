@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(*Typeclasses Opaque rel_iso.*) (* for speed *)
+#[local] Set Printing Coercions.
 
 
 Definition imported_Original_False : SProp := Imported.Original_False.

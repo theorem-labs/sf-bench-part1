@@ -4,10 +4,12 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-
-Definition imported_iff : SProp -> SProp -> SProp := Imported.iff.
+(* Print Imported. *)
+(* (* (* Typeclasses Opaque rel_iso. *) *) *) (* for speed *)
 
 From Stdlib Require Import ProofIrrelevance.
+
+Definition imported_iff : SProp -> SProp -> SProp := Imported.iff.
 
 (* Build an Iso between (x1 <-> x3) and (imported_iff x2 x4) *)
 (* where imported_iff is the Lean-exported iff record *)
@@ -19,7 +21,7 @@ Proof.
   unshelve econstructor.
   - (* to : (x1 <-> x3) -> imported_iff x2 x4 *)
     intros [H1 H2].
-    exact (Imported.iff_intro x2 x4 (fun a => hx0.(to) (H1 (hx.(from) a))) (fun b => hx.(to) (H2 (hx0.(from) b)))).
+    exact (Imported.iff_mk x2 x4 (fun a => hx0.(to) (H1 (hx.(from) a))) (fun b => hx.(to) (H2 (hx0.(from) b)))).
   - (* from : imported_iff x2 x4 -> (x1 <-> x3) *)
     intros H.
     split.
@@ -39,7 +41,7 @@ Proof.
       rewrite Heq. apply IsomorphismDefinitions.eq_refl. }
     apply H1'.
 Defined.
-Instance: KnownConstant Logic.iff := {}. 
-Instance: KnownConstant Imported.iff := {}. 
-Instance: IsoStatementProofFor Logic.iff iff_iso := {}.
-Instance: IsoStatementProofBetween Logic.iff Imported.iff iff_iso := {}.
+Instance: KnownConstant iff := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.iff := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor iff iff_iso := {}.
+Instance: IsoStatementProofBetween iff Imported.iff iff_iso := {}.

@@ -1,21 +1,21 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *) (* for speed *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__cons__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__nil__iso Isomorphisms.U_original__U2_lf_dot_U_poly__U2_lf__U_poly__rev__iso Isomorphisms.__0__iso Isomorphisms.U_s__iso.
 
-Definition imported_Original_LF__DOT__Poly_LF_Poly_test__rev1 : imported_Corelib_Init_Logic_eq
+Axiom imported_Original_LF__DOT__Poly_LF_Poly_test__rev1 : imported_Corelib_Init_Logic_eq
     (imported_Original_LF__DOT__Poly_LF_Poly_rev
        (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
           (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0)) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))
     (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S imported_0))
-       (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))) := Imported.Original_LF__DOT__Poly_LF_Poly_test__rev1.
+       (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0) (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))).
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
 Instance Original_LF__DOT__Poly_LF_Poly_test__rev1_iso : rel_iso

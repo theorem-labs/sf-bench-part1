@@ -1,19 +1,25 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-#[local] Set Printing Coercions.
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__reg____exp__iso.
 
-Monomorphic Definition imported_Original_LF__DOT__IndProp_LF_IndProp_EmptySet : forall x : Type, imported_Original_LF__DOT__IndProp_LF_IndProp_reg__exp x := (@Imported.Original_LF__DOT__IndProp_LF_IndProp_EmptySet).
-Monomorphic Instance Original_LF__DOT__IndProp_LF_IndProp_EmptySet_iso : forall (x1 x2 : Type) (hx : Iso x1 x2),
+Definition imported_Original_LF__DOT__IndProp_LF_IndProp_EmptySet : forall x : Type, imported_Original_LF__DOT__IndProp_LF_IndProp_reg__exp x := (@Imported.Original_LF__DOT__IndProp_LF_IndProp_EmptySet).
+Instance Original_LF__DOT__IndProp_LF_IndProp_EmptySet_iso : forall (x1 x2 : Type) (hx : Iso x1 x2),
   rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) Original.LF_DOT_IndProp.LF.IndProp.EmptySet (imported_Original_LF__DOT__IndProp_LF_IndProp_EmptySet x2).
-Admitted.
+Proof.
+  intros x1 x2 hx.
+  constructor. simpl.
+  unfold imported_Original_LF__DOT__IndProp_LF_IndProp_EmptySet.
+  unfold Imported.Original_LF__DOT__IndProp_LF_IndProp_EmptySet.
+  apply IsomorphismDefinitions.eq_refl.
+Qed.
 Instance: KnownConstant (@Original.LF_DOT_IndProp.LF.IndProp.EmptySet) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant (@Imported.Original_LF__DOT__IndProp_LF_IndProp_EmptySet) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor (@Original.LF_DOT_IndProp.LF.IndProp.EmptySet) Original_LF__DOT__IndProp_LF_IndProp_EmptySet_iso := {}.

@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -16,7 +16,7 @@ Monomorphic Instance Original_LF__DOT__Tactics_LF_Tactics_double__injective_iso 
     (x5 : Original.LF_DOT_Induction.LF.Induction.double x1 = Original.LF_DOT_Induction.LF.Induction.double x3)
     (x6 : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Induction_LF_Induction_double x2) (imported_Original_LF__DOT__Induction_LF_Induction_double x4)),
   rel_iso (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Induction_LF_Induction_double_iso hx) (Original_LF__DOT__Induction_LF_Induction_double_iso hx0)) x5 x6 ->
-  rel_iso (Corelib_Init_Logic_eq_iso hx hx0) (Original.LF_DOT_Tactics.LF.Tactics.double_injective x1 x3 x5) (imported_Original_LF__DOT__Tactics_LF_Tactics_double__injective x6).
+  rel_iso (Corelib_Init_Logic_eq_iso hx hx0) (Original.LF_DOT_Tactics.LF.Tactics.double_injective x1 x3 x5) (imported_Original_LF__DOT__Tactics_LF_Tactics_double__injective x2 x4 x6).
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Tactics.LF.Tactics.double_injective := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Tactics_LF_Tactics_double__injective := {}. (* only needed when rel_iso is typeclasses opaque *)

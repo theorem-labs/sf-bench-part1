@@ -4,60 +4,51 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
+(* Print Imported. *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 Definition imported_nat : Type := Imported.nat.
 
-(* Conversion functions between nat and Imported.nat *)
+(* Forward and backward conversions between nat and Imported.nat *)
 Fixpoint nat_to_imported (n : nat) : Imported.nat :=
   match n with
   | O => Imported.nat_O
-  | S m => Imported.nat_S (nat_to_imported m)
+  | S n' => Imported.nat_S (nat_to_imported n')
   end.
 
 Fixpoint imported_to_nat (n : Imported.nat) : nat :=
   match n with
   | Imported.nat_O => O
-  | Imported.nat_S m => S (imported_to_nat m)
+  | Imported.nat_S n' => S (imported_to_nat n')
   end.
 
-(* Prove round-trip properties using SProp eq *)
-Lemma to_from_nat : forall n : Imported.nat, IsomorphismDefinitions.eq (nat_to_imported (imported_to_nat n)) n.
-Proof.
-  fix IH 1.
-  intros n.
-  destruct n as [|m].
-  - apply IsomorphismDefinitions.eq_refl.
-  - simpl. apply f_equal. apply IH.
-Defined.
-
-Lemma from_to_nat : forall n : nat, IsomorphismDefinitions.eq (imported_to_nat (nat_to_imported n)) n.
-Proof.
-  fix IH 1.
-  intros n.
-  destruct n as [|m].
-  - apply IsomorphismDefinitions.eq_refl.
-  - simpl. apply f_equal. apply IH.
-Defined.
-
-Instance nat_iso : Iso nat imported_nat :=
-  Build_Iso nat_to_imported imported_to_nat to_from_nat from_to_nat.
-
-(* Additional Logic.eq roundtrip lemmas for use in other files *)
 Lemma nat_roundtrip : forall n : nat, Logic.eq (imported_to_nat (nat_to_imported n)) n.
 Proof.
   fix IH 1.
-  intros n. destruct n as [|m].
+  intros n. destruct n as [| n']; simpl.
   - reflexivity.
-  - simpl. apply Logic.f_equal. apply IH.
-Defined.
+  - apply Logic.f_equal. apply IH.
+Qed.
 
 Lemma imported_nat_roundtrip : forall n : Imported.nat, Logic.eq (nat_to_imported (imported_to_nat n)) n.
 Proof.
   fix IH 1.
-  intros n. destruct n as [|m].
+  intros n. destruct n as [| n']; simpl.
   - reflexivity.
-  - simpl. apply Logic.f_equal. apply IH.
+  - apply Logic.f_equal. apply IH.
+Qed.
+
+Instance nat_iso : Iso nat imported_nat.
+Proof.
+  refine {|
+    to := nat_to_imported;
+    from := imported_to_nat;
+    to_from := _;
+    from_to := _
+  |}.
+  - intros n. apply seq_of_eq. apply imported_nat_roundtrip.
+  - intros n. apply seq_of_eq. apply nat_roundtrip.
 Defined.
 
 Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)

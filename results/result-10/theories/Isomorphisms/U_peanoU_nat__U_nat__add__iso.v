@@ -11,7 +11,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.nat__iso.
 
-Monomorphic Definition imported_PeanoNat_Nat_add : imported_nat -> imported_nat -> imported_nat := Imported.PeanoNat_Nat_add.
+Definition imported_PeanoNat_Nat_add : imported_nat -> imported_nat -> imported_nat := Imported.PeanoNat_Nat_add.
 
 (* Prove that nat_to_imported preserves addition *)
 Lemma nat_to_imported_add : forall n m : nat, 
@@ -30,9 +30,9 @@ Proof.
             Imported.nat_S (Imported.PeanoNat_Nat_add (nat_to_imported n') (nat_to_imported m))).
     apply Logic.f_equal.
     apply IH.
-Qed.
+Defined.
 
-Monomorphic Instance PeanoNat_Nat_add_iso : forall (x1 : nat) (x2 : imported_nat), rel_iso nat_iso x1 x2 -> forall (x3 : nat) (x4 : imported_nat), rel_iso nat_iso x3 x4 -> rel_iso nat_iso (x1 + x3) (imported_PeanoNat_Nat_add x2 x4).
+Instance PeanoNat_Nat_add_iso : forall (x1 : nat) (x2 : imported_nat), rel_iso nat_iso x1 x2 -> forall (x3 : nat) (x4 : imported_nat), rel_iso nat_iso x3 x4 -> rel_iso nat_iso (x1 + x3) (imported_PeanoNat_Nat_add x2 x4).
 Proof.
   intros x1 x2 hx1 x3 x4 hx2.
   destruct hx1 as [hx1]. destruct hx2 as [hx2].

@@ -19,7 +19,7 @@ Instance Original_LF__DOT__AltAuto_LF_AltAuto_andb__true__elim2_iso : forall (x1
     (x6 : imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Basics_LF_Basics_andb x2 x4) imported_Original_LF__DOT__Basics_LF_Basics_true),
   rel_iso (Corelib_Init_Logic_eq_iso (Original_LF__DOT__Basics_LF_Basics_andb_iso hx hx0) Original_LF__DOT__Basics_LF_Basics_true_iso) x5 x6 ->
   rel_iso (Corelib_Init_Logic_eq_iso hx0 Original_LF__DOT__Basics_LF_Basics_true_iso) (Original.LF_DOT_AltAuto.LF.AltAuto.andb_true_elim2 x1 x3 x5)
-    (imported_Original_LF__DOT__AltAuto_LF_AltAuto_andb__true__elim2 x2 x4 x6).
+    (imported_Original_LF__DOT__AltAuto_LF_AltAuto_andb__true__elim2 x6).
 Admitted.
 Instance: KnownConstant Original.LF_DOT_AltAuto.LF.AltAuto.andb_true_elim2 := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__AltAuto_LF_AltAuto_andb__true__elim2 := {}. (* only needed when rel_iso is typeclasses opaque *)

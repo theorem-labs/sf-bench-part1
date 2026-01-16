@@ -1,8 +1,15 @@
 {
-  "True": "MyTrue",
-  "False": "MyFalse",
-  "_0": "_0",
-  "lt": "lt",
-  "iff": "iff",
-  "Original_LF__DOT__IndProp_LF_IndProp_filter__not__empty__In'": "Original_LF__DOT__IndProp_LF_IndProp_filter__not__empty__InSQUOTE"
+  "bool": "mybool",
+  "true": "true",
+  "false": "false",
+  "Ascii_Ascii": "Ascii_Ascii",
+  "Ascii_ascii": "Ascii_ascii",
+  "True": "TrueType",
+  "False": "FalseType",
+  "_0": "nat_O",
+  "S": "nat_S",
+  "Nat_add": "nat_add",
+  "Nat_mul": "nat_mul",
+  "Nat_pred": "nat_pred",
+  "Nat_sub": "nat_sub"
 }

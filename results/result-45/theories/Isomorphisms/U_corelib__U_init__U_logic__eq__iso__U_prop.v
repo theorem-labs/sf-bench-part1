@@ -3,6 +3,7 @@ Import IsoEq.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 From IsomorphismChecker Require Export Isomorphisms.U_true__iso.
 

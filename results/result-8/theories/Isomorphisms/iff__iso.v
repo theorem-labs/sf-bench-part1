@@ -5,9 +5,9 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 
-Definition imported_iff : SProp -> SProp -> SProp := Imported.iff.
-
 From Stdlib Require Import ProofIrrelevance.
+
+Definition imported_iff : SProp -> SProp -> SProp := Imported.iff.
 
 (* Build an Iso between (x1 <-> x3) and (imported_iff x2 x4) *)
 (* where imported_iff is the Lean-exported iff record *)
@@ -39,7 +39,7 @@ Proof.
       rewrite Heq. apply IsomorphismDefinitions.eq_refl. }
     apply H1'.
 Defined.
-Instance: KnownConstant Logic.iff := {}. 
-Instance: KnownConstant Imported.iff := {}. 
-Instance: IsoStatementProofFor Logic.iff iff_iso := {}.
-Instance: IsoStatementProofBetween Logic.iff Imported.iff iff_iso := {}.
+Instance: KnownConstant iff := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.iff := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: IsoStatementProofFor iff iff_iso := {}.
+Instance: IsoStatementProofBetween iff Imported.iff iff_iso := {}.

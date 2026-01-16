@@ -13,6 +13,6 @@ Instance Original_LF_Rel_relation_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso (O
   := fun (x1 x2 : Type) (hx : Iso x1 x2) => IsoArrow hx (IsoArrow hx iso_Prop_SProp).
 
 Instance: KnownConstant Original.LF.Rel.relation := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant imported_Original_LF_Rel_relation := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.Original_LF_Rel_relation := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF.Rel.relation Original_LF_Rel_relation_iso := {}.
-Instance: IsoStatementProofBetween Original.LF.Rel.relation imported_Original_LF_Rel_relation Original_LF_Rel_relation_iso := {}.
+Instance: IsoStatementProofBetween Original.LF.Rel.relation Imported.Original_LF_Rel_relation Original_LF_Rel_relation_iso := {}.

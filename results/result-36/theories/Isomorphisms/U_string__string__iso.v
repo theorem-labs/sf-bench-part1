@@ -43,11 +43,15 @@ Definition ascii_to_myascii (a : Ascii.ascii) : Imported.Ascii_ascii :=
   end.
 
 Definition myascii_to_ascii (m : Imported.Ascii_ascii) : Ascii.ascii :=
-  match m with
-  | Imported.Ascii_ascii_Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
-    Ascii.Ascii (impbool_to_bool b0) (impbool_to_bool b1) (impbool_to_bool b2) (impbool_to_bool b3)
-                (impbool_to_bool b4) (impbool_to_bool b5) (impbool_to_bool b6) (impbool_to_bool b7)
-  end.
+  Ascii.Ascii
+    (impbool_to_bool (Imported.a____at___Solution__hyg559 m))
+    (impbool_to_bool (Imported.a____at___Solution__hyg561 m))
+    (impbool_to_bool (Imported.a____at___Solution__hyg563 m))
+    (impbool_to_bool (Imported.a____at___Solution__hyg565 m))
+    (impbool_to_bool (Imported.a____at___Solution__hyg567 m))
+    (impbool_to_bool (Imported.a____at___Solution__hyg569 m))
+    (impbool_to_bool (Imported.a____at___Solution__hyg571 m))
+    (impbool_to_bool (Imported.a____at___Solution__hyg573 m)).
 
 Lemma ascii_myascii_roundtrip1 : forall a, myascii_to_ascii (ascii_to_myascii a) = a.
 Proof.

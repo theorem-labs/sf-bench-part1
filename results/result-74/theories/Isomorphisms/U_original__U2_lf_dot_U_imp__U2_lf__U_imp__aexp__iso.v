@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -9,7 +9,7 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_string__string__iso Isomorphisms.nat__iso.
 
-Definition imported_Original_LF__DOT__Imp_LF_Imp_aexp : Type := Imported.Original_LF__DOT__Imp_LF_Imp_aexp.
+Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_aexp : Type := Imported.Original_LF__DOT__Imp_LF_Imp_aexp.
 
 (* Convert from Original aexp to Imported aexp *)
 Fixpoint aexp_to_imported (a : Original.LF_DOT_Imp.LF.Imp.aexp) : imported_Original_LF__DOT__Imp_LF_Imp_aexp :=
@@ -31,7 +31,7 @@ Fixpoint imported_to_aexp (a : imported_Original_LF__DOT__Imp_LF_Imp_aexp) : Ori
   | Imported.Original_LF__DOT__Imp_LF_Imp_aexp_AMult a1 a2 => Original.LF_DOT_Imp.LF.Imp.AMult (imported_to_aexp a1) (imported_to_aexp a2)
   end.
 
-Lemma aexp_to_from : forall x : imported_Original_LF__DOT__Imp_LF_Imp_aexp,
+Monomorphic Lemma aexp_to_from : forall x : imported_Original_LF__DOT__Imp_LF_Imp_aexp,
   IsomorphismDefinitions.eq (aexp_to_imported (imported_to_aexp x)) x.
 Proof.
   fix IH 1.
@@ -43,7 +43,7 @@ Proof.
   - apply (f_equal2 Imported.Original_LF__DOT__Imp_LF_Imp_aexp_AMult (IH a1) (IH a2)).
 Qed.
 
-Lemma aexp_from_to : forall x : Original.LF_DOT_Imp.LF.Imp.aexp,
+Monomorphic Lemma aexp_from_to : forall x : Original.LF_DOT_Imp.LF.Imp.aexp,
   IsomorphismDefinitions.eq (imported_to_aexp (aexp_to_imported x)) x.
 Proof.
   fix IH 1. intros x. destruct x; simpl.
@@ -54,7 +54,7 @@ Proof.
   - apply (f_equal2 Original.LF_DOT_Imp.LF.Imp.AMult (IH x1) (IH x2)).
 Qed.
 
-Instance Original_LF__DOT__Imp_LF_Imp_aexp_iso : Iso Original.LF_DOT_Imp.LF.Imp.aexp imported_Original_LF__DOT__Imp_LF_Imp_aexp := {|
+Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_aexp_iso : Iso Original.LF_DOT_Imp.LF.Imp.aexp imported_Original_LF__DOT__Imp_LF_Imp_aexp := {|
   to := aexp_to_imported;
   from := imported_to_aexp;
   to_from := aexp_to_from;

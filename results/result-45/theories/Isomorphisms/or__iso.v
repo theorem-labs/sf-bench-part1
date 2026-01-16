@@ -1,9 +1,12 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
+(* Print Imported. *)
+(* Typeclasses Opaque rel_iso. *)
+
 
 Definition imported_or : SProp -> SProp -> SProp := Imported.or.
 
@@ -12,36 +15,24 @@ Definition or_to (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2)
                  (x3 : Prop) (x4 : SProp) (H2 : Iso x3 x4)
   : Corelib.Init.Logic.or x1 x3 -> imported_or x2 x4 :=
   fun p => match p with
-  | or_introl a => Imported.or_or_introl x2 x4 (to H1 a)
-  | or_intror b => Imported.or_or_intror x2 x4 (to H2 b)
+  | or_introl a => Imported.or_inl x2 x4 (to H1 a)
+  | or_intror b => Imported.or_inr x2 x4 (to H2 b)
   end.
 
 (* Build the 'from' function using SInhabited/sinhabitant trick *)
-Definition or_from_sinhabited (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2) 
-                   (x3 : Prop) (x4 : SProp) (H2 : Iso x3 x4)
-  : imported_or x2 x4 -> SInhabited (Corelib.Init.Logic.or x1 x3).
-Proof.
-  intro p.
-  unfold imported_or in p.
-  apply (Imported.or_indl x2 x4 (fun _ => SInhabited (Corelib.Init.Logic.or x1 x3))).
-  - intro h. apply sinhabits. apply or_introl. exact (from H1 h).
-  - intro h. apply sinhabits. apply or_intror. exact (from H2 h).
-  - exact p.
-Defined.
-
 Definition or_from (x1 : Prop) (x2 : SProp) (H1 : Iso x1 x2) 
                    (x3 : Prop) (x4 : SProp) (H2 : Iso x3 x4)
   : imported_or x2 x4 -> Corelib.Init.Logic.or x1 x3 :=
-  fun p => sinhabitant (or_from_sinhabited H1 H2 p).
+  fun p => sinhabitant (match p with
+    | Imported.or_inl _ _ h => sinhabits (or_introl (from H1 h))
+    | Imported.or_inr _ _ h => sinhabits (or_intror (from H2 h))
+    end).
 
-#[local] Unset Universe Polymorphism.
-Instance or_iso : forall (x1 : Prop) (x2 : SProp), Iso x1 x2 -> forall (x3 : Prop) (x4 : SProp), Iso x3 x4 -> Iso (x1 \/ x3) (imported_or x2 x4).
+Instance or_iso : (forall (x1 : Prop) (x2 : SProp) (_ : Iso x1 x2) (x3 : Prop) (x4 : SProp) (_ : Iso x3 x4), Iso (Corelib.Init.Logic.or x1 x3) (imported_or x2 x4)).
 Proof.
   intros x1 x2 H1 x3 x4 H2.
-  unshelve refine {|
-    to := or_to H1 H2;
-    from := or_from H1 H2
-  |}.
+  refine (Build_Iso (or_to H1 H2) (or_from H1 H2) _ _).
+  (* to_from: eq (or_to (or_from p)) p where p : imported_or x2 x4 (SProp) *)
   (* Since imported_or x2 x4 is in SProp, all inhabitants are equal *)
   - intro p. apply IsomorphismDefinitions.eq_refl.
   (* from_to: eq (or_from (or_to p)) p where p : or x1 x3 (Prop) *)
@@ -62,8 +53,7 @@ Proof.
              | Logic.eq_refl => IsomorphismDefinitions.eq_refl
              end).
 Defined.
-
-Instance: KnownConstant Corelib.Init.Logic.or := {}.
-Instance: KnownConstant Imported.or := {}.
+Instance: KnownConstant Corelib.Init.Logic.or := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.or := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Corelib.Init.Logic.or or_iso := {}.
 Instance: IsoStatementProofBetween Corelib.Init.Logic.or Imported.or or_iso := {}.

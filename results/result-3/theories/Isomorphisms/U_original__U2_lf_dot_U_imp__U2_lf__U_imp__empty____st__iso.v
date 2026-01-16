@@ -7,6 +7,7 @@ From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 
 
+
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__total____map__iso Isomorphisms.nat__iso.
 
 Definition imported_Original_LF__DOT__Imp_LF_Imp_empty__st : imported_String_string -> imported_nat := Imported.Original_LF__DOT__Imp_LF_Imp_empty__st.

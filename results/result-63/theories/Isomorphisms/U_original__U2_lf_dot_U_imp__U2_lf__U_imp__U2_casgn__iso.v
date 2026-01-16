@@ -15,7 +15,7 @@ Instance Original_LF__DOT__Imp_LF_Imp_CAsgn_iso : forall (x1 : String.string) (x
   rel_iso String_string_iso x1 x2 ->
   forall (x3 : Original.LF_DOT_Imp.LF.Imp.aexp) (x4 : imported_Original_LF__DOT__Imp_LF_Imp_aexp),
   rel_iso Original_LF__DOT__Imp_LF_Imp_aexp_iso x3 x4 -> rel_iso Original_LF__DOT__Imp_LF_Imp_com_iso (Original.LF_DOT_Imp.LF.Imp.CAsgn x1 x3) (imported_Original_LF__DOT__Imp_LF_Imp_CAsgn x2 x4).
-Proof. simpl in *. simpl. intros. apply (f_equal2 Imported.Original_LF__DOT__Imp_LF_Imp_com_CAsgn); assumption. Defined.
+Proof. cbn in *. simpl. intros. apply (f_equal2 Imported.Original_LF__DOT__Imp_LF_Imp_com_CAsgn); assumption. Defined.
 Instance: KnownConstant Original.LF_DOT_Imp.LF.Imp.CAsgn := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Imp_LF_Imp_CAsgn := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_Imp.LF.Imp.CAsgn Original_LF__DOT__Imp_LF_Imp_CAsgn_iso := {}.

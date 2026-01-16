@@ -5,13 +5,15 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
+(* cnat is just a type alias for: forall X : Type, (X -> X) -> X -> X *)
+(* The original and imported definitions are both the same type, so this is trivial *)
 
-(* The imported cnat is definitionally equal to the original cnat *)
-Definition imported_Original_LF__DOT__Poly_LF_Poly_Exercises_cnat : Type := forall x2 : Type, (x2 -> x2) -> x2 -> x2.
+Definition imported_Original_LF__DOT__Poly_LF_Poly_Exercises_cnat : Type := Imported.Original_LF__DOT__Poly_LF_Poly_Exercises_cnat.
 
-(* Verify that Imported.Original_LF__DOT__Poly_LF_Poly_Exercises_cnat is definitionally equal to our definition *)
-Lemma imported_cnat_eq : imported_Original_LF__DOT__Poly_LF_Poly_Exercises_cnat = Imported.Original_LF__DOT__Poly_LF_Poly_Exercises_cnat.
+(* Prove they are identical by showing that the original is definitionally equal to the imported *)
+Lemma cnat_eq : Original.LF_DOT_Poly.LF.Poly.Exercises.cnat = imported_Original_LF__DOT__Poly_LF_Poly_Exercises_cnat.
 Proof. reflexivity. Qed.
 
 Instance Original_LF__DOT__Poly_LF_Poly_Exercises_cnat_iso : forall x1 x2 : Type, Iso x1 x2 -> Iso ((x1 -> x1) -> x1 -> x1) ((x2 -> x2) -> x2 -> x2)

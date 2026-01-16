@@ -14,12 +14,12 @@ Monomorphic Definition imported_Original_LF__DOT__Imp_LF_Imp_AExp_test__aeval1 :
     (imported_Original_LF__DOT__Imp_LF_Imp_AExp_aeval
        (imported_Original_LF__DOT__Imp_LF_Imp_AExp_APlus (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S imported_0)))
           (imported_Original_LF__DOT__Imp_LF_Imp_AExp_ANum (imported_S (imported_S imported_0)))))
-    (imported_S (imported_S (imported_S (iterate1 imported_S 1%nat imported_0)))) := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_test__aeval1.
+    (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) := Imported.Original_LF__DOT__Imp_LF_Imp_AExp_test__aeval1.
 Monomorphic Instance Original_LF__DOT__Imp_LF_Imp_AExp_test__aeval1_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Imp_LF_Imp_AExp_aeval_iso
           (Original_LF__DOT__Imp_LF_Imp_AExp_APlus_iso (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso _0_iso))) (Original_LF__DOT__Imp_LF_Imp_AExp_ANum_iso (S_iso (S_iso _0_iso)))))
-       (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1%nat 0%nat imported_0 _0_iso)))))
+       (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))))
     Original.LF_DOT_Imp.LF.Imp.AExp.test_aeval1 imported_Original_LF__DOT__Imp_LF_Imp_AExp_test__aeval1.
 Admitted.
 Instance: KnownConstant Original.LF_DOT_Imp.LF.Imp.AExp.test_aeval1 := {}. (* only needed when rel_iso is typeclasses opaque *)

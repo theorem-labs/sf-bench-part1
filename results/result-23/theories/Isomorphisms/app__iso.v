@@ -3,7 +3,7 @@ Import IsoEq.
 From LeanImport Require Import Lean.
 From Stdlib Require Import List.
 Import ListNotations.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)

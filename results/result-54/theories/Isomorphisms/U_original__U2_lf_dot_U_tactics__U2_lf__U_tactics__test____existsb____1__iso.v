@@ -23,11 +23,11 @@ Monomorphic Instance Original_LF__DOT__Tactics_LF_Tactics_test__existsb__1_iso :
        (Original_LF__DOT__Tactics_LF_Tactics_existsb_iso (Original.LF_DOT_Basics.LF.Basics.eqb 5)
           (fun x : imported_nat => imported_Original_LF__DOT__Basics_LF_Basics_eqb (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0)))) x)
           (fun (x1 : nat) (x2 : imported_nat) (hx : rel_iso nat_iso x1 x2) =>
-           Original_LF__DOT__Basics_LF_Basics_eqb_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2%nat 0%nat imported_0 _0_iso)))) hx)
+           Original_LF__DOT__Basics_LF_Basics_eqb_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2 O imported_0 _0_iso)))) hx)
           (Original_LF__DOT__Poly_LF_Poly_cons_iso _0_iso
              (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso _0_iso))
                 (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso _0_iso)))
-                   (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 3%nat 0%nat imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
+                   (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 3 O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))
        Original_LF__DOT__Basics_LF_Basics_false_iso)
     Original.LF_DOT_Tactics.LF.Tactics.test_existsb_1 imported_Original_LF__DOT__Tactics_LF_Tactics_test__existsb__1.
 Admitted.

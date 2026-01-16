@@ -1,4 +1,7 @@
 {
-  "True": "Exported_True",
-  "False": "Exported_False"
+  "True": "MyTrue",
+  "False": "MyFalse",
+  "_0": "_0",
+  "lt": "lt",
+  "iff": "iff"
 }

@@ -1,10 +1,11 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 From Stdlib Require Import Logic.ProofIrrelevance.
 Import IsoEq.
-From LeanImport Require Import Lean.
+
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
+Local Open Scope nat_scope.
 (* Print Imported. *)
 (* Typeclasses Opaque rel_iso. *) (* for speed *)
 
@@ -130,7 +131,7 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_exp__match_iso : (forall (x1 x2 : 
    Iso (@Original.LF_DOT_IndProp.LF.IndProp.exp_match x1 x3 x5) (@imported_Original_LF__DOT__IndProp_LF_IndProp_exp__match x2 x4 x6)).
 Proof.
   intros x1 x2 hx x3 x4 Hx34 x5 x6 Hx56.
-  simpl in Hx34, Hx56. simpl in Hx34, Hx56.
+  destruct Hx34 as [Hx34]. destruct Hx56 as [Hx56]. simpl in Hx34, Hx56.
   unshelve eapply Build_Iso.
   - (* to: Original.exp_match x3 x5 -> imported exp_match x4 x6 *)
     intro Hmatch.

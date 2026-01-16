@@ -10,9 +10,9 @@ From IsomorphismChecker Require Original Imported.
 
 From IsomorphismChecker Require Export Isomorphisms.U_corelib__U_init__U_logic__eq__iso Isomorphisms.U_original__U2_lf_dot_U_maps__U2_lf__U_maps__update__iso Isomorphisms.U_some__iso Isomorphisms.U_ascii__U_ascii__iso Isomorphisms.U_string__U_emptyU_string__iso Isomorphisms.U_string__U_string__iso Isomorphisms.false__iso Isomorphisms.true__iso.
 
-Definition imported_Original_LF__DOT__Maps_LF_Maps_update__eq : forall (x : Type) (x0 : imported_String_string -> imported_option x) (x1 : imported_String_string) (x2 : x),
+Monomorphic Definition imported_Original_LF__DOT__Maps_LF_Maps_update__eq : forall (x : Type) (x0 : imported_String_string -> imported_option x) (x1 : imported_String_string) (x2 : x),
   imported_Corelib_Init_Logic_eq (imported_Original_LF__DOT__Maps_LF_Maps_update (fun x3 : imported_String_string => x0 x3) x1 x2 x1) (imported_Some x2) := Imported.Original_LF__DOT__Maps_LF_Maps_update__eq.
-Instance Original_LF__DOT__Maps_LF_Maps_update__eq_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : Original.LF_DOT_Maps.LF.Maps.partial_map x1) (x4 : imported_String_string -> imported_option x2)
+Monomorphic Instance Original_LF__DOT__Maps_LF_Maps_update__eq_iso : forall (x1 x2 : Type) (hx : Iso x1 x2) (x3 : Original.LF_DOT_Maps.LF.Maps.partial_map x1) (x4 : imported_String_string -> imported_option x2)
     (hx0 : forall (x5 : String.string) (x6 : imported_String_string), rel_iso String_string_iso x5 x6 -> rel_iso (option_iso hx) (x3 x5) (x4 x6)) (x5 : String.string) (x6 : imported_String_string)
     (hx1 : rel_iso String_string_iso x5 x6) (x7 : x1) (x8 : x2) (hx2 : rel_iso hx x7 x8),
   rel_iso

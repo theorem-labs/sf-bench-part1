@@ -5,7 +5,7 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+(* Typeclasses Opaque rel_iso. (* for speed *) *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_string__string__iso.
@@ -14,7 +14,6 @@ Definition imported_Original_LF__DOT__Imp_LF_Imp_Y : imported_String_string := I
 Instance Original_LF__DOT__Imp_LF_Imp_Y_iso : rel_iso String_string_iso Original.LF_DOT_Imp.LF.Imp.Y imported_Original_LF__DOT__Imp_LF_Imp_Y.
 Proof.
   unfold imported_Original_LF__DOT__Imp_LF_Imp_Y.
-  constructor.
   simpl.
   apply IsomorphismDefinitions.eq_refl.
 Defined.

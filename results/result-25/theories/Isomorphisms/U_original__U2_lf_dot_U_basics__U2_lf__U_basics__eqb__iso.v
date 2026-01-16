@@ -38,7 +38,6 @@ Proof.
   constructor. simpl.
   (* H12' : nat_to_imported x1 = x2 *)
   (* H34' : nat_to_imported x3 = x4 *)
-  (* Goal: bool_to_imported (eqb x1 x3) = imported_eqb x2 x4 *)
   destruct H12'. destruct H34'.
   apply eqb_iso_helper.
 Defined.

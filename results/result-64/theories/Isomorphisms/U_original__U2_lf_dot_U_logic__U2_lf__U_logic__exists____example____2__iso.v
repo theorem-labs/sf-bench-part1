@@ -2,7 +2,7 @@ From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatemen
 Import IsoEq.
 From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
-#[local] Unset Implicit Arguments.
+#[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
 #[local] Set Printing Coercions.
@@ -19,7 +19,7 @@ Monomorphic Instance Original_LF__DOT__Logic_LF_Logic_exists__example__2_iso : f
     (relax_Iso_Ts_Ps
        (ex_iso (fun m : nat => x1 = 4 + m) (fun H : imported_nat => imported_Corelib_Init_Logic_eq x2 (imported_Nat_add (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) H))
           (fun (x5 : nat) (x6 : imported_nat) (hx0 : rel_iso nat_iso x5 x6) =>
-           Corelib_Init_Logic_eq_iso hx (Nat_add_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 0 imported_0 _0_iso)))) hx0))))
+           Corelib_Init_Logic_eq_iso hx (Nat_add_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 Datatypes.O imported_0 _0_iso)))) hx0))))
     x3 x4 ->
   rel_iso
     (relax_Iso_Ts_Ps

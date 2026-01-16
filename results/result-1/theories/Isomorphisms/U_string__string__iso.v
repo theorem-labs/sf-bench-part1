@@ -6,7 +6,7 @@ From Stdlib Require Import String Ascii.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
- (* for speed *)
+(* Typeclasses Opaque rel_iso. (* for speed *) *)
 
 (* Helper to convert standard equality to SProp equality *)
 Lemma prop_to_sprop_eq : forall {A : Type} (a b : A), a = b -> IsomorphismDefinitions.eq a b.

@@ -2,7 +2,7 @@
 
 This repository contains verified translations of statements from the **Logical Foundations** volume of [Software Foundations](https://softwarefoundations.cis.upenn.edu/) from Rocq to Lean 4.
 
-The repository includes 100 translation results, each with a formally verified proof that the Lean translation is semantically equivalent to the original Rocq definition.
+The repository includes 119 translation results, each with a formally verified proof that the Lean translation is semantically equivalent to the original Rocq definition.
 
 ## Repository Structure
 
@@ -19,7 +19,7 @@ sf-bench-part1/
 │   ├── Interface/               # Individual interface files
 │   ├── Isomorphisms.v           # Base isomorphism proof file
 │   └── Isomorphisms/            # Individual isomorphism proof files
-├── results/                     # 136 individual translation results
+├── results/                     # 119 individual translation results
 │   └── result-N/
 │       ├── solution.lean        # Lean translation of a theorem/definition
 │       ├── lean.out             # lean4export output for Rocq import
@@ -31,8 +31,8 @@ sf-bench-part1/
 │           └── Isomorphisms/    # Result-specific isomorphism proofs
 ├── Dockerfile                   # Docker environment for verification
 ├── scripts/
-│   ├── verify.sh                # Verification script (single/sequential)
-│   ├── verify-parallel.sh       # Parallel verification script (faster)
+│   ├── verify.sh                # Verification script (single or --all)
+│   ├── verify-all.sh            # Parallel verification script (faster)
 │   └── test-build.sh            # Build test script
 ├── problem-deps.json            # Dependencies between isomorphism problems
 ├── problem-results.json         # Mapping of isomorphisms to result folders
@@ -79,13 +79,21 @@ Build time: approximately 15-20 minutes.
 
 ### Step 2: Verify a Result
 
-Use the `verify` command to verify a single result:
+Run the verify script directly from the project directory:
+
+```bash
+./scripts/verify.sh result-1
+```
+
+The script automatically detects if it's running on the host and invokes Docker with the correct mount configuration.
+
+Alternatively, you can run it manually in Docker:
 
 ```bash
 docker run --rm -v $(pwd):/host sf-bench-part1 verify result-1
 ```
 
-**Important**: Mount the current directory at `/host`, not `/workdir`. The container's `/workdir` contains pre-compiled theories that should not be shadowed.
+**Note**: When running Docker manually, mount the current directory at `/host`, not `/workdir`. The container's `/workdir` contains pre-compiled theories that should not be shadowed.
 
 The verify script will:
 1. Check that `solution.lean` compiles with Lean
@@ -116,21 +124,27 @@ Step 2: Checking Rocq Checker compilation...
 
 ### Step 3: Verify All Results
 
-To verify all results at once, use the parallel script which runs multiple Docker containers concurrently:
+To verify all results in parallel (faster), use the parallel script which runs multiple Docker containers concurrently:
 
 ```bash
-./scripts/verify-parallel.sh
+./scripts/verify-all.sh
 ```
 
-This runs 8 parallel workers by default. Adjust with `--jobs`:
+This runs 16 parallel workers by default. Adjust with `--jobs`:
 
 ```bash
-./scripts/verify-parallel.sh --jobs 16
+./scripts/verify-all.sh --jobs 64
 ```
 
-Example output:
+Alternatively, verify all results sequentially (slower, but shows full output):
+
+```bash
+./scripts/verify.sh --all
 ```
-Verifying 136 results with 8 parallel workers...
+
+Example parallel output:
+```
+Verifying 119 results with 16 parallel workers...
 
 result-1 success
 result-5 success
@@ -139,7 +153,7 @@ result-2 success
 ...
 
 ==========================================
-SUMMARY: 136 passed, 0 failed (out of 136)
+SUMMARY: 119 passed, 0 failed (out of 119)
 ==========================================
 ```
 

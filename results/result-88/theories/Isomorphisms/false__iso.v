@@ -5,19 +5,15 @@ From LeanImport Require Import Lean.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
+#[local] Set Printing Coercions.
 
 
 From IsomorphismChecker Require Export Isomorphisms.bool__iso.
 
-Definition imported_false : imported_bool := Imported.mybool_myfalse.
-Instance false_iso : rel_iso bool_iso false imported_false.
-Proof.
-  constructor; simpl.
-  unfold imported_false.
-  apply IsomorphismDefinitions.eq_refl.
-Defined.
+Monomorphic Definition imported_false : imported_bool := Imported.false.
+Monomorphic Instance false_iso : rel_iso bool_iso false imported_false.
+Admitted.
 Instance: KnownConstant false := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.mybool_myfalse := {}. (* only needed when rel_iso is typeclasses opaque *)
+Instance: KnownConstant Imported.false := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor false false_iso := {}.
-Instance: IsoStatementProofBetween false Imported.mybool_myfalse false_iso := {}.
+Instance: IsoStatementProofBetween false Imported.false false_iso := {}.

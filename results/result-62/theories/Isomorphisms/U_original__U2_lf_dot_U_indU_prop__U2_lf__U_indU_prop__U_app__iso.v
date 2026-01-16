@@ -1,11 +1,11 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Unset Universe Polymorphism.
+#[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
-
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 
 From IsomorphismChecker Require Export Isomorphisms.U_original__U2_lf_dot_U_indU_prop__U2_lf__U_indU_prop__reg____exp__iso.
@@ -18,18 +18,10 @@ Instance Original_LF__DOT__IndProp_LF_IndProp_App_iso : forall (x1 x2 : Type) (h
   rel_iso (Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso hx) (Original.LF_DOT_IndProp.LF.IndProp.App x3 x5) (imported_Original_LF__DOT__IndProp_LF_IndProp_App x4 x6).
 Proof.
   intros x1 x2 hx x3 x4 H34 x5 x6 H56.
-  unfold rel_iso in *.
+  idtac.
   unfold imported_Original_LF__DOT__IndProp_LF_IndProp_App.
-  (* H34 : to (reg_exp_iso) x3 = x4 *)
-  (* H56 : to (reg_exp_iso) x5 = x6 *)
-  (* Goal: to (reg_exp_iso) (App x3 x5) = App x4 x6 *)
-  (* By definition of the iso, to (App x3 x5) = App (to x3) (to x5) *)
-  destruct H34. destruct H56.
-  unfold to.
-  unfold Original_LF__DOT__IndProp_LF_IndProp_reg__exp_iso.
-  simpl.
-  apply IsomorphismDefinitions.eq_refl.
-Defined.
+  exact (IsoEq.f_equal2 (Imported.Original_LF__DOT__IndProp_LF_IndProp_reg__exp_App x2) H34 H56).
+Qed.
 Instance: KnownConstant (@Original.LF_DOT_IndProp.LF.IndProp.App) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant (@Imported.Original_LF__DOT__IndProp_LF_IndProp_App) := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor (@Original.LF_DOT_IndProp.LF.IndProp.App) Original_LF__DOT__IndProp_LF_IndProp_App_iso := {}.

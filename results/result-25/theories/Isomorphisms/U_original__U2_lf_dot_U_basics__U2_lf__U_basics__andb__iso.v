@@ -4,7 +4,6 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-
 (* Print Imported. *)
 
 
@@ -18,13 +17,11 @@ Instance Original_LF__DOT__Basics_LF_Basics_andb_iso : forall (x1 : Original.LF_
   rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso x3 x4 ->
   rel_iso Original_LF__DOT__Basics_LF_Basics_bool_iso (Original.LF_DOT_Basics.LF.Basics.andb x1 x3) (imported_Original_LF__DOT__Basics_LF_Basics_andb x2 x4).
 Proof.
-  intros x1 x2 H12 x3 x4 H34.
-  destruct H12 as [H12']. destruct H34 as [H34']. simpl in *.
+  intros x1 x2 Hx1 x3 x4 Hx3.
+  destruct Hx1 as [Hx1]. destruct Hx3 as [Hx3]. simpl in Hx1, Hx3.
+  destruct Hx1, Hx3.
   constructor. simpl.
-  unfold imported_Original_LF__DOT__Basics_LF_Basics_andb.
-  apply (eq_trans (y := Imported.Original_LF__DOT__Basics_LF_Basics_andb (to Original_LF__DOT__Basics_LF_Basics_bool_iso x1) (to Original_LF__DOT__Basics_LF_Basics_bool_iso x3))).
-  { destruct x1, x3; simpl; apply IsomorphismDefinitions.eq_refl. }
-  { apply f_equal2; assumption. }
+  destruct x1, x3; apply IsomorphismDefinitions.eq_refl.
 Defined.
 Instance: KnownConstant Original.LF_DOT_Basics.LF.Basics.andb := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Basics_LF_Basics_andb := {}. (* only needed when rel_iso is typeclasses opaque *)

@@ -4,46 +4,56 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-(* Typeclasses Opaque rel_iso. *) (* for speed *)
-
 
 Definition imported_nat : Type := Imported.nat.
 
-(* Helper conversion functions *)
-Fixpoint nat_to_imported (n : nat) : imported_nat :=
+(* Forward and backward conversions between nat and Imported.nat *)
+Fixpoint nat_to_imported (n : nat) : Imported.nat :=
   match n with
   | O => Imported.nat_O
-  | S m => Imported.nat_S (nat_to_imported m)
+  | S n' => Imported.nat_S (nat_to_imported n')
   end.
 
-Fixpoint nat_from_imported (n : imported_nat) : nat :=
+Fixpoint nat_from_imported (n : Imported.nat) : nat :=
   match n with
   | Imported.nat_O => O
-  | Imported.nat_S m => S (nat_from_imported m)
+  | Imported.nat_S n' => S (nat_from_imported n')
   end.
+
+Lemma nat_to_from : forall n : Imported.nat, Logic.eq (nat_to_imported (nat_from_imported n)) n.
+Proof.
+  fix IH 1.
+  intros n. destruct n as [| n']; simpl.
+  - reflexivity.
+  - apply Logic.f_equal. apply IH.
+Qed.
+
+Lemma nat_from_to : forall n : nat, Logic.eq (nat_from_imported (nat_to_imported n)) n.
+Proof.
+  fix IH 1.
+  intros n. destruct n as [| n']; simpl.
+  - reflexivity.
+  - apply Logic.f_equal. apply IH.
+Qed.
 
 Instance nat_iso : Iso nat imported_nat.
 Proof.
-  exists (fix f (n : nat) : imported_nat :=
-            match n with
-            | O => Imported.nat_O
-            | S m => Imported.nat_S (f m)
-            end)
-         (fix g (n : imported_nat) : nat :=
-            match n with
-            | Imported.nat_O => O
-            | Imported.nat_S m => S (g m)
-            end).
-  - fix IH 1. intros n.
-    destruct n as [|m].
-    + apply IsomorphismDefinitions.eq_refl.
-    + simpl. apply (IsoEq.f_equal Imported.nat_S). apply IH.
-  - fix IH 1. intros [|m].
-    + apply IsomorphismDefinitions.eq_refl.
-    + simpl. apply (IsoEq.f_equal S). apply IH.
+  refine {|
+    to := nat_to_imported;
+    from := nat_from_imported;
+    to_from := _;
+    from_to := _
+  |}.
+  - intros n. apply seq_of_eq. apply nat_to_from.
+  - intros n. apply seq_of_eq. apply nat_from_to.
 Defined.
-Instance: KnownConstant nat := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.nat := {}. (* only needed when rel_iso is typeclasses opaque *)
+
+(* Aliases for compatibility *)
+Definition imported_to_nat := nat_from_imported.
+Definition nat_roundtrip1 := nat_from_to.
+Definition nat_roundtrip2 := nat_to_from.
+
+Instance: KnownConstant nat := {}.
+Instance: KnownConstant Imported.nat := {}.
 Instance: IsoStatementProofFor nat nat_iso := {}.
 Instance: IsoStatementProofBetween nat Imported.nat nat_iso := {}.

@@ -4,9 +4,6 @@ From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
-(* Print Imported. *)
-Typeclasses Opaque rel_iso. (* for speed *)
-
 
 Definition imported_iff : SProp -> SProp -> SProp := Imported.iff.
 
@@ -42,7 +39,7 @@ Proof.
       rewrite Heq. apply IsomorphismDefinitions.eq_refl. }
     apply H1'.
 Defined.
-Instance: KnownConstant iff := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: KnownConstant Imported.iff := {}. (* only needed when rel_iso is typeclasses opaque *)
-Instance: IsoStatementProofFor iff iff_iso := {}.
-Instance: IsoStatementProofBetween iff Imported.iff iff_iso := {}.
+Instance: KnownConstant Logic.iff := {}. 
+Instance: KnownConstant Imported.iff := {}. 
+Instance: IsoStatementProofFor Logic.iff iff_iso := {}.
+Instance: IsoStatementProofBetween Logic.iff Imported.iff iff_iso := {}.

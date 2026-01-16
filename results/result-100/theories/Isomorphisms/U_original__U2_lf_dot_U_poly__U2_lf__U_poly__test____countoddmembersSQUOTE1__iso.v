@@ -1,7 +1,7 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
 From LeanImport Require Import Lean.
-#[local] Set Universe Polymorphism.
+#[local] Unset Universe Polymorphism.
 #[local] Set Implicit Arguments.
 From IsomorphismChecker Require Original Imported.
 (* Print Imported. *)
@@ -16,24 +16,22 @@ Definition imported_Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1 : imp
           (imported_Original_LF__DOT__Poly_LF_Poly_cons imported_0
              (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S imported_0)))
                 (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S imported_0)
-                   (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S (S O) imported_0))))
-                      (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S (S (S O)) imported_0))))
+                   (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0))))
+                      (imported_Original_LF__DOT__Poly_LF_Poly_cons (imported_S (imported_S (imported_S (iterate1 imported_S 2 imported_0))))
                          (imported_Original_LF__DOT__Poly_LF_Poly_nil imported_nat))))))))
-    (imported_S (imported_S (imported_S (iterate1 imported_S (S O) imported_0)))) := Imported.Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1.
-
-(* The original test is Admitted, so this iso is also admitted *)
-Axiom Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1_iso : rel_iso
+    (imported_S (imported_S (imported_S (iterate1 imported_S 1 imported_0)))) := Imported.Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1.
+Instance Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1_iso : rel_iso
     (Corelib_Init_Logic_eq_iso
        (Original_LF__DOT__Poly_LF_Poly_countoddmembers'_iso
           (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)
              (Original_LF__DOT__Poly_LF_Poly_cons_iso _0_iso
                 (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso _0_iso)))
                    (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso _0_iso)
-                      (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso))))
-                         (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S (S O)) O imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))))
-       (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso (S O) O imported_0 _0_iso)))))
+                      (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 0 imported_0 _0_iso))))
+                         (Original_LF__DOT__Poly_LF_Poly_cons_iso (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 2 0 imported_0 _0_iso)))) (Original_LF__DOT__Poly_LF_Poly_nil_iso nat_iso))))))))
+       (S_iso (S_iso (S_iso (iterate1D2 S imported_S S_iso 1 0 imported_0 _0_iso)))))
     Original.LF_DOT_Poly.LF.Poly.test_countoddmembers'1 imported_Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1.
-#[global] Existing Instance Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1_iso.
+Admitted.
 Instance: KnownConstant Original.LF_DOT_Poly.LF.Poly.test_countoddmembers'1 := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1 := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: IsoStatementProofFor Original.LF_DOT_Poly.LF.Poly.test_countoddmembers'1 Original_LF__DOT__Poly_LF_Poly_test__countoddmembers'1_iso := {}.

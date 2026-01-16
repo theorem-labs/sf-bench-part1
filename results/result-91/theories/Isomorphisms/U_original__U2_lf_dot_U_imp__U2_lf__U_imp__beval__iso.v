@@ -15,36 +15,36 @@ Definition imported_Original_LF__DOT__Imp_LF_Imp_beval : (imported_String_string
 (* Helper for converting bool to imported mybool *)
 Definition bool_to_imported (b : bool) : imported_bool :=
   match b with
-  | true => Imported.mybool_mytrue
-  | false => Imported.mybool_myfalse
+  | true => Imported.Original_LF__DOT__Basics_LF_Basics_bool_true
+  | false => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
   end.
 
 (* nat comparison compatibility *)
 Fixpoint nat_eqb_i (n m : imported_nat) : imported_bool :=
   match n, m with
-  | Imported.nat_O, Imported.nat_O => Imported.mybool_mytrue
-  | Imported.nat_O, Imported.nat_S _ => Imported.mybool_myfalse
-  | Imported.nat_S _, Imported.nat_O => Imported.mybool_myfalse
+  | Imported.nat_O, Imported.nat_O => Imported.Original_LF__DOT__Basics_LF_Basics_bool_true
+  | Imported.nat_O, Imported.nat_S _ => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
+  | Imported.nat_S _, Imported.nat_O => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
   | Imported.nat_S n', Imported.nat_S m' => nat_eqb_i n' m'
   end.
 
 Fixpoint nat_leb_i (n m : imported_nat) : imported_bool :=
   match n, m with
-  | Imported.nat_O, _ => Imported.mybool_mytrue
-  | Imported.nat_S _, Imported.nat_O => Imported.mybool_myfalse
+  | Imported.nat_O, _ => Imported.Original_LF__DOT__Basics_LF_Basics_bool_true
+  | Imported.nat_S _, Imported.nat_O => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
   | Imported.nat_S n', Imported.nat_S m' => nat_leb_i n' m'
   end.
 
 Definition negb_i (b : imported_bool) : imported_bool :=
   match b with
-  | Imported.mybool_mytrue => Imported.mybool_myfalse
-  | Imported.mybool_myfalse => Imported.mybool_mytrue
+  | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
+  | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => Imported.Original_LF__DOT__Basics_LF_Basics_bool_true
   end.
 
 Definition andb_i (b1 b2 : imported_bool) : imported_bool :=
   match b1 with
-  | Imported.mybool_mytrue => b2
-  | Imported.mybool_myfalse => Imported.mybool_myfalse
+  | Imported.Original_LF__DOT__Basics_LF_Basics_bool_true => b2
+  | Imported.Original_LF__DOT__Basics_LF_Basics_bool_false => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
   end.
 
 Lemma nat_to_imported_eqb : forall n m : Datatypes.nat,
@@ -117,8 +117,8 @@ Fixpoint beval_aux
     (b : imported_Original_LF__DOT__Imp_LF_Imp_bexp)
   : imported_bool :=
   match b with
-  | Imported.Original_LF__DOT__Imp_LF_Imp_bexp_BTrue => Imported.mybool_mytrue
-  | Imported.Original_LF__DOT__Imp_LF_Imp_bexp_BFalse => Imported.mybool_myfalse
+  | Imported.Original_LF__DOT__Imp_LF_Imp_bexp_BTrue => Imported.Original_LF__DOT__Basics_LF_Basics_bool_true
+  | Imported.Original_LF__DOT__Imp_LF_Imp_bexp_BFalse => Imported.Original_LF__DOT__Basics_LF_Basics_bool_false
   | Imported.Original_LF__DOT__Imp_LF_Imp_bexp_BEq a1 a2 => nat_eqb_i (aeval_aux st a1) (aeval_aux st a2)
   | Imported.Original_LF__DOT__Imp_LF_Imp_bexp_BNeq a1 a2 => negb_i (nat_eqb_i (aeval_aux st a1) (aeval_aux st a2))
   | Imported.Original_LF__DOT__Imp_LF_Imp_bexp_BLe a1 a2 => nat_leb_i (aeval_aux st a1) (aeval_aux st a2)
@@ -206,7 +206,7 @@ Proof.
   apply (eq_trans (beval_iso_core st st' Hst b)).
   apply (eq_trans (beval_aux_eq st' (bexp_to_imported b))).
   apply (f_equal (imported_Original_LF__DOT__Imp_LF_Imp_beval st') Hb).
-Qed.
+Defined.
 
 Instance: KnownConstant Original.LF_DOT_Imp.LF.Imp.beval := {}. (* only needed when rel_iso is typeclasses opaque *)
 Instance: KnownConstant Imported.Original_LF__DOT__Imp_LF_Imp_beval := {}. (* only needed when rel_iso is typeclasses opaque *)

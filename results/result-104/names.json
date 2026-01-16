@@ -1,8 +1,0 @@
-{
-  "bool": "Coqbool",
-  "True": "CoqTrue",
-  "true": "Coqbool_Coqtrue",
-  "false": "Coqbool_Coqfalse",
-  "False": "CoqFalse",
-  "nat": "mynat"
-}

@@ -1,19 +1,36 @@
 From IsomorphismChecker Require Import AutomationDefinitions IsomorphismStatementAutomationDefinitions EqualityLemmas IsomorphismDefinitions.
 Import IsoEq.
+From LeanImport Require Import Lean.
 #[local] Set Universe Polymorphism.
 #[local] Set Implicit Arguments.
-From IsomorphismChecker Require Original.
-From IsomorphismChecker Require Imported.
-Typeclasses Opaque rel_iso.
+From IsomorphismChecker Require Original Imported.
+(* Typeclasses Opaque rel_iso. *) (* for speed *)
 
 From IsomorphismChecker Require Export Isomorphisms.U_true__iso.
 
-(* The Imported.Corelib_Init_Logic_eq_Prop is in SProp (since we defined it as Prop in Lean) *)
+(* The Imported.Corelib_Init_Logic_eq_Prop is for SProp arguments *)
 Definition imported_Corelib_Init_Logic_eq_Prop : forall x : SProp, x -> x -> SProp := @Imported.Corelib_Init_Logic_eq_Prop.
 
-(* Since we need equality in Prop but imported gives us SProp, we need to handle this carefully *)
-(* For Prop arguments, the isomorphism maps between (x3 = x5) where x3, x5 are Props *)
-Instance Corelib_Init_Logic_eq_iso_Prop : (forall (x1 : Type) (x2 : SProp) (hx : Iso x1 x2) (x3 : x1) (x4 : x2) (_ : @rel_iso x1 x2 hx x3 x4) (x5 : x1) (x6 : x2) (_ : @rel_iso x1 x2 hx x5 x6),
+(* Helper: transport along IsomorphismDefinitions.eq to construct Imported.Corelib_Init_Logic_eq_Prop *)
+Definition imported_eq_Prop_transport {A : SProp} {x y z : A} 
+  (H1 : IsomorphismDefinitions.eq x y) (H2 : IsomorphismDefinitions.eq x z) 
+  : Imported.Corelib_Init_Logic_eq_Prop A y z :=
+  IsoEq.eq_srect (fun w => Imported.Corelib_Init_Logic_eq_Prop A w z) 
+    (IsoEq.eq_srect (fun w => Imported.Corelib_Init_Logic_eq_Prop A x w) 
+      (Imported.Corelib_Init_Logic_eq_Prop_refl A x) H2) H1.
+
+(* Helper to convert Imported eq to IsomorphismDefinitions eq *)
+Definition imported_eq_Prop_to_iso_eq {A : SProp} {x y : A} 
+  (H : Imported.Corelib_Init_Logic_eq_Prop A x y) : IsomorphismDefinitions.eq x y :=
+  Imported.Corelib_Init_Logic_eq_Prop_indl A x 
+    (fun z _ => IsomorphismDefinitions.eq x z) 
+    IsomorphismDefinitions.eq_refl y H.
+
+(* Isomorphism for equality on Props (which become SProp in Lean import) *)
+Instance Corelib_Init_Logic_eq_iso_Prop : 
+  (forall (x1 : Type) (x2 : SProp) (hx : Iso x1 x2) 
+    (x3 : x1) (x4 : x2) (_ : @rel_iso x1 x2 hx x3 x4) 
+    (x5 : x1) (x6 : x2) (_ : @rel_iso x1 x2 hx x5 x6),
    Iso (@Corelib.Init.Logic.eq x1 x3 x5) (@imported_Corelib_Init_Logic_eq_Prop x2 x4 x6)).
 Proof.
   intros x1 x2 hx x3 x4 H34 x5 x6 H56.
@@ -22,22 +39,14 @@ Proof.
     intro Heq.
     destruct Heq.
     unfold imported_Corelib_Init_Logic_eq_Prop.
-    (* H34 : rel_iso hx x3 x4, i.e. IsomorphismDefinitions.eq (to hx x3) x4 
-       H56 : rel_iso hx x5 x6, i.e. IsomorphismDefinitions.eq (to hx x5) x6
-       But x3 = x5 now after destruct, so we need Imported.Corelib_Init_Logic_eq_Prop x4 x6 *)
-    pose proof (IsoEq.eq_trans (IsoEq.eq_sym H34) H56) as H46.
-    exact (IsoEq.eq_srect (fun w => Imported.Corelib_Init_Logic_eq_Prop x2 x4 w) 
-           (Imported.Corelib_Init_Logic_eq_Prop_refl x2 x4) H46).
+    exact (imported_eq_Prop_transport H34 H56).
   - (* from: eq in SProp -> eq in Prop *)
     intro Heq.
     pose proof (from_to hx x3) as Hx3.
     pose proof (from_to hx x5) as Hx5.
     pose proof (IsoEq.f_equal (from hx) H34) as Hf34.
     pose proof (IsoEq.f_equal (from hx) H56) as Hf56.
-    (* Convert Heq to IsomorphismDefinitions.eq *)
-    pose proof (Imported.Corelib_Init_Logic_eq_Prop_indl x2 x4 
-                (fun z _ => IsomorphismDefinitions.eq x4 z) 
-                IsomorphismDefinitions.eq_refl x6 Heq) as HfeqHeq.
+    pose proof (imported_eq_Prop_to_iso_eq Heq) as HfeqHeq.
     pose proof (IsoEq.f_equal (from hx) HfeqHeq) as HfromHeq.
     apply IsoEq.eq_of_seq.
     apply (IsoEq.eq_trans (IsoEq.eq_sym Hx3)).

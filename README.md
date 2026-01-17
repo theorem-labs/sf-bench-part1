@@ -25,22 +25,7 @@ Each translation is verified through a type isomorphism proof that demonstrates 
 - Docker installed on your machine
 - Sufficient disk space (~5GB for the image)
 
-### Step 1: Build the Docker Image
-
-```bash
-docker build -t sf-bench-part1 .
-```
-
-This builds an image with:
-- Rocq/Coq 9.1.0 (custom fork with recursive-assumptions support)
-- rocq-lean-import (for importing Lean definitions into Rocq)
-- Lean 4 (version from lean4export's lean-toolchain, via elan)
-- lean4export tool
-- Pre-compiled base theories
-
-Build time: approximately 15-20 minutes.
-
-### Step 2: Verify a Result
+### Verify a Result
 
 Run the verify script directly from the project directory:
 
@@ -48,7 +33,32 @@ Run the verify script directly from the project directory:
 ./scripts/verify.sh result-1
 ```
 
-The script automatically detects if it's running on the host and invokes Docker with the correct mount configuration.
+The script automatically:
+1. Builds the Docker image `sf-bench-part1` (first run takes ~15-20 minutes)
+2. Runs verification inside a Docker container with the correct mount configuration
+
+For faster subsequent runs, use `--no-rebuild` to skip rebuilding the image:
+
+```bash
+./scripts/verify.sh --no-rebuild result-1
+```
+
+#### Docker Image Contents
+
+The Docker image includes:
+- Rocq/Coq 9.1.0 (custom fork with recursive-assumptions support)
+- rocq-lean-import (for importing Lean definitions into Rocq)
+- Lean 4 (version from lean4export's lean-toolchain, via elan)
+- lean4export tool
+- Pre-compiled base theories
+
+#### Manual Docker Build (Optional)
+
+If you prefer to build the image manually:
+
+```bash
+docker build -t sf-bench-part1 .
+```
 
 The verify script will:
 1. Check that `solution.lean` compiles with Lean
@@ -89,12 +99,18 @@ docker run --rm -v $(pwd):/host sf-bench-part1 verify result-1
 
 **Note**: When running Docker manually, mount the current directory at `/host`, not `/workdir`. The container's `/workdir` contains pre-compiled theories that should not be shadowed.
 
-### Step 3: Verify All Results
+### Verify All Results
 
 To verify all results in parallel, use the verify-all script which runs multiple Docker containers concurrently. It will use 16 parallel workers by default.
 
 ```bash
 ./scripts/verify-all.sh --jobs 100
+```
+
+Use `--no-rebuild` to skip rebuilding the Docker image:
+
+```bash
+./scripts/verify-all.sh --no-rebuild --jobs 100
 ```
 
 Example parallel output:

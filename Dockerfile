@@ -44,6 +44,9 @@ FROM base AS lean-builder
 RUN curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
 ENV PATH="/root/.elan/bin:${PATH}"
 
+# Download Lean toolchain
+RUN lean --version
+
 # Install lean4export - pin to commit compatible with rocq-lean-import 0.0.1
 ENV LEAN4EXPORT_COMMIT="c9f8373f8a37a65c0ed9bfd20480a3d7481a163e"
 RUN git clone https://github.com/leanprover/lean4export.git /tmp/lean4export && \

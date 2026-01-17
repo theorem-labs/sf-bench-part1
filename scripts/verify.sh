@@ -118,7 +118,7 @@ verify_single() {
     fi
 
     # Copy solution.lean to /workdir for lake
-    cp "$RESULT_DIR/solution.lean" /workdir/solution.lean
+    cp "$RESULT_DIR/solution.lean" /workdir/Solution.lean
 
     # Work from /workdir for lake commands
     pushd /workdir > /dev/null
@@ -126,12 +126,12 @@ verify_single() {
     # Create lakefile.toml if it doesn't exist
     if [ ! -f "lakefile.toml" ]; then
         cat > lakefile.toml << 'EOF'
-name = "solution"
+name = "Solution"
 version = "0.1.0"
-defaultTargets = ["solution"]
+defaultTargets = ["Solution"]
 
 [[lean_lib]]
-name = "solution"
+name = "Solution"
 EOF
         lake update 2>&1 || true
     fi
@@ -157,7 +157,7 @@ EOF
 
     # Generate export output (still in /workdir)
     local generated_out="/tmp/generated_export_$$.out"
-    if lake env lean4export solution -- $(cat "$RESULT_DIR/export_definitions.txt" | tr ' ' '\0' | xargs -0 printf '%q ') > "$generated_out" 2>&1; then
+    if lake env lean4export Solution -- $(cat "$RESULT_DIR/export_definitions.txt" | tr ' ' '\0' | xargs -0 printf '%q ') > "$generated_out"; then
         echo "  ✓ lean4export completed"
     else
         echo "  ✗ lean4export failed:"
@@ -171,8 +171,10 @@ EOF
     # Compare with reference
     echo "  Comparing with reference lean.out..."
     if ! diff -q "$generated_out" "$RESULT_DIR/lean.out" > /dev/null 2>&1; then
+        sleep 2
         echo "  Differences found between generated export and reference:"
-        diff "$RESULT_DIR/lean.out" "$generated_out" | head -20
+        diff "$RESULT_DIR/lean.out" "$generated_out" | head -50
+        sleep 2
         if [ "$ERROR_ON_EXPORT_DIFF" = true ]; then
             echo "  ✗ Export differs from reference (--error-on-export-diff)"
             rm -f "$generated_out"

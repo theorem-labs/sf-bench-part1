@@ -54,7 +54,7 @@ eval $(opam env) 2>/dev/null || true
 
 # Flag defaults (can be overridden by command-line arguments)
 ERROR_ON_EXPORT_DIFF=false
-USE_REFERENCE_OUT=false
+USE_REFERENCE_OUT=true
 
 usage() {
     echo "Usage: $0 [options] <result-N | --all>"
@@ -64,7 +64,7 @@ usage() {
     echo "Options:"
     echo "  --no-rebuild             Skip rebuilding the Docker image (default: rebuild)"
     echo "  --error-on-export-diff   Treat export differences as errors (default: warning)"
-    echo "  --use-reference-out      Use reference lean.out instead of generated export"
+    echo "  --no-use-reference-out   Use generated export instead of reference lean.out"
     echo ""
     echo "Examples:"
     echo "  ./scripts/verify.sh result-1"
@@ -180,7 +180,7 @@ EOF
             rm -f "$generated_out"
             return 1
         else
-            echo "  ⚠ Warning: Export differs from reference"
+            echo "  ⚠ Warning: Export differs from reference (probably an issue with the names)"
         fi
     else
         echo "  ✓ Export matches reference"
@@ -351,8 +351,8 @@ while [[ $# -gt 0 ]]; do
             ERROR_ON_EXPORT_DIFF=true
             shift
             ;;
-        --use-reference-out)
-            USE_REFERENCE_OUT=true
+        --no-use-reference-out)
+            USE_REFERENCE_OUT=false
             shift
             ;;
         --help|-h)

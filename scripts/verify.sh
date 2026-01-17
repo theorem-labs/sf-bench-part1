@@ -116,7 +116,7 @@ verify_single() {
         for f in "$RESULT_DIR/theories/Isomorphisms"/*.v; do
             if [ -f "$f" ]; then
                 fname=$(basename "$f")
-                sed '/^Typeclasses Opaque rel_iso/d' "$f" > "$THEORIES_DIR/Isomorphisms/$fname"
+                cp "$f" "$THEORIES_DIR/Isomorphisms/$fname"
                 ADDED_ISO_FILES="$ADDED_ISO_FILES $THEORIES_DIR/Isomorphisms/$fname"
                 iso_count=$((iso_count + 1))
             fi

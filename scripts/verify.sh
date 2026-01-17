@@ -37,14 +37,23 @@ fi
 # Ensure opam environment is loaded
 eval $(opam env) 2>/dev/null || true
 
+# Flag defaults (can be overridden by command-line arguments)
+ERROR_ON_EXPORT_DIFF=false
+USE_REFERENCE_OUT=false
+
 usage() {
-    echo "Usage: $0 <result-N | --all>"
+    echo "Usage: $0 [options] <result-N | --all>"
     echo ""
     echo "Verifies translation results."
+    echo ""
+    echo "Options:"
+    echo "  --error-on-export-diff   Treat export differences as errors (default: warning)"
+    echo "  --use-reference-out      Use reference lean.out instead of generated export"
     echo ""
     echo "Examples:"
     echo "  ./scripts/verify.sh result-1"
     echo "  ./scripts/verify.sh --all"
+    echo "  ./scripts/verify.sh --error-on-export-diff result-1"
     exit 1
 }
 
@@ -100,10 +109,54 @@ verify_single() {
     fi
     echo ""
 
-    # Step 2: Copy lean.out as Imported.out
-    echo "Step 2: Copying lean.out as Imported.out..."
-    cp "$RESULT_DIR/lean.out" "/workdir/Imported.out"
-    echo "  ✓ Copied lean.out as Imported.out"
+    # Step 2: Generate and verify lean4export output
+    echo "Step 2: Generating lean4export output..."
+
+    # Check for export_definitions.txt
+    if [ ! -f "$RESULT_DIR/export_definitions.txt" ]; then
+        echo "  ✗ export_definitions.txt not found"
+        return 1
+    fi
+
+    # Generate export output
+    local generated_out="/tmp/generated_export_$$.out"
+    pushd "$RESULT_DIR" > /dev/null
+    if lake env lean4export solution -- $(cat export_definitions.txt | xargs -n1 printf '%q ') > "$generated_out" 2>&1; then
+        echo "  ✓ lean4export completed"
+    else
+        echo "  ✗ lean4export failed:"
+        cat "$generated_out"
+        popd > /dev/null
+        rm -f "$generated_out"
+        return 1
+    fi
+    popd > /dev/null
+
+    # Compare with reference
+    echo "  Comparing with reference lean.out..."
+    if ! diff -q "$generated_out" "$RESULT_DIR/lean.out" > /dev/null 2>&1; then
+        echo "  Differences found between generated export and reference:"
+        diff "$RESULT_DIR/lean.out" "$generated_out" | head -20
+        if [ "$ERROR_ON_EXPORT_DIFF" = true ]; then
+            echo "  ✗ Export differs from reference (--error-on-export-diff)"
+            rm -f "$generated_out"
+            return 1
+        else
+            echo "  ⚠ Warning: Export differs from reference"
+        fi
+    else
+        echo "  ✓ Export matches reference"
+    fi
+
+    # Copy appropriate output
+    if [ "$USE_REFERENCE_OUT" = true ]; then
+        echo "  Using reference lean.out"
+        cp "$RESULT_DIR/lean.out" "/workdir/Imported.out"
+    else
+        echo "  Using generated export"
+        cp "$generated_out" "/workdir/Imported.out"
+    fi
+    rm -f "$generated_out"
     echo ""
 
     # Step 3: Copy and compile Isomorphisms files
@@ -253,14 +306,44 @@ verify_all() {
 }
 
 # Main
-if [ -z "$1" ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+# Parse arguments
+POSITIONAL_ARG=""
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --error-on-export-diff)
+            ERROR_ON_EXPORT_DIFF=true
+            shift
+            ;;
+        --use-reference-out)
+            USE_REFERENCE_OUT=true
+            shift
+            ;;
+        --help|-h)
+            usage
+            ;;
+        --all)
+            POSITIONAL_ARG="--all"
+            shift
+            ;;
+        -*)
+            echo "Unknown option: $1"
+            usage
+            ;;
+        *)
+            POSITIONAL_ARG="$1"
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$POSITIONAL_ARG" ]; then
     usage
 fi
 
-if [ "$1" == "--all" ]; then
+if [ "$POSITIONAL_ARG" == "--all" ]; then
     verify_all
 else
     # Set up cleanup on exit for single verification
     trap cleanup EXIT
-    verify_single "$1"
+    verify_single "$POSITIONAL_ARG"
 fi

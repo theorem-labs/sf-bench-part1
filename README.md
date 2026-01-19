@@ -34,30 +34,13 @@ Run the verify script directly from the project directory:
 ```
 
 The script automatically:
-1. Builds the Docker image `sf-bench-part1` (first run takes ~15-20 minutes)
+1. Builds the Docker image `sf-bench-part1` (first run takes ~10-15 minutes)
 2. Runs verification inside a Docker container with the correct mount configuration
 
 For faster subsequent runs, use `--no-rebuild` to skip rebuilding the image:
 
 ```bash
 ./scripts/verify.sh --no-rebuild result-1
-```
-
-#### Docker Image Contents
-
-The Docker image includes:
-- Rocq/Coq 9.1.0 (custom fork with recursive-assumptions support)
-- rocq-lean-import (for importing Lean definitions into Rocq)
-- Lean 4 (version from lean4export's lean-toolchain, via elan)
-- lean4export tool
-- Pre-compiled base theories
-
-#### Manual Docker Build (Optional)
-
-If you prefer to build the image manually:
-
-```bash
-docker build -t sf-bench-part1 .
 ```
 
 The verify script will:
@@ -68,6 +51,7 @@ The verify script will:
 5. Report success or failure
 
 Example output for a successful verification:
+
 ```
 === Verifying result-1 ===
 
@@ -75,7 +59,9 @@ Step 1: Checking Lean compilation...
   ✓ Lean compiles successfully
 
 Step 2: Copying lean.out as Imported.out...
-  ✓ Copied lean.out as Imported.out
+  ✓ lean4export completed
+  Comparing with reference lean.out...
+  ✓ Export matches reference
 
 Step 3: Copying and compiling Isomorphisms files...
   Copied 236 Isomorphisms files
@@ -90,14 +76,6 @@ Step 4: Compiling Checker files...
 
 === result-1 verified successfully ===
 ```
-
-Alternatively, you can run it manually in Docker:
-
-```bash
-docker run --rm -v $(pwd):/host sf-bench-part1 verify result-1
-```
-
-**Note**: When running Docker manually, mount the current directory at `/host`, not `/workdir`. The container's `/workdir` contains pre-compiled theories that should not be shadowed.
 
 ### Verify All Results
 
@@ -127,12 +105,30 @@ SUMMARY: 100 passed, 0 failed (out of 100)
 ==========================================
 ```
 
-
 Alternatively, verify all results sequentially (slower, but shows full output):
 
 ```bash
 ./scripts/verify.sh --all
 ```
+
+#### Docker Image Contents
+
+The Docker image includes:
+- Rocq/Coq 9.1.0 (custom fork with recursive-assumptions support)
+- rocq-lean-import (for importing Lean definitions into Rocq)
+- Lean 4 (version from lean4export's lean-toolchain, via elan)
+- lean4export tool
+- Pre-compiled base theories
+
+#### Manual Docker Build (Optional)
+
+If you prefer to build the image manually:
+
+```bash
+docker build -t sf-bench-part1 .
+```
+
+**Note**: When running Docker manually, mount the current directory at `/host`, not `/workdir`. The container's `/workdir` contains pre-compiled theories that should not be shadowed.
 
 ### Interactive Mode
 
@@ -146,18 +142,31 @@ Then you can manually run commands:
 
 ```bash
 # Verify Lean compilation
-lean /host/results/result-1/solution.lean
+cd /workdir && cp /host/results/result-1/solution.lean /workdir/Solution.lean
+cat > lakefile.toml << 'EOF'
+name = "Solution"
+version = "0.1.0"
+defaultTargets = ["Solution"]
+
+[[lean_lib]]
+name = "Solution"
+EOF
+lake build
+
+# Verify lean export results
+DEFS=$(cat /host/results/result-1/export_definitions.txt)
+lake env lean4export Solution -- $DEFS 2>&1 | sed -n "/^1 #NS 0/,\$ p" > /workdir/Imported.out
+diff -q /workdir/Imported.out /host/results/result-1/lean.out
 
 # Copy lean.out for Rocq import
 cp /host/results/result-1/lean.out /workdir/Imported.out
 
 # Copy isomorphism files to theories directory
-cp /host/results/result-1/theories/Isomorphisms/*.v /workdir/theories/Isomorphisms/
+cd /workdir && cp /host/results/result-1/theories/Isomorphisms/*.v /workdir/theories/Isomorphisms/
 mkdir -p /workdir/theories/Checker
 cp /host/results/result-1/theories/Checker/*.v /workdir/theories/Checker/
 
 # Regenerate Makefile and compile
-cd /workdir
 echo "-Q theories IsomorphismChecker" > _CoqProject
 find theories -name "*.v" | sort >> _CoqProject
 coq_makefile -f _CoqProject -o Makefile.coq

@@ -128,12 +128,13 @@ defaultTargets = ["Solution"]
 [[lean_lib]]
 name = "Solution"
 EOF
-            lake update 2>&1 || true
+            lake update >/dev/null 2>&1 || true
 
-            if lake build 2>&1; then
+            if lake build >/dev/null 2>&1; then
                 echo "  ✓ Lean compiles successfully"
             else
                 echo "  ✗ Lean compilation failed"
+                lake build 2>&1 | tail -20
                 exit 1
             fi
             echo ""
